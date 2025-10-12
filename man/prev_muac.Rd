@@ -12,18 +12,16 @@ mw_estimate_smart_age_wt(df, edema = NULL, raw_muac = FALSE, ...)
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
 \code{\link[=mw_wrangle_age]{mw_wrangle_age()}} functions. Note that MUAC values in \code{df}
-must be in millimeters unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
-must have a variable called \code{cluster} which contains the primary sampling
-unit identifiers.}
+must be in millimeters after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
+must have a variable called \code{cluster} wherein the primary sampling unit
+identifiers are stored.}
 
 \item{wt}{A vector of class \code{double} of the survey sampling weights. Default
-is NULL which assumes a self-weighted survey as is the case for a survey
-sample selected proportional to population size (i.e., SMART survey sample).
+is NULL, which assumes a self-weighted survey, the case of SMART surveys.
 Otherwise, a weighted analysis is implemented.}
 
-\item{edema}{A \code{character} vector for presence of nutritional edema coded as
-"y" for presence of nutritional edema and "n" for absence of nutritional
-edema. Default is NULL.}
+\item{edema}{A \code{character} vector for presence of nutritional oedema Code
+values should be "y" for presence and "n" for absence. Default is NULL.}
 
 \item{...}{A vector of class \code{character}, specifying the categories for which
 the analysis should be summarised for. Usually geographical areas. More than
@@ -33,35 +31,41 @@ one vector can be specified.}
 MUAC values or MFAZ.}
 }
 \value{
-A summary \code{tibble} for the descriptive statistics about combined
-wasting.
+A summary \code{tibble} for the descriptive statistics about wasting based
+on MUAC, with confidence intervals.
 }
 \description{
-Estimate the prevalence of wasting based on MUAC and/or nutritional edema.
+Estimate the prevalence of wasting based on MUAC and/or nutritional oedema.
 The function allows users to estimate prevalence in accordance with complex
-sample design properties such as accounting for survey sample weights when
-needed or applicable. The quality of the data is first evaluated by
-calculating and rating the standard deviation of MFAZ and the p-value of the
-age ratio test. Prevalence is calculated only when the standard deviation of
-MFAZ is not problematic. If both standard deviation of MFAZ and p-value of
-age ratio test is not problematic, straightforward prevalence estimation is
-performed. If standard deviation of MFAZ is not problematic but p-value of
-age ratio test is problematic, age-weighting is applied to prevalence
-estimation to account for the over-representation of younger children in the
-sample. If standard deviation of MFAZ is problematic, no estimation is done
-and an NA value is returned. Outliers are detected based on SMART flagging
-criteria for MFAZ. Identified outliers are then excluded before prevalence
-estimation is performed.
+sample design properties, such as accounting for survey sample weights when
+needed or applicable.
+
+The quality of the data is first evaluated by calculating and rating the
+standard deviation (SD) of MFAZ and the p-value of the age ratio test.
+Thereafter, if the latter test is problematic, age-weighting approach is
+applied to prevalence estimation, to account for the over-representation
+of younger children in the sample; otherwise, a non-age-weighted prevalence
+is estimated. This means that even if the SD of MFAZ is problematic, the
+prevalence is estimated, with no adjustments, and returned.
+}
+\details{
+A typical user analysis workflow is expected to begin with data quality checks,
+followed by a thorough review, and only thereafter proceed to prevalence
+estimation. This sequence places the user in the strongest position to assess
+whether the resulting prevalence estimates are reliable.
+
+Outliers are identified using SMART flagging criteria applied to MFAZ, and are
+excluded from the prevalence estimation.
 }
 \examples{
-## When .by = NULL ----
+## Ungrouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
   wt = NULL,
   edema = edema
 )
 
-## When .by is not set to NULL ----
+## Grouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
   wt = NULL,

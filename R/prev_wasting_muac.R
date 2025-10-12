@@ -114,36 +114,40 @@ complex_survey_estimates_muac <- function(df,
 #'
 #' @description
 #'
-#' Estimate the prevalence of wasting based on MUAC and/or nutritional edema.
+#' Estimate the prevalence of wasting based on MUAC and/or nutritional oedema.
 #' The function allows users to estimate prevalence in accordance with complex
-#' sample design properties such as accounting for survey sample weights when
-#' needed or applicable. The quality of the data is first evaluated by
-#' calculating and rating the standard deviation of MFAZ and the p-value of the
-#' age ratio test. Prevalence is calculated only when the standard deviation of
-#' MFAZ is not problematic. If both standard deviation of MFAZ and p-value of
-#' age ratio test is not problematic, straightforward prevalence estimation is
-#' performed. If standard deviation of MFAZ is not problematic but p-value of
-#' age ratio test is problematic, age-weighting is applied to prevalence
-#' estimation to account for the over-representation of younger children in the
-#' sample. If standard deviation of MFAZ is problematic, no estimation is done
-#' and an NA value is returned. Outliers are detected based on SMART flagging
-#' criteria for MFAZ. Identified outliers are then excluded before prevalence
-#' estimation is performed.
+#' sample design properties, such as accounting for survey sample weights when
+#' needed or applicable. 
+#' 
+#' The quality of the data is first evaluated by calculating and rating the
+#' standard deviation (SD) of MFAZ and the p-value of the age ratio test. 
+#' Thereafter, if the latter test is problematic, age-weighting approach is 
+#' applied to prevalence estimation, to account for the over-representation 
+#' of younger children in the sample; otherwise, a non-age-weighted prevalence
+#' is estimated. This means that even if the SD of MFAZ is problematic, the 
+#' prevalence is estimated, with no adjustments, and returned.
+#' 
+#' @details
+#' A typical user analysis workflow is expected to begin with data quality checks,
+#' followed by a thorough review, and only thereafter proceed to prevalence 
+#' estimation. This sequence places the user in the strongest position to assess
+#' whether the resulting prevalence estimates are reliable.
+#'
+#' Outliers are identified using SMART flagging criteria applied to MFAZ, and are
+#' excluded from the prevalence estimation.
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
-#' must be in millimeters unit after using [mw_wrangle_muac()]. Also, `df`
-#' must have a variable called `cluster` which contains the primary sampling
-#' unit identifiers.
+#' must be in millimeters after using [mw_wrangle_muac()]. Also, `df`
+#' must have a variable called `cluster` wherein the primary sampling unit 
+#' identifiers are stored.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
-#' is NULL which assumes a self-weighted survey as is the case for a survey
-#' sample selected proportional to population size (i.e., SMART survey sample).
+#' is NULL, which assumes a self-weighted survey, the case of SMART surveys.
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param edema A `character` vector for presence of nutritional edema coded as
-#' "y" for presence of nutritional edema and "n" for absence of nutritional
-#' edema. Default is NULL.
+#' @param edema A `character` vector for presence of nutritional oedema Code 
+#' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param raw_muac Logical. Whether outliers should be excluded based on the raw
 #' MUAC values or MFAZ.
@@ -152,8 +156,8 @@ complex_survey_estimates_muac <- function(df,
 #' the analysis should be summarised for. Usually geographical areas. More than
 #' one vector can be specified.
 #'
-#' @returns A summary `tibble` for the descriptive statistics about combined
-#' wasting.
+#' @returns A summary `tibble` for the descriptive statistics about wasting based
+#' on MUAC, with confidence intervals.
 #'
 #' @references
 #' SMART Initiative (no date). *Updated MUAC data collection tool*. Available at:
@@ -164,14 +168,14 @@ complex_survey_estimates_muac <- function(df,
 #' [mw_estimate_prevalence_screening()]
 #'
 #' @examples
-#' ## When .by = NULL ----
+#' ## Ungrouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
 #'   wt = NULL,
 #'   edema = edema
 #' )
 #'
-#' ## When .by is not set to NULL ----
+#' ## Grouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
 #'   wt = NULL,
@@ -226,12 +230,12 @@ mw_estimate_prevalence_muac <- function(df,
     }
 
     analysis_approach <- x$analysis_approach[i]
-    if (analysis_approach == "unweighted") {
+    if (analysis_approach %in% c("unweighted", "missing")) {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(
         data_subset, {{ wt }}, {{ edema }}, !!!.by
       )
-    } else if (analysis_approach == "weighted") {
+    } else {
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
       if (length(.by) > 0) {
         output <- mw_estimate_smart_age_wt(
@@ -245,25 +249,6 @@ mw_estimate_prevalence_muac <- function(df,
         output <- mw_estimate_smart_age_wt(
           data_subset,
           edema = {{ edema }}, raw_muac = FALSE
-        )
-      }
-    } else {
-      ## Return NA's ----
-      if (length(.by) > 0) {
-        output <- data_subset |>
-          dplyr::group_by(!!!.by) |>
-          dplyr::summarise(
-            gam_p = NA_real_,
-            sam_p = NA_real_,
-            mam_p = NA_real_,
-            .groups = "drop"
-          )
-      } else {
-        ### Return NA's  ----
-        output <- tibble::tibble(
-          gam_p = NA_real_,
-          sam_p = NA_real_,
-          mam_p = NA_real_
         )
       }
     }
