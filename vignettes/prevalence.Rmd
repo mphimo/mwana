@@ -212,7 +212,7 @@ the standard deviation and of the age ratio tests results. Concerning the standa
 the former two functions use age in months, and the latter function - `mw_estimate_prevalence_screening2()` - is for when age is provided in categorical form ("6-23" and "24-59" months).
 
 :::{.callout-important}
-Although the acceptability is evaluated on the basis of MFAZ where aplicable, the actual prevalence is estimated on the basis of the raw MUAC values. MFAZ is also used to detect outliers and flag them to be excluded from the prevalence analysis.
+Although the acceptability is evaluated on the basis of MFAZ where applicable, the actual prevalence is estimated on the basis of the raw MUAC values. MFAZ is also used to detect outliers and flag them to be excluded from the prevalence analysis.
 :::
  
 The standard deviation and the age ratio test results are used to control the prevalence analysis flow in this way: 
