@@ -13,15 +13,14 @@ mw_estimate_prevalence_screening2(df, age_cat, muac, edema = NULL, ...)
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
 \code{\link[=mw_wrangle_age]{mw_wrangle_age()}} functions. Note that MUAC values in \code{df}
 must be in millimeters unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
-must have a variable called \code{cluster} which contains the primary sampling
-unit identifiers.}
+must have a variable called \code{cluster} wherein the primary sampling unit
+identifiers are stored.}
 
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
-measurement unit of the values should be millimeters.}
+measurement unit should be millimeters.}
 
-\item{edema}{A \code{character} vector for presence of nutritional edema coded as
-"y" for presence of nutritional edema and "n" for absence of nutritional
-edema. Default is NULL.}
+\item{edema}{A \code{character} vector for presence of nutritional oedema. Code
+values should be "y" for presence and "n" for absence. Default is NULL.}
 
 \item{...}{A vector of class \code{character}, specifying the categories for which
 the analysis should be summarised for. Usually geographical areas. More than
@@ -31,28 +30,36 @@ one vector can be specified.}
 should be "6-23" and "24-59".}
 }
 \value{
-A summary \code{tibble} for the descriptive statistics about combined
-wasting.
+A summary \code{tibble} for the descriptive statistics about wasting based
+on MUAC, with no confidence intervals.
 }
 \description{
-It is common to estimate prevalence of wasting from non survey data, such
-as screenings or any other community-based surveillance systems. In such
-situations, the analysis usually consists only in estimating the point
-prevalence and the counts of positive cases, without necessarily estimating
-the uncertainty. This function serves this use.
+It is common to estimate prevalence of wasting from non-survey data, such
+as screenings or any other data derived from community-based surveillance
+systems. In such situations, the analysis usually consists only in estimating
+the point prevalence and the counts of positive cases, without necessarily
+estimating the uncertainty. This function serves this purpose.
 
 The quality of the data is first evaluated by calculating and rating the
-standard deviation of MFAZ and the p-value of the age ratio test. Prevalence
-is calculated only when the standard deviation of MFAZ is not problematic. If
-both standard deviation of MFAZ and p-value of age ratio test is not
-problematic, straightforward prevalence estimation is performed. If standard
-deviation of MFAZ is not problematic but p-value of age ratio test is
-problematic, age-weighting is applied to prevalence estimation to account for
-the over-representation of younger children in the sample. If standard
-deviation of MFAZ is problematic, no estimation is done and an NA value is
-returned. Outliers are detected based on SMART flagging criteria for MFAZ.
-Identified outliers are then excluded before prevalence  estimation is
-performed.
+standard deviation (SD) of MFAZ (in \code{mw_estimate_prevalence_screening()})
+or SD of the raw MUAC values (in \code{mw_estimate_prevalence_screening2()}),
+and the p-value of the age ratio test in either functions.
+Thereafter, if the latter test is problematic, age-weighting approach is
+applied to the prevalence estimation, to account for the over-representation
+of younger children in the sample; otherwise, a non-age-weighted prevalence
+is estimated. This means that even if the SD in either functions is
+problematic, the prevalence is estimated, with no adjustments, and returned.
+}
+\details{
+A typical user analysis workflow is expected to begin with data quality checks,
+followed by a thorough review, and only thereafter proceed to prevalence
+estimation. This sequence places the user in the strongest position to assess
+whether the resulting prevalence estimates are reliable.
+
+In \code{mw_estimate_prevalence_screening()}, outliers are identified using SMART
+flagging criteria applied to MFAZ, whereas \code{mw_estimate_prevalence_screening2()}
+are based on the raw MUAC values. In either functions, outliers are excluded
+from the prevalence estimation.
 }
 \examples{
 mw_estimate_prevalence_screening(
@@ -101,5 +108,6 @@ SMART Initiative (no date). \emph{Updated MUAC data collection tool}. Available 
 \url{https://smartmethodology.org/survey-planning-tools/updated-muac-tool/}
 }
 \seealso{
-\code{\link[=mw_estimate_prevalence_muac]{mw_estimate_prevalence_muac()}} \code{\link[=mw_estimate_smart_age_wt]{mw_estimate_smart_age_wt()}}
+\code{\link[=mw_estimate_prevalence_muac]{mw_estimate_prevalence_muac()}}, \code{\link[=mw_estimate_smart_age_wt]{mw_estimate_smart_age_wt()}},
+\code{\link[=flag_outliers]{flag_outliers()}} and \code{\link[=remove_flags]{remove_flags()}}.
 }

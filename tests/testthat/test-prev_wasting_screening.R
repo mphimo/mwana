@@ -310,41 +310,25 @@ testthat::test_that(
     p <- anthro.04 |>
       mw_estimate_prevalence_screening(muac = muac, edema = edema, province)
 
-    ### A Province whose analysis approach is unweighted ---
-    province_1 <- subset(p, province == "Province 1")
-
-    ### A Province whose analysis approach is weighted ---
-    province_2 <- subset(p, province == "Province 2")
-
-    ### A Province whose analysis approach is add missing (NA's) ---
-    province_3 <- subset(p, province == "Province 3") |>
-      select(!province)
-
     columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p")
 
     ### test ----
     testthat::expect_vector(select(p, !province), size = 3, ncol(7))
     testthat::expect_s3_class(p, "tbl")
-    testthat::expect_true(all(sapply(province_3[columns_to_check], \(.) all(is.na(.)))))
-    testthat::expect_false(all(sapply(province_2[columns_to_check], \(.) all(is.na(.)))))
-  }
-)
+    testthat::expect_false(all(sapply(p[2,][columns_to_check], \(.) all(is.na(.)))))
 
-## When the analysis path is to throw NA's ----
-testthat::test_that(
-  "mw_estimate_prevalence_screening() throws NA's",
-  {
-    ### Get the prevalence estimates ----
-    p <- anthro.04 |>
-      subset(province == "Province 3") |>
-      mw_estimate_prevalence_screening(muac = muac, edema = edema)
+    ### Province 2 ----
+    testthat::expect_true(is.na(p[2,2][[1]]))
+    testthat::expect_equal(round(p[2,3][[1]] * 100, 1), 11.2)
+    testthat::expect_true(is.na(p[2,4][[1]]))
+    testthat::expect_equal(round(p[2,5][[1]] * 100, 1), 2.0)
+     testthat::expect_true(is.na(p[2,6][[1]]))
+    testthat::expect_equal(round(p[2,7][[1]] * 100, 1), 9.2)
 
-    columns_to_check <- c("gam_p", "sam_p", "mam_p")
-
-    ### test ----
-    testthat::expect_vector(p, size = 1, ncol(3))
-    testthat::expect_s3_class(p, "tbl")
-    testthat::expect_true(all(sapply(p[columns_to_check], \(.) all(is.na(.)))))
+    ### Province 3 ----
+    testthat::expect_equal(round(p[3,3][[1]] * 100, 1), 14.5)
+    testthat::expect_equal(round(p[3,5][[1]] * 100, 1), 4.2)
+    testthat::expect_equal(round(p[3,7][[1]] * 100, 1), 10.3)
   }
 )
 
@@ -373,7 +357,7 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "mw_estimate_prevalence_screening2() works as expected when groupinf vars are not specified",
+  "mw_estimate_prevalence_screening2() works as expected when grouping vars are not specified",
   { 
 
     ## Observed results ----
