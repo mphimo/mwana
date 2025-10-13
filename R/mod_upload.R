@@ -6,60 +6,62 @@
 #'
 mod_upload_ui <- function(id) {
   ## Namespace ID's ----
-  ns <- NS(id)
+  ns <- shiny::NS(id)
 
   ## UI elements ----
-  tagList(
-    layout_sidebar(
-      sidebar = sidebar(
+  shiny::tagList(
+    bslib::layout_sidebar(
+      sidebar = bslib::sidebar(
         width = 400,
-        card(
-          card_header("Upload data"),
+        bslib::card(
+          bslib::card_header("Upload data"),
           style = "width: 350px",
-          fileInput(
+          shiny::fileInput(
             inputId = ns("upload"),
             label = "Upload a .csv file",
             buttonLabel = "Browse...",
             accept = ".csv"
           ),
-          conditionalPanel(
-            condition = "output.showProgress",
-            tags$hr(),
-            tags$h4("Processing file..."),
-            uiOutput(outputId = ns("uploadProgress"))
+          shiny::conditionalPanel(
+            condition = "output.showProgress == true",
+            ns = ns,
+            htmltools::tags$hr(),
+            htmltools::tags$h4("Processing file..."),
+            shiny::uiOutput(outputId = ns("uploadProgress"))
           ),
-          conditionalPanel(
-            condition = "output.fileUploaded",
-            tags$hr(),
-            tags$h4("File information"),
-            verbatimTextOutput(outputId = ns("fileInfo"))
+          shiny::conditionalPanel(
+            condition = "output.fileUploaded == true",
+            ns = ns,
+            htmltools::tags$hr(),
+            htmltools::tags$h5("File information"),
+            shiny::verbatimTextOutput(outputId = ns("fileInfo"))
           )
         )
       ),
-      card(
-        card_header("Data preview"),
-        conditionalPanel(
-          condition = "output.fileUploaded",
+      bslib::card(
+        bslib::card_header("Data preview"),
+        shiny::conditionalPanel(
+          condition = "output.fileUploaded == true",
           ns = ns,
-          DTOutput(outputId = ns("uploadedDataTable"))
+          DT::DTOutput(outputId = ns("uploadedDataTable"))
         ),
-        conditionalPanel(
-          condition = "output.showProgress",
+        shiny::conditionalPanel(
+          condition = "output.showProgress == true",
           ns = ns,
-          tags$div(
+          htmltools::tags$div(
             style = "text-align: center; padding: 50px;",
-            tags$div(class = "spinner-border text-primary", role = "status"),
-            tags$h4("Loading data...", style = "color: #007bff; margin-top: 20px;"),
-            tags$p("Please wait while we process your file.")
+            htmltools::tags$div(class = "spinner-border text-primary", role = "status"),
+            htmltools::tags$h4("Loading data...", style = "color: #007bff; margin-top: 20px;"),
+            htmltools::tags$p("Please wait while the file gets processed.")
           )
         ),
-        conditionalPanel(
-          condition = "!output.fileUploaded",
+        shiny::conditionalPanel(
+          condition = "output.fileUploaded != true && output.showProgress != true",
           ns = ns,
-          tags$div(
+          htmltools::tags$div(
             style = "text-align: center; padding: 50px;",
-            tags$h4("No file uploaded yet", style = "color: #6c757d;"),
-            tags$p("Please upload a .csv file to see the data preview.")
+            htmltools::tags$h4("No file uploaded yet", style = "color: #6c757d;"),
+            htmltools::tags$p("Please upload a .csv file to see the data preview.")
           )
         )
       )
@@ -74,20 +76,20 @@ mod_upload_ui <- function(id) {
 #' @keywords internal
 #'
 mod_upload_server <- function(id, values) {
-  moduleServer(
+  shiny::moduleServer(
     id,
     function(input, output, session) {
       #### Show data uploading progress bar ----
-      output$showProgress <- reactive({values$processing})
-      outputOptions(output, "showProgress", suspendWhenHidden = FALSE)
-      output$fileUploaded <- reactive({values$file_uploaded})
-      outputOptions(output, "fileUploaded", suspendWhenHidden = FALSE)
+      output$showProgress <- shiny::reactive({values$processing})
+      shiny::outputOptions(output, "showProgress", suspendWhenHidden = FALSE)
+      output$fileUploaded <- shiny::reactive({values$file_uploaded})
+      shiny::outputOptions(output, "fileUploaded", suspendWhenHidden = FALSE)
 
-      output$uploadProgress <- renderUI({
+      output$uploadProgress <- shiny::renderUI({
         if (values$processing) {
-          tags$div(
+          htmltools::tags$div(
             class = "progress",
-            tags$div(
+            htmltools::tags$div(
               class = "progress-bar progress-bar-striped progress-bar-animated",
               role = "progressbar",
               style = "width: 100%"
@@ -96,12 +98,12 @@ mod_upload_server <- function(id, values) {
         }
       })
 
-      observe({
-        req(input$upload)
+      shiny::observe({
+        shiny::req(input$upload)
         values$processing <- TRUE
         values$file_uploaded <- FALSE
 
-        progress <- Progress$new(session, min = 0, max = 100)
+        progress <- shiny::Progress$new(session, min = 0, max = 100)
         on.exit(progress$close())
 
         progress$set(message = "Reading file...", value = 20)
@@ -111,7 +113,7 @@ mod_upload_server <- function(id, values) {
 
         tryCatch(
           {
-            df <- read.csv(file = input$upload$datapath, stringsAsFactors = FALSE)
+            df <- utils::read.csv(file = input$upload$datapath, stringsAsFactors = FALSE)
             progress$set(message = "Finalising...", value = 80)
             Sys.sleep(0.3)
 
@@ -125,7 +127,7 @@ mod_upload_server <- function(id, values) {
           error = function(e) {
             values$processing <- FALSE
             values$file_uploaded <- FALSE
-            showNotification(
+            shiny::showNotification(
               paste("Error reading file:", e$message),
               type = "error",
               duration = 5
@@ -135,9 +137,9 @@ mod_upload_server <- function(id, values) {
       })
 
       #### Display uploaded file info ----
-      output$fileInfo <- renderText({
+      output$fileInfo <- shiny::renderText({
         ##### Required inputs ----
-        req(input$upload, values$data)
+        shiny::req(input$upload, values$data)
 
         ##### Info to display ----
         paste0(
@@ -149,11 +151,11 @@ mod_upload_server <- function(id, values) {
       })
 
       #### Preview data ----
-      output$uploadedDataTable <- renderDataTable({
-        req(values$data)
+      output$uploadedDataTable <- shiny::renderDataTable({
+        shiny::req(values$data)
 
-        df_preview <- head(values$data, 30)
-        datatable(
+        df_preview <- utils::head(values$data, 30)
+        DT::datatable(
           data = df_preview,
           rownames = FALSE,
           options = list(
@@ -170,11 +172,11 @@ mod_upload_server <- function(id, values) {
           } else {
             paste("Showing all", nrow(values$data), "rows")
           }
-        ) %>% 
-          formatStyle(columns = colnames(df_preview), fontSize = "12px")
+        ) |> 
+          DT::formatStyle(columns = colnames(df_preview), fontSize = "12px")
       })
 
-      return(reactive(values$data))
+      return(shiny::reactive(values$data))
     }
   )
 }
