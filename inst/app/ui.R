@@ -13,31 +13,26 @@ library(dplyr)
 library(openxlsx)
 library(rlang)
 
-## ---- Source UI modules ------------------------------------------------------
-
-lapply(
-  list.files(
-    path = "inst/app/modules/modules-ui.R", full.names = TRUE
-  ),
-  FUN = source
-)
-
 ## ---- User's navigation bars -------------------------------------------------
 
 ui <- page_navbar(
-  title = div(
+  title = tags$div(
     style = "display: flex; align-items: center;",
-    span("mwana", style = "margin-right: 10px; font-family: Arial, sans-serif;"),
-    a(
+    tags$span("mwana", 
+    style = "margin-right: 10px; font-family: Arial, sans-serif; font-size: 50px;"),
+    tags$a( 
       href = "https://nutriverse.io/mwana/",
-      img(src = "logo.png", height = "25px")
+      tags$span(
+        tags$img(src = "logo.png", height = "40px"), 
+        style = "margin-right: 20px;" 
+      )
     )
   ),
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
   ),
 
-  ## ---- Tab 1: Home ------------------------------------------------------------
+  ## ---- Tab 1: Home ----------------------------------------------------------
 
   nav_panel(
     title = "Home",
@@ -100,20 +95,13 @@ ui <- page_navbar(
     )
   ),
 
-  ## ---- Tab 2: Data Upload -----------------------------------------------------
+  ## ---- Tab 2: Data Upload ---------------------------------------------------
 
-  nav_panel(
-    title = "Data Upload",
-    layout_sidebar(
-      sidebar = sidebar(
-        width = 400,
-        card()
-      ),
-      card()
-    )
-  ),
+ nav_panel(title = "Data Upload", mod_upload_ui(id = "upload_data")),
 
-  ## ---- Tab 3: IPC Check -------------------------------------------------------
+        
+
+  ## ---- Tab 3: IPC Check -----------------------------------------------------
 
   nav_panel(
     title = "IPC Check",
@@ -121,12 +109,11 @@ ui <- page_navbar(
       sidebar = sidebar(
         width = 400,
         card()
-      ),
-      card()
+      )
     )
   ),
 
-  ## ---- Tab 4: Data Wrangling --------------------------------------------------
+  ## ---- Tab 4: Data Wrangling ------------------------------------------------
 
   nav_panel(
     title = "Data Wrangling",
@@ -139,7 +126,7 @@ ui <- page_navbar(
     )
   ),
 
-  ## ---- Tab 5: Plausibility Check ----------------------------------------------
+  ## ---- Tab 5: Plausibility Check --------------------------------------------
 
   nav_panel(
     title = "Plausibility Check",
@@ -152,7 +139,7 @@ ui <- page_navbar(
     )
   ),
 
-  ## ---- Tab 6: Prevalence Analysis ---------------------------------------------
+  ## ---- Tab 6: Prevalence Analysis -------------------------------------------
 
   nav_panel(
     title = "Prevalence Analysis",
