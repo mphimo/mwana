@@ -6,12 +6,9 @@
 
 server <- function(input, output, session) {
 
-  ### Capture reactive values ----
-  values <- reactiveValues(
-    data = NULL,
-    processing = FALSE,
-    file_uploaded = FALSE 
-  )
-
-  uploaded_data <- mod_upload_server(id = "upload_data", values = values)
+# Upload module - returns reactive data
+  df <- module_server_upload(id = "upload_data")
+  
+  # IPC check module - pass the reactive data
+  ipc_results <- module_server_ipccheck(id = "ipc_check", data = df)
 }

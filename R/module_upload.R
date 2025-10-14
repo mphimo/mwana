@@ -4,7 +4,7 @@
 #'
 #' @keywords internal
 #'
-mod_upload_ui <- function(id) {
+module_ui_upload <- function(id) {
   ## Namespace ID's ----
   ns <- shiny::NS(id)
 
@@ -75,10 +75,17 @@ mod_upload_ui <- function(id) {
 #'
 #' @keywords internal
 #'
-mod_upload_server <- function(id, values) {
+module_server_upload <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
+      
+        ### Capture reactive values ----
+  values <- reactiveValues(
+    data = NULL,
+    processing = FALSE,
+    file_uploaded = FALSE 
+  )
       #### Show data uploading progress bar ----
       output$showProgress <- shiny::reactive({values$processing})
       shiny::outputOptions(output, "showProgress", suspendWhenHidden = FALSE)
