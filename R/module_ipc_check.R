@@ -45,7 +45,8 @@ module_ui_ipccheck <- function(id) {
           image.height = "50px",
           color = "#004225",
           caption = htmltools::tags$div("Checking", htmltools::tags$br(), htmltools::tags$h5("Please wait..."))
-        )
+        ), 
+        shiny::uiOutput(outputId = ns("download_ipccheck"))
       )
     )
   )
@@ -191,5 +192,47 @@ module_server_ipccheck <- function(id, data) {
         )
       )
     })
+
+    #### Download button to download table of detected clusters in .xlsx ----
+  ##### Output into the UI ----
+  output$"download_ipccheck" <- renderUI({
+    req(values$checked)
+    req(!values$checking())
+    div(
+      style = "margin-bottom: 15px; text-align: right;",
+      downloadButton(
+        outputId = ns("download_results"),
+        label = "Download Results",
+        class = "btn-primary",
+        icon = icon(name = "download", class = "fa-lg")
+      )
+    )
+  })
+
+  ##### Downloadable results by clicking on the download button ----
+  output$download_results <- downloadHandler(
+    filename = function() {
+      if (input$ipccheck == "survey") {
+              paste0("ipc-check-for-survey_", Sys.Date(), ".xlsx", sep = "")
+      } else if (input$ipccheck == "screening") {
+        paste0("ipc-check-for-screening_", Sys.Date(), ".xlsx", sep = "")
+      } else{
+        paste0("ipc-check-for-sentinel-site_", Sys.Date(), ".xlsx", sep = "")
+      }
+    },
+    content = function(file) {
+      req(values$checked) # Ensure results exist
+      tryCatch(
+        {
+          openxlsx::write.xlsx(values$checked, file)
+          showNotification("File downloaded successfully! 🎉 ", type = "message")
+        },
+        error = function(e) {
+          showNotification(paste("Error creating file:", e$message), type = "error")
+        }
+      )
+    }
+    )
+    
 })
 }
