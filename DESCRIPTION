@@ -41,7 +41,8 @@ Suggests:
     rmarkdown,
     quarto,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    shinytest2
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
