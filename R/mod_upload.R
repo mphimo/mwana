@@ -113,7 +113,11 @@ mod_upload_server <- function(id, values) {
 
         tryCatch(
           {
-            df <- utils::read.csv(file = input$upload$datapath, stringsAsFactors = FALSE)
+            df <- utils::read.csv(
+              file = input$upload$datapath, 
+              stringsAsFactors = FALSE,
+              check.names = FALSE
+            )[,-1]
             progress$set(message = "Finalising...", value = 80)
             Sys.sleep(0.3)
 

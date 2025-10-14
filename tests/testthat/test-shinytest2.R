@@ -14,7 +14,10 @@ testthat::test_that("mwana app works as expected", {
 
   ### Upload data ----
   #### Read data ----
-  data <- read.csv(file = here::here("inst", "app", "anthro-01.csv"))
+  data <- read.csv(
+    file = here::here("inst", "app", "anthro-01.csv"),
+    check.names = FALSE
+  )[, -1]
   tempfile <- tempfile(fileext = ".csv")
   write.csv(data, tempfile, row.names = FALSE)
 
@@ -28,7 +31,7 @@ testthat::test_that("mwana app works as expected", {
   )
 
   ### Test checks ----
-  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 75314)
+  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 70462)
   testthat::expect_equal(object = vals$input$`upload_data-upload`$type, "text/csv")
   testthat::expect_true(object = vals$output$`upload_data-fileUploaded`)
   testthat::expect_true(app$get_js("$('#upload_data-uploadedDataTable').length > 0"))
@@ -37,9 +40,9 @@ testthat::test_that("mwana app works as expected", {
     $('#upload_data-uploadedDataTable thead th').map(function() {
       return $(this).text();
     }).get();
-  ")[1:12] |> as.character(),
+  ")[1:11] |> as.character(),
     expected = c(
-      "X", "area", "dos", "cluster", "team", "sex",
+      "area", "dos", "cluster", "team", "sex",
       "dob", "age", "weight", "height", "edema", "muac"
     )
   )
