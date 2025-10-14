@@ -38,7 +38,7 @@ module_ui_ipccheck <- function(id) {
       bslib::card(
         bslib::card_header("IPC Check Results"),
         shinycssloaders::withSpinner(
-          ui_element = DT::DTOutput(ns("checked_results")),
+          ui_element = DT::DTOutput(ns("checked")),
           type = 8,
           color.background = "#004225",
           image = "logo.png",
@@ -132,13 +132,54 @@ module_server_ipccheck <- function(id, data) {
         return()
       }
       
-      # If validation passes, perform your check logic here
-      values$checked <- current_data()
+      ### If validation passes, perform your check logic ----
+      tryCatch(
+      {
+        x <- switch(input$ipccheck,
+        "survey" = {
+          #### Required variables. Area2 is optional ----
+          req(input$area1, input$psu)
+
+            mw_check_ipcamn_ssreq(
+          df = current_data(),
+              cluster = !!rlang::sym(input$psu),
+              .source = "survey",
+              !!rlang::sym(input$area1), if (input$area2 != "") !!rlang::sym(input$area2) else NULL
+            )
+        }, 
+        "screening" = {
+                    #### Required variables. Area2 is optional ----
+          req(input$area1, input$sites)
+            mw_check_ipcamn_ssreq(
+          df = current_data(),
+              cluster = !!rlang::sym(input$sites),
+              .source = "screening",
+              !!rlang::sym(input$area1), if (input$area2 != "") !!rlang::sym(input$area2) else NULL
+            )
+        },
+        "sentinel" = {
+                    #### Required variables. Area2 is optional ----
+          req(input$area1, input$ssites)
+            mw_check_ipcamn_ssreq(
+          df = current_data(),
+              cluster = !!rlang::sym(input$ssites),
+              .source = "ssite",
+              !!rlang::sym(input$area1), if (input$area2 != "") !!rlang::sym(input$area2) else NULL
+            )
+        }
+        )
+
+        values$checked <- x
+      },
+
+      error = function(e) {
+        showNotification(paste("Error during check: ", e$message), type = "error")
+      }
+    )
       values$checking(FALSE)
-      shiny::showNotification("Check completed successfully!", type = "success")
     })
-    
-    output$checked_results <- DT::renderDT({
+
+    output$checked <- DT::renderDT({
       req(values$checked)
       
       DT::datatable(
@@ -150,7 +191,5 @@ module_server_ipccheck <- function(id, data) {
         )
       )
     })
-
-    return(reactive(values$checked))
-  })
+})
 }

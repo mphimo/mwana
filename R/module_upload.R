@@ -79,7 +79,6 @@ module_server_upload <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      
         ### Capture reactive values ----
   values <- reactiveValues(
     data = NULL,
