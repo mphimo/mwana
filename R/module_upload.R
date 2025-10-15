@@ -14,7 +14,7 @@ module_ui_upload <- function(id) {
       sidebar = bslib::sidebar(
         width = 400,
         bslib::card(
-          bslib::card_header("Upload data"),
+          bslib::card_header("Upload Data"),
           style = "width: 350px",
           shiny::fileInput(
             inputId = ns("upload"),
@@ -39,7 +39,7 @@ module_ui_upload <- function(id) {
         )
       ),
       bslib::card(
-        bslib::card_header("Data preview"),
+        bslib::card_header("Data Preview"),
         shiny::conditionalPanel(
           condition = "output.fileUploaded == true",
           ns = ns,
