@@ -1,3 +1,9 @@
+# ==============================================================================
+#  Test Suite: Module Data Upload
+# ==============================================================================
+
+## ---- Module: Data Upload ----------------------------------------------------
+
 testthat::test_that("mwana app works as expected", {
   ### Initialise app ----
   app <- shinytest2::AppDriver$new(
@@ -15,9 +21,9 @@ testthat::test_that("mwana app works as expected", {
   ### Upload data ----
   #### Read data ----
   data <- read.csv(
-    file = here::here("inst", "app", "anthro-01.csv"),
+    file = system.file("app", "anthro-01.csv", package = "mwana"),
     check.names = FALSE
-  )[, -1]
+  )
   tempfile <- tempfile(fileext = ".csv")
   write.csv(data, tempfile, row.names = FALSE)
 
@@ -31,7 +37,7 @@ testthat::test_that("mwana app works as expected", {
   )
 
   ### Test checks ----
-  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 70462)
+  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 75313)
   testthat::expect_equal(object = vals$input$`upload_data-upload`$type, "text/csv")
   testthat::expect_true(object = vals$output$`upload_data-fileUploaded`)
   testthat::expect_true(app$get_js("$('#upload_data-uploadedDataTable').length > 0"))
