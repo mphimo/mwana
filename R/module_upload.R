@@ -80,7 +80,7 @@ module_server_upload <- function(id) {
     id,
     function(input, output, session) {
         ### Capture reactive values ----
-  values <- reactiveValues(
+  values <- shiny::reactiveValues(
     data = NULL,
     processing = FALSE,
     file_uploaded = FALSE 

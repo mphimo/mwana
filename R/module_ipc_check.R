@@ -68,24 +68,24 @@ module_ui_ipccheck <- function(id) {
 #' @keywords internal
 #'
 module_server_ipccheck <- function(id, data) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    values <- reactiveValues(
+    values <- shiny::reactiveValues(
       checked = NULL
     )
 
     ### Use the reactive data properly ----
-    current_data <- reactive({
-      req(data())
+    current_data <- shiny::reactive({
+      shiny::req(data())
       data()
     })
 
     ### Create a reactive that explicitly depends on both inputs ----
-    ui_inputs <- reactive({
-      req(current_data(), input$ipccheck)
+    ui_inputs <- shiny::reactive({
+      shiny::req(current_data(), input$ipccheck)
 
-      cols <- names(current_data())
+      cols <- base::names(current_data())
 
       switch(input$ipccheck,
 
@@ -97,7 +97,7 @@ module_server_ipccheck <- function(id, data) {
           ), 
           choices = c("", cols)),
           shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", tags$div(
+          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
           choices = c("", cols)),
@@ -112,7 +112,7 @@ module_server_ipccheck <- function(id, data) {
           ), 
           choices = c("", cols)),
           shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", tags$div(
+          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
           choices = c("", cols)),
@@ -127,7 +127,7 @@ module_server_ipccheck <- function(id, data) {
           ), 
           choices = c("", cols)),
           shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", tags$div(
+          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
           choices = c("", cols)),
@@ -136,14 +136,14 @@ module_server_ipccheck <- function(id, data) {
       )
     })
 
-    output$data_source <- renderUI({
+    output$data_source <- shiny::renderUI({
       do.call(shiny::tagList, ui_inputs())
     })
 
-    values$checking <- reactiveVal(FALSE)
+    values$checking <- shiny::reactiveVal(FALSE)
 
-    observeEvent(input$apply_check, {
-      req(current_data())
+    shiny::observeEvent(input$apply_check, {
+      shiny::req(current_data())
       values$checking(TRUE)
 
       valid <- TRUE
@@ -178,7 +178,7 @@ module_server_ipccheck <- function(id, data) {
           x <- switch(input$ipccheck,
             "survey" = {
               #### Required variables. Area2 is optional ----
-              req(input$area1, input$psu)
+              shiny::req(input$area1, input$psu)
 
               #### Check if minimum sample size requirements for survey are met ----
               run_ipcamn_check(
@@ -187,7 +187,7 @@ module_server_ipccheck <- function(id, data) {
             },
             "screening" = {
               #### Required variables. Area2 is optional ----
-              req(input$area1, input$sites)
+              shiny::req(input$area1, input$sites)
 
               #### Check if minimum sample size requirements for screening are met ----
               run_ipcamn_check(
@@ -196,7 +196,7 @@ module_server_ipccheck <- function(id, data) {
             },
             "sentinel" = {
               #### Required variables. Area2 is optional ----
-              req(input$area1, input$ssites)
+              shiny::req(input$area1, input$ssites)
 
               #### Check if minimum sample size requirements for sentinel sites are met ----
               run_ipcamn_check(
@@ -208,7 +208,7 @@ module_server_ipccheck <- function(id, data) {
           values$checked <- x
         },
         error = function(e) {
-          showNotification(paste("Error during check: ", e$message), type = "error")
+          shiny::showNotification(paste("Error during check: ", e$message), type = "error")
         }
       )
       values$checking(FALSE)
@@ -217,7 +217,7 @@ module_server_ipccheck <- function(id, data) {
     ### Render results into UI ----
     output$checked <- DT::renderDT({
       #### Ensure checked output is available ----
-      req(values$checked)
+      shiny::req(values$checked)
       DT::datatable(
         values$checked,
         options = list(
@@ -239,22 +239,22 @@ module_server_ipccheck <- function(id, data) {
 
     #### Download button to download table of detected clusters in .xlsx ----
     ##### Output into the UI ----
-    output$"download_ipccheck" <- renderUI({
-      req(values$checked)
-      req(!values$checking())
-      div(
+    output$"download_ipccheck" <- shiny::renderUI({
+      shiny::req(values$checked)
+      shiny::req(!values$checking())
+      htmltools::tags$div(
         style = "margin-bottom: 15px; text-align: right;",
-        downloadButton(
+        shiny::downloadButton(
           outputId = ns("download_results"),
           label = "Download Results",
           class = "btn-primary",
-          icon = icon(name = "download", class = "fa-lg")
+          icon = shiny::icon(name = "download", class = "fa-lg")
         )
       )
     })
 
     ##### Downloadable results by clicking on the download button ----
-    output$download_results <- downloadHandler(
+    output$download_results <- shiny::downloadHandler(
       filename = function() {
         if (input$ipccheck == "survey") {
           paste0("ipc-check-for-survey_", Sys.Date(), ".xlsx", sep = "")
@@ -265,14 +265,14 @@ module_server_ipccheck <- function(id, data) {
         }
       },
       content = function(file) {
-        req(values$checked) # Ensure results exist
+        shiny::req(values$checked) # Ensure results exist
         tryCatch(
           {
             openxlsx::write.xlsx(values$checked, file)
-            showNotification("File downloaded successfully! 🎉 ", type = "message")
+            shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
           },
           error = function(e) {
-            showNotification(paste("Error creating file:", e$message), type = "error")
+            shiny::showNotification(paste("Error creating file:", e$message), type = "error")
           }
         )
       }
