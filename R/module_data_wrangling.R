@@ -26,9 +26,10 @@ module_ui_wrangling <- function(id) {
               style = "font-size: 16px; font-weight: 500;"
             ),
             choices = list(
-              "Weight-for-Height z-scores" = "wfhz",
-              "Mid-Upper Arm Circumference" = "muac",
-              "Both" = "combined"
+              "Weight-for-Height z-scores (WFHZ)" = "wfhz",
+              "MUAC-for-Age z-scores (MFAZ)" = "mfaz",
+              "Raw MUAC" = "muac",
+              "Combined (WFHZ and MFAZ)" = "combined"
             ),
             selected = "wfhz"
           ),
@@ -98,9 +99,15 @@ module_server_wrangling <- function(id, data) {
             shiny::selectInput(ns("height"), "Height (cm)", c("", vars))
           ),
 
-          ##### MUAC ----
-          "muac" = list(
+          ##### MFAZ ----
+          "mfaz" = list(
             shiny::selectInput(ns("age"), "Age (months)", c("", vars)),
+            shiny::selectInput(ns("sex"), "Sex", c("", vars)),
+            shiny::selectInput(ns("muac"), "MUAC (cm)", c("", vars))
+          ),
+
+          ##### RAW MUAC ----
+          "muac" = list(
             shiny::selectInput(ns("sex"), "Sex", c("", vars)),
             shiny::selectInput(ns("muac"), "MUAC (cm)", c("", vars))
           ),
@@ -171,7 +178,7 @@ module_server_wrangling <- function(id, data) {
                     height = height
                   )
               },
-              "muac" = {
+              "mfaz" = {
                 shiny::req(input$age, input$sex, input$muac)
 
                 data() |>
@@ -185,6 +192,23 @@ module_server_wrangling <- function(id, data) {
                     sex = sex,
                     .recode_sex = TRUE,
                     age = age,
+                    muac = muac,
+                    .recode_muac = FALSE,
+                    .to = "none"
+                  )
+              },
+              "muac" = {
+                shiny::req(input$sex, input$muac)
+
+                data() |>
+                  dplyr::rename(
+                    sex = !!rlang::sym(input$sex),
+                    muac = !!rlang::sym(input$muac)
+                  ) |>
+                  mw_wrangle_muac(
+                    sex = sex,
+                    .recode_sex = TRUE,
+                    age = NULL,
                     muac = muac,
                     .recode_muac = FALSE,
                     .to = "none"
@@ -278,6 +302,8 @@ module_server_wrangling <- function(id, data) {
         filename = function() {
           if (input$wrangle == "wfhz") {
             paste0("mwana-wranged-data-wfhz_", Sys.Date(), ".xlsx", sep = "")
+          } else if (input$wrangle == "mfaz") {
+            paste0("mwana-wranged-data-mfaz_", Sys.Date(), ".xlsx", sep = "")
           } else if (input$wrangle == "muac") {
             paste0("mwana-wranged-data-muac_", Sys.Date(), ".xlsx", sep = "")
           } else {
