@@ -282,16 +282,16 @@ module_server_wrangling <- function(id, data) {
         if (input$wrangle == "wfhz") {
           if (is.null(input$sex) || is.null(input$weight) || is.null(input$height)) {
             valid <- FALSE
-            message <- "😬 Please select all required variables."
+            message <- "Please select all required variables."
           }
         } else if (input$wrangle == "muac") {
           if (is.null(input$age) || is.null(input$sex) || is.null(input$muac)) {
             valid <- FALSE
-            message <- "😬 Please select all required variables."
+            message <- "Please select all required variables."
           }
         } else {
           if (is.null(any(c(input$age, input$sex, input$weight, input$height, input$muac)))) {
-            message <- "😬 Please select all required variables."
+            message <- "Please select all required variables."
           }
         }
 
