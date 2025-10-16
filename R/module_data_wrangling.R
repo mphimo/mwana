@@ -18,7 +18,7 @@ module_ui_wrangling <- function(id) {
 
         ### Left side of the nav panel ----
         bslib::card(
-          bslib::card_header(htmltools::tags$span("Define Data Wrangling Parameters",
+          bslib::card_header(htmltools::tags$span("Define Parameters for Data Wrangling",
             style = "font-weight: 600;"
           )),
           style = "width: 350px;",
@@ -58,7 +58,7 @@ module_ui_wrangling <- function(id) {
           image.height = "50px",
           color = "#004225",
           caption = htmltools::tags$div(
-            "Wrangling", htmltools::tags$br(), htmltools::tags$h5("Please wait...")
+            htmltools::tags$h6("Wrangling"), htmltools::tags$h6("Please wait...")
           )
         ),
         shiny::uiOutput(outputId = ns("download_wrangled_data"))

@@ -19,12 +19,14 @@ module_ui_ipccheck <- function(id) {
       sidebar = bslib::sidebar(
         width = 400,
         bslib::card(
-          bslib::card_header(htmltools::tags$span("Define Analysis Parameters",
+          bslib::card_header(htmltools::tags$span("Define Parameters for Check",
         style = "font-weight: 600;")),
           style = "width: 350px",
           shiny::radioButtons(
             inputId = ns("ipccheck"),
-            label = htmltools::tags$span("Select data source", style = "font-size: 16px; font-weight: 500;"),
+            label = htmltools::tags$span(
+              "Select data source", style = "font-size: 16px; font-weight: 500;"
+            ),
             choices = list(
               "Survey" = "survey",
               "Screening" = "screening",
@@ -52,7 +54,9 @@ module_ui_ipccheck <- function(id) {
           image = "logo.png",
           image.height = "50px",
           color = "#004225",
-          caption = htmltools::tags$div("Checking", htmltools::tags$br(), htmltools::tags$h5("Please wait..."))
+          caption = htmltools::tags$div(
+            htmltools::tags$h6("Checking"), htmltools::tags$h6("Please wait...")
+          )
         ),
         shiny::uiOutput(outputId = ns("download_ipccheck"))
       )
