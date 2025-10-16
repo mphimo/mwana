@@ -45,6 +45,7 @@ testthat::test_that(
     app$click(input = "ipc_check-apply_check")
     app$wait_for_idle()
 
+    ### Test check ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
     expect_equal(
       object = app$get_js("
@@ -159,6 +160,7 @@ testthat::test_that(
     app$click(input = "ipc_check-apply_check")
     app$wait_for_idle()
 
+    #### Test checks ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
     expect_equal(
       object = app$get_js("
