@@ -15,4 +15,7 @@ server <- function(input, output, session) {
   ### Data Wrangling ----
   wrangled <- module_server_wrangling(id = "wrangle_data", data = df)
 
+  ### Plausibility Check ----
+  module_server_plausibility_check(id = "plausible", data = wrangled)
+
 }
