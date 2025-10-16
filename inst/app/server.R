@@ -13,6 +13,6 @@ server <- function(input, output, session) {
   ipc_results <- module_server_ipccheck(id = "ipc_check", data = df)
   
   ### Data Wrangling ----
-  wrangled <- module_server_wrangling(id = "wrangle", data = df)
+  wrangled <- module_server_wrangling(id = "wrangle_data", data = df)
 
 }

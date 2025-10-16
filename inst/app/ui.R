@@ -105,8 +105,11 @@ ui <- page_navbar(
 
   ## ---- Tab 4: Data Wrangling ------------------------------------------------
 
-  bslib::nav_panel(title = "Data Wrangling", module_ui_wrangling(id = "wrangle")),
-  
+  bslib::nav_panel(
+    title = "Data Wrangling", 
+    module_ui_wrangling(id = "wrangle_data")
+  ),
+
   ## ---- Tab 5: Plausibility Check --------------------------------------------
 
   nav_panel(
