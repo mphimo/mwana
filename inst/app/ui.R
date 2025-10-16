@@ -16,6 +16,8 @@ library(rlang)
 ## ---- User's navigation bars -------------------------------------------------
 
 ui <- page_navbar(
+
+  ### Left side: app name and logo ----
   title = tags$div(
     style = "display: flex; align-items: center;",
     tags$span("mwana", 
@@ -28,6 +30,8 @@ ui <- page_navbar(
       )
     )
   ),
+
+  ### Link up with custom .css file ----
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
   ),
@@ -101,17 +105,8 @@ ui <- page_navbar(
 
   ## ---- Tab 4: Data Wrangling ------------------------------------------------
 
-  nav_panel(
-    title = "Data Wrangling",
-    layout_sidebar(
-      sidebar = sidebar(
-        width = 400,
-        card()
-      ),
-      card()
-    )
-  ),
-
+  bslib::nav_panel(title = "Data Wrangling", module_ui_wrangling(id = "wrangle")),
+  
   ## ---- Tab 5: Plausibility Check --------------------------------------------
 
   nav_panel(
