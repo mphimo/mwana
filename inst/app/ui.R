@@ -114,13 +114,7 @@ ui <- page_navbar(
 
   nav_panel(
     title = "Plausibility Check",
-    layout_sidebar(
-      sidebar = sidebar(
-        width = 400,
-        card()
-      ),
-      card()
-    )
+   module_ui_plausibility_check(id = "plausible")
   ),
 
   ## ---- Tab 6: Prevalence Analysis -------------------------------------------
