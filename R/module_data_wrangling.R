@@ -81,11 +81,6 @@ module_server_wrangling <- function(id, data) {
       ### Capture reactivity ----
       dataset <- shiny::reactiveValues(wrangled = NULL)
 
-      ### Call upon reactive data ----
-      df <- shiny::reactive({
-        shiny::req(data())
-      })
-
       ### Fetch reactive user inputs ----
       ui_inputs <- shiny::reactive({
         shiny::req(data(), input$wrangle)

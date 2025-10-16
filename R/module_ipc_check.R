@@ -71,21 +71,15 @@ module_server_ipccheck <- function(id, data) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    values <- shiny::reactiveValues(
+    dataset <- shiny::reactiveValues(
       checked = NULL
     )
 
-    ### Use the reactive data properly ----
-    current_data <- shiny::reactive({
-      shiny::req(data())
-      data()
-    })
-
     ### Create a reactive that explicitly depends on both inputs ----
     ui_inputs <- shiny::reactive({
-      shiny::req(current_data(), input$ipccheck)
+      shiny::req(data(), input$ipccheck)
 
-      cols <- base::names(current_data())
+      cols <- base::names(data())
 
       switch(input$ipccheck,
 
@@ -140,11 +134,11 @@ module_server_ipccheck <- function(id, data) {
       do.call(shiny::tagList, ui_inputs())
     })
 
-    values$checking <- shiny::reactiveVal(FALSE)
+    dataset$checking <- shiny::reactiveVal(FALSE)
 
     shiny::observeEvent(input$apply_check, {
-      shiny::req(current_data())
-      values$checking(TRUE)
+      shiny::req(data())
+      dataset$checking(TRUE)
 
       valid <- TRUE
       message <- ""
@@ -168,7 +162,7 @@ module_server_ipccheck <- function(id, data) {
 
       if (!valid) {
         shiny::showNotification(message, type = "error")
-        values$checking(FALSE)
+        dataset$checking(FALSE)
         return()
       }
 
@@ -182,7 +176,7 @@ module_server_ipccheck <- function(id, data) {
 
               #### Check if minimum sample size requirements for survey are met ----
               run_ipcamn_check(
-                current_data(), input$psu, "survey", input$area1, input$area2
+                data(), input$psu, "survey", input$area1, input$area2
               )
             },
             "screening" = {
@@ -191,7 +185,7 @@ module_server_ipccheck <- function(id, data) {
 
               #### Check if minimum sample size requirements for screening are met ----
               run_ipcamn_check(
-                current_data(), input$sites, "screening", input$area1, input$area2
+                data(), input$sites, "screening", input$area1, input$area2
               )
             },
             "sentinel" = {
@@ -200,48 +194,48 @@ module_server_ipccheck <- function(id, data) {
 
               #### Check if minimum sample size requirements for sentinel sites are met ----
               run_ipcamn_check(
-                current_data(), input$ssites, "ssite", input$area1, input$area2
+                data(), input$ssites, "ssite", input$area1, input$area2
               )
             }
           )
 
-          values$checked <- x
+          dataset$checked <- x
         },
         error = function(e) {
           shiny::showNotification(paste("Error during check: ", e$message), type = "error")
         }
       )
-      values$checking(FALSE)
+      dataset$checking(FALSE)
     })
 
     ### Render results into UI ----
     output$checked <- DT::renderDT({
       #### Ensure checked output is available ----
-      shiny::req(values$checked)
+      shiny::req(dataset$checked)
       DT::datatable(
-        values$checked,
+        dataset$checked,
         options = list(
           pageLength = 10,
           scrollX = TRUE,
           scrollY = "800px", 
           columDefs = list(list(className = "dt-center", targets = "_all"))
         ),
-        caption = if (nrow(values$checked) > 30) {
+        caption = if (nrow(dataset$checked) > 30) {
           paste(
-            "Showing first 30 rows of", format(nrow(values$checked), big.mark = "."),
+            "Showing first 30 rows of", format(nrow(dataset$checked), big.mark = "."),
             "total rows"
           )
         } else {
-          paste("Showing all", nrow(values$checked), "rows")
+          paste("Showing all", nrow(dataset$checked), "rows")
         }
-      ) |> DT::formatStyle(columns = colnames(values$checked), fontSize = "15px")
+      ) |> DT::formatStyle(columns = colnames(dataset$checked), fontSize = "15px")
     })
 
     #### Download button to download table of detected clusters in .xlsx ----
     ##### Output into the UI ----
-    output$"download_ipccheck" <- shiny::renderUI({
-      shiny::req(values$checked)
-      shiny::req(!values$checking())
+    output$download_ipccheck <- shiny::renderUI({
+      shiny::req(dataset$checked)
+      shiny::req(!dataset$checking())
       htmltools::tags$div(
         style = "margin-bottom: 15px; text-align: right;",
         shiny::downloadButton(
@@ -257,18 +251,18 @@ module_server_ipccheck <- function(id, data) {
     output$download_results <- shiny::downloadHandler(
       filename = function() {
         if (input$ipccheck == "survey") {
-          paste0("ipc-check-for-survey_", Sys.Date(), ".xlsx", sep = "")
+          paste0("mwana-ipc-check-for-survey_", Sys.Date(), ".xlsx", sep = "")
         } else if (input$ipccheck == "screening") {
-          paste0("ipc-check-for-screening_", Sys.Date(), ".xlsx", sep = "")
+          paste0("mwana-ipc-check-for-screening_", Sys.Date(), ".xlsx", sep = "")
         } else {
-          paste0("ipc-check-for-sentinel-site_", Sys.Date(), ".xlsx", sep = "")
+          paste0("mwana-ipc-check-for-sentinel-site_", Sys.Date(), ".xlsx", sep = "")
         }
       },
       content = function(file) {
-        shiny::req(values$checked) # Ensure results exist
+        shiny::req(dataset$checked) # Ensure results exist
         tryCatch(
           {
-            openxlsx::write.xlsx(values$checked, file)
+            openxlsx::write.xlsx(dataset$checked, file)
             shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
           },
           error = function(e) {

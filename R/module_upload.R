@@ -183,7 +183,7 @@ module_server_upload <- function(id) {
             paste("Showing all", nrow(values$data), "rows")
           }
         ) |> 
-          DT::formatStyle(columns = colnames(df_preview), fontSize = "12px")
+          DT::formatStyle(columns = colnames(df_preview), fontSize = "13px")
       })
 
       return(shiny::reactive(values$data))
