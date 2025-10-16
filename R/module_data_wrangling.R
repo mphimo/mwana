@@ -3,6 +3,8 @@
 #'
 #'
 #' @keywords internal
+#' 
+#' @export
 #'
 module_ui_wrangling <- function(id) {
   ## Namespace ID ----
@@ -71,7 +73,8 @@ module_ui_wrangling <- function(id) {
 #'
 #'
 #' @keywords internal
-#'
+#' 
+#' @export
 #'
 module_server_wrangling <- function(id, data) {
   shiny::moduleServer(
@@ -262,11 +265,11 @@ module_server_wrangling <- function(id, data) {
       })
 
       output$select_vars <- shiny::renderUI({
-        tagList(ui_inputs())
+        shiny::tagList(ui_inputs())
       })
 
       ### Create container for reactivity ----
-      dataset$wrangling <- reactiveVal(FALSE)
+      dataset$wrangling <- shiny::reactiveVal(FALSE)
 
       shiny::observeEvent(input$apply_wrangle, {
         shiny::req(data())
@@ -310,10 +313,10 @@ module_server_wrangling <- function(id, data) {
                     height = !!rlang::sym(input$height)
                   ) |>
                   mw_wrangle_wfhz(
-                    sex = sex,
+                    sex = .data$sex,
                     .recode_sex = TRUE,
-                    weight = weight,
-                    height = height
+                    weight = .data$weight,
+                    height = .data$height
                   )
               },
               "mfaz" = {
@@ -325,12 +328,12 @@ module_server_wrangling <- function(id, data) {
                     sex = !!rlang::sym(input$sex),
                     muac = !!rlang::sym(input$muac)
                   ) |>
-                  mw_wrangle_age(dos = NULL, dob = NULL, age = age) |>
+                  mw_wrangle_age(dos = NULL, dob = NULL, age = .data$age) |>
                   mw_wrangle_muac(
-                    sex = sex,
+                    sex = .data$sex,
                     .recode_sex = TRUE,
-                    age = age,
-                    muac = muac,
+                    age = .data$age,
+                    muac = .data$muac,
                     .recode_muac = FALSE,
                     .to = "none"
                   )
@@ -344,10 +347,10 @@ module_server_wrangling <- function(id, data) {
                     muac = !!rlang::sym(input$muac)
                   ) |>
                   mw_wrangle_muac(
-                    sex = sex,
+                    sex = .data$sex,
                     .recode_sex = TRUE,
                     age = NULL,
-                    muac = muac,
+                    muac = .data$muac,
                     .recode_muac = FALSE,
                     .to = "none"
                   )
@@ -367,17 +370,17 @@ module_server_wrangling <- function(id, data) {
                     height = !!rlang::sym(input$height)
                   ) |>
                   mw_wrangle_wfhz(
-                    sex = sex,
+                    sex = .data$sex,
                     .recode_sex = TRUE,
-                    weight = weight,
-                    height = height
+                    weight = .data$weight,
+                    height = .data$height
                   ) |>
-                  mw_wrangle_age(dos = NULL, dob = NULL, age = age) |>
+                  mw_wrangle_age(dos = NULL, dob = NULL, age = .data$age) |>
                   mw_wrangle_muac(
-                    sex = sex,
+                    sex = .data$sex,
                     .recode_sex = FALSE,
-                    age = age,
-                    muac = muac,
+                    age = .data$age,
+                    muac = .data$muac,
                     .recode_muac = FALSE,
                     .to = "none"
                   )

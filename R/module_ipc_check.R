@@ -7,6 +7,8 @@
 #'
 #' @keywords internal
 #'
+#' @export
+#' 
 module_ui_ipccheck <- function(id) {
   ## Namespace ID ----
   ns <- shiny::NS(id)
@@ -67,6 +69,8 @@ module_ui_ipccheck <- function(id) {
 #'
 #' @keywords internal
 #'
+#' @export
+#' 
 module_server_ipccheck <- function(id, data) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns

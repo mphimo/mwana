@@ -3,6 +3,8 @@
 #'
 #'
 #' @keywords internal
+#' 
+#' @export
 #'
 module_ui_upload <- function(id) {
   ## Namespace ID's ----
@@ -74,6 +76,8 @@ module_ui_upload <- function(id) {
 #'
 #'
 #' @keywords internal
+#'
+#' @export 
 #'
 module_server_upload <- function(id) {
   shiny::moduleServer(
