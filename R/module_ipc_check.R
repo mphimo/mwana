@@ -84,48 +84,94 @@ module_server_ipccheck <- function(id, data) {
       switch(input$ipccheck,
 
         #### Survey ----
+        ##### Screening sites: mandatory ----
         "survey" = list(
           shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", htmltools::tags$div(
+          label = shiny::tagList("Area 1", 
+          htmltools::tags$span("*", style = "color: red;"),
+          htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
           ), 
-          choices = c("", cols)),
+          choices = c("", cols)
+        ),
+
+         ##### Secondary grouping area: optional ----
           shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
+          label = shiny::tagList("Area 2", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
-          choices = c("", cols)),
-          shiny::selectInput(ns("psu"), "Survey clusters", c("", cols))
+          choices = c("", cols)
+        ),
+
+         ##### Survey clusters: mandatory ----
+          shiny::selectInput(
+            inputId = ns("psu"), 
+            label = shiny::tagList(
+              "Survey clusters",
+              htmltools::tags$span("*", style = "color: red;"),
+          ), 
+          choices = c("", cols))
         ),
 
         #### Screening ----
+        ##### Primary grouping area: mandatory ----
         "screening" = list(
           shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", htmltools::tags$div(
+          label = shiny::tagList("Area 1", 
+          htmltools::tags$span("*", style = "color: red;"),
+          htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
           ), 
           choices = c("", cols)),
-          shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
+
+          ##### Secondary grouping area: optional ----
+          shiny::selectInput(
+            inputId = ns("area2"), 
+          label = shiny::tagList(
+            "Area 2", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
-          choices = c("", cols)),
-          shiny::selectInput(ns("sites"), "Screening sites", c("", cols))
+          choices = c("", cols)
+        ),
+
+         ##### Screening sites: mandatory ----
+          shiny::selectInput(
+            inputId = ns("sites"), 
+            label = shiny::tagList(
+              "Screening sites", htmltools::tags$span("*", style = "color: red;"),
+            ), 
+            choices = c("", cols)
+          )
         ),
 
         #### Sentinel sites ----
+        ##### Primary grouping area: mandatory ----
         "sentinel" = list(
           shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", htmltools::tags$div(
+          label = shiny::tagList("Area 1", 
+          htmltools::tags$span("*", style = "color: red;"),
+          htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
           ), 
-          choices = c("", cols)),
+          choices = c("", cols)
+        ),
+
+        ##### Secondary grouping area: optional ----
           shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2 (optional)", htmltools::tags$div(
+          label = shiny::tagList("Area 2", htmltools::tags$div(
               style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
           ),
-          choices = c("", cols)),
-          shiny::selectInput(ns("ssites"), "Sentinel sites", c("", cols))
+          choices = c("", cols)
+        ),
+
+        ##### Sentinel sites: mandatory ----
+          shiny::selectInput(
+           inputId = ns("ssites"), 
+           label = shiny::tagList("Sentinel sites", 
+           htmltools::tags$span("*", style = "color: red;")
+          ),
+           choices = c("", cols)
+          )
         )
       )
     })

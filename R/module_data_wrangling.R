@@ -94,31 +94,169 @@ module_server_wrangling <- function(id, data) {
 
           ##### WFHZ ----
           "wfhz" = list(
-            shiny::selectInput(ns("sex"), "Sex", c("", vars)),
-            shiny::selectInput(ns("weight"), "Weight (kg)", c("", vars)),
-            shiny::selectInput(ns("height"), "Height (cm)", c("", vars))
+
+            ###### Date of data collection: optional ----
+            shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
+
+            ###### Date of birth: optional ----
+            shiny::selectInput(ns("dob"), "Date of birth", c("", vars)),
+
+            ###### Age: optional ----
+            shiny::selectInput(ns("age"), "Age (months)", c("", vars)),
+
+            ###### Sex: mandatory ----
+            shiny::selectInput(
+              inputId = ns("sex"), 
+              label = shiny::tagList(
+                "Sex", 
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### Weight: mandatory ----
+            shiny::selectInput(
+              inputId = ns("weight"),
+              label = shiny::tagList(
+                "Weight (kg)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### Height: mandatory ----
+            shiny::selectInput(
+              inputId = ns("height"),
+              label = shiny::tagList(
+                "Height (cm)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            )
           ),
 
           ##### MFAZ ----
           "mfaz" = list(
-            shiny::selectInput(ns("age"), "Age (months)", c("", vars)),
-            shiny::selectInput(ns("sex"), "Sex", c("", vars)),
-            shiny::selectInput(ns("muac"), "MUAC (cm)", c("", vars))
+
+            ###### Date of data collection: optional ----
+            shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
+
+            ###### Date of birth: optional ----
+            shiny::selectInput(ns("dob"), "Date of birth", c("", vars)),
+
+            ###### Age: mandatory ----
+            shiny::selectInput(
+              inputId = ns("age"), 
+              label = shiny::tagList(
+              "Age (months)", 
+              htmltools::tags$span("*", style = "color: red;")
+            ),
+              choices = c("", vars)
+            ),
+
+            ###### Sex: mandatory ----
+            shiny::selectInput(
+              inputId = ns("sex"), 
+              label = shiny::tagList(
+                "Sex", 
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### MUAC: mandatory ----
+            shiny::selectInput(
+              inputId = ns("muac"),
+              label = shiny::tagList(
+                "MUAC (cm)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            )
           ),
 
           ##### RAW MUAC ----
           "muac" = list(
-            shiny::selectInput(ns("sex"), "Sex", c("", vars)),
-            shiny::selectInput(ns("muac"), "MUAC (cm)", c("", vars))
+
+            ###### Sex: mandatory ----
+            shiny::selectInput(
+              inputId = ns("sex"), 
+              label = shiny::tagList(
+                "Sex", 
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### MUAC: mandatory ----
+            shiny::selectInput(
+              inputId = ns("muac"),
+              label = shiny::tagList(
+                "MUAC (cm)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            )
           ),
 
           ##### Combined ----
           "combined" = list(
-            shiny::selectInput(ns("age"), "Age (months)", c("", vars)),
-            shiny::selectInput(ns("sex"), "Sex", c("", vars)),
-            shiny::selectInput(ns("weight"), "Weight (kg)", c("", vars)),
-            shiny::selectInput(ns("height"), "Height (cm)", c("", vars)),
-            shiny::selectInput(ns("muac"), "MUAC (cm)", c("", vars))
+
+            ###### Date of data collection: optional ----
+            shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
+
+             ###### Date of birth: optional ----
+            shiny::selectInput(ns("dob"), "Date of birth", c("", vars)),
+            
+            ###### Age: mandatory ----
+            shiny::selectInput(
+              inputId = ns("age"), 
+              label = shiny::tagList(
+              "Age (months)", 
+              htmltools::tags$span("*", style = "color: red;")
+            ),
+              choices = c("", vars)
+            ),
+
+            ###### Sex: mandatory ----
+            shiny::selectInput(
+              inputId = ns("sex"), 
+              label = shiny::tagList(
+                "Sex", 
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### Weight: mandatory ----
+            shiny::selectInput(
+              inputId = ns("weight"),
+              label = shiny::tagList(
+                "Weight (kg)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### Height: mandatory ----
+              shiny::selectInput(
+              inputId = ns("height"),
+              label = shiny::tagList(
+                "Height (cm)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+
+            ###### MUAC: mandatory ----
+            shiny::selectInput(
+              inputId = ns("muac"),
+              label = shiny::tagList(
+                "MUAC (cm)",
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            )
           )
         )
       })
