@@ -464,6 +464,9 @@ module_server_wrangling <- function(id, data) {
           )
         }
       )
+
+      #### Return data ----
+      return(shiny::reactive(dataset$wrangled))
     }
   )
 }

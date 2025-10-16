@@ -91,7 +91,7 @@ module_ui_plausibility_check <- function(id) {
           htmltools::tags$h6("Checking plausibility"), htmltools::tags$h6("Please wait...")
         )
       ),
-      shiny::uiOutput(outputId = ns("pls_download"))
+      shiny::uiOutput(outputId = ns("download_plausibility"))
     )
   )
 }
@@ -109,7 +109,7 @@ module_server_plausibility_check <- function(id, data) {
       ns <- session$ns
 
       ### Capture reactivity ----
-      dataset <- shiny::reactiveValues(checked = NULL)
+      plausibility <- shiny::reactiveValues(checked = NULL)
 
       ### Get current method ----
       get_method <- shiny::reactive({
@@ -319,11 +319,11 @@ module_server_plausibility_check <- function(id, data) {
       })
 
       ### Create container for reactivity ----
-      dataset$checking <- shiny::reactiveVal(FALSE)
+      plausibility$checking <- shiny::reactiveVal(FALSE)
 
       shiny::observeEvent(input$pls_check, {
         shiny::req(data())
-        dataset$checking(TRUE)
+        plausibility$checking(TRUE)
 
         #### Handle errors gracefully ----
         valid <- TRUE
@@ -356,7 +356,7 @@ module_server_plausibility_check <- function(id, data) {
 
         if (!valid) {
           shiny::showNotification(message, type = "error")
-          dataset$checking(FALSE)
+          plausibility$checking(FALSE)
           return()
         }
 
@@ -410,41 +410,82 @@ module_server_plausibility_check <- function(id, data) {
               }
             )
 
-            dataset$checked <- w
+            plausibility$checked <- w
           },
           error = function(e) {
             shiny::showNotification(paste("Checking error:", e$message), type = "error")
           }
         )
 
-        dataset$checking(FALSE)
+        plausibility$checking(FALSE)
       })
 
       ### Render results into UI ----
       output$pls_checked <- DT::renderDT({
         #### Ensure checked output is available ----
-        shiny::req(dataset$checked)
+        shiny::req(plausibility$checked)
         DT::datatable(
-          dataset$checked,
+          plausibility$checked,
           options = list(
             pageLength = 10,
             scrollX = TRUE,
             scrollY = "800px", 
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
-          caption = if (nrow(dataset$checked) > 30) {
+          caption = if (nrow(plausibility$checked) > 30) {
             paste(
-              "Showing first 30 rows of", format(nrow(dataset$checked), big.mark = "."),
+              "Showing first 30 rows of", format(nrow(plausibility$checked), big.mark = "."),
               "total rows"
             )
           } else {
-            paste("Showing all", nrow(dataset$checked), "rows")
+            paste("Showing all", nrow(plausibility$checked), "rows")
           }
-        ) |> DT::formatStyle(columns = colnames(dataset$checked), fontSize = "15px")
+        ) |> DT::formatStyle(columns = colnames(plausibility$checked), fontSize = "15px")
       })
-    }
-  )
+
+      #### Download button to download table of detected clusters in .xlsx ----
+    ##### Output into the UI ----
+    output$download_plausibility <- shiny::renderUI({
+      shiny::req(plausibility$checked)
+      shiny::req(!plausibility$checking())
+      htmltools::tags$div(
+        style = "margin-bottom: 15px; text-align: right;",
+        shiny::downloadButton(
+          outputId = ns("download_results"),
+          label = "Download Results",
+          class = "btn-primary",
+          icon = shiny::icon(name = "download", class = "fa-lg")
+        )
+      )
+    })
+
+    ##### Downloadable results by clicking on the download button ----
+    output$download_results <- shiny::downloadHandler(
+      filename = function() {
+        if (get_method() == "wfhz") {
+          paste0("mwana-plausibility-check-wfhz_", Sys.Date(), ".xlsx", sep = "")
+        } else if (get_method() == "mfaz") {
+          paste0("mwana-plausibility-check-mfaz_", Sys.Date(), ".xlsx", sep = "")
+        } else {
+          paste0("mwana-plausibility-check-muac_", Sys.Date(), ".xlsx", sep = "")
+        }
+      },
+      content = function(file) {
+        shiny::req(plausibility$checked) # Ensure results exist
+        tryCatch(
+          {
+            openxlsx::write.xlsx(plausibility$checked, file)
+            shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+          },
+          error = function(e) {
+            shiny::showNotification(paste("Error creating file:", e$message), type = "error")
+          }
+        )
+      }
+    )
+  })
 }
+
 
 
 
