@@ -22,48 +22,15 @@ module_ui_plausibility_check <- function(id) {
 
         #### Enable plausibility check options based on data wrangling method ----
 
-        # Show WFHZ options when wrangle method is "wfhz"
-        shiny::conditionalPanel(
-          condition = "input['wrangle_data-wrangle'] == 'wfhz'",
-          shiny::radioButtons(
-            inputId = ns("plc_wfhz"),
-            label = "Weight-for-Height z-scores (WFHZ)",
-            choices = list("WFHZ" = "wfhz")
-          )
-        ),
-
-        # Show MFAZ options when wrangle method is "mfaz"
-        shiny::conditionalPanel(
-          condition = "input['wrangle_data-wrangle'] == 'mfaz'",
-          shiny::radioButtons(
-            inputId = ns("plc_mfaz"),
-            label = "MUAC-for-Age z-scores (MFAZ)",
-            choices = list("MFAZ" = "mfaz")
-          )
-        ),
-
-        # Show MUAC options when wrangle method is "muac"
-        shiny::conditionalPanel(
-          condition = "input['wrangle_data-wrangle'] == 'muac'",
-          shiny::radioButtons(
-            inputId = ns("plc_muac"),
-            label = "Raw MUAC",
-            choices = list("MUAC" = "muac")
-          )
-        ),
-
-        # Show combined options for other methods
-        shiny::conditionalPanel(
-          condition = "input['wrangle_data-wrangle'] == 'combined'",
-          shiny::radioButtons(
-            inputId = ns("plc_wfhz_mfaz"),
-            label = "Selected method",
-            choices = list(
-              "Weight-for-Height z-scores (WFHZ)" = "wfhz",
-              "MUAC-for-Age z-scores (MFAZ)" = "mfaz"
-            ),
-            selected = "wfhz"
-          )
+        shiny::radioButtons(
+          inputId = ns("method"),
+          label = "Select Method",
+          choices = list(
+            "Weight-for-Height z-scores (WFHZ)" = "wfhz",
+            "MUAC-for-Age z-scores (MFAZ)" = "mfaz",
+            "Raw MUAC" = "muac"
+          ),
+          selected = "wfhz"
         ),
         shiny::uiOutput(outputId = ns("pls_check_vars")),
         htmltools::tags$br(),
@@ -111,38 +78,17 @@ module_server_plausibility_check <- function(id, data) {
       ### Capture reactivity ----
       plausibility <- shiny::reactiveValues(checked = NULL)
 
-      ### Get current method ----
-      get_method <- shiny::reactive({
-        if (!is.null(input$plc_wfhz) && input$plc_wfhz == "wfhz") {
-          "wfhz"
-        } else if (!is.null(input$plc_mfaz) && input$plc_mfaz == "mfaz") {
-          "mfaz"
-        } else if (!is.null(input$plc_muac) && input$plc_muac == "muac") {
-          "muac"
-        } else if (!is.null(input$plc_wfhz_mfaz)) {
-          input$plc_wfhz_mfaz
-        } else {
-          NULL
-        }
-      })
-
-      ### Fetch reactivity of user inputs ----
-      ui_inputs <- shiny::reactive({
-        #### Requires ----
+      ### Render variables on the basis of user-defined wrangling method ----
+      output$pls_check_vars <- shiny::renderUI({
+        #### Ensure data exists ----
         shiny::req(data())
 
         #### Get variable names to be displayed ----
         vars <- base::names(data())
-        
-        #### Get current method ----
-        method <- get_method()
-        
-        if (is.null(method)) {
-          return(list()) # Return empty if no method selected
-        }
 
-        #### Display inputs based on plausibility check method ----
-        if (method == "wfhz") {
+        #### Dynamically inputs based on user-defined plausibility method ----
+        if (input$method == "wfhz") {
+          ##### WFHZ ----
           list(
             shiny::selectInput(
               inputId = ns("area1"),
@@ -154,14 +100,19 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(ns("area2"),
               label = shiny::tagList("Area 2", htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
-
+            shiny::selectInput(
+              inputId = ns("area3"),
+              label = shiny::tagList("Area 3", htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
@@ -170,7 +121,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("age"),
               label = shiny::tagList(
@@ -179,7 +129,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("weight"),
               label = shiny::tagList(
@@ -188,7 +137,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("height"),
               label = shiny::tagList(
@@ -197,7 +145,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
@@ -207,7 +154,8 @@ module_server_plausibility_check <- function(id, data) {
               choices = c("", vars)
             )
           )
-        } else if (method == "mfaz") {
+        } else if (input$method == "mfaz") {
+          ##### MFAZ ----
           list(
             shiny::selectInput(
               inputId = ns("area1"),
@@ -219,14 +167,19 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(ns("area2"),
               label = shiny::tagList("Area 2", htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
-
+            shiny::selectInput(
+              inputId = ns("area3"),
+              label = shiny::tagList("Area 3", htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
@@ -235,7 +188,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("age"),
               label = shiny::tagList(
@@ -244,7 +196,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
@@ -253,7 +204,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
@@ -264,6 +214,7 @@ module_server_plausibility_check <- function(id, data) {
             )
           )
         } else {
+          ##### Raw MUAC ----
           list(
             shiny::selectInput(
               inputId = ns("area1"),
@@ -275,14 +226,19 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(ns("area2"),
               label = shiny::tagList("Area 2", htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
-
+            shiny::selectInput(
+              inputId = ns("area3"),
+              label = shiny::tagList("Area 3", htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
@@ -291,7 +247,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
@@ -300,7 +255,6 @@ module_server_plausibility_check <- function(id, data) {
               ),
               choices = c("", vars)
             ),
-
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
@@ -313,10 +267,6 @@ module_server_plausibility_check <- function(id, data) {
         }
       })
 
-      ### Display variables ----
-      output$pls_check_vars <- shiny::renderUI({
-        shiny::tagList(ui_inputs())
-      })
 
       ### Create container for reactivity ----
       plausibility$checking <- shiny::reactiveVal(FALSE)
@@ -328,22 +278,20 @@ module_server_plausibility_check <- function(id, data) {
         #### Handle errors gracefully ----
         valid <- TRUE
         message <- ""
-        
-        method <- get_method()
 
-        if (method == "wfhz") {
+        if (input$method == "wfhz") {
           required_vars <- c(input$sex, input$weight, input$height, input$age, input$flags)
           if (any(required_vars == "" | is.null(required_vars))) {
             valid <- FALSE
             message <- "Please select all required variables."
           }
-        } else if (method == "mfaz") {
+        } else if (input$method == "mfaz") {
           required_vars <- c(input$age, input$sex, input$muac, input$flags)
           if (any(required_vars == "" | is.null(required_vars))) {
             valid <- FALSE
             message <- "Please select all required variables."
           }
-        } else if (method == "muac") {
+        } else if (input$method == "muac") {
           required_vars <- c(input$sex, input$muac, input$flags)
           if (any(required_vars == "" | is.null(required_vars))) {
             valid <- FALSE
@@ -362,12 +310,14 @@ module_server_plausibility_check <- function(id, data) {
 
         tryCatch(
           expr = {
-            w <- switch(EXPR = method,
+            w <- switch(EXPR = input$method,
+
+              ##### Run plausibility check for WFHZ ----
               "wfhz" = {
                 shiny::req(
                   input$sex, input$weight, input$height, input$age, input$flags
                 )
-
+                ##### Run plausibility check ----
                 run_plausibility_check(
                   df = data(),
                   .for = "wfhz",
@@ -376,11 +326,12 @@ module_server_plausibility_check <- function(id, data) {
                   height = input$height,
                   weight = input$weight,
                   flags = input$flags,
-                  area1 = input$area1, 
-                  area2 = input$area2
-                ) |> 
-                mw_neat_output_wfhz()
+                  area1 = input$area1,
+                  area2 = input$area2,
+                  area3 = input$area3
+                )
               },
+              ##### Run plausibility check for MFAZ ----
               "mfaz" = {
                 shiny::req(input$age, input$sex, input$muac, input$flags)
 
@@ -391,10 +342,13 @@ module_server_plausibility_check <- function(id, data) {
                   age = input$age,
                   muac = input$muac,
                   flags = input$flags,
-                  area1 = input$area1, 
-                  area2 = input$area2
+                  area1 = input$area1,
+                  area2 = input$area2,
+                  area3 = input$area3
                 )
               },
+
+              ##### Run plausibility check for MUAC ----
               "muac" = {
                 shiny::req(input$sex, input$muac, input$flags)
 
@@ -404,8 +358,9 @@ module_server_plausibility_check <- function(id, data) {
                   sex = input$sex,
                   muac = input$muac,
                   flags = input$flags,
-                  area1 = input$area1, 
-                  area2 = input$area2
+                  area1 = input$area1,
+                  area2 = input$area2,
+                  area3 = input$area3
                 )
               }
             )
@@ -429,7 +384,7 @@ module_server_plausibility_check <- function(id, data) {
           options = list(
             pageLength = 10,
             scrollX = TRUE,
-            scrollY = "800px", 
+            scrollY = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
           caption = if (nrow(plausibility$checked) > 30) {
@@ -444,46 +399,47 @@ module_server_plausibility_check <- function(id, data) {
       })
 
       #### Download button to download table of detected clusters in .xlsx ----
-    ##### Output into the UI ----
-    output$download_plausibility <- shiny::renderUI({
-      shiny::req(plausibility$checked)
-      shiny::req(!plausibility$checking())
-      htmltools::tags$div(
-        style = "margin-bottom: 15px; text-align: right;",
-        shiny::downloadButton(
-          outputId = ns("download_results"),
-          label = "Download Results",
-          class = "btn-primary",
-          icon = shiny::icon(name = "download", class = "fa-lg")
+      ##### Output into the UI ----
+      output$download_plausibility <- shiny::renderUI({
+        shiny::req(plausibility$checked)
+        shiny::req(!plausibility$checking())
+        htmltools::tags$div(
+          style = "margin-bottom: 15px; text-align: right;",
+          shiny::downloadButton(
+            outputId = ns("download_results"),
+            label = "Download Results",
+            class = "btn-primary",
+            icon = shiny::icon(name = "download", class = "fa-lg")
+          )
         )
-      )
-    })
+      })
 
-    ##### Downloadable results by clicking on the download button ----
-    output$download_results <- shiny::downloadHandler(
-      filename = function() {
-        if (get_method() == "wfhz") {
-          paste0("mwana-plausibility-check-wfhz_", Sys.Date(), ".xlsx", sep = "")
-        } else if (get_method() == "mfaz") {
-          paste0("mwana-plausibility-check-mfaz_", Sys.Date(), ".xlsx", sep = "")
-        } else {
-          paste0("mwana-plausibility-check-muac_", Sys.Date(), ".xlsx", sep = "")
-        }
-      },
-      content = function(file) {
-        shiny::req(plausibility$checked) # Ensure results exist
-        tryCatch(
-          {
-            openxlsx::write.xlsx(plausibility$checked, file)
-            shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
-          },
-          error = function(e) {
-            shiny::showNotification(paste("Error creating file:", e$message), type = "error")
+      ##### Downloadable results by clicking on the download button ----
+      output$download_results <- shiny::downloadHandler(
+        filename = function() {
+          if (input$method == "wfhz") {
+            paste0("mwana-plausibility-check-wfhz_", Sys.Date(), ".xlsx", sep = "")
+          } else if (input$method == "mfaz") {
+            paste0("mwana-plausibility-check-mfaz_", Sys.Date(), ".xlsx", sep = "")
+          } else {
+            paste0("mwana-plausibility-check-muac_", Sys.Date(), ".xlsx", sep = "")
           }
-        )
-      }
-    )
-  })
+        },
+        content = function(file) {
+          shiny::req(plausibility$checked) # Ensure results exist
+          tryCatch(
+            {
+              openxlsx::write.xlsx(plausibility$checked, file)
+              shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+            },
+            error = function(e) {
+              shiny::showNotification(paste("Error creating file:", e$message), type = "error")
+            }
+          )
+        }
+      )
+    }
+  )
 }
 
 
@@ -497,71 +453,114 @@ module_server_plausibility_check <- function(id, data) {
 #' @keywords internal
 #'
 run_plausibility_check <- function(
-  df, age = NULL, sex, muac = NULL, weight = NULL, 
-  height = NULL, flags, area1, area2, .for = c("wfhz", "muac", "mfaz")
-) {
-
+    df, age = NULL, sex, muac = NULL, weight = NULL,
+    height = NULL, flags, area1, area2, area3, .for = c("wfhz", "muac", "mfaz")) {
   .for <- match.arg(.for)
 
   if (.for == "wfhz") {
-    if (area2 != "") {
-      mw_plausibility_check_wfhz(
-        df = df, 
-        sex = !!rlang::sym(sex), 
-        age = !!rlang::sym(age),
-        weight = !!rlang::sym(weight),
-        height = !!rlang::sym(height), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1), !!rlang::sym(area2)
+    if (all(area2 != "", area3 != "")) {
+      mw_neat_output_wfhz(
+        mw_plausibility_check_wfhz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          age = !!rlang::sym(age),
+          weight = !!rlang::sym(weight),
+          height = !!rlang::sym(height),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+        )
+      )
+    } else if (area2 != "" && area3 == "") {
+      mw_neat_output_wfhz(
+        mw_plausibility_check_wfhz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          age = !!rlang::sym(age),
+          weight = !!rlang::sym(weight),
+          height = !!rlang::sym(height),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2)
+        )
       )
     } else {
-      mw_plausibility_check_wfhz(
-        df = df, 
-        sex = !!rlang::sym(sex), 
-        age = !!rlang::sym(age), 
-        weight = !!rlang::sym(weight), 
-        height = !!rlang::sym(height), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1)
+      mw_neat_output_wfhz(
+        mw_plausibility_check_wfhz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          age = !!rlang::sym(age),
+          weight = !!rlang::sym(weight),
+          height = !!rlang::sym(height),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1)
+        )
       )
     }
   } else if (.for == "mfaz") {
-    if (area2 != "") {
-      mw_plausibility_check_mfaz(
-        df = df, 
-        sex = !!rlang::sym(sex), 
-        muac = !!rlang::sym(muac), 
-        age = !!rlang::sym(age), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1), !!rlang::sym(area2)
+    if (all(c(area2, area3) != "")) {
+      mw_neat_output_mfaz(
+        mw_plausibility_check_mfaz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          age = !!rlang::sym(age),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+        )
+      )
+    } else if (area2 != "" && area3 == "") {
+      mw_neat_output_mfaz(
+        mw_plausibility_check_mfaz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          age = !!rlang::sym(age),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2)
+        )
       )
     } else {
-       mw_plausibility_check_mfaz(
-        df = df, 
-        sex = !!rlang::sym(sex), 
-        muac = !!rlang::sym(muac), 
-        age = !!rlang::sym(age), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1)
-       )
+      mw_neat_output_mfaz(
+        mw_plausibility_check_mfaz(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          age = !!rlang::sym(age),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1)
+        )
+      )
     }
   } else {
-    if (area2 != "") {
-      mw_plausibility_check_muac(
-                df = df, 
-        sex = !!rlang::sym(sex), 
-        muac = !!rlang::sym(muac), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1), !!rlang::sym(area2)
+    if (all(c(area2, area3) != "")) {
+      mw_neat_output_muac(
+        mw_plausibility_check_muac(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+        )
+      )
+    } else if (area2 != "" && area3 == "") {
+      mw_neat_output_muac(
+        mw_plausibility_check_muac(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1), !!rlang::sym(area2)
+        )
       )
     } else {
-       mw_plausibility_check_muac(
-                df = df, 
-        sex = !!rlang::sym(sex), 
-        muac = !!rlang::sym(muac), 
-        flags = !!rlang::sym(flags), 
-        !!rlang::sym(area1)
-       )
+      mw_neat_output_muac(
+        mw_plausibility_check_muac(
+          df = df,
+          sex = !!rlang::sym(sex),
+          muac = !!rlang::sym(muac),
+          flags = !!rlang::sym(flags),
+          !!rlang::sym(area1)
+        )
+      )
+    }
   }
-}
 }
