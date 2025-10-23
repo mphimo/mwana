@@ -1,7 +1,7 @@
 #'
 #'
 #'
-#' @keywords export
+#' @export
 #'
 #'
 module_ui_plausibility_check <- function(id) {
@@ -32,10 +32,10 @@ module_ui_plausibility_check <- function(id) {
           ),
           selected = "wfhz"
         ),
-        shiny::uiOutput(outputId = ns("pls_check_vars")),
+        shiny::uiOutput(outputId = ns("check_vars")),
         htmltools::tags$br(),
         shiny::actionButton(
-          inputId = ns("pls_check"),
+          inputId = ns("check"),
           label = "Check Plausibility",
           class = "btn-primary"
         )
@@ -48,7 +48,7 @@ module_ui_plausibility_check <- function(id) {
         style = "font-weight: 600;"
       )),
       shinycssloaders::withSpinner(
-        ui_element = DT::DTOutput(outputId = ns("pls_checked")),
+        ui_element = DT::DTOutput(outputId = ns("checked")),
         type = 8,
         color.background = "#004225",
         image = "logo.png",
@@ -67,7 +67,7 @@ module_ui_plausibility_check <- function(id) {
 #'
 #'
 #'
-#'
+#' @export
 #'
 module_server_plausibility_check <- function(id, data) {
   shiny::moduleServer(
@@ -79,7 +79,7 @@ module_server_plausibility_check <- function(id, data) {
       plausibility <- shiny::reactiveValues(checked = NULL)
 
       ### Render variables on the basis of user-defined wrangling method ----
-      output$pls_check_vars <- shiny::renderUI({
+      output$check_vars <- shiny::renderUI({
         #### Ensure data exists ----
         shiny::req(data())
 
@@ -271,7 +271,7 @@ module_server_plausibility_check <- function(id, data) {
       ### Create container for reactivity ----
       plausibility$checking <- shiny::reactiveVal(FALSE)
 
-      shiny::observeEvent(input$pls_check, {
+      shiny::observeEvent(input$check, {
         shiny::req(data())
         plausibility$checking(TRUE)
 
@@ -376,7 +376,7 @@ module_server_plausibility_check <- function(id, data) {
       })
 
       ### Render results into UI ----
-      output$pls_checked <- DT::renderDT({
+      output$checked <- DT::renderDT({
         #### Ensure checked output is available ----
         shiny::req(plausibility$checked)
         DT::datatable(
