@@ -46,7 +46,7 @@ module_ui_prevalence <- function(id) {
 
         #### Add action button ----
         shiny::actionButton(
-          inputId = ns("estimprev"),
+          inputId = ns("estimate"),
           label = "Estimate Prevalence",
           class = "btn-primary"
         )
@@ -77,7 +77,7 @@ module_ui_prevalence <- function(id) {
       ),
 
       #### Download results ----
-      shiny::uiOutput(outputId = ns("download_results"))
+      shiny::uiOutput(outputId = ns("download_prevalence"))
     )
   )
 }
@@ -150,10 +150,32 @@ module_server_prevalence <- function(id, data) {
       })
 
       ### Always observe Action button, but branch inside ----
-      shiny::observeEvent(input$estimprev, {
+      shiny::observeEvent(input$estimate, {
         ### Ensure input data exists ----
         shiny::req(data())
         prevalence$estimating <- TRUE
+
+        ### Handle errors gracefully ----
+        valid <- TRUE
+        message <- ""
+
+        if (input$amn_method_screening == "yes") {
+        if (!nzchar(input$muac)) {
+          valid <- FALSE
+          message <- "Please supply MUAC variable."
+        }
+        } else {
+          if (any(!nzchar(c(input$muac, input$age_cat)))) {
+            valid <- FALSE
+            message <- "Please select all required variables: MUAC and Age category."
+          }
+        }
+
+        if (!valid) {
+          shiny::showNotification(message, type = "error")
+          prevalence$estimating <- FALSE
+          return()
+        }
 
         tryCatch(
           {
@@ -195,23 +217,35 @@ module_server_prevalence <- function(id, data) {
             } else {
               switch(input$amn_method_screening,
                 "yes" = {
+                  shiny::req(input$muac)
+
                   data() |>
                     dplyr::mutate(muac = recode_muac(muac, "mm")) |>
-                    mw_estimate_prevalence_screening(
-                      muac = !!rlang::sym(input$muac)
+                    run_mwana_prevalence_muac_screening(
+                      muac = input$muac,
+                      oedema = input$oedema,
+                      area1 = input$area1,
+                      area2 = input$area2,
+                      area3 = input$area3
                     )
                 },
                 "no" = {
+                  shiny::req(input$muac, input$age_cat)
+
                   data() |>
                     dplyr::mutate(muac = recode_muac(muac, "mm")) |>
-                    mw_estimate_prevalence_screening2(
-                      age_cat = !!rlang::sym(input$age_cat),
-                      muac = !!rlang::sym(input$muac)
+                    run_mwana_prevalence_muac_screening2(
+                      age_cat = input$age_cat,
+                      muac = input$muac,
+                      oedema = input$oedema,
+                      area1 = input$area1,
+                      area2 = input$area2,
+                      area3 = input$area3
                     )
                 }
               )
             }
-            
+
             # Store the result
             prevalence$estimated <- p
           },
@@ -247,6 +281,57 @@ module_server_prevalence <- function(id, data) {
           }
         ) |> DT::formatStyle(columns = colnames(prevalence$estimated), fontSize = "15px")
       })
+
+
+      #### Download button to download table of detected clusters in .xlsx ----
+      ##### Output into the UI ----
+      output$download_prevalence <- shiny::renderUI({
+        shiny::req(prevalence$estimated)
+        prevalence$estimating <- FALSE
+        htmltools::tags$div(
+          style = "margin-bottom: 15px; text-align: right;",
+          shiny::downloadButton(
+            outputId = ns("download_results"),
+            label = "Download Results",
+            class = "btn-primary",
+            icon = shiny::icon(name = "download", class = "fa-lg")
+          )
+        )
+      })
+
+
+      ##### Downloadable results by clicking on the download button ----
+      output$download_results <- shiny::downloadHandler(
+        filename = function() {
+          if (input$source == "survey") {
+            if (input$amn_method_survey == "wfhz") {
+              paste0("mwana-amn-prevalence-survey-wfhz_", Sys.Date(), ".xlsx", sep = "")
+            } else if (input$amn_method_survey == "muac") {
+              paste0("mwana-amn-prevalence-survey-muac_", Sys.Date(), ".xlsx", sep = "")
+            } else {
+              paste0("mwana-amn-prevalence-survey-combined_", Sys.Date(), ".xlsx", sep = "")
+            }
+          } else {
+            if (input$amn_method_screening == "yes") {
+              paste0("mwana-amn-prevalence-screening-age-avail_", Sys.Date(), ".xlsx", sep = "")
+            } else {
+              paste0("mwana-amn-prevalence-screening-age-notavail_", Sys.Date(), ".xlsx", sep = "")
+            }
+          }
+        },
+        content <- function(file) {
+          shiny::req(prevalence$estimated) # Ensure results exist
+          tryCatch(
+            {
+              openxlsx::write.xlsx(prevalence$estimated, file)
+              shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+            },
+            error = function(e) {
+              shiny::showNotification(paste("Error creating file:", e$message), type = "error")
+            }
+          )
+        }
+      )
     }
   )
 }
@@ -383,7 +468,7 @@ run_mwana_prevalence_functions_wfhz <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
-    } else if (nzchar(wts)  && !nzchar(oedema)) {
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
@@ -413,7 +498,7 @@ run_mwana_prevalence_functions_wfhz <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
@@ -443,7 +528,7 @@ run_mwana_prevalence_functions_wfhz <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
@@ -486,7 +571,7 @@ run_mwana_prevalence_functions_muac <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
-    } else if (nzchar(wts)  && !nzchar(oedema)) {
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_muac(
         df = df,
         wt = !!rlang::sym(wts),
@@ -516,7 +601,7 @@ run_mwana_prevalence_functions_muac <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_muac(
         df = df,
         wt = !!rlang::sym(wts),
@@ -546,7 +631,7 @@ run_mwana_prevalence_functions_muac <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_muac(
         df = df,
         wt = !!rlang::sym(wts),
@@ -589,7 +674,7 @@ run_mwana_prevalence_functions_combined <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
-    } else if (nzchar(wts)  && !nzchar(oedema)) {
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_combined(
         df = df,
         wt = !!rlang::sym(wts),
@@ -619,7 +704,7 @@ run_mwana_prevalence_functions_combined <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_combined(
         df = df,
         wt = !!rlang::sym(wts),
@@ -649,7 +734,7 @@ run_mwana_prevalence_functions_combined <- function(
         edema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
-    } else if (nzchar(wts) && !nzchar(oedema)){
+    } else if (nzchar(wts) && !nzchar(oedema)) {
       mw_estimate_prevalence_combined(
         df = df,
         wt = !!rlang::sym(wts),
@@ -667,3 +752,125 @@ run_mwana_prevalence_functions_combined <- function(
   }
 }
 
+
+#'
+#'
+#'
+#'
+#'
+#'
+run_mwana_prevalence_muac_screening <- function(
+    df, muac, oedema = NULL,
+    area1, area2, area3) {
+  if (all(nzchar(c(area1, area2, area3)))) {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    }
+  } else if (nzchar(area2) && !nzchar(area3)) {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    }
+  } else {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else {
+      mw_estimate_prevalence_screening(
+        df = df,
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    }
+  }
+}
+
+
+
+run_mwana_prevalence_muac_screening2 <- function(
+    df, age_cat, muac, oedema = NULL,
+    area1, area2, area3) {
+  if (all(nzchar(c(area1, area2, area3)))) {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening2(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else {
+      mw_estimate_prevalence_screening2(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    }
+  } else if (nzchar(area2) && !nzchar(area3)) {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else {
+      mw_estimate_prevalence_screening(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    }
+  } else {
+    if (nzchar(oedema)) {
+      mw_estimate_prevalence_screening(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else {
+      mw_estimate_prevalence_screening(
+        df = df,
+        age_cat = !!rlang::sym(age_cat),
+        muac = !!rlang::sym(muac),
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    }
+  }
+}
