@@ -96,7 +96,7 @@ module_server_wrangling <- function(id, data) {
         switch(input$wrangle,
 
           ##### WFHZ ----
-          "wfhz" = list(
+          "wfhz" = {list(
 
             ###### Date of data collection: optional ----
             shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
@@ -136,10 +136,10 @@ module_server_wrangling <- function(id, data) {
               ),
               choices = c("", vars)
             )
-          ),
+          )},
 
           ##### MFAZ ----
-          "mfaz" = list(
+          "mfaz" = {list(
 
             ###### Date of data collection: optional ----
             shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
@@ -176,10 +176,10 @@ module_server_wrangling <- function(id, data) {
               ),
               choices = c("", vars)
             )
-          ),
+          )},
 
           ##### RAW MUAC ----
-          "muac" = list(
+          "muac" = {list(
 
             ###### Sex: mandatory ----
             shiny::selectInput(
@@ -200,10 +200,10 @@ module_server_wrangling <- function(id, data) {
               ),
               choices = c("", vars)
             )
-          ),
+          )},
 
           ##### Combined ----
-          "combined" = list(
+          "combined" = {list(
 
             ###### Date of data collection: optional ----
             shiny::selectInput(ns("dos"), "Date of data collection", c("", vars)),
@@ -260,7 +260,7 @@ module_server_wrangling <- function(id, data) {
               ),
               choices = c("", vars)
             )
-          )
+          )}
         )
       })
 
@@ -280,17 +280,17 @@ module_server_wrangling <- function(id, data) {
         message <- ""
 
         if (input$wrangle == "wfhz") {
-          if (is.null(input$sex) || is.null(input$weight) || is.null(input$height)) {
+          if (any(!nzchar(c(input$sex, input$weight, input$height)))) {
             valid <- FALSE
             message <- "Please select all required variables."
           }
         } else if (input$wrangle == "muac") {
-          if (is.null(input$age) || is.null(input$sex) || is.null(input$muac)) {
+          if (any(!nzchar(c(input$age, input$sex, input$muac)))) {
             valid <- FALSE
             message <- "Please select all required variables."
           }
         } else {
-          if (is.null(any(c(input$age, input$sex, input$weight, input$height, input$muac)))) {
+          if (any(!nzchar(c(input$age, input$sex, input$weight, input$height, input$muac)))) {
             message <- "Please select all required variables."
           }
         }

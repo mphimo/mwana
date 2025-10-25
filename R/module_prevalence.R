@@ -134,86 +134,84 @@ module_server_prevalence <- function(id, data) {
       })
 
       shiny::observeEvent(input$source, {
-        if (input$source == "survey") {
-          ### Render input variables ----
-          output$amn_vars <- shiny::renderUI({
-            ### Ensure input data exists ----
-            shiny::req(data())
+        ### Ensure input data exists ----
+        shiny::req(data())
 
-            #### Capture variable names in the input data ----
-            vars <- names(data())
-
-            switch(input$amn_method_survey,
-              "wfhz" = {
-                display_input_variables_survey(vars = vars, ns = ns)
-              },
-              "muac" = {
-                display_input_variables_survey(vars = vars, ns = ns)
-              },
-              "combined" = {
-                display_input_variables_survey(vars = vars, ns = ns)
-              }
-            )
-          })
-
-          prevalence$estimating <- shiny::reactiveVal(FALSE)
-
-          shiny::observeEvent(input$estimprev, {
-            ### Ensure input data exists ----
-            shiny::req(data())
-            prevalence$estimating(TRUE)
-
-            tryCatch(
-              expr = {
-                p <- switch(EXPR = input$amn_method_screening,
-                  "wfhz" = {
-                    mw_estimate_prevalence_wfhz(df = data())
-                  },
-                  "muac" = {
-                    data() |>
-                      dplyr::mutate(muac = recode_muac(muac, "mm")) |>
-                      mw_estimate_prevalence_muac()
-                  },
-                  "combined" = {
-                    data() |>
-                      dplyr::mutate(muac, recode_muac(muac, "mm")) |>
-                      mw_estimate_prevalence_combined()
-                  }
-                )
-
-                prevalence$estimated <- p
-              },
-              error = function(e) {
-                shiny::showNotification(
-                  paste("Error while estimating:", e$message),
-                  type = "error"
-                )
-              }
-            )
-
-            prevalence$estimating(FALSE)
-          })
-        } else {
-          output$amn_vars <- shiny::renderUI({
-            ### Ensure input data exists ----
-            shiny::req(data())
-
-            #### Capture variable names in the input data ----
-            vars <- names(data())
-
-            switch(input$amn_method_screening,
-              "yes" = {
-                display_input_variables_screening(vars = vars, ns = ns)
-              },
-              "no" = {
-                display_input_variables_screening(vars = vars, ns = ns)
-              }
-            )
-          })
-        }
+        ### Render input variables ----
+        output$amn_vars <- shiny::renderUI({
+          vars <- names(data())
+          shiny::req(data())
+          if (input$source == "survey") {
+            display_input_variables_survey(vars = vars, ns = ns)
+          } else {
+            display_input_variables_screening(vars = vars, ns = ns)
+          }
+        })
       })
 
+      ### Always observe Action button, but branch inside ----
+      shiny::observeEvent(input$estimprev, {
+        ### Ensure input data exists ----
+        shiny::req(data())
+        prevalence$estimating <- TRUE
 
+        tryCatch(
+          {
+            p <- if (input$source == "survey") {
+              switch(input$amn_method_survey,
+                "wfhz" = {
+                  run_mwana_prevalence_functions_wfhz(
+                    df = data(),
+                    wts = input$wts,
+                    oedema = input$oedema,
+                    area1 = input$area1,
+                    area2 = input$area2,
+                    area3 = input$area3
+                  )
+                },
+                "muac" = {
+                  data() |>
+                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    mw_estimate_prevalence_muac()
+                },
+                "combined" = {
+                  data() |>
+                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    mw_estimate_prevalence_combined()
+                }
+              )
+            } else {
+              switch(input$amn_method_screening,
+                "yes" = {
+                  data() |>
+                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    mw_estimate_prevalence_screening(
+                      muac = !!rlang::sym(input$muac)
+                    )
+                },
+                "no" = {
+                  data() |>
+                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    mw_estimate_prevalence_screening2(
+                      age_cat = !!rlang::sym(input$age_cat),
+                      muac = !!rlang::sym(input$muac)
+                    )
+                }
+              )
+            }
+            
+            # Store the result
+            prevalence$estimated <- p
+          },
+          error = function(e) {
+            shiny::showNotification(
+              ui = paste("Error while estimating:", e$message), type = "error"
+            )
+          }
+        )
+
+        prevalence$estimating <- FALSE
+      })
 
       ### Render results into UI ----
       output$results <- DT::renderDT({
@@ -330,10 +328,16 @@ display_input_variables_screening <- function(vars, ns) {
       label = shiny::tagList(
         "Age categories (6-23 and 24-59)",
         htmltools::tags$div(
-          style = "font-size: 0.85em; color: #6c7574;", 
-            "Only supply in the absence of age in months"
-        )), 
-        choices = c("", vars)
+          style = "font-size: 0.85em; color: #6c7574;",
+          "Only sapply in the absence of age in months"
+        )
+      ),
+      choices = c("", vars)
+    ),
+    shiny::selectInput(
+      inputId = ns("muac"),
+      label = shiny::tagList("MUAC", htmltools::tags$span("*", style = "color: red;")),
+      choices = c("", vars)
     ),
     shiny::selectInput(
       inputId = ns("oedema"),
@@ -352,71 +356,92 @@ display_input_variables_screening <- function(vars, ns) {
 run_mwana_prevalence_functions_wfhz <- function(
     df, wts = NULL, oedema = NULL,
     area1, area2, area3) {
-  if (all(c(area1, area2) != "")) {
-    if (all(c(wts, oedema) != "")) {
+  if (all(nzchar(c(area1, area2, area3)))) {
+    if ((nzchar(wts) && nzchar(oedema))) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
         oedema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
-    } else if (wts == "") {
+    } else if (!nzchar(wts) && nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else if (nzchar(wts)  && !nzchar(oedema)) {
+      mw_estimate_prevalence_wfhz(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
     } else {
       mw_estimate_prevalence_wfhz(
         df = df,
-        wt = !!rlang::sym(wts),
+        wt = NULL,
         oedema = NULL,
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
     }
-  } else if (area2 != "" && area3 == "") {
-    if (all(c(wts, oedema) != "")) {
+  } else if (nzchar(area2) && !nzchar(area3)) {
+    if (all(sapply(c(wts, oedema), !nzchar))) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
         oedema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
-    } else if (wts == "") {
+    } else if (!nzchar(wts) && nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
         oedema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
-    } else {
+    } else if (nzchar(wts) && !nzchar(oedema)){
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
         oedema = NULL,
         !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else {
+      mw_estimate_prevalence_wfhz(
+        df = df,
+        wt = NULL,
+        oedema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
     }
   } else {
-    if (all(c(wts, oedema) != "")) {
+    if (all(sapply(c(wts, oedema), !nzchar))) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
         oedema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
-    } else if (wts == "") {
+    } else if (!nzchar(wts) && nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
         oedema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
-    } else {
+    } else if (nzchar(wts) && !nzchar(oedema)){
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
+        oedema = NULL,
+        !!rlang::sym(area1)
+      )
+    } else {
+      mw_estimate_prevalence_wfhz(
+        df = df,
+        wt = NULL,
         oedema = NULL,
         !!rlang::sym(area1)
       )
