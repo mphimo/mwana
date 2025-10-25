@@ -18,4 +18,7 @@ server <- function(input, output, session) {
   ### Plausibility Check ----
   module_server_plausibility_check(id = "plausible", data = wrangled)
 
+  ### Prevalence ----
+  module_server_prevalence(id = "prevalence", data = wrangled)
+
 }
