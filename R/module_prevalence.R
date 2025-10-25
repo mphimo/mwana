@@ -172,12 +172,24 @@ module_server_prevalence <- function(id, data) {
                 "muac" = {
                   data() |>
                     dplyr::mutate(muac = recode_muac(muac, "mm")) |>
-                    mw_estimate_prevalence_muac()
+                    run_mwana_prevalence_functions_muac(
+                      wts = input$wts,
+                      oedema = input$oedema,
+                      area1 = input$area1,
+                      area2 = input$area2,
+                      area3 = input$area3
+                    )
                 },
                 "combined" = {
                   data() |>
                     dplyr::mutate(muac = recode_muac(muac, "mm")) |>
-                    mw_estimate_prevalence_combined()
+                    run_mwana_prevalence_functions_combined(
+                      wts = input$wts,
+                      oedema = input$oedema,
+                      area1 = input$area1,
+                      area2 = input$area2,
+                      area3 = input$area3
+                    )
                 }
               )
             } else {
@@ -361,7 +373,7 @@ run_mwana_prevalence_functions_wfhz <- function(
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
     } else if (!nzchar(wts) && nzchar(oedema)) {
@@ -382,69 +394,276 @@ run_mwana_prevalence_functions_wfhz <- function(
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = NULL,
+        edema = NULL,
         !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
       )
     }
   } else if (nzchar(area2) && !nzchar(area3)) {
-    if (all(sapply(c(wts, oedema), !nzchar))) {
+    if (all(nzchar(c(wts, oedema)))) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
     } else if (!nzchar(wts) && nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
     } else if (nzchar(wts) && !nzchar(oedema)){
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
-        oedema = NULL,
+        edema = NULL,
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
     } else {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = NULL,
-        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
       )
     }
   } else {
-    if (all(sapply(c(wts, oedema), !nzchar))) {
+    if (all(nzchar(c(wts, oedema)))) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
     } else if (!nzchar(wts) && nzchar(oedema)) {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = !!rlang::sym(oedema),
+        edema = !!rlang::sym(oedema),
         !!rlang::sym(area1)
       )
     } else if (nzchar(wts) && !nzchar(oedema)){
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = !!rlang::sym(wts),
-        oedema = NULL,
+        edema = NULL,
         !!rlang::sym(area1)
       )
     } else {
       mw_estimate_prevalence_wfhz(
         df = df,
         wt = NULL,
-        oedema = NULL,
+        edema = NULL,
         !!rlang::sym(area1)
       )
     }
   }
 }
+
+
+#'
+#'
+#'
+#'
+#'
+#'
+run_mwana_prevalence_functions_muac <- function(
+    df, wts = NULL, oedema = NULL,
+    area1, area2, area3) {
+  if (all(nzchar(c(area1, area2, area3)))) {
+    if ((nzchar(wts) && nzchar(oedema))) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else if (nzchar(wts)  && !nzchar(oedema)) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    }
+  } else if (nzchar(area2) && !nzchar(area3)) {
+    if (all(nzchar(c(wts, oedema)))) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else if (nzchar(wts) && !nzchar(oedema)){
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    }
+  } else {
+    if (all(nzchar(c(wts, oedema)))) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else if (nzchar(wts) && !nzchar(oedema)){
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    } else {
+      mw_estimate_prevalence_muac(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    }
+  }
+}
+
+
+#'
+#'
+#'
+#'
+#'
+#'
+run_mwana_prevalence_functions_combined <- function(
+    df, wts = NULL, oedema = NULL,
+    area1, area2, area3) {
+  if (all(nzchar(c(area1, area2, area3)))) {
+    if ((nzchar(wts) && nzchar(oedema))) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else if (nzchar(wts)  && !nzchar(oedema)) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    } else {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
+      )
+    }
+  } else if (nzchar(area2) && !nzchar(area3)) {
+    if (all(nzchar(c(wts, oedema)))) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else if (nzchar(wts) && !nzchar(oedema)){
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    } else {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1), !!rlang::sym(area2)
+      )
+    }
+  } else {
+    if (all(nzchar(c(wts, oedema)))) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else if (!nzchar(wts) && nzchar(oedema)) {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = !!rlang::sym(oedema),
+        !!rlang::sym(area1)
+      )
+    } else if (nzchar(wts) && !nzchar(oedema)){
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = !!rlang::sym(wts),
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    } else {
+      mw_estimate_prevalence_combined(
+        df = df,
+        wt = NULL,
+        edema = NULL,
+        !!rlang::sym(area1)
+      )
+    }
+  }
+}
+
