@@ -121,13 +121,7 @@ ui <- page_navbar(
 
   nav_panel(
     title = "Prevalence Analysis",
-    layout_sidebar(
-      sidebar = sidebar(
-        width = 400,
-        card()
-      ),
-      card()
-    )
+    module_ui_prevalence(id = "prevalence")
   ),
 
   ## ---- Tab 3: IPC Check -----------------------------------------------------
