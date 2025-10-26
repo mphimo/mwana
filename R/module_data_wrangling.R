@@ -287,15 +287,21 @@ module_server_wrangling <- function(id, data) {
         if (input$wrangle == "wfhz") {
           if (any(!nzchar(c(input$sex, input$weight, input$height)))) {
             valid <- FALSE
-            message <- "Please select all required variables."
+            message <- "Please select all required variables: Sex, Weight and Height."
           }
-        } else if (input$wrangle == "muac") {
+        } else if (input$wrangle == "mfaz") {
           if (any(!nzchar(c(input$age, input$sex, input$muac)))) {
             valid <- FALSE
-            message <- "Please select all required variables."
+            message <- "Please select all required variables: Age, Sex and MUAC"
+          }
+        } else if (input$wrangle == "muac") {
+          if (any(!nzchar(c(input$sex, input$muac)))) {
+            valid <- FALSE
+            message <- "Please select all required variables: Sex and MUAC."
           }
         } else {
           if (any(!nzchar(c(input$age, input$sex, input$weight, input$height, input$muac)))) {
+            valid <- FALSE
             message <- "Please select all required variables."
           }
         }
@@ -395,7 +401,9 @@ module_server_wrangling <- function(id, data) {
             dataset$wrangled <- w
           },
           error = function(e) {
-            shiny::showNotification(paste("Wrangling error", e$message), type = "error")
+            shiny::showNotification(
+              paste("Wrangling error:", e$message), type = "error"
+            )
           }
         )
 
