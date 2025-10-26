@@ -15,7 +15,13 @@ library(rlang)
 
 ## ---- User's navigation bars -------------------------------------------------
 
-ui <- page_navbar(
+ui <- tagList(
+   ### Link up with custom .css file ----
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+  ),
+
+  page_navbar(
 
   ### Left side: app name and logo ----
   title = tags$div(
@@ -31,11 +37,6 @@ ui <- page_navbar(
     )
   ),
 
-  ### Link up with custom .css file ----
-  tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
-  ),
-
   ## ---- Tab 1: Home ----------------------------------------------------------
 
   nav_panel(
@@ -45,7 +46,7 @@ ui <- page_navbar(
     ### Left sidebar for contents ----
     layout_sidebar(
       sidebar = tags$div(
-        sytle = "padding: 1rem;",
+        style = "padding: 1rem;",
         tags$h4("Contents"),
         tags$h6(tags$a(href = "#sec1", "Welcome")),
         tags$h6(tags$a(href = "#sec2", "Data Upload")),
@@ -133,4 +134,5 @@ ui <- page_navbar(
     title = "IPC Check", 
     module_ui_ipccheck(id = "ipc_check")
   )
+)
 )
