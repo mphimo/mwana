@@ -137,21 +137,17 @@ module_server_prevalence <- function(id, data) {
         )
       })
 
-      shiny::observeEvent(input$source, {
-        ### Ensure input data exists ----
-        shiny::req(data())
-
-        ### Render input variables ----
+      ### Render input variables ----
         output$amn_vars <- shiny::renderUI({
+
+           shiny::req(data())
           vars <- names(data())
-          shiny::req(data())
           if (input$source == "survey") {
             mod_display_input_variables_survey(vars = vars, ns = ns)
           } else {
             mod_display_input_variables_screening(vars = vars, ns = ns)
           }
         })
-      })
 
       ### Always observe Action button, but branch inside ----
       shiny::observeEvent(input$estimate, {
@@ -163,15 +159,17 @@ module_server_prevalence <- function(id, data) {
         valid <- TRUE
         message <- ""
 
-        if (input$amn_method_screening == "yes") {
-        if (!nzchar(input$muac)) {
-          valid <- FALSE
+        if (input$source == "screening") {
+          if (input$amn_method_screening == "yes") {
+            if (!nzchar(input$muac)) {
+              valid <- FALSE
           message <- "Please supply MUAC variable."
-        }
-        } else {
-          if (any(!nzchar(c(input$muac, input$age_cat)))) {
+            }
+          } else {
+            if (any(!nzchar(c(input$muac, input$age_cat)))) {
             valid <- FALSE
             message <- "Please select all required variables: MUAC and Age category."
+          }
           }
         }
 
