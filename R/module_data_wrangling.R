@@ -1,10 +1,12 @@
+## ---- Module: UI -------------------------------------------------------------
+
+
 #'
 #'
-#'
-#'
-#' @keywords internal
 #' 
 #' @export
+#' 
+#' 
 #'
 module_ui_wrangling <- function(id) {
   ## Namespace ID ----
@@ -68,14 +70,17 @@ module_ui_wrangling <- function(id) {
 }
 
 
+## ---- Module: Server ---------------------------------------------------------
+
+
 #'
 #'
 #'
-#'
-#' @keywords internal
 #' 
 #' @export
 #'
+#' 
+#' 
 module_server_wrangling <- function(id, data) {
   shiny::moduleServer(
     id,

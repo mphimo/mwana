@@ -4,10 +4,9 @@
 #'
 #'
 #'
-#'
-#' @keywords internal
-#'
 #' @export
+#' 
+#' 
 #' 
 module_ui_ipccheck <- function(id) {
   ## Namespace ID ----
@@ -70,10 +69,9 @@ module_ui_ipccheck <- function(id) {
 #'
 #'
 #'
-#'
-#' @keywords internal
-#'
-#' @export
+#' @export 
+#' 
+#' 
 #' 
 module_server_ipccheck <- function(id, data) {
   shiny::moduleServer(id, function(input, output, session) {
@@ -229,7 +227,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$psu)
 
               #### Check if minimum sample size requirements for survey are met ----
-              run_ipcamn_check(
+              mod_call_ipcamn_checker(
                 data(), input$psu, "survey", input$area1, input$area2
               )
             },
@@ -238,7 +236,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$sites)
 
               #### Check if minimum sample size requirements for screening are met ----
-              run_ipcamn_check(
+              mod_call_ipcamn_checker(
                 data(), input$sites, "screening", input$area1, input$area2
               )
             },
@@ -247,7 +245,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$ssites)
 
               #### Check if minimum sample size requirements for sentinel sites are met ----
-              run_ipcamn_check(
+              mod_call_ipcamn_checker(
                 data(), input$ssites, "ssite", input$area1, input$area2
               )
             }
@@ -326,31 +324,4 @@ module_server_ipccheck <- function(id, data) {
       }
     )
   })
-}
-
-
-## ---- Module helper functions ------------------------------------------------
-
-#'
-#'
-#'
-#' @keywords internal
-#'
-run_ipcamn_check <- function(df, cluster, source, area1, area2) {
-  # Conditionally include area2
-  if (area2 != "") {
-    mw_check_ipcamn_ssreq(
-      df = df,
-      cluster = !!rlang::sym(cluster),
-      .source = "survey",
-      !!rlang::sym(area1), !!rlang::sym(area2)
-    )
-  } else {
-    mw_check_ipcamn_ssreq(
-      df = df,
-      .source = "survey",
-      cluster = !!rlang::sym(cluster),
-      !!rlang::sym(area1)
-    )
-  }
 }

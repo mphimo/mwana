@@ -1,8 +1,8 @@
+## ---- Module: UI -------------------------------------------------------------
+
 #'
 #'
 #'
-#'
-#' @keywords internal
 #' 
 #' @export
 #'
@@ -72,12 +72,14 @@ module_ui_upload <- function(id) {
 }
 
 
+## ---- Module: Server ---------------------------------------------------------
+
 #'
 #'
-#'
-#' @keywords internal
 #'
 #' @export 
+#' 
+#' 
 #'
 module_server_upload <- function(id) {
   shiny::moduleServer(

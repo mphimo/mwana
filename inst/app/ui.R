@@ -101,7 +101,10 @@ ui <- page_navbar(
 
   ## ---- Tab 2: Data Upload ---------------------------------------------------
 
-  nav_panel(title = "Data Upload", module_ui_upload(id = "upload_data")),
+  nav_panel(
+    title = "Data Upload", 
+    module_ui_upload(id = "upload_data")
+  ),
 
   ## ---- Tab 4: Data Wrangling ------------------------------------------------
 
@@ -126,5 +129,8 @@ ui <- page_navbar(
 
   ## ---- Tab 3: IPC Check -----------------------------------------------------
 
-  nav_panel(title = "IPC Check", module_ui_ipccheck(id = "ipc_check"))
+  nav_panel(
+    title = "IPC Check", 
+    module_ui_ipccheck(id = "ipc_check")
+  )
 )

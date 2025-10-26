@@ -1,7 +1,9 @@
-#'
+## ---- Module: UI -------------------------------------------------------------
+
 #'
 #'
 #' @export
+#' 
 #'
 #'
 module_ui_plausibility_check <- function(id) {
@@ -64,10 +66,15 @@ module_ui_plausibility_check <- function(id) {
 }
 
 
+## ---- Module: Server ---------------------------------------------------------
+
+
 #'
 #'
 #'
 #' @export
+#' 
+#' 
 #'
 module_server_plausibility_check <- function(id, data) {
   shiny::moduleServer(
@@ -318,7 +325,7 @@ module_server_plausibility_check <- function(id, data) {
                   input$sex, input$weight, input$height, input$age, input$flags
                 )
                 ##### Run plausibility check ----
-                run_plausibility_check(
+                mod_call_plausibility_checkers(
                   df = data(),
                   .for = "wfhz",
                   sex = input$sex,
@@ -335,7 +342,7 @@ module_server_plausibility_check <- function(id, data) {
               "mfaz" = {
                 shiny::req(input$age, input$sex, input$muac, input$flags)
 
-                run_plausibility_check(
+                mod_call_plausibility_checkers(
                   df = data(),
                   .for = "mfaz",
                   sex = input$sex,
@@ -352,7 +359,7 @@ module_server_plausibility_check <- function(id, data) {
               "muac" = {
                 shiny::req(input$sex, input$muac, input$flags)
 
-                run_plausibility_check(
+                mod_call_plausibility_checkers(
                   df = data(),
                   .for = "muac",
                   sex = input$sex,
@@ -440,127 +447,4 @@ module_server_plausibility_check <- function(id, data) {
       )
     }
   )
-}
-
-
-
-
-## ---- Module helper functions ------------------------------------------------
-
-#'
-#'
-#'
-#' @keywords internal
-#'
-run_plausibility_check <- function(
-    df, age = NULL, sex, muac = NULL, weight = NULL,
-    height = NULL, flags, area1, area2, area3, .for = c("wfhz", "muac", "mfaz")) {
-  .for <- match.arg(.for)
-
-  if (.for == "wfhz") {
-    if (all(area2 != "", area3 != "")) {
-      mw_neat_output_wfhz(
-        mw_plausibility_check_wfhz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          age = !!rlang::sym(age),
-          weight = !!rlang::sym(weight),
-          height = !!rlang::sym(height),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
-        )
-      )
-    } else if (area2 != "" && area3 == "") {
-      mw_neat_output_wfhz(
-        mw_plausibility_check_wfhz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          age = !!rlang::sym(age),
-          weight = !!rlang::sym(weight),
-          height = !!rlang::sym(height),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2)
-        )
-      )
-    } else {
-      mw_neat_output_wfhz(
-        mw_plausibility_check_wfhz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          age = !!rlang::sym(age),
-          weight = !!rlang::sym(weight),
-          height = !!rlang::sym(height),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1)
-        )
-      )
-    }
-  } else if (.for == "mfaz") {
-    if (all(c(area2, area3) != "")) {
-      mw_neat_output_mfaz(
-        mw_plausibility_check_mfaz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          age = !!rlang::sym(age),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
-        )
-      )
-    } else if (area2 != "" && area3 == "") {
-      mw_neat_output_mfaz(
-        mw_plausibility_check_mfaz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          age = !!rlang::sym(age),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2)
-        )
-      )
-    } else {
-      mw_neat_output_mfaz(
-        mw_plausibility_check_mfaz(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          age = !!rlang::sym(age),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1)
-        )
-      )
-    }
-  } else {
-    if (all(c(area2, area3) != "")) {
-      mw_neat_output_muac(
-        mw_plausibility_check_muac(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2), !!rlang::sym(area3)
-        )
-      )
-    } else if (area2 != "" && area3 == "") {
-      mw_neat_output_muac(
-        mw_plausibility_check_muac(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1), !!rlang::sym(area2)
-        )
-      )
-    } else {
-      mw_neat_output_muac(
-        mw_plausibility_check_muac(
-          df = df,
-          sex = !!rlang::sym(sex),
-          muac = !!rlang::sym(muac),
-          flags = !!rlang::sym(flags),
-          !!rlang::sym(area1)
-        )
-      )
-    }
-  }
 }
