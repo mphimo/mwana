@@ -167,7 +167,7 @@ module_server_upload <- function(id) {
       })
 
       #### Preview data ----
-      output$uploadedDataTable <- shiny::renderDataTable({
+      output$uploadedDataTable <- DT::renderDT({
         shiny::req(values$data)
 
         df_preview <- utils::head(values$data, 30)
