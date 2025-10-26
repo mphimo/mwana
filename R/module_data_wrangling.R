@@ -287,17 +287,17 @@ module_server_wrangling <- function(id, data) {
         if (input$wrangle == "wfhz") {
           if (any(!nzchar(c(input$sex, input$weight, input$height)))) {
             valid <- FALSE
-            message <- "Please select all required variables: Sex, Weight and Height."
+            message <- "Please select all required variables."
           }
         } else if (input$wrangle == "mfaz") {
           if (any(!nzchar(c(input$age, input$sex, input$muac)))) {
             valid <- FALSE
-            message <- "Please select all required variables: Age, Sex and MUAC"
+            message <- "Please select all required variables."
           }
         } else if (input$wrangle == "muac") {
           if (any(!nzchar(c(input$sex, input$muac)))) {
             valid <- FALSE
-            message <- "Please select all required variables: Sex and MUAC."
+            message <- "Please select all required variables."
           }
         } else {
           if (any(!nzchar(c(input$age, input$sex, input$weight, input$height, input$muac)))) {
