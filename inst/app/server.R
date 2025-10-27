@@ -7,18 +7,18 @@
 server <- function(input, output, session) {
   
   ### Upload module - returns reactive data ----
-  df <- module_server_upload(id = "upload_data")
+  df <- mwana:::module_server_upload(id = "upload_data")
   
   ### IPC check module - pass the reactive data ----
-  ipc_results <- module_server_ipccheck(id = "ipc_check", data = df)
+  ipc_results <- mwana:::module_server_ipccheck(id = "ipc_check", data = df)
   
   ### Data Wrangling ----
-  wrangled <- module_server_wrangling(id = "wrangle_data", data = df)
+  wrangled <- mwana:::module_server_wrangling(id = "wrangle_data", data = df)
 
   ### Plausibility Check ----
-  module_server_plausibility_check(id = "plausible", data = wrangled)
+  mwana:::module_server_plausibility_check(id = "plausible", data = wrangled)
 
   ### Prevalence ----
-  module_server_prevalence(id = "prevalence", data = wrangled)
+  mwana:::module_server_prevalence(id = "prevalence", data = wrangled)
 
 }

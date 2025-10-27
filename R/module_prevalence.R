@@ -2,8 +2,7 @@
 
 #'
 #'
-#'
-#' @export
+#' @keywords internal
 #'
 #' 
 #'
@@ -90,8 +89,7 @@ module_ui_prevalence <- function(id) {
 
 #'
 #'
-#'
-#' @export
+#' @keywords internal
 #'
 #'
 module_server_prevalence <- function(id, data) {

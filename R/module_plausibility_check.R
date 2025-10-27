@@ -2,8 +2,7 @@
 
 #'
 #'
-#' @export
-#' 
+#' @keywords internal
 #'
 #'
 module_ui_plausibility_check <- function(id) {
@@ -72,8 +71,7 @@ module_ui_plausibility_check <- function(id) {
 #'
 #'
 #'
-#' @export
-#' 
+#' @keywords internal
 #' 
 #'
 module_server_plausibility_check <- function(id, data) {

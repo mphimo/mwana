@@ -2,9 +2,10 @@
 
 
 #'
-#'
 #' 
-#' @export
+#' 
+#' 
+#' @keywords internal
 #' 
 #' 
 #'
@@ -77,7 +78,7 @@ module_ui_wrangling <- function(id) {
 #'
 #'
 #' 
-#' @export
+#' @keywords internal
 #'
 #' 
 #' 

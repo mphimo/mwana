@@ -2,9 +2,8 @@
 
 #'
 #'
-#'
+#' @keywords internal
 #' 
-#' @export
 #'
 module_ui_upload <- function(id) {
   ## Namespace ID's ----
@@ -76,8 +75,7 @@ module_ui_upload <- function(id) {
 
 #'
 #'
-#'
-#' @export 
+#' @keywords internal
 #' 
 #' 
 #'

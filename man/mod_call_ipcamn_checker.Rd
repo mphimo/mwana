@@ -5,7 +5,7 @@
 \title{Call mwana's IPC Acute Malnutrition minimum sample size requirement checker
 into the module server}
 \usage{
-mod_call_ipcamn_checker(df, cluster, source, area1, area2)
+mod_call_ipcamn_checker(df, cluster, source = character(), area1, area2)
 }
 \description{
 Call mwana's IPC Acute Malnutrition minimum sample size requirement checker

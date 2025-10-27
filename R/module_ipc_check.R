@@ -3,8 +3,7 @@
 
 #'
 #'
-#'
-#' @export
+#' @keywords internal
 #' 
 #' 
 #' 
@@ -68,8 +67,7 @@ module_ui_ipccheck <- function(id) {
 
 #'
 #'
-#'
-#' @export 
+#' @keywords internal
 #' 
 #' 
 #' 
