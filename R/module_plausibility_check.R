@@ -398,7 +398,7 @@ module_server_plausibility_check <- function(id, data) {
         #### Ensure checked output is available ----
         shiny::req(plausibility$checked)
         DT::datatable(
-          head(plausibility$checked, 20),
+          utils::head(plausibility$checked, 20),
           rownames = FALSE,
           options = list(
             pageLength = 20,

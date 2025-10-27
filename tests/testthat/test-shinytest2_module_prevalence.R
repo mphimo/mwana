@@ -78,7 +78,7 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:19]
+    )[1:18]
   )
     
   ### Test check ----
@@ -171,7 +171,7 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:19]
+    )[1:18]
   )
     
   ### Test check ----
@@ -265,7 +265,7 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:19]
+    )[1:18]
   )
     
   ### Test check ----
@@ -359,7 +359,7 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:9]
+    )[1:8]
   )
     
   ### Test check ----

@@ -37,13 +37,13 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
   app$wait_for_idle()
 
   ### Select input variables ----
-  app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-age` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE, timeout_ = 10000)
+  app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-age` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE)
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
@@ -105,13 +105,15 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   app$click(selector = "a[data-value='Data Wrangling']")
   app$wait_for_idle()
 
-  ### Select input variables ----
-  app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
+  ### Set the wrangling method to MFAZ ----
+  app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = FALSE)
+
+  ### Select variables ----
+  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE)
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
@@ -231,14 +233,14 @@ testthat::test_that(
   app$wait_for_idle()
 
   ### Select input variables ----
-  app$set_inputs(`wrangle_data-wrangle` = "combined", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
+  app$set_inputs(`wrangle_data-wrangle` = "combined", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE)
+  app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE)
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")

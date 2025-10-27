@@ -283,7 +283,7 @@ module_server_ipccheck <- function(id, data) {
       #### Ensure checked output is available ----
       shiny::req(dataset$checked)
       DT::datatable(
-        head(dataset$checked, 20),
+        utils::head(dataset$checked, 20),
         rownames = FALSE,
         options = list(
           pageLength = 20,

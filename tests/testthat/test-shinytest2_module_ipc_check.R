@@ -33,13 +33,13 @@ testthat::test_that(
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
 
     #### Set IPC Check for survey data ----
-    app$set_inputs(`ipc_check-ipccheck` = "survey", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-ipccheck` = "survey", wait_ = FALSE)
     app$wait_for_idle()
 
     #### Now set parameters for survey ----
-    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-area2` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-psu` = "cluster", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`ipc_check-area2` = "", wait_ = FALSE)
+    app$set_inputs(`ipc_check-psu` = "cluster", wait_ = FALSE)
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
@@ -52,7 +52,7 @@ testthat::test_that(
     $('#ipc_check-checked thead th').map(function() {
       return $(this).text();
     }).get();
-  ")[2:5] |> as.character(),
+  ")[1:4] |> as.character(),
       expected = c(
         "area", "n_clusters", "n_obs", "meet_ipc"
       )
@@ -91,13 +91,13 @@ testthat::test_that(
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
 
     #### Set IPC Check for screening data ----
-    app$set_inputs(`ipc_check-ipccheck` = "screening", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-ipccheck` = "screening", wait_ = TRUE, timeout_ = 10000)
     app$wait_for_idle()
 
     #### Now set parameters for survey ----
-    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-area2` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-sites` = "cluster", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`ipc_check-area2` = "sex", wait_ = FALSE)
+    app$set_inputs(`ipc_check-sites` = "cluster", wait_ = FALSE)
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
@@ -109,7 +109,7 @@ testthat::test_that(
     $('#ipc_check-checked thead th').map(function() {
       return $(this).text();
     }).get();
-  ")[2:6] |> as.character(),
+  ")[1:5] |> as.character(),
       expected = c(
         "area", "sex", "n_clusters", "n_obs", "meet_ipc"
       )
@@ -148,13 +148,13 @@ testthat::test_that(
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
 
     #### Set IPC Check for screening data ----
-    app$set_inputs(`ipc_check-ipccheck` = "sentinel", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-ipccheck` = "sentinel", wait_ = TRUE, timeout_ = 10000)
     app$wait_for_idle()
 
     #### Now set parameters for survey ----
-    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-area2` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`ipc_check-ssites` = "cluster", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`ipc_check-area2` = "sex", wait_ = FALSE)
+    app$set_inputs(`ipc_check-ssites` = "cluster", wait_ = FALSE)
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
@@ -167,7 +167,7 @@ testthat::test_that(
     $('#ipc_check-checked thead th').map(function() {
       return $(this).text();
     }).get();
-  ")[2:6] |> as.character(),
+  ")[1:5] |> as.character(),
       expected = c(
         "area", "sex", "n_clusters", "n_obs", "meet_ipc"
       )

@@ -273,7 +273,7 @@ module_server_prevalence <- function(id, data) {
         #### Ensure checked output is available ----
         shiny::req(prevalence$estimated)
         DT::datatable(
-          head(prevalence$estimated, 20),
+          utils::head(prevalence$estimated, 20),
           rownames = FALSE,
           options = list(
             pageLength = 20,

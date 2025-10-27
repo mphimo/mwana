@@ -37,15 +37,15 @@ testthat::test_that(
     app$wait_for_idle()
 
     ### Select data wrangling method ----
-    app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
 
     ### Select input variables ----
-    app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-age` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-age` = "", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-weight` = "weight", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-height` = "height", wait_ = FALSE)
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
@@ -56,17 +56,17 @@ testthat::test_that(
     app$wait_for_idle()
 
     ### Select method for plausibility check ----
-    app$set_inputs(`plausible-method` = "wfhz", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`plausible-method` = "wfhz", wait_ = FALSE)
 
     ### Select input variables ----
-    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area2` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area3` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-age` = "age", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-weight` = "weight", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-height` = "height", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-flags` = "flag_wfhz", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`plausible-area2` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-area3` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`plausible-age` = "age", wait_ = FALSE)
+    app$set_inputs(`plausible-weight` = "weight", wait_ = FALSE)
+    app$set_inputs(`plausible-height` = "height", wait_ = FALSE)
+    app$set_inputs(`plausible-flags` = "flag_wfhz", wait_ = FALSE)
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
@@ -77,7 +77,7 @@ testthat::test_that(
       "$('#plausible-checked thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:21] |> as.character()
+    )[1:20] |> as.character()
 
     ### Test check -----
     testthat::expect_equal(
@@ -134,11 +134,11 @@ testthat::test_that(
     app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = TRUE, timeout_ = 15000)
     app$wait_for_idle()
 
-    app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-age` = "age", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE)
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
@@ -152,13 +152,13 @@ testthat::test_that(
     app$set_inputs(`plausible-method` = "mfaz", wait_ = TRUE, timeout_ = 15000)
 
     ### Select input variables ----
-    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area2` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area3` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-age` = "age", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-flags` = "flag_mfaz", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`plausible-area2` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-area3` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`plausible-age` = "age", wait_ = FALSE)
+    app$set_inputs(`plausible-muac` = "muac", wait_ = FALSE)
+    app$set_inputs(`plausible-flags` = "flag_mfaz", wait_ = FALSE)
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
@@ -169,7 +169,7 @@ testthat::test_that(
       "$('#plausible-checked thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:19] |> as.character()
+    )[1:18] |> as.character()
 
     ### Test check ----
     testthat::expect_equal(
@@ -229,8 +229,8 @@ testthat::test_that(
     app$wait_for_idle()
 
     ### Select input variables ----
-    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE)
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
@@ -245,12 +245,12 @@ testthat::test_that(
     app$wait_for_idle()
 
     ### Select input variables ----
-    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area2` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-area3` = "", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
-    app$set_inputs(`plausible-flags` = "flag_muac", wait_ = FALSE, timeout_ = 10000)
+    app$set_inputs(`plausible-area1` = "area", wait_ = FALSE)
+    app$set_inputs(`plausible-area2` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-area3` = "", wait_ = FALSE)
+    app$set_inputs(`plausible-sex` = "sex", wait_ = FALSE)
+    app$set_inputs(`plausible-muac` = "muac", wait_ = FALSE)
+    app$set_inputs(`plausible-flags` = "flag_muac", wait_ = FALSE)
 
     ### Click on check plausibility button
     app$click(input = "plausible-check")
@@ -261,7 +261,7 @@ testthat::test_that(
       "$('#plausible-checked thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[2:11] |> as.character()
+    )[1:10] |> as.character()
 
     ### Test check -----
     testthat::expect_equal(
