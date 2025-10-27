@@ -141,7 +141,7 @@ module_server_upload <- function(id) {
               file = input$upload$datapath, 
               stringsAsFactors = FALSE,
               check.names = FALSE
-            )[,-1]
+            )
             progress$set(message = "Finalising...", value = 80)
             Sys.sleep(0.3)
 
