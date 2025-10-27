@@ -18,6 +18,7 @@ module_ui_upload <- function(id) {
     bslib::layout_sidebar(
       sidebar = bslib::sidebar(
         width = 400,
+        style = "width: 350px",
 
         ### Left side of the nav panel ----
         bslib::card(
@@ -181,19 +182,19 @@ module_server_upload <- function(id) {
       output$uploadedDataTable <- DT::renderDT({
         shiny::req(values$data)
 
-        df_preview <- utils::head(values$data, 30)
+        df_preview <- utils::head(values$data, 20)
         DT::datatable(
           data = df_preview,
           rownames = FALSE,
           options = list(
-            pageLength = 30,
+            pageLength = 20,
             scrollX = FALSE,
             scrollY = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
-          caption = if (nrow(values$data) > 30) {
+          caption = if (nrow(values$data) > 20) {
             paste(
-              "Showing first 30 rows of", format(nrow(values$data), big.mark = ","),
+              "Showing first 20 rows of", format(nrow(values$data), big.mark = ","),
               "total rows"
             )
           } else {

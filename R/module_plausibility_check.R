@@ -17,6 +17,7 @@ module_ui_plausibility_check <- function(id) {
   bslib::layout_sidebar(
     sidebar = bslib::sidebar(
       width = 400,
+      style = "width: 400px;",
 
       ### Left side of the nav panel: Parameters setup ----
       bslib::card(
@@ -24,7 +25,6 @@ module_ui_plausibility_check <- function(id) {
           "Define Parameters for Plausibility Check",
           style = "font-weight: 600;"
         )),
-        style = "width: 350px;",
 
         #### Enable plausibility check options based on data wrangling method ----
         shiny::radioButtons(
@@ -399,6 +399,7 @@ module_server_plausibility_check <- function(id, data) {
         shiny::req(plausibility$checked)
         DT::datatable(
           head(plausibility$checked, 20),
+          rownames = FALSE,
           options = list(
             pageLength = 20,
             scrollX = FALSE,

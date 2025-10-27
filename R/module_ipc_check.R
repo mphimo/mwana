@@ -20,10 +20,12 @@ module_ui_ipccheck <- function(id) {
     bslib::layout_sidebar(
       sidebar = bslib::sidebar(
         width = 400,
+        style = "width: 350px",
+
+        ### Left side of the nav panel ----
         bslib::card(
           bslib::card_header(htmltools::tags$span("Define Parameters for Check",
         style = "font-weight: 600;")),
-          style = "width: 350px",
 
            #### Display options on source of data ----
           shiny::radioButtons(
@@ -50,7 +52,7 @@ module_ui_ipccheck <- function(id) {
         )
       ),
 
-      ### Add main content area for results
+      ### Right side of the nav panel ----
       bslib::card(
         bslib::card_header(htmltools::tags$span("IPC Check Results",
       style = "font-weight: 600;")),
@@ -282,6 +284,7 @@ module_server_ipccheck <- function(id, data) {
       shiny::req(dataset$checked)
       DT::datatable(
         head(dataset$checked, 20),
+        rownames = FALSE,
         options = list(
           pageLength = 20,
           scrollX = FALSE,

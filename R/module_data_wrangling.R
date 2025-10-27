@@ -22,13 +22,13 @@ module_ui_wrangling <- function(id) {
     bslib::layout_sidebar(
       sidebar = bslib::sidebar(
         width = 400,
+        style = "width: 400px;",
 
         ### Left side of the nav panel ----
         bslib::card(
           bslib::card_header(htmltools::tags$span("Define Parameters for Data Wrangling",
             style = "font-weight: 600;"
           )),
-          style = "width: 350px;",
 
           #### Display data wrangling method options ----
           shiny::radioButtons(

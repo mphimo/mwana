@@ -18,6 +18,7 @@ module_ui_prevalence <- function(id) {
     sidebar = bslib::sidebar(
       width = 400,
       position = "left",
+      style = "width: 350px",
 
       ### Left side of the navbar ----
       bslib::card(
@@ -272,16 +273,17 @@ module_server_prevalence <- function(id, data) {
         #### Ensure checked output is available ----
         shiny::req(prevalence$estimated)
         DT::datatable(
-          head(prevalence$estimated, 15),
+          head(prevalence$estimated, 20),
+          rownames = FALSE,
           options = list(
-            pageLength = 15,
+            pageLength = 20,
             scrollX = FALSE,
             scrollY = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
-          caption = if (nrow(prevalence$estimated) > 30) {
+          caption = if (nrow(prevalence$estimated) > 20) {
             paste(
-              "Showing first 30 rows of", format(nrow(prevalence$estimated), big.mark = "."),
+              "Showing first 20 rows of", format(nrow(prevalence$estimated), big.mark = "."),
               "total rows"
             )
           } else {
