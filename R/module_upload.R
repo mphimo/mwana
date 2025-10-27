@@ -1,6 +1,10 @@
 ## ---- Module: UI -------------------------------------------------------------
 
-#'
+#' 
+#' Module UI for data upload 
+#' 
+#' 
+#' @param id Module ID
 #'
 #' @keywords internal
 #' 
@@ -14,6 +18,8 @@ module_ui_upload <- function(id) {
     bslib::layout_sidebar(
       sidebar = bslib::sidebar(
         width = 400,
+
+        ### Left side of the nav panel ----
         bslib::card(
           bslib::card_header("Upload Data"),
           style = "width: 350px",
@@ -39,6 +45,8 @@ module_ui_upload <- function(id) {
           )
         )
       ),
+
+      ### Right side of the nav panel ----
       bslib::card(
         bslib::card_header("Data Preview"),
         shiny::conditionalPanel(
@@ -74,7 +82,12 @@ module_ui_upload <- function(id) {
 ## ---- Module: Server ---------------------------------------------------------
 
 #'
-#'
+#' 
+#' Module server for data upload
+#' 
+#' 
+#' @param id Module ID
+#' 
 #' @keywords internal
 #' 
 #' 

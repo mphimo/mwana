@@ -1,6 +1,11 @@
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
+#' 
+#' Module UI for plausibility check
+#' 
+#' @param id Module ID
+#' 
 #'
 #' @keywords internal
 #'
@@ -22,7 +27,6 @@ module_ui_plausibility_check <- function(id) {
         style = "width: 350px;",
 
         #### Enable plausibility check options based on data wrangling method ----
-
         shiny::radioButtons(
           inputId = ns("method"),
           label = "Select Method",
@@ -33,6 +37,8 @@ module_ui_plausibility_check <- function(id) {
           ),
           selected = "wfhz"
         ),
+
+        #### Display variable inputs rendered from the server ----
         shiny::uiOutput(outputId = ns("check_vars")),
         htmltools::tags$br(),
         shiny::actionButton(
@@ -48,6 +54,8 @@ module_ui_plausibility_check <- function(id) {
       bslib::card_header(htmltools::tags$span("Plausibility Check Results",
         style = "font-weight: 600;"
       )),
+
+      #### A Placehoder for wrangled data and embed user feedback ----
       shinycssloaders::withSpinner(
         ui_element = DT::DTOutput(outputId = ns("checked")),
         type = 8,
@@ -59,6 +67,8 @@ module_ui_plausibility_check <- function(id) {
           htmltools::tags$h6("Checking plausibility"), htmltools::tags$h6("Please wait...")
         )
       ),
+
+      #### Placeholder for donwload button ----
       shiny::uiOutput(outputId = ns("download_plausibility"))
     )
   )
@@ -69,7 +79,10 @@ module_ui_plausibility_check <- function(id) {
 
 
 #'
-#'
+#' Module server for plausibility check
+#' 
+#' @param id Module ID
+#' 
 #'
 #' @keywords internal
 #' 

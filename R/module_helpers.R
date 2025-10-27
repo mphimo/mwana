@@ -4,8 +4,8 @@
 
 #' 
 #' 
-#' Call mwana's IPC Acute Malnutrition minimum sample size requirement checker 
-#' into the module server
+#' Invoke mwana's IPC Acute Malnutrition minimum sample size requirement checker 
+#' from within the module server
 #'
 #'
 #' @keywords internal
@@ -31,13 +31,13 @@ mod_call_ipcamn_checker <- function(df, cluster, source = character(), area1, ar
 }
 
 # ==============================================================================
-#                              Plausibility Check
+#                              Plausibility Checker
 # ==============================================================================
 
 #' 
 #' 
-#' Call mwana's plausibility checkers into the module server depending on 
-#' user specifications in the UI 
+#' Invoke mwana's plausibility checkers dynamically from within module server,
+#' according to user specifications in the UI 
 #'
 #'
 #' @keywords internal
@@ -159,12 +159,12 @@ mod_call_plausibility_checkers <- function(
 
 
 # ==============================================================================
-#                              Prevalence
+#                              Prevalence Estimators
 # ==============================================================================
 
 #' 
 #' 
-#' Displays input variables dynamically, according to UI for screening
+#' Display input variables dynamically, according to UI for screening
 #'
 #' @keywords internal
 #'
@@ -215,7 +215,7 @@ mod_display_input_variables_survey <- function(vars, ns) {
 #' 
 #' 
 #' 
-#' Displays input variables dynamically, according to UI for screening
+#' Display input variables dynamically, according to UI for screening
 #'
 #'
 #' @keywords internal
@@ -273,7 +273,7 @@ mod_display_input_variables_screening <- function(vars, ns) {
 
 #'
 #' 
-#' Call mwana's prevalence functions into the module server depending on 
+#' Invoke mwana's prevalence functions from within module server according to 
 #' user specifications in the UI 
 #'
 #'
@@ -380,7 +380,7 @@ mod_call_prevalence_function_wfhz <- function(
 #'
 #' 
 #' 
-#' Call mwana's prevalence functions into the module server depending on 
+#' Invoke mwana's prevalence functions from within module server according to 
 #' user specifications in the UI 
 #'
 #' @keywords internal
@@ -486,7 +486,7 @@ mod_call_prevalence_function_muac <- function(
 #'
 #' 
 #' 
-#' Call mwana's prevalence functions into the module server depending on 
+#' Invoke mwana's prevalence functions from within module server according to 
 #' user specifications in the UI 
 #'
 #' @keywords internal
@@ -592,7 +592,7 @@ mod_call_prevalence_function_combined <- function(
 #'
 #' 
 #' 
-#' Call mwana's prevalence functions into the module server depending on 
+#' Invoke mwana's prevalence functions from within module server according to 
 #' user specifications in the UI 
 #'
 #' @keywords internal
@@ -656,7 +656,7 @@ mod_call_prevalence_function_screening <- function(
 #'
 #' 
 #' 
-#' Call mwana's prevalence functions into the module server depending on 
+#' Invoke mwana's prevalence functions from within module server according to 
 #' user specifications in the UI 
 #' 
 #' 

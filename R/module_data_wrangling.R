@@ -4,6 +4,10 @@
 #'
 #' 
 #' 
+#' Module UI for data wrangling
+#' 
+#' @param id Module ID
+#' 
 #' 
 #' @keywords internal
 #' 
@@ -25,6 +29,8 @@ module_ui_wrangling <- function(id) {
             style = "font-weight: 600;"
           )),
           style = "width: 350px;",
+
+          #### Display data wrangling method options ----
           shiny::radioButtons(
             inputId = ns("wrangle"),
             label = htmltools::tags$span("Select method",
@@ -38,6 +44,8 @@ module_ui_wrangling <- function(id) {
             ),
             selected = "wfhz"
           ),
+          
+          #### Display variable inputs rendered from the server ----
           shiny::uiOutput(outputId = ns("select_vars")),
           htmltools::tags$br(),
           shiny::actionButton(
@@ -53,6 +61,8 @@ module_ui_wrangling <- function(id) {
         bslib::card_header(htmltools::tags$span("Data Preview",
           style = "font-weight: 600;"
         )),
+
+        #### A Placehoder for wrangled data and embed user feedback ----
         shinycssloaders::withSpinner(
           ui_element = DT::DTOutput(outputId = ns("wrangled")),
           type = 8,
@@ -64,6 +74,8 @@ module_ui_wrangling <- function(id) {
             htmltools::tags$h6("Wrangling"), htmltools::tags$h6("Please wait...")
           )
         ),
+
+        #### Placeholder for donwload button ----
         shiny::uiOutput(outputId = ns("download_wrangled_data"))
       )
     )
@@ -76,6 +88,9 @@ module_ui_wrangling <- function(id) {
 
 #'
 #'
+#' Module server for data wrangling
+#' 
+#' @param id Module ID
 #'
 #' 
 #' @keywords internal
@@ -270,6 +285,7 @@ module_server_wrangling <- function(id, data) {
         )
       })
 
+      ### Render variables dynamically ----
       output$select_vars <- shiny::renderUI({
         shiny::tagList(ui_inputs())
       })

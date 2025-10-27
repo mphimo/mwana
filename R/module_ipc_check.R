@@ -2,6 +2,10 @@
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
+#' 
+#' Module UI for IPC Acute Malnutrition sample size requirements check
+#' 
+#' @param id Module ID
 #'
 #' @keywords internal
 #' 
@@ -20,6 +24,8 @@ module_ui_ipccheck <- function(id) {
           bslib::card_header(htmltools::tags$span("Define Parameters for Check",
         style = "font-weight: 600;")),
           style = "width: 350px",
+
+           #### Display options on source of data ----
           shiny::radioButtons(
             inputId = ns("ipccheck"),
             label = htmltools::tags$span(
@@ -32,6 +38,8 @@ module_ui_ipccheck <- function(id) {
             ),
             selected = "survey"
           ),
+
+           #### Display data wrangling method options from the server ----
           shiny::uiOutput(ns("data_source")),
           htmltools::tags$br(),
           shiny::actionButton(
@@ -41,10 +49,13 @@ module_ui_ipccheck <- function(id) {
           )
         )
       ),
-      # Add main content area for results
+
+      ### Add main content area for results
       bslib::card(
         bslib::card_header(htmltools::tags$span("IPC Check Results",
       style = "font-weight: 600;")),
+
+      #### Display variable inputs rendered from the server ----
         shinycssloaders::withSpinner(
           ui_element = DT::DTOutput(ns("checked")),
           type = 8,
@@ -56,6 +67,8 @@ module_ui_ipccheck <- function(id) {
             htmltools::tags$h6("Checking"), htmltools::tags$h6("Please wait...")
           )
         ),
+
+        #### Placeholder for donwload button ----
         shiny::uiOutput(outputId = ns("download_ipccheck"))
       )
     )
@@ -66,6 +79,11 @@ module_ui_ipccheck <- function(id) {
 ## ---- Module: Sever ----------------------------------------------------------
 
 #'
+#' 
+#' Module server for IPC Acute Malnutrition sample size requirements check
+#' 
+#' @param id Module ID
+#' 
 #'
 #' @keywords internal
 #' 

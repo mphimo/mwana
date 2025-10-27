@@ -1,6 +1,10 @@
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
+#' 
+#' Module UI for prevalence analysis
+#' 
+#' @param id Module ID
 #'
 #' @keywords internal
 #'
@@ -64,7 +68,7 @@ module_ui_prevalence <- function(id) {
         )
       ),
 
-      #### Inform user when analysis is running ----
+      #### A Placehoder for wrangled data and embed user feedback ----
       shinycssloaders::withSpinner(
         ui_element = DT::DTOutput(outputId = ns("results")),
         type = 8,
@@ -78,7 +82,7 @@ module_ui_prevalence <- function(id) {
         )
       ),
 
-      #### Download results ----
+      #### Placeholder for donwload button ----
       shiny::uiOutput(outputId = ns("download_prevalence"))
     )
   )
@@ -88,6 +92,10 @@ module_ui_prevalence <- function(id) {
 ## ---- Module: Server ---------------------------------------------------------
 
 #'
+#' 
+#' Module server for prevalence analysis
+#' 
+#' @param id Module ID
 #'
 #' @keywords internal
 #'
@@ -193,7 +201,7 @@ module_server_prevalence <- function(id, data) {
                 },
                 "muac" = {
                   data() |>
-                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
                     mod_call_prevalence_function_muac(
                       wts = input$wts,
                       oedema = input$oedema,
@@ -204,7 +212,7 @@ module_server_prevalence <- function(id, data) {
                 },
                 "combined" = {
                   data() |>
-                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
                     mod_call_prevalence_function_combined(
                       wts = input$wts,
                       oedema = input$oedema,
@@ -220,7 +228,7 @@ module_server_prevalence <- function(id, data) {
                   shiny::req(input$muac)
 
                   data() |>
-                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
                     mod_call_prevalence_function_screening(
                       muac = input$muac,
                       oedema = input$oedema,
@@ -233,7 +241,7 @@ module_server_prevalence <- function(id, data) {
                   shiny::req(input$muac, input$age_cat)
 
                   data() |>
-                    dplyr::mutate(muac = recode_muac(muac, "mm")) |>
+                    dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
                     mod_call_prevalence_function_screening2(
                       age_cat = input$age_cat,
                       muac = input$muac,

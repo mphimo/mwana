@@ -2,13 +2,13 @@
 % Please edit documentation in R/module_helpers.R
 \name{mod_call_ipcamn_checker}
 \alias{mod_call_ipcamn_checker}
-\title{Call mwana's IPC Acute Malnutrition minimum sample size requirement checker
-into the module server}
+\title{Invoke mwana's IPC Acute Malnutrition minimum sample size requirement checker
+from within the module server}
 \usage{
 mod_call_ipcamn_checker(df, cluster, source = character(), area1, area2)
 }
 \description{
-Call mwana's IPC Acute Malnutrition minimum sample size requirement checker
-into the module server
+Invoke mwana's IPC Acute Malnutrition minimum sample size requirement checker
+from within the module server
 }
 \keyword{internal}

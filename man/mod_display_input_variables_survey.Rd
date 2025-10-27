@@ -2,11 +2,11 @@
 % Please edit documentation in R/module_helpers.R
 \name{mod_display_input_variables_survey}
 \alias{mod_display_input_variables_survey}
-\title{Displays input variables dynamically, according to UI for screening}
+\title{Display input variables dynamically, according to UI for screening}
 \usage{
 mod_display_input_variables_survey(vars, ns)
 }
 \description{
-Displays input variables dynamically, according to UI for screening
+Display input variables dynamically, according to UI for screening
 }
 \keyword{internal}

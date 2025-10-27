@@ -2,8 +2,8 @@
 % Please edit documentation in R/module_helpers.R
 \name{mod_call_plausibility_checkers}
 \alias{mod_call_plausibility_checkers}
-\title{Call mwana's plausibility checkers into the module server depending on
-user specifications in the UI}
+\title{Invoke mwana's plausibility checkers dynamically from within module server,
+according to user specifications in the UI}
 \usage{
 mod_call_plausibility_checkers(
   df,
@@ -20,7 +20,7 @@ mod_call_plausibility_checkers(
 )
 }
 \description{
-Call mwana's plausibility checkers into the module server depending on
-user specifications in the UI
+Invoke mwana's plausibility checkers dynamically from within module server,
+according to user specifications in the UI
 }
 \keyword{internal}

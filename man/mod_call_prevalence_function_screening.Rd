@@ -2,7 +2,7 @@
 % Please edit documentation in R/module_helpers.R
 \name{mod_call_prevalence_function_screening}
 \alias{mod_call_prevalence_function_screening}
-\title{Call mwana's prevalence functions into the module server depending on
+\title{Invoke mwana's prevalence functions from within module server according to
 user specifications in the UI}
 \usage{
 mod_call_prevalence_function_screening(
@@ -15,7 +15,7 @@ mod_call_prevalence_function_screening(
 )
 }
 \description{
-Call mwana's prevalence functions into the module server depending on
+Invoke mwana's prevalence functions from within module server according to
 user specifications in the UI
 }
 \keyword{internal}
