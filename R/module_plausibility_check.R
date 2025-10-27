@@ -398,22 +398,22 @@ module_server_plausibility_check <- function(id, data) {
         #### Ensure checked output is available ----
         shiny::req(plausibility$checked)
         DT::datatable(
-          plausibility$checked,
+          head(plausibility$checked, 20),
           options = list(
-            pageLength = 10,
-            scrollX = TRUE,
+            pageLength = 20,
+            scrollX = FALSE,
             scrollY = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
-          caption = if (nrow(plausibility$checked) > 30) {
+          caption = if (nrow(plausibility$checked) > 20) {
             paste(
-              "Showing first 30 rows of", format(nrow(plausibility$checked), big.mark = "."),
+              "Showing first 20 rows of", format(nrow(plausibility$checked), big.mark = "."),
               "total rows"
             )
           } else {
             paste("Showing all", nrow(plausibility$checked), "rows")
           }
-        ) |> DT::formatStyle(columns = colnames(plausibility$checked), fontSize = "15px")
+        ) |> DT::formatStyle(columns = colnames(plausibility$checked), fontSize = "13px")
       })
 
       #### Download button to download table of detected clusters in .xlsx ----

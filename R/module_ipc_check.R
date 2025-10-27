@@ -281,22 +281,22 @@ module_server_ipccheck <- function(id, data) {
       #### Ensure checked output is available ----
       shiny::req(dataset$checked)
       DT::datatable(
-        dataset$checked,
+        head(dataset$checked, 20),
         options = list(
-          pageLength = 10,
-          scrollX = TRUE,
+          pageLength = 20,
+          scrollX = FALSE,
           scrollY = "800px", 
           columDefs = list(list(className = "dt-center", targets = "_all"))
         ),
-        caption = if (nrow(dataset$checked) > 30) {
+        caption = if (nrow(dataset$checked) > 20) {
           paste(
-            "Showing first 30 rows of", format(nrow(dataset$checked), big.mark = "."),
+            "Showing first 20 rows of", format(nrow(dataset$checked), big.mark = "."),
             "total rows"
           )
         } else {
           paste("Showing all", nrow(dataset$checked), "rows")
         }
-      ) |> DT::formatStyle(columns = colnames(dataset$checked), fontSize = "15px")
+      ) |> DT::formatStyle(columns = colnames(dataset$checked), fontSize = "13px")
     })
 
     #### Download button to download table of detected clusters in .xlsx ----

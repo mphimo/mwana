@@ -433,17 +433,17 @@ module_server_wrangling <- function(id, data) {
         shiny::req(dataset$wrangled)
 
         DT::datatable(
-          data = utils::head(dataset$wrangled, 30),
+          data = utils::head(dataset$wrangled, 20),
           rownames = FALSE,
           options = list(
-            pageLength = 30,
+            pageLength = 20,
             scrollX = FALSE,
             scrolly = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
-          caption = if (nrow(dataset$wrangled) > 30) {
+          caption = if (nrow(dataset$wrangled) > 20) {
             paste(
-              "Showing first 30 rows of", format(nrow(dataset$wrangled), big.mark = ","),
+              "Showing first 20 rows of", format(nrow(dataset$wrangled), big.mark = ","),
               "total rows"
             )
           } else {

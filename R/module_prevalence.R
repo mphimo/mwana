@@ -272,10 +272,10 @@ module_server_prevalence <- function(id, data) {
         #### Ensure checked output is available ----
         shiny::req(prevalence$estimated)
         DT::datatable(
-          prevalence$estimated,
+          head(prevalence$estimated, 15),
           options = list(
-            pageLength = 10,
-            scrollX = TRUE,
+            pageLength = 15,
+            scrollX = FALSE,
             scrollY = "800px",
             columnDefs = list(list(className = "dt-center", targets = "_all"))
           ),
@@ -287,7 +287,7 @@ module_server_prevalence <- function(id, data) {
           } else {
             paste("Showing all", nrow(prevalence$estimated), "rows")
           }
-        ) |> DT::formatStyle(columns = colnames(prevalence$estimated), fontSize = "15px")
+        ) |> DT::formatStyle(columns = colnames(prevalence$estimated), fontSize = "13px")
       })
 
 
