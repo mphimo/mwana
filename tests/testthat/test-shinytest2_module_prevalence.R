@@ -13,7 +13,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000
+      timeout = 30000,
+      wait = TRUE
     )
 
     ### Wait the app to idle ----
@@ -70,7 +71,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_idle()
+    app$wait_for_value(output = "prevalence-results", timeout = 20000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -106,7 +107,8 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000
+      timeout = 30000,
+      wait = TRUE
     )
 
     ### Wait the app to idle ----
@@ -163,7 +165,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_idle()
+    app$wait_for_value(output = "prevalence-results", timeout = 20000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -198,7 +200,8 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000
+      timeout = 30000,
+      wait = TRUE
     )
 
     ### Wait the app to idle ----
@@ -257,7 +260,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_idle()
+    app$wait_for_value(output = "prevalence-results", timeout = 20000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -294,7 +297,8 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000
+      timeout = 30000,
+      wait = TRUE
     )
 
     ### Wait the app to idle ----
@@ -351,7 +355,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_idle()
+    app$wait_for_value(output = "prevalence-results", timeout = 20000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(

@@ -8,7 +8,8 @@ testthat::test_that("mwana app works as expected", {
   ### Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-    load_timeout = 30000
+    load_timeout = 30000,
+    wait = TRUE
   )
 
   ### Wait for the app to fully load ----
@@ -29,6 +30,7 @@ testthat::test_that("mwana app works as expected", {
 
   #### Upload onto the app ----
   app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
+  app$wait_for_value(output = "upload_data-uploadedDataTable", timeout = 20000)
 
   #### Get values ----
   vals <- app$get_values(

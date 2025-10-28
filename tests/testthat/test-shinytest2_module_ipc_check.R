@@ -10,7 +10,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -43,7 +44,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
 
     ### Test check ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
@@ -68,7 +69,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -101,7 +103,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
 
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
     expect_equal(
@@ -125,7 +127,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -158,7 +161,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
 
     #### Test checks ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))

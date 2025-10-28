@@ -10,7 +10,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -70,7 +71,7 @@ testthat::test_that(
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "plausible-checked", timeout = 20000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(
@@ -105,7 +106,8 @@ testthat::test_that(
     # Initialise app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -162,7 +164,7 @@ testthat::test_that(
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "plausible-checked", timeout = 20000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(
@@ -198,7 +200,8 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000, 
+      wait = TRUE
     )
 
     ### Let the app load ----
@@ -254,7 +257,7 @@ testthat::test_that(
 
     ### Click on check plausibility button
     app$click(input = "plausible-check")
-    app$wait_for_idle()
+    app$wait_for_value(output = "plausible-checked", timeout = 20000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(

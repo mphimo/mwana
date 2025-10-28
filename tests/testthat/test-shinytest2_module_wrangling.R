@@ -10,7 +10,8 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000, 
+      wait = TRUE
   )
 
   ### Let the app load ----
@@ -47,7 +48,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_idle()
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -79,7 +80,8 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
   )
 
   ### Let the app load ----
@@ -117,7 +119,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_idle()
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -145,7 +147,8 @@ testthat::test_that(
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
   )
 
   ### Let the app load ----
@@ -178,7 +181,7 @@ testthat::test_that(
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_idle()
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -206,7 +209,8 @@ testthat::test_that(
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000
+      load_timeout = 30000,
+      wait = TRUE
   )
 
   ### Let the app load ----
@@ -244,7 +248,7 @@ testthat::test_that(
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_idle()
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
