@@ -242,7 +242,7 @@ module_server_prevalence <- function(id, data) {
                   shiny::req(input$muac, input$age_cat)
 
                   data() |>
-                    dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
+                    #dplyr::mutate(muac = recode_muac(.data$muac, "cm")) |>
                     mod_call_prevalence_function_screening2(
                       age_cat = input$age_cat,
                       muac = input$muac,

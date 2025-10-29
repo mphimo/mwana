@@ -686,7 +686,7 @@ mod_call_prevalence_function_screening2 <- function(
     }
   } else if (nzchar(area2) && !nzchar(area3)) {
     if (nzchar(oedema)) {
-      mw_estimate_prevalence_screening(
+      mw_estimate_prevalence_screening2(
         df = df,
         age_cat = !!rlang::sym(age_cat),
         muac = !!rlang::sym(muac),
@@ -694,7 +694,7 @@ mod_call_prevalence_function_screening2 <- function(
         !!rlang::sym(area1), !!rlang::sym(area2)
       )
     } else {
-      mw_estimate_prevalence_screening(
+      mw_estimate_prevalence_screening2(
         df = df,
         age_cat = !!rlang::sym(age_cat),
         muac = !!rlang::sym(muac),
@@ -704,7 +704,7 @@ mod_call_prevalence_function_screening2 <- function(
     }
   } else {
     if (nzchar(oedema)) {
-      mw_estimate_prevalence_screening(
+      mw_estimate_prevalence_screening2(
         df = df,
         age_cat = !!rlang::sym(age_cat),
         muac = !!rlang::sym(muac),
@@ -712,7 +712,7 @@ mod_call_prevalence_function_screening2 <- function(
         !!rlang::sym(area1)
       )
     } else {
-      mw_estimate_prevalence_screening(
+      mw_estimate_prevalence_screening2(
         df = df,
         age_cat = !!rlang::sym(age_cat),
         muac = !!rlang::sym(muac),

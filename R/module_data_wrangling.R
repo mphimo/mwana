@@ -370,9 +370,11 @@ module_server_wrangling <- function(id, data) {
                 shiny::req(input$sex, input$muac)
 
                 data() |>
+                  dplyr::mutate(
+                    muac = recode_muac(!!rlang::sym(input$muac), "mm")
+                  ) |> 
                   dplyr::rename(
-                    sex = !!rlang::sym(input$sex),
-                    muac = !!rlang::sym(input$muac)
+                    sex = !!rlang::sym(input$sex)
                   ) |>
                   mw_wrangle_muac(
                     sex = .data$sex,
