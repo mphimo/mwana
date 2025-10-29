@@ -4,7 +4,7 @@
 
 ## ---- Module: Data Upload ----------------------------------------------------
 
-testthat::test_that("mwana app works as expected", {
+testthat::test_that("Data upload tab works as expected", {
   ### Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
