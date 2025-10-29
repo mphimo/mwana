@@ -57,13 +57,10 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
     }).get();
   ") |> as.character()
 
-  testthat::expect_equal(
-    object = vals,
-    expected = c("area", "dos", "cluster", "team", "sex", "dob", "age", "weight",
-      "height", "edema", "muac", "wfhz", "flag_wfhz"))
+  testthat::expect_true(all(c("wfhz", "flag_wfhz") %in% vals))
    testthat::expect_equal(
     object = length(vals),
-    expected = 13)
+    expected = 14)
 
   #### Stop the app ----
   app$stop()

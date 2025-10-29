@@ -39,7 +39,7 @@ testthat::test_that("mwana app works as expected", {
   )
 
   ### Test checks ----
-  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 70462)
+  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 80779)
   testthat::expect_equal(object = vals$input$`upload_data-upload`$type, "text/csv")
   testthat::expect_true(object = vals$output$`upload_data-fileUploaded`)
   testthat::expect_true(app$get_js("$('#upload_data-uploadedDataTable').length > 0"))
@@ -48,10 +48,10 @@ testthat::test_that("mwana app works as expected", {
     $('#upload_data-uploadedDataTable thead th').map(function() {
       return $(this).text();
     }).get();
-  ")[1:11] |> as.character(),
+  ")[1:12] |> as.character(),
     expected = c(
       "area", "dos", "cluster", "team", "sex",
-      "dob", "age", "weight", "height", "edema", "muac"
+      "dob", "age", "age_cat", "weight", "height", "edema", "muac"
     )
   )
 
