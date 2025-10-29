@@ -192,7 +192,7 @@ module_server_wrangling <- function(id, data) {
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
-                "MUAC (cm)",
+                "MUAC (mm)",
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -216,7 +216,7 @@ module_server_wrangling <- function(id, data) {
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
-                "MUAC (cm)",
+                "MUAC (mm)",
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -276,7 +276,7 @@ module_server_wrangling <- function(id, data) {
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
-                "MUAC (cm)",
+                "MUAC (mm)",
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -351,10 +351,12 @@ module_server_wrangling <- function(id, data) {
                 shiny::req(input$age, input$sex, input$muac)
 
                 data() |>
+                  dplyr::mutate(
+                    muac = recode_muac(x = !!rlang::sym(input$muac), .to = "cm")
+                  ) |> 
                   dplyr::rename(
                     age = !!rlang::sym(input$age),
-                    sex = !!rlang::sym(input$sex),
-                    muac = !!rlang::sym(input$muac)
+                    sex = !!rlang::sym(input$sex)
                   ) |>
                   mw_wrangle_age(dos = NULL, dob = NULL, age = .data$age) |>
                   mw_wrangle_muac(
@@ -370,11 +372,9 @@ module_server_wrangling <- function(id, data) {
                 shiny::req(input$sex, input$muac)
 
                 data() |>
-                  dplyr::mutate(
-                    muac = recode_muac(!!rlang::sym(input$muac), "mm")
-                  ) |> 
                   dplyr::rename(
-                    sex = !!rlang::sym(input$sex)
+                    sex = !!rlang::sym(input$sex), 
+                    muac = !!rlang::sym(input$muac)
                   ) |>
                   mw_wrangle_muac(
                     sex = .data$sex,
@@ -392,10 +392,12 @@ module_server_wrangling <- function(id, data) {
                 )
 
                 data() |>
+                  dplyr::mutate(
+                    muac = recode_muac(x = !!rlang::sym(input$muac), .to = "cm")
+                  ) |> 
                   dplyr::rename(
                     age = !!rlang::sym(input$age),
                     sex = !!rlang::sym(input$sex),
-                    muac = !!rlang::sym(input$muac),
                     weight = !!rlang::sym(input$weight),
                     height = !!rlang::sym(input$height)
                   ) |>

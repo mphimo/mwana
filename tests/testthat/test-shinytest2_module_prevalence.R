@@ -381,3 +381,96 @@ testthat::test_that(
 
 
 ### When age is given in categories ----
+testthat::test_that(
+  desc = "Prevalence tab works as expected when age is given in categories",
+  code = {
+
+
+    #### Initialise app ----
+    app <- shinytest2::AppDriver$new(
+      app_dir = testthat::test_path("fixtures"),
+      timeout = 120000,
+      wait = TRUE
+    )
+
+    #### Wait app to idle ----
+    app$wait_for_idle(timeout = 40000)
+
+    #### Click on the Data Upload tab ----
+    app$click(selector = "a[data-value='Data Upload']")
+
+    app$wait_for_idle(timeout = 40000)
+
+    #### Read data ----
+    data <- read.csv(
+      file = system.file("app", "anthro-01.csv", package = "mwana"),
+      check.names = FALSE
+    )
+    tempfile <- tempfile(fileext = ".csv")
+    write.csv(data, tempfile, row.names = FALSE)
+
+    #### Upload onto the app ----
+    app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
+
+    ### Click on Data Wrangling tab ----
+    app$click(selector = "a[data-value='Data Wrangling'")
+    app$wait_for_idle(timeout = 40000)
+
+    #### Select data wrangling method ----
+    app$set_inputs("wrangle_data-wrangle" = "muac")
+    app$wait_for_idle(timeout = 40000)
+
+    #### Select variables ----
+    app$set_inputs("wrangle_data-sex" = "sex", wait_ = FALSE)
+    app$set_inputs("wrangle_data-muac" = "muac", wait_ = FALSE)
+
+    #### Click on wrangle button ----
+    app$click(input = "wrangle_data-apply_wrangle")
+    app$wait_for_idle(timeout = 40000)
+
+    #### Click on Prevalence tab ----
+    app$click(selector = "a[data-value='Prevalence Analysis']")
+    app$wait_for_idle(timeout = 40000)
+
+    #### Select source of data ----
+    app$set_inputs("prevalence-source" = "screening", wait_ = FALSE)
+    app$wait_for_idle(timeout = 40000)
+
+    #### Select if age is available ----
+    app$set_inputs("prevalence-amn_method_screening" = "no", wait_ = FALSE)
+
+    #### Select variables ----
+    app$set_inputs("prevalence-age_cat" = "age_cat", wait_ = FALSE)
+    app$set_inputs("prevalence-area1" = "team", wait_ = FALSE)
+    app$set_inputs("prevalence-muac" = "muac", wait_ = FALSE)
+    app$set_inputs("prevalence-oedema" = "oedema", wait_ = FALSE)
+
+    #### Click on Estimate Prevalence button ----
+    app$click(input = "prevalence-estimate")
+    app$wait_for_idle(timeout = 40000)
+
+    #### Wait until output has been rendered ----
+    app$wait_for_value(output = "prevalence-results", timeout = 40000)
+
+    ### Get the list of variable names from the rendered table ----
+    vals <- as.character(
+      app$get_js(
+      "$('#prevalence-results thead th').map(function() {
+      return $(this).text();
+    }).get();"
+    )[1:7]
+  )
+    
+  ### Test check ----
+    testthat::expect_equal(
+      object = vals,
+      expected = c(
+        "team", "gam_n", "gam_p" , "sam_n", "sam_p", "mam_n", "mam_p" 
+      )
+    )
+
+  ### Stop the app ----
+    app$stop()
+
+  }
+)
