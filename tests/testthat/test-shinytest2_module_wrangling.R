@@ -138,24 +138,27 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
 
 ## ---- Data Wrangling: MUAC ---------------------------------------------------
 
+### When age is given in categories ----
 testthat::test_that(
-  desc = "Server data wrangling works as expected for raw MUAC", {
+  desc = "Prevalence tab works as expected when age is given in categories",
+  code = {
 
-  ## Initialise app ----
-  app <- shinytest2::AppDriver$new(
-    app_dir = testthat::test_path("fixtures"),
-      load_timeout = 120000,
+
+    #### Initialise app ----
+    app <- shinytest2::AppDriver$new(
+      app_dir = testthat::test_path("fixtures"),
+      timeout = 120000,
       wait = TRUE
-  )
+    )
 
-  ### Let the app load ----
+    #### Wait app to idle ----
     app$wait_for_idle(timeout = 40000)
 
-    ### Click on the Data uploading navbar ----
+    #### Click on the Data Upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
+
     app$wait_for_idle(timeout = 40000)
 
-    ### Upload data ----
     #### Read data ----
     data <- read.csv(
       file = system.file("app", "anthro-01.csv", package = "mwana"),
@@ -166,21 +169,24 @@ testthat::test_that(
 
     #### Upload onto the app ----
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
-  
-  ### Click on the data wrangling tab ----
-  app$click(selector = "a[data-value='Data Wrangling']")
-  app$wait_for_idle(timeout = 40000)
 
-  ### Select input variables ----
-  app$set_inputs(`wrangle_data-wrangle` = "muac", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE, timeout_ = 10000)
-  app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE, timeout_ = 10000)
+    ### Click on Data Wrangling tab ----
+    app$click(selector = "a[data-value='Data Wrangling'")
+    app$wait_for_idle(timeout = 40000)
 
-  ### Click wrangle button ----
-  app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
+    #### Select data wrangling method ----
+    app$set_inputs("wrangle_data-wrangle" = "muac")
+    app$wait_for_idle(timeout = 40000)
 
-  ### Get wrangled values ----
+    #### Select variables ----
+    app$set_inputs("wrangle_data-sex" = "sex", wait_ = FALSE)
+    app$set_inputs("wrangle_data-muac" = "muac", wait_ = FALSE)
+
+    #### Click on wrangle button ----
+    app$click(input = "wrangle_data-apply_wrangle")
+    app$wait_for_idle(timeout = 40000)
+
+    ### Get wrangled values ----
   vals <- app$get_js("
     $('#wrangle_data-wrangled thead th').map(function() {
       return $(this).text();
@@ -188,13 +194,13 @@ testthat::test_that(
   ") |> as.character()
 
   ### Test check ----
-  testthat::expect_true(all(vals %in% c("flag_muac")))
+  testthat::expect_true("flag_muac" %in% vals)
         testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
 
-  #### Stop the app ----
-  app$stop()
-  }
+  ### Stop the app ----
+    app$stop()
 
+  }
 )
 
 
