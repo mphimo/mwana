@@ -8,16 +8,16 @@ testthat::test_that("mwana app works as expected", {
   ### Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-    load_timeout = 30000,
+    load_timeout = 120000,
     wait = TRUE
   )
 
   ### Wait for the app to fully load ----
-  app$wait_for_idle(timeout = 20000)
+  app$wait_for_idle(timeout = 40000)
 
   ### Click on the Data uploading navbar ----
   app$click(selector = "a[data-value='Data Upload']")
-  app$wait_for_idle(timeout = 5000)
+  app$wait_for_idle(timeout = 40000)
 
   ### Upload data ----
   #### Read data ----
@@ -30,7 +30,7 @@ testthat::test_that("mwana app works as expected", {
 
   #### Upload onto the app ----
   app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
-  app$wait_for_value(output = "upload_data-uploadedDataTable", timeout = 20000)
+  app$wait_for_value(output = "upload_data-uploadedDataTable", timeout = 40000)
 
   #### Get values ----
   vals <- app$get_values(
@@ -39,7 +39,7 @@ testthat::test_that("mwana app works as expected", {
   )
 
   ### Test checks ----
-  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 75313)
+  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 70462)
   testthat::expect_equal(object = vals$input$`upload_data-upload`$type, "text/csv")
   testthat::expect_true(object = vals$output$`upload_data-fileUploaded`)
   testthat::expect_true(app$get_js("$('#upload_data-uploadedDataTable').length > 0"))

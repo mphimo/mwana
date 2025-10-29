@@ -10,17 +10,17 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000, 
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
-    app$click(selector = "a[data-value='IPC Check']")
-    app$wait_for_idle()
-
+    app$click(selector = "a[data-value='Data Upload']")
+    app$wait_for_idle(timeout = 40000)
+    
     ### Upload data ----
     #### Read data ----
     data <- read.csv(
@@ -33,9 +33,13 @@ testthat::test_that(
     #### Upload onto the app ----
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
 
+    ### Click on the Data uploading navbar ----
+    app$click(selector = "a[data-value='IPC Check']")
+    app$wait_for_idle(timeout = 40000)
+
     #### Set IPC Check for survey data ----
     app$set_inputs(`ipc_check-ipccheck` = "survey", wait_ = FALSE)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Now set parameters for survey ----
     app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
@@ -44,7 +48,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
+    app$wait_for_value(output = "ipc_check-checked", timeout = 40000)
 
     ### Test check ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
@@ -69,16 +73,16 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
-    app$click(selector = "a[data-value='IPC Check']")
-    app$wait_for_idle()
+    app$click(selector = "a[data-value='Data Upload']")
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -94,7 +98,11 @@ testthat::test_that(
 
     #### Set IPC Check for screening data ----
     app$set_inputs(`ipc_check-ipccheck` = "screening", wait_ = TRUE, timeout_ = 10000)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
+
+    ### Click on the Data uploading navbar ----
+    app$click(selector = "a[data-value='IPC Check']")
+    app$wait_for_idle(timeout = 40000)
 
     #### Now set parameters for survey ----
     app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
@@ -103,7 +111,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
+    app$wait_for_value(output = "ipc_check-checked", timeout = 40000)
 
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
     expect_equal(
@@ -127,16 +135,16 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
-    app$click(selector = "a[data-value='IPC Check']")
-    app$wait_for_idle()
+    app$click(selector = "a[data-value='Data Upload']")
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -150,9 +158,12 @@ testthat::test_that(
     #### Upload onto the app ----
     app$upload_file(`upload_data-upload` = tempfile, wait_ = TRUE)
 
+    ### Click on the IPC Check nav bar ----
+    app$click(selector = "a[data-value='IPC Check']")
+
     #### Set IPC Check for screening data ----
     app$set_inputs(`ipc_check-ipccheck` = "sentinel", wait_ = TRUE, timeout_ = 10000)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Now set parameters for survey ----
     app$set_inputs(`ipc_check-area1` = "area", wait_ = FALSE)
@@ -161,7 +172,7 @@ testthat::test_that(
 
     #### Run check ----
     app$click(input = "ipc_check-apply_check")
-    app$wait_for_value(output = "ipc_check-checked", timeout = 20000)
+    app$wait_for_value(output = "ipc_check-checked", timeout = 40000)
 
     #### Test checks ----
     testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))

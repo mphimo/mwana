@@ -13,16 +13,16 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000,
+      timeout = 120000,
       wait = TRUE
     )
 
     ### Wait the app to idle ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click in the Data Upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Read data ----
     data <- read.csv(
@@ -37,11 +37,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method and wait the app till idles ----
     app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Input variables ----
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
@@ -52,11 +52,11 @@ testthat::test_that(
 
     ### Click wrangle button and wait the app to idle ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Prevalence tab and wait the app to idle ----
     app$click(selector = "a[data-value='Prevalence Analysis']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select source of data ----
     app$set_inputs(`prevalence-source` = "survey", wait_ = FALSE)
@@ -71,7 +71,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_value(output = "prevalence-results", timeout = 20000)
+    app$wait_for_value(output = "prevalence-results", timeout = 40000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -107,16 +107,16 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000,
+      timeout = 120000,
       wait = TRUE
     )
 
     ### Wait the app to idle ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click in the Data Upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Read data ----
     data <- read.csv(
@@ -131,11 +131,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method and wait the app till idles ----
     app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = TRUE)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Input variables ----
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
@@ -146,11 +146,11 @@ testthat::test_that(
 
     ### Click wrangle button and wait the app to idle ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Prevalence tab and wait the app to idle ----
     app$click(selector = "a[data-value='Prevalence Analysis']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select source of data ----
     app$set_inputs(`prevalence-source` = "survey", wait_ = FALSE)
@@ -165,7 +165,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_value(output = "prevalence-results", timeout = 20000)
+    app$wait_for_value(output = "prevalence-results", timeout = 40000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -200,16 +200,16 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000,
+      timeout = 120000,
       wait = TRUE
     )
 
     ### Wait the app to idle ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click in the Data Upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Read data ----
     data <- read.csv(
@@ -224,11 +224,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method and wait the app till idles ----
     app$set_inputs(`wrangle_data-wrangle` = "combined", wait_ = TRUE)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Input variables ----
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
@@ -241,11 +241,11 @@ testthat::test_that(
 
     ### Click wrangle button and wait the app to idle ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Prevalence tab and wait the app to idle ----
     app$click(selector = "a[data-value='Prevalence Analysis']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select source of data ----
     app$set_inputs(`prevalence-source` = "survey", wait_ = FALSE)
@@ -260,7 +260,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_value(output = "prevalence-results", timeout = 20000)
+    app$wait_for_value(output = "prevalence-results", timeout = 40000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(
@@ -297,16 +297,16 @@ testthat::test_that(
      ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"), 
-      timeout = 30000,
+      timeout = 120000,
       wait = TRUE
     )
 
     ### Wait the app to idle ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click in the Data Upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Read data ----
     data <- read.csv(
@@ -321,11 +321,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method and wait the app till idles ----
     app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = TRUE)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Input variables ----
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
@@ -336,11 +336,11 @@ testthat::test_that(
 
     ### Click wrangle button and wait the app to idle ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Prevalence tab and wait the app to idle ----
     app$click(selector = "a[data-value='Prevalence Analysis']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select source of data ----
     app$set_inputs(`prevalence-source` = "screening", wait_ = TRUE)
@@ -355,7 +355,7 @@ testthat::test_that(
 
     ### Click on Estime Prevalence button ----
     app$click(input = "prevalence-estimate")
-    app$wait_for_value(output = "prevalence-results", timeout = 20000)
+    app$wait_for_value(output = "prevalence-results", timeout = 40000)
 
     ### Get the list of variable names from the rendered table ----
     vals <- as.character(

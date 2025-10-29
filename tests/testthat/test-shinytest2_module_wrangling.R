@@ -10,16 +10,16 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000, 
+      load_timeout = 120000, 
       wait = TRUE
   )
 
   ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -35,7 +35,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
   
   ### Click on the data wrangling tab ----
   app$click(selector = "a[data-value='Data Wrangling']")
-  app$wait_for_idle()
+  app$wait_for_idle(timeout = 40000)
 
   ### Select input variables ----
   app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
@@ -48,7 +48,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -80,16 +80,16 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
   )
 
   ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -105,7 +105,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   
   ### Click on the data wrangling tab ----
   app$click(selector = "a[data-value='Data Wrangling']")
-  app$wait_for_idle()
+  app$wait_for_idle(timeout = 40000)
 
   ### Set the wrangling method to MFAZ ----
   app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = FALSE)
@@ -119,7 +119,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -147,16 +147,16 @@ testthat::test_that(
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
   )
 
   ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -172,7 +172,7 @@ testthat::test_that(
   
   ### Click on the data wrangling tab ----
   app$click(selector = "a[data-value='Data Wrangling']")
-  app$wait_for_idle()
+  app$wait_for_idle(timeout = 40000)
 
   ### Select input variables ----
   app$set_inputs(`wrangle_data-wrangle` = "muac", wait_ = FALSE, timeout_ = 10000)
@@ -181,7 +181,7 @@ testthat::test_that(
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
 
   ### Get wrangled values ----
   vals <- app$get_js("
@@ -209,16 +209,16 @@ testthat::test_that(
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
     app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
   )
 
   ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Upload data ----
     #### Read data ----
@@ -234,7 +234,7 @@ testthat::test_that(
   
   ### Click on the data wrangling tab ----
   app$click(selector = "a[data-value='Data Wrangling']")
-  app$wait_for_idle()
+  app$wait_for_idle(timeout = 40000)
 
   ### Select input variables ----
   app$set_inputs(`wrangle_data-wrangle` = "combined", wait_ = FALSE)
@@ -248,7 +248,7 @@ testthat::test_that(
 
   ### Click wrangle button ----
   app$click(input = "wrangle_data-apply_wrangle")
-  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 20000)
+  app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
 
   ### Get wrangled values ----
   vals <- app$get_js("

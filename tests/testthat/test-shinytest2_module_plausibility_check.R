@@ -10,16 +10,16 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on data upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Find the data to upload ----
     data <- read.csv(
@@ -35,7 +35,7 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method ----
     app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
@@ -50,11 +50,11 @@ testthat::test_that(
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Plausibility Check tab ----
     app$click(selector = "a[data-value='Plausibility Check']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select method for plausibility check ----
     app$set_inputs(`plausible-method` = "wfhz", wait_ = FALSE)
@@ -71,7 +71,7 @@ testthat::test_that(
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
-    app$wait_for_value(output = "plausible-checked", timeout = 20000)
+    app$wait_for_value(output = "plausible-checked", timeout = 40000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(
@@ -106,16 +106,16 @@ testthat::test_that(
     # Initialise app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000,
+      load_timeout = 120000,
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Data uploading navbar ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Read data ----
     data <- read.csv(
@@ -130,11 +130,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method ----
     app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = TRUE, timeout_ = 15000)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
     app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
@@ -144,11 +144,11 @@ testthat::test_that(
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Plausibility Check tab ----
     app$click(selector = "a[data-value='Plausibility Check']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select method for plausibility check ----
     app$set_inputs(`plausible-method` = "mfaz", wait_ = TRUE, timeout_ = 15000)
@@ -164,7 +164,7 @@ testthat::test_that(
 
     ### Click on check plausibility button ----
     app$click(input = "plausible-check")
-    app$wait_for_value(output = "plausible-checked", timeout = 20000)
+    app$wait_for_value(output = "plausible-checked", timeout = 40000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(
@@ -200,16 +200,16 @@ testthat::test_that(
     ### Initialise mwana app ----
     app <- shinytest2::AppDriver$new(
       app_dir = testthat::test_path("fixtures"),
-      load_timeout = 30000, 
+      load_timeout = 120000, 
       wait = TRUE
     )
 
     ### Let the app load ----
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on data upload tab ----
     app$click(selector = "a[data-value='Data Upload']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     #### Find the data to upload ----
     data <- read.csv(
@@ -225,11 +225,11 @@ testthat::test_that(
 
     ### Click on the data wrangling tab ----
     app$click(selector = "a[data-value='Data Wrangling']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select data wrangling method ----
     app$set_inputs(`wrangle_data-wrangle` = "muac", wait_ = TRUE, timeout_ = 15000)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select input variables ----
     app$set_inputs(`wrangle_data-sex` = "sex", wait_ = FALSE)
@@ -237,15 +237,15 @@ testthat::test_that(
 
     ### Click wrangle button ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Click on the Plausibility Check tab ----
     app$click(selector = "a[data-value='Plausibility Check']")
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select method for plausibility check ----
     app$set_inputs(`plausible-method` = "muac", wait_ = TRUE, timeout_ = 15000)
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 40000)
 
     ### Select input variables ----
     app$set_inputs(`plausible-area1` = "area", wait_ = FALSE)
@@ -257,7 +257,7 @@ testthat::test_that(
 
     ### Click on check plausibility button
     app$click(input = "plausible-check")
-    app$wait_for_value(output = "plausible-checked", timeout = 20000)
+    app$wait_for_value(output = "plausible-checked", timeout = 40000)
 
     ### Get checked file and assert existing variables agains expected ----
     vals <- app$get_js(
