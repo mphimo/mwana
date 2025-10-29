@@ -333,7 +333,7 @@ module_server_prevalence <- function(id, data) {
           tryCatch(
             {
               openxlsx::write.xlsx(prevalence$estimated, file)
-              shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+              shiny::showNotification("File downloaded successfully!", type = "message")
             },
             error = function(e) {
               shiny::showNotification(paste("Error creating file:", e$message), type = "error")

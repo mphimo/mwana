@@ -334,7 +334,7 @@ module_server_ipccheck <- function(id, data) {
         tryCatch(
           {
             openxlsx::write.xlsx(dataset$checked, file)
-            shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+            shiny::showNotification("File downloaded successfully!", type = "message")
           },
           error = function(e) {
             shiny::showNotification(paste("Error creating file:", e$message), type = "error")

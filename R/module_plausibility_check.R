@@ -449,7 +449,7 @@ module_server_plausibility_check <- function(id, data) {
           tryCatch(
             {
               openxlsx::write.xlsx(plausibility$checked, file)
-              shiny::showNotification("File downloaded successfully! 🎉 ", type = "message")
+              shiny::showNotification("File downloaded successfully!", type = "message")
             },
             error = function(e) {
               shiny::showNotification(paste("Error creating file:", e$message), type = "error")
