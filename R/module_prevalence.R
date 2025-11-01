@@ -198,7 +198,7 @@ module_server_prevalence <- function(id, data) {
                     area1 = input$area1,
                     area2 = input$area2,
                     area3 = input$area3
-                  )
+                  ) |> mod_neat_prevalence_output_survey(.type = "wfhz")
                 },
                 "muac" = {
                   data() |>
@@ -209,7 +209,7 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    )
+                    ) |> mod_neat_prevalence_output_survey(.type = "muac")
                 },
                 "combined" = {
                   data() |>
@@ -220,7 +220,7 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    )
+                    ) |> mod_neat_prevalence_output_survey(.type = "combined")
                 }
               )
             } else {
@@ -236,7 +236,7 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    )
+                    ) |> mod_neat_prevalence_output_screening()
                 },
                 "no" = {
                   shiny::req(input$muac, input$age_cat)
@@ -249,7 +249,7 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    )
+                    ) |> mod_neat_prevalence_output_screening()
                 }
               )
             }
