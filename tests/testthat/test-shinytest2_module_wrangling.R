@@ -5,6 +5,11 @@
 
 ## ---- Data Wrangling: WFHZ ---------------------------------------------------
 
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
   ## Initialise app ----
   app <- shinytest2::AppDriver$new(
@@ -68,6 +73,11 @@ testthat::test_that(desc = "Server data wrangling works as expected for WFHZ", {
 
 
 ## ---- Data Wrangling: MFAZ ---------------------------------------------------
+
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
 
 
 testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
@@ -133,6 +143,11 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
 
 ## ---- Data Wrangling: MUAC ---------------------------------------------------
 
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 ### When age is given in categories ----
 testthat::test_that(
   desc = "Prevalence tab works as expected when age is given in categories",
@@ -197,6 +212,11 @@ testthat::test_that(
 
 
 ## ---- Data Wrangling: WFHZ and MFAZ ------------------------------------------
+
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
 
 testthat::test_that(
   desc = "Server data wrangling works as expected for combined wrangling",

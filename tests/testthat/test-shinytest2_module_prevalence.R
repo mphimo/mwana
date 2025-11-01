@@ -6,6 +6,11 @@
 
 ### WFHZ Prevalence ----
 
+#### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(
   desc = "Module works well to estimate prevalence of AMN by WFHZ from survey", 
   code = {
@@ -100,6 +105,11 @@ testthat::test_that(
 
 ### MUAC prevalence ----
 
+#### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(
   desc = "Module works well to estimate prevalence of AMN by MUAC from survey",
   code = {
@@ -192,6 +202,11 @@ testthat::test_that(
 )
 
 ### Combined prevalence ----
+
+#### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
 
 testthat::test_that(
   desc = "Module works well to estimate prevalence of combined AMN from survey",
@@ -290,6 +305,12 @@ testthat::test_that(
 ## ---- Screening data ---------------------------------------------------------
 
 ### When age is available ----
+
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(
   desc = "Module works well to estimate prevalence from screening",
   code = {
@@ -381,6 +402,12 @@ testthat::test_that(
 
 
 ### When age is given in categories ----
+
+#### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(
   desc = "Prevalence tab works as expected when age is given in categories",
   code = {

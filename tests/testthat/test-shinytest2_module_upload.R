@@ -4,6 +4,11 @@
 
 ## ---- Module: Data Upload ----------------------------------------------------
 
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that("Data upload tab works as expected", {
   ### Initialise app ----
   app <- shinytest2::AppDriver$new(

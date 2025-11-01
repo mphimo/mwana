@@ -4,6 +4,12 @@
 
 ## ---- IPC check on survey data -----------------------------------------------
 
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
+
 testthat::test_that(
   "IPC check's server module behaves as expected on survey data",
   {
@@ -67,6 +73,11 @@ testthat::test_that(
 
 ## ---- IPC Check on screening data --------------------------------------------
 
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
+
 testthat::test_that(
   "IPC check's server module behaves as expected on screening data",
   {
@@ -128,6 +139,11 @@ testthat::test_that(
 )
 
 ## ---- IPC Check on sentinel site data ----------------------------------------
+
+### Skip test on windows ----
+if (identical(Sys.getenv("CI"), "true") && Sys.info()[["sysname"]] == "Windows") {
+  skip("Skipping shinytest2 integration tests on Windows CI to reduce runtime")
+}
 
 testthat::test_that(
   "IPC check's server module behaves as expected on sentinel site data",
