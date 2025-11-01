@@ -722,3 +722,96 @@ mod_call_prevalence_function_screening2 <- function(
     }
   }
 }
+
+
+#'
+#' 
+#' @keywords internal
+#' 
+#' 
+mod_neat_prevalence_output_survey <- function(df, .type = c("wfhz", "muac", "combined")) {
+  
+  df <- dplyr::mutate(
+    .data = df, 
+    dplyr::across(
+      .cols = -dplyr::contains(c("_n", "_deff", "_pop")), 
+      .fns = scales::label_percent(
+        accuracy = 0.1, suffix = "%", decimal.mark = "."
+      )
+    )
+  ) 
+
+  if (.type %in% c("wfhz", "muac")) {
+    df |> 
+      dplyr::relocate(.data$wt_pop, .before = .data$gam_n) |> 
+    dplyr::rename(
+      "children (N)" = .data$wt_pop,
+      "gam #" = .data$gam_n,
+      "gam %" = .data$gam_p,
+      "gam lcl" = .data$gam_p_low,
+      "gam ucl" = .data$gam_p_upp,
+      "gam deff" = .data$gam_p_deff,
+      "sam #" = .data$sam_n,
+      "sam %" = .data$sam_p,
+      "sam lcl" = .data$sam_p_low,
+      "sam ucl" = .data$sam_p_upp,
+      "sam deff" = .data$sam_p_deff,
+      "mam #" = .data$mam_n,
+      "mam %" = .data$mam_p,
+      "mam lcl" = .data$mam_p_low,
+      "mam ucl" = .data$mam_p_upp,
+      "mam deff" = .data$mam_p_deff
+    )
+  } else {
+    df |> 
+      dplyr::relocate(.data$wt_pop, .before = .data$cgam_n) |> 
+    dplyr::rename(
+      "children (N)" = .data$wt_pop,
+      "cgam #" = .data$cgam_n,
+      "cgam %" = .data$cgam_p,
+      "cgam lcl" = .data$cgam_p_low,
+      "cgam ucl" = .data$cgam_p_upp,
+      "cgam deff" = .data$cgam_p_deff,
+      "csam #" = .data$csam_n,
+      "csam %" = .data$csam_p,
+      "csam lcl" = .data$csam_p_low,
+      "csam ucl" = .data$csam_p_upp,
+      "csam deff" = .data$csam_p_deff,
+      "cmam #" = .data$cmam_n,
+      "cmam %" = .data$cmam_p,
+      "cmam lcl" = .data$cmam_p_low,
+      "cmam ucl" = .data$cmam_p_upp,
+      "cmam deff" = .data$cmam_p_deff
+    )
+  }
+    
+}
+
+
+#'
+#' 
+#' @keywords internal
+#' 
+#' 
+mod_neat_prevalence_output_screening <- function(df) {
+  
+  df <- dplyr::mutate(
+    .data = df, 
+    dplyr::across(
+      .cols = -dplyr::contains(c("_n", "_deff", "_pop")), 
+      .fns = scales::label_percent(
+        accuracy = 0.1, suffix = "%", decimal.mark = "."
+      )
+    )
+  ) 
+    dplyr::rename(
+      .data = df,
+      "gam #" = .data$gam_n,
+      "gam %" = .data$gam_p,
+      "sam #" = .data$sam_n,
+      "sam %" = .data$sam_p,
+      "mam #" = .data$mam_n,
+      "mam %" = .data$mam_p
+    )
+    
+}

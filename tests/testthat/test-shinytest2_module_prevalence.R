@@ -90,10 +90,10 @@ testthat::test_that(
   ### Test check ----
     testthat::expect_equal(
       object = vals,
-      expected = c(
-        "area", "sex", "gam_n", "gam_p", "gam_p_low", "gam_p_upp", "gam_p_deff",
-        "sam_n", "sam_p", "sam_p_low", "sam_p_upp", "sam_p_deff",
-        "mam_n", "mam_p", "mam_p_low", "mam_p_upp", "mam_p_deff", "wt_pop"
+       expected = c(
+        "area", "sex", "children (N)", "gam #", "gam %", "gam lcl", "gam ucl", "gam deff",
+        "sam #", "sam %", "sam lcl", "sam ucl", "sam deff",
+        "mam #", "mam %", "mam lcl", "mam ucl", "mam deff"
       )
     )
 
@@ -190,9 +190,9 @@ testthat::test_that(
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "area", "sex", "gam_n", "gam_p", "gam_p_low", "gam_p_upp", "gam_p_deff",
-        "sam_n", "sam_p", "sam_p_low", "sam_p_upp", "sam_p_deff",
-        "mam_n", "mam_p", "mam_p_low", "mam_p_upp", "mam_p_deff", "wt_pop"
+        "area", "sex", "children (N)","gam #", "gam %", "gam lcl", "gam ucl", "gam deff",
+        "sam #", "sam %", "sam lcl", "sam ucl", "sam deff",
+        "mam #", "mam %", "mam lcl", "mam ucl", "mam deff"
       )
     )
 
@@ -290,10 +290,9 @@ testthat::test_that(
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "area", "sex", "cgam_p", "csam_p" , "cmam_p", "cgam_n", "cgam_p_low", 
-        "cgam_p_upp", "cgam_p_deff", "csam_n", "csam_p_low", "csam_p_upp",
-        "csam_p_deff", "cmam_n", "cmam_p_low", "cmam_p_upp",
-        "cmam_p_deff", "wt_pop" 
+        "area", "sex", "cgam %", "csam %", "cmam %", "children (N)", "cgam #",
+        "cgam lcl", "cgam ucl", "cgam deff", "csam #", "csam lcl", "csam ucl",
+        "csam deff", "cmam #", "cmam lcl", "cmam ucl", "cmam deff"
       )
     )
 
@@ -391,7 +390,7 @@ testthat::test_that(
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "area", "sex", "gam_n", "gam_p" , "sam_n", "sam_p", "mam_n", "mam_p" 
+        "area", "sex", "gam #", "gam %" , "sam #", "sam %", "mam #", "mam %" 
       )
     )
 
@@ -492,7 +491,7 @@ testthat::test_that(
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "team", "gam_n", "gam_p" , "sam_n", "sam_p", "mam_n", "mam_p" 
+        "team", "gam #", "gam %" , "sam #", "sam %", "mam #", "mam %" 
       )
     )
 
