@@ -1,0 +1,76 @@
+/* Global background */
+body {
+  color: rgb(68, 68, 68); 
+  background-color: #f9fdfb;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", 
+  "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", 
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+/* Navbar brand text */
+.navbar-brand span {
+  box-sizing: border-box;  
+  color: rgba(255, 255, 255, 0.7);
+  color-scheme: dark;
+  cursor: auto;
+  display: inline;
+  font-size: 21.25px;
+  font-weight: 400; height: auto;
+  line-height: 31.875px;
+  text-align: start;
+  text-underline-offset: 3px;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  width: auto;
+}
+
+/* Navbar container */
+.navbar {
+  background-color: #004225 !important; 
+  --bs-navbar-active-color: rgb(209, 197, 226, 0.8); /* active tab */
+  /* --bs-nav-link-color: rgba(255, 255, 255, 0.7); */
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 2px solid #13b955;
+  align-items: center;
+  box-sizing: border-box;
+  color-scheme: light;
+  column-gap: 0px;
+  flex-direction: column; 
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 17px;
+  font-weight: 400; height: 83.78125px;
+  justify-content: flex-start;
+  line-height: 25.5px;
+  padding-bottom: 20.4px;
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-top: 20.4px;
+  position: relative;
+  text-align: start;
+  width: 1920px;
+}
+
+/* Highlight colour on hover */
+.navbar-nav {
+  --bs-nav-link-color: rgba(255, 255, 255, 0.7);
+  --bs-nav-link-hover-color: rgb(209, 197, 226, 0.8);
+}
+
+/* Panel headers or section titles */
+h1, h2, h3 {
+  color:rgb(68, 68, 68);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color:  #004225 !important;;
+  border-color:  #004225 !important;;
+}
+
+.btn-primary:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.7)
+}
+

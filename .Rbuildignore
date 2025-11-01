@@ -21,3 +21,4 @@
 ^CODE_OF_CONDUCT\.md$
 ^vignettes/\.quarto$
 ^CITATION\.cff$
+_\.new\.png$
