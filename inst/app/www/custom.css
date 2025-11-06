@@ -25,6 +25,18 @@ body {
   width: auto;
 }
 
+/* Data upload progress bar */
+span.btn.btn-default.btn-file {
+  fill: #004225 !important;
+  background-color: #004225;
+}
+
+/* Data upload progress bar */
+.progress-bar {
+  fill: #004225 !important;
+  background-color: #004225 !important;
+}
+
 /* Navbar container */
 .navbar {
   background-color: #004225 !important; 
@@ -65,8 +77,8 @@ h1, h2, h3 {
 
 /* Buttons */
 .btn-primary {
-  background-color:  #004225 !important;;
-  border-color:  #004225 !important;;
+  background-color:  #004225 !important;
+  border-color:  #004225 !important;
 }
 
 .btn-primary:hover {
@@ -74,3 +86,22 @@ h1, h2, h3 {
   border-color: rgba(255, 255, 255, 0.7)
 }
 
+/* Radio buttons */
+.form-check-input:checked, 
+.shiny-input-container .checkbox input:checked, 
+.shiny-input-container .checkbox-inline input:checked, 
+.shiny-input-container .radio input:checked, 
+.shiny-input-container .radio-inline input:checked {
+    background-color:#004225;
+    border-color:#004225
+}
+
+/* Pagination */
+
+.page-link.active, 
+.active > .page-link {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color:#004225;
+    border-color:#004225;
+}

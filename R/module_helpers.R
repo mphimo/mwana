@@ -729,7 +729,10 @@ mod_call_prevalence_function_screening2 <- function(
 #' @keywords internal
 #' 
 #' 
-mod_neat_prevalence_output_survey <- function(df, .type = c("wfhz", "muac", "combined")) {
+mod_neat_prevalence_output_survey <- function(
+  df, 
+  .type = c("wfhz", "muac", "combined")
+) {
   
   df <- dplyr::mutate(
     .data = df, 
@@ -784,7 +787,6 @@ mod_neat_prevalence_output_survey <- function(df, .type = c("wfhz", "muac", "com
       "cmam deff" = .data$cmam_p_deff
     )
   }
-    
 }
 
 
@@ -798,12 +800,15 @@ mod_neat_prevalence_output_screening <- function(df) {
   df <- dplyr::mutate(
     .data = df, 
     dplyr::across(
-      .cols = -dplyr::contains(c("_n", "_deff", "_pop")), 
+      .cols = -dplyr::contains("_n"), 
       .fns = scales::label_percent(
         accuracy = 0.1, suffix = "%", decimal.mark = "."
       )
     )
   ) 
+
+  ### Rename based on the existance of column "gam_n" ----
+  if ("gam_n" %in% names(df)) {
     dplyr::rename(
       .data = df,
       "gam #" = .data$gam_n,
@@ -813,5 +818,12 @@ mod_neat_prevalence_output_screening <- function(df) {
       "mam #" = .data$mam_n,
       "mam %" = .data$mam_p
     )
-    
+  } else {
+    dplyr::rename(
+      .data = df,
+      "gam %" = .data$gam_p,
+      "sam %" = .data$sam_p,
+      "mam %" = .data$mam_p
+    )
+  } 
 }
