@@ -27,7 +27,7 @@ module_ui_upload <- function(id) {
           shiny::fileInput(
             inputId = ns("upload"),
             label = "Upload a .csv file",
-            buttonLabel = "Browse...",
+            buttonLabel = htmltools::tags$span("Browse...", style = "color: white;"),
             accept = ".csv"
           ),
           shiny::conditionalPanel(
@@ -61,7 +61,7 @@ module_ui_upload <- function(id) {
           htmltools::tags$div(
             style = "text-align: center; padding: 50px;",
             htmltools::tags$div(class = "spinner-border text-primary", role = "status"),
-            htmltools::tags$h4("Loading data...", style = "color: #007bff; margin-top: 20px;"),
+            htmltools::tags$h4("Loading data...", style = "margin-top: 20px;"),
             htmltools::tags$p("Please wait while the file gets processed.")
           )
         ),

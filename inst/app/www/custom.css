@@ -25,6 +25,18 @@ body {
   width: auto;
 }
 
+/* Data upload progress bar */
+span.btn.btn-default.btn-file {
+  fill: #004225 !important;
+  background-color: #004225;
+}
+
+/* Data upload progress bar */
+.progress-bar {
+  fill: #004225 !important;
+  background-color: #004225 !important;
+}
+
 /* Navbar container */
 .navbar {
   background-color: #004225 !important; 
@@ -65,12 +77,12 @@ h1, h2, h3 {
 
 /* Buttons */
 .btn-primary {
-  background-color:  #004225 !important;;
-  border-color:  #004225 !important;;
+  background-color:  #004225 !important;
+  border-color:  #004225 !important;
 }
 
-.btn-primary:hover {
+/* .btn-primary:hover {
   background-color: rgba(255, 255, 255, 0.7);
   border-color: rgba(255, 255, 255, 0.7)
-}
+} */
 
