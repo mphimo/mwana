@@ -729,7 +729,10 @@ mod_call_prevalence_function_screening2 <- function(
 #' @keywords internal
 #' 
 #' 
-mod_neat_prevalence_output_survey <- function(df, .type = c("wfhz", "muac", "combined")) {
+mod_neat_prevalence_output_survey <- function(
+  df, 
+  .type = c("wfhz", "muac", "combined")
+) {
   
   df <- dplyr::mutate(
     .data = df, 
@@ -784,7 +787,6 @@ mod_neat_prevalence_output_survey <- function(df, .type = c("wfhz", "muac", "com
       "cmam deff" = .data$cmam_p_deff
     )
   }
-    
 }
 
 
