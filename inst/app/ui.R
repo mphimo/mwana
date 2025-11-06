@@ -18,24 +18,35 @@ library(rlang)
 ui <- tagList(
    ### Link up with custom .css file ----
   tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "custom.css") # external stylesheet
   ),
 
   page_navbar(
-
-  ### Left side: app name and logo ----
   title = tags$div(
-    style = "display: flex; align-items: center;",
-    tags$span("mwana", 
-    style = "margin-right: 10px; font-family: Arial, sans-serif; font-size: 50px;"),
-    tags$a( 
-      href = "https://nutriverse.io/mwana/",
-      tags$span(
-        tags$img(src = "logo.png", height = "40px"), 
-        style = "margin-right: 20px;" 
+    style = "display: flex; align-items: center; justify-content: space-between; width: 100%;",
+    
+    ### Left side: app name and logo ----
+    tags$div(
+      style = "display: flex; align-items: center;",
+      tags$span("mwana", 
+        style = "margin-right: 10px; font-family: Arial, sans-serif; font-size: 50px;"
+      ),
+      tags$a( 
+        href = "https://nutriverse.io/mwana/",
+        tags$span(
+          tags$img(src = "logo.png", height = "40px"), 
+          style = "margin-right: 20px;" 
+        )
       )
+    ),
+    
+    ### Right side: app version ----
+    tags$span("v.2.2",
+      id = "app-version",
+      style = "font-size: 12.5px; color:  rgba(255, 255, 255, 0.4); 
+        position: fixed; top: 40px; right: 20px;"
     )
-  ),
+),
 
   ## ---- Tab 1: Home ----------------------------------------------------------
 
