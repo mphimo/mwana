@@ -737,7 +737,7 @@ mod_neat_prevalence_output_survey <- function(
   df <- dplyr::mutate(
     .data = df, 
     dplyr::across(
-      .cols = -dplyr::contains(c("_n", "_deff", "_pop")), 
+      .cols = dplyr::ends_with(c("am_p", "am_p_low", "am_p_upp")), 
       .fns = scales::label_percent(
         accuracy = 0.1, suffix = "%", decimal.mark = "."
       )
@@ -800,7 +800,7 @@ mod_neat_prevalence_output_screening <- function(df) {
   df <- dplyr::mutate(
     .data = df, 
     dplyr::across(
-      .cols = -dplyr::contains("_n"), 
+      .cols = dplyr::contains("am_p"), 
       .fns = scales::label_percent(
         accuracy = 0.1, suffix = "%", decimal.mark = "."
       )
