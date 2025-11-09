@@ -303,6 +303,7 @@ mw_estimate_smart_age_wt <- function(df, edema = NULL, raw_muac = FALSE, ...) {
       sam = smart_age_weighting(.data$muac, .data$age, {{ edema }}, .form = "sam"),
       mam = smart_age_weighting(.data$muac, .data$age, {{ edema }}, .form = "mam"),
       gam = .data$sam + .data$mam,
+      N = n(),
       .groups = "keep"
     ) |>
     dplyr::rename(
