@@ -29,10 +29,10 @@ testthat::test_that(
 
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(ncol(p), 6)
+    testthat::expect_equal(ncol(p), 7)
     testthat::expect_equal(nrow(p), 1)
     testthat::expect_true(
-      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p") %in% names(p))
+      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N") %in% names(p))
     )
     testthat::expect_equal(p[[1]][1], gam_n)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), gam_p)
@@ -103,10 +103,10 @@ testthat::test_that(
 
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(ncol(p), 6)
+    testthat::expect_equal(ncol(p), 7)
     testthat::expect_equal(nrow(p), 1)
     testthat::expect_true(
-      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p") %in% names(p))
+      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N") %in% names(p))
     )
     testthat::expect_equal(p[[1]][1], gam_n)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), gam_p)
@@ -140,10 +140,11 @@ testthat::test_that(
 
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(ncol(p), 7)
+    testthat::expect_equal(ncol(p), 8)
     testthat::expect_equal(nrow(p), 2)
     testthat::expect_true(
-      all(c("province", "gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p") %in% names(p))
+      all(c("province", "gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N")
+        %in% names(p))
     )
     testthat::expect_equal(p[[2]][1], gam_n)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), gam_p)
@@ -229,7 +230,7 @@ testthat::test_that(
 
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(ncol(p), 7)
+    testthat::expect_equal(ncol(p), 8)
     testthat::expect_equal(nrow(p), 2)
     testthat::expect_true(
       all(c("province", "gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p") %in% names(p))
@@ -265,10 +266,10 @@ testthat::test_that(
 
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(ncol(p), 6)
+    testthat::expect_equal(ncol(p), 7)
     testthat::expect_equal(nrow(p), 1)
     testthat::expect_true(
-      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p") %in% names(p))
+      all(c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N") %in% names(p))
     )
     testthat::expect_equal(p[[1]][1], gam_n)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), gam_p)
@@ -310,10 +311,10 @@ testthat::test_that(
     p <- anthro.04 |>
       mw_estimate_prevalence_screening(muac = muac, edema = edema, province)
 
-    columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p")
+    columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p","N")
 
     ### test ----
-    testthat::expect_vector(select(p, !province), size = 3, ncol(7))
+    testthat::expect_vector(select(p, !province), size = 3, ncol(8))
     testthat::expect_s3_class(p, "tbl")
     testthat::expect_false(all(sapply(p[2,][columns_to_check], \(.) all(is.na(.)))))
 

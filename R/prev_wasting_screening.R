@@ -71,7 +71,8 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
           n = \(.) sum(., na.rm = TRUE),
           p = \(.) mean(., na.rm = TRUE)
         )
-      )
+      ),
+      N = n()
     )
   ## Return p ----
   p
