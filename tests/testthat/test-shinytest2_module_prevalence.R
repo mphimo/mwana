@@ -383,14 +383,15 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[1:8]
+    )[1:9]
   )
     
   ### Test check ----
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "area", "sex", "gam #", "gam %" , "sam #", "sam %", "mam #", "mam %" 
+        "area", "sex", "gam #", "gam %" , "sam #", "sam %", 
+        "mam #", "mam %", "children (N)"
       )
     )
 
@@ -484,14 +485,15 @@ testthat::test_that(
       "$('#prevalence-results thead th').map(function() {
       return $(this).text();
     }).get();"
-    )[1:7]
+    )[1:8]
   )
     
   ### Test check ----
     testthat::expect_equal(
       object = vals,
       expected = c(
-        "team", "gam #", "gam %" , "sam #", "sam %", "mam #", "mam %" 
+        "team", "gam #", "gam %" , "sam #", "sam %", "mam #", 
+        "mam %", "children (N)"
       )
     )
 
