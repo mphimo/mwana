@@ -811,6 +811,7 @@ mod_neat_prevalence_output_screening <- function(df) {
   if ("gam_n" %in% names(df)) {
     dplyr::rename(
       .data = df,
+      "children (N)" = .data$N,
       "gam #" = .data$gam_n,
       "gam %" = .data$gam_p,
       "sam #" = .data$sam_n,
@@ -821,6 +822,7 @@ mod_neat_prevalence_output_screening <- function(df) {
   } else {
     dplyr::rename(
       .data = df,
+      "children (N)" = .data$N,
       "gam %" = .data$gam_p,
       "sam %" = .data$sam_p,
       "mam %" = .data$mam_p
