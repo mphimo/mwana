@@ -79,11 +79,9 @@ ui <- tagList(
 
               ##### Title ----
               tags$h3(
-                style = "marging: 0; font-weight: bold;",
-                list(
-                  tags$code("mwana"),
-                  " App: Lorem Ipsum"
-                )
+                style = "marging: 0; font-weight: bold;", 
+                "Seamless workflow for data plausibility check and 
+                wasting prevalence analysis"
               ),
 
               ##### Logo ----
@@ -101,9 +99,91 @@ ui <- tagList(
             #### Underlying subtitle ----
             tags$h4(
               style = "margin: 0; font-weight: normal; line-height: 1.2;",
-              list(
-                "Lorem Ipsum ", tags$code("mwana"), "Lorem Ipsum"
+              "A simplified workflow of", tags$code("mwana"), "package for non-R
+              users"
+            ), 
+
+            #### Welcome message ----
+            tags$div(
+              id = "sec1", 
+              tags$hr(),
+              tags$p(
+                "This app is a lightweight, field-ready application
+                thoughtful designed to seamlessly streamline plausibility checks 
+                and wasting prevalence estimation, of child anthropometric data,
+                by automating key steps of the R package", 
+                tags$a(href = "https://nutriverse.io/mwana/", 
+                tags$code("mwana")), "for non-R users."
+              ), 
+      
+              tags$p(
+                "The app is divided in five easy-to-navigate tabs, apart from the Home:",
+                tags$ol(
+                  tags$li(tags$b("Data Upload")),
+                  tags$li(tags$b("Data Wrangling")),
+                  tags$li(tags$b("Plausibility Check")),
+                  tags$li(tags$b("Prevalence Analysis")),
+                  tags$li(tags$b("IPC Check"))
+                )
+              ),
+
+              ##### Briefly describe each tab ----
+              tags$div(
+                id = "sec2",
+              tags$p(tags$b("1. Data Upload")),
+              tags$p(
+                "This is where the workflow begins. Upload the
+                dataset saved in a comma-separated-value format (.csv); this is 
+                the only accepted format. Click on the 'Browse' button to locate 
+                the file to be uploaded from your computer; it is as simple as that.
+                Once uploaded, the first 20 rows will be priviewed on the right side."
+              ),
+
+              tags$ul(
+                tags$li(
+                  tags$b("Data requirements"),
+                  tags$p(
+                    "The data to be uploaded must have been tidy up in accordance to
+                    below-described app's", tags$b("input file"), "and", 
+                    tags$b("input variable"), "requirements:"),
+                    tags$ul(
+                      tags$li(tags$b("Input file requirements"),
+                      tags$ul(
+                        tags$li(tags$b("File naming:"), "the file name must use
+                    underscore ( _ ) to separate words. Hyphen (-) or simple spaces
+                    will lead to errors along the uploading process. Consider 
+                    the following naming example:", tags$em("my_file_to_upload.csv")
+                  )
+                      )
+                ),
+
+                  tags$br(),
+                  tags$li(
+                    tags$b("Input variable requirements"),
+                    tags$ul(
+                      tags$li(
+                        tags$b("Age:"), "values must be in months. The variable name 
+                        must be written in lowercase ('age')."),
+                        tags$li(
+                          tags$b("Sex:"), "values must be given in 'm' for boys and 'f'
+                          for girls."
+                        ),
+                        tags$li(
+                          tags$b("MUAC:"), "values must be in millimetres. Ensure there 
+                          are no strange numbers, such as '130.1'. The presence 
+                          of decimal places will raise error in the data wrangling
+                          tab and hault the app."
+                        ), 
+                        tags$li(
+                          tags$b("Oedema:"), "values must be given in 'y' for yes,
+                          and 'n' for no."
+                        )
+                    )
+                  )
+                ) 
+                )
               )
+            )
             )
           )
         )
