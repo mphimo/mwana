@@ -166,6 +166,14 @@ them into presentation and/or report ready tables.
 > ***WFHZ***, ***MUAC***, and ***MFAZ*** data before using it in your
 > models.
 
+### Shiny App
+
+To use the built-in Shiny app, run the following function in R:
+
+``` r
+mw_run_app()
+```
+
 ## Citation
 
 If you use `mwana` package in your work, please cite using the suggested

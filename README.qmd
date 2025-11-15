@@ -101,6 +101,17 @@ If you are undertaking research using anthropometric data of children 6-59 month
 
 :::
 
+### Shiny App
+
+To use the built-in Shiny app, run the following function in R: 
+```{r}
+#| label: shiny-app
+#| eval: false
+
+mw_run_app()
+```
+
+
 ## Citation
 
 If you use `mwana` package in your work, please cite using the suggested citation provided by a call to `citation()` function as follows:
