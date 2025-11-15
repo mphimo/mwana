@@ -266,7 +266,7 @@ Although the acceptability is evaluated on the basis of MFAZ where applicable, t
 The standard deviation and the age ratio test results are used to control the prevalence analysis flow in this way: 
 
   + If the standard deviation and the age ratio test are both not problematic, a normal analysis is performed. This means that, for survey-based data, standard complex sample-based prevalence is estimated.
-  + If the standard deviation is not problematic but the age ratio test is problematic, the SMART MUAC tool age-weighting approach is applied in either functions.
+  + If the standard deviation is not problematic but the age ratio test is problematic, the SMART MUAC tool age-weighting approach is applied in either function.
   + Finally, if the standard deviation is problematic, even if the age ratio is 
   not problematic, the prevalence still gets estimated.
 
