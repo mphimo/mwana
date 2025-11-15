@@ -94,6 +94,10 @@ reference:
      - flag_outliers
      - remove_flags
      - define_wasting
+    
+   - title: Built-in Shiny app
+     contents:
+     - mw_run_app
 
    - title: Datasets
      contents:
