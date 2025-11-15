@@ -358,7 +358,7 @@ ui <- tagList(
                 tags$div(
                   id = "sec7",
                   style = "text-align: justify;",
-                  tags$p(tags$b("Authors")),
+                  tags$p(tags$b("Authorship")),
                   tags$p(
                     "This app was developed and is maintained by Tomás Zaba."
                   )
