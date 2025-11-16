@@ -253,7 +253,7 @@ mod_display_input_variables_screening <- function(vars, ns) {
         "Age categories (6-23 and 24-59)",
         htmltools::tags$div(
           style = "font-size: 0.85em; color: #6c7574;",
-          "Only sapply in the absence of age in months"
+          "Only supply in the absence of age in months"
         )
       ),
       choices = c("", vars)

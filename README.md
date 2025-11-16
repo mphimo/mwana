@@ -166,6 +166,14 @@ them into presentation and/or report ready tables.
 > ***WFHZ***, ***MUAC***, and ***MFAZ*** data before using it in your
 > models.
 
+### Shiny App
+
+To use the built-in Shiny app, run the following function in R:
+
+``` r
+mw_run_app()
+```
+
 ## Citation
 
 If you use `mwana` package in your work, please cite using the suggested
@@ -178,7 +186,7 @@ citation("mwana")
 #>   Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
 #>   Workflow for Plausibility Checks and Prevalence Analysis of Wasting
 #>   in R_. doi:10.5281/zenodo.14176624
-#>   <https://doi.org/10.5281/zenodo.14176624>, R package version 0.2.2,
+#>   <https://doi.org/10.5281/zenodo.14176624>, R package version 1.0.0,
 #>   <https://nutriverse.io/mwana/>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -187,7 +195,7 @@ citation("mwana")
 #>     title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
 #>     author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
 #>     year = {2025},
-#>     note = {R package version 0.2.2},
+#>     note = {R package version 1.0.0},
 #>     url = {https://nutriverse.io/mwana/},
 #>     doi = {10.5281/zenodo.14176624},
 #>   }

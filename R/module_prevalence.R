@@ -120,7 +120,7 @@ module_server_prevalence <- function(id, data) {
           "survey" = {
             shiny::radioButtons(
               inputId = ns("amn_method_survey"),
-              label = "Acute Malnutrition Based on:",
+              label = "Acute malnutrition based on:",
               choices = list(
                 "WFHZ" = "wfhz",
                 "MUAC" = "muac",
