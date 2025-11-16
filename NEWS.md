@@ -1,4 +1,4 @@
-# mwana 3.0.0
+# mwana 1.0.0
 
 # mwana 0.2.2
 
