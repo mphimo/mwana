@@ -1,5 +1,20 @@
 # mwana 1.0.0
 
+## New features 
+
+* Added a Shiny application. Hereafter, not-well-versed R users and non-R users 
+can now benefit from this package's handy workflow through a web application. 
+
+## General updates 
+
+* Refactored MUAC prevalence functions to return results even when standard 
+deviation is problematic. Hereafter, users should go over the plausibility
+check report thoroughly before going over the prevalence results. 
+
+* Rebuilt vignettes using `quarto` engine. 
+
+<br/>
+
 # mwana 0.2.2
 
 ## New features
