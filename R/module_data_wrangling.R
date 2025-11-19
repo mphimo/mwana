@@ -33,8 +33,8 @@ module_ui_wrangling <- function(id) {
           #### Display data wrangling method options ----
           shiny::radioButtons(
             inputId = ns("wrangle"),
-            label = htmltools::tags$span("Select method",
-              style = "font-size: 16px; font-weight: 500;"
+            label = htmltools::tags$span("Select Method",
+              style = "font-size: 14px; font-weight: 500;"
             ),
             choices = list(
               "Weight-for-Height z-scores (WFHZ)" = "wfhz",

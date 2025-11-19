@@ -31,7 +31,7 @@ module_ui_ipccheck <- function(id) {
           shiny::radioButtons(
             inputId = ns("ipccheck"),
             label = htmltools::tags$span(
-              "Select data source", style = "font-size: 16px; font-weight: 500;"
+              "Select data source", style = "font-size: 14px; font-weight: 500;"
             ),
             choices = list(
               "Survey" = "survey",

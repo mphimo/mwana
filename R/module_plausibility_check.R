@@ -29,7 +29,8 @@ module_ui_plausibility_check <- function(id) {
         #### Enable plausibility check options based on data wrangling method ----
         shiny::radioButtons(
           inputId = ns("method"),
-          label = "Select Method",
+          label = htmltools::tags$span("Select Method", 
+          style = "font-size: 14px; font-weight: 500;"),
           choices = list(
             "Weight-for-Height z-scores (WFHZ)" = "wfhz",
             "MUAC-for-Age z-scores (MFAZ)" = "mfaz",
