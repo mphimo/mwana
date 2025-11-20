@@ -89,7 +89,7 @@ ui <- tagList(
                   href = "https://nutriverse.io/mwana/",
                   tags$img(
                     src = "logo.png",
-                    height = "80px",
+                    height = "160px",
                     alt = "mwana website",
                     style = "marging-left: 1rem;"
                   )

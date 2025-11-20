@@ -24,8 +24,7 @@ module_ui_prevalence <- function(id) {
       bslib::card(
         style = "width: 350px;",
         bslib::card_header(
-          htmltools::tags$span(
-            "Define Analysis Parameters",
+          htmltools::tags$span("Define Analysis Parameters",
             style = "font-weight: 600;"
           )
         ),
@@ -33,7 +32,8 @@ module_ui_prevalence <- function(id) {
         #### Select the source of data for prevalence analysis ----
         shiny::radioButtons(
           inputId = ns("source"),
-          label = "Select Data Source",
+          label = htmltools::tags$span("Select Data Source",
+          style = "font-size: 14px; font-weight: 500;"),
           choices = list(
             "Survey" = "survey",
             "Screening" = "screening"
@@ -120,7 +120,8 @@ module_server_prevalence <- function(id, data) {
           "survey" = {
             shiny::radioButtons(
               inputId = ns("amn_method_survey"),
-              label = "Acute malnutrition based on:",
+              label = htmltools::tags$span("Acute malnutrition based on:",
+              style = "font-size: 14px; font-weight: 500;"),
               choices = list(
                 "WFHZ" = "wfhz",
                 "MUAC" = "muac",
@@ -135,7 +136,8 @@ module_server_prevalence <- function(id, data) {
           "screening" = {
             shiny::radioButtons(
               inputId = ns("amn_method_screening"),
-              label = "Is age in months available?",
+              label = htmltools::tags$span("Is age in months available?",
+              style = "font-size: 14px; font-weight: 500;"),
               choices = list("Yes" = "yes", "No" = "no"),
               selected = "yes",
               inline = TRUE
