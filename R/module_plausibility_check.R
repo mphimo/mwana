@@ -24,14 +24,14 @@ module_ui_plausibility_check <- function(id) {
         style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span(
           "Define Parameters for Plausibility Check",
-          style = "font-weight: 600;"
+          style = "font-size: 15px; font-weight: bold;"
         )),
 
         #### Enable plausibility check options based on data wrangling method ----
         shiny::radioButtons(
           inputId = ns("method"),
           label = htmltools::tags$span("Select Method", 
-          style = "font-size: 14px; font-weight: 500;"),
+          style = "font-size: 14px; font-weight: bold;"),
           choices = list(
             "Weight-for-Height z-scores (WFHZ)" = "wfhz",
             "MUAC-for-Age z-scores (MFAZ)" = "mfaz",
@@ -55,7 +55,7 @@ module_ui_plausibility_check <- function(id) {
     bslib::card(
       style = "background-color: #f9fdfb;",
       bslib::card_header(htmltools::tags$span("Plausibility Check Results",
-        style = "font-weight: 600;"
+        style = "font-size: 15px; font-weight: bold;"
       )),
 
       #### A Placehoder for wrangled data and embed user feedback ----
@@ -67,7 +67,10 @@ module_ui_plausibility_check <- function(id) {
         image.height = "50px",
         color = "#004225",
         caption = htmltools::tags$div(
-          htmltools::tags$h6("Checking plausibility"), htmltools::tags$h6("Please wait...")
+          htmltools::tags$h6(htmltools::tags$span("Checking plausibility", 
+          style = "font-size: 12px;")),
+            htmltools::tags$h6(htmltools::tags$span("Please wait...", 
+            style = "font-size: 12px;"))
         )
       ),
 
@@ -114,7 +117,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("area1"),
               label = shiny::tagList(
-                "Area 1",
+                htmltools::tags$span("Area 1", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$div(
                   style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
                 )
@@ -122,14 +127,22 @@ module_server_plausibility_check <- function(id, data) {
               choices = c("", vars)
             ),
             shiny::selectInput(ns("area2"),
-              label = shiny::tagList("Area 2", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
             shiny::selectInput(
               inputId = ns("area3"),
-              label = shiny::tagList("Area 3", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 3", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
               )),
               choices = c("", vars)
@@ -137,7 +150,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
-                "Sex",
+                htmltools::tags$span("Sex", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -145,7 +160,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("age"),
               label = shiny::tagList(
-                "Age (months)",
+                htmltools::tags$span("Age (months)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -153,7 +170,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("weight"),
               label = shiny::tagList(
-                "Weight (kg)",
+                htmltools::tags$span("Weight (kg)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -161,7 +180,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("height"),
               label = shiny::tagList(
-                "Height (cm)",
+                htmltools::tags$span("Height (cm)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -169,7 +190,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
-                "Flags",
+                htmltools::tags$span("Flags", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -181,7 +204,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("area1"),
               label = shiny::tagList(
-                "Area 1",
+                htmltools::tags$span("Area 1", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$div(
                   style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
                 )
@@ -189,14 +214,22 @@ module_server_plausibility_check <- function(id, data) {
               choices = c("", vars)
             ),
             shiny::selectInput(ns("area2"),
-              label = shiny::tagList("Area 2", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
             shiny::selectInput(
               inputId = ns("area3"),
-              label = shiny::tagList("Area 3", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 3", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
               )),
               choices = c("", vars)
@@ -204,7 +237,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
-                "Sex",
+                htmltools::tags$span("Sex", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -212,7 +247,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("age"),
               label = shiny::tagList(
-                "Age (months)",
+                htmltools::tags$span("Age (months)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -220,7 +257,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
-                "MUAC (cm)",
+                 htmltools::tags$span("MUAC (cm)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -228,7 +267,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
-                "Flags",
+                htmltools::tags$span("Flags", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -240,7 +281,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("area1"),
               label = shiny::tagList(
-                "Area 1",
+                htmltools::tags$span("Area 1", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$div(
                   style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
                 )
@@ -248,14 +291,22 @@ module_server_plausibility_check <- function(id, data) {
               choices = c("", vars)
             ),
             shiny::selectInput(ns("area2"),
-              label = shiny::tagList("Area 2", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
               )),
               choices = c("", vars)
             ),
             shiny::selectInput(
               inputId = ns("area3"),
-              label = shiny::tagList("Area 3", htmltools::tags$div(
+              label = shiny::tagList(
+                htmltools::tags$span("Area 3", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
                 style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
               )),
               choices = c("", vars)
@@ -263,7 +314,19 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("sex"),
               label = shiny::tagList(
-                "Sex",
+                htmltools::tags$span("Sex", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+                htmltools::tags$span("*", style = "color: red;")
+              ),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(
+              inputId = ns("sex"),
+              label = shiny::tagList(
+                htmltools::tags$span("Sex", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -271,7 +334,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("muac"),
               label = shiny::tagList(
-                "MUAC (cm)",
+                 htmltools::tags$span("MUAC (cm)", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)
@@ -279,7 +344,9 @@ module_server_plausibility_check <- function(id, data) {
             shiny::selectInput(
               inputId = ns("flags"),
               label = shiny::tagList(
-                "Flags",
+                htmltools::tags$span("Flags", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
                 htmltools::tags$span("*", style = "color: red;")
               ),
               choices = c("", vars)

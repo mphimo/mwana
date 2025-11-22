@@ -80,6 +80,13 @@ h6 {
   font-size: 15px;
 }
 
+/* Radio button labels */ 
+#wrangle_data-wrangle, #ipc_check-ipccheck, #plausible-method, 
+#prevalence-amn_method_survey, #prevalence-amn_method_screening,
+#prevalence-source label {
+  font-size: 14px;
+}
+
 /* Buttons */
 .btn-primary {
   background-color:  #004225 !important;

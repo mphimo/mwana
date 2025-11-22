@@ -26,13 +26,13 @@ module_ui_ipccheck <- function(id) {
         bslib::card(
           style = "background-color: #f9fdfb;",
           bslib::card_header(htmltools::tags$span("Define Parameters for Check",
-        style = "font-weight: 600;")),
+        style = "font-size: 15px; font-weight: bold;")),
 
            #### Display options on source of data ----
           shiny::radioButtons(
             inputId = ns("ipccheck"),
             label = htmltools::tags$span(
-              "Select data source", style = "font-size: 14px; font-weight: 500;"
+              "Select data source", style = "font-size: 14px; font-weight: bold;"
             ),
             choices = list(
               "Survey" = "survey",
@@ -57,7 +57,7 @@ module_ui_ipccheck <- function(id) {
       bslib::card(
         style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span("IPC Check Results",
-      style = "font-weight: 600;")),
+      style = "font-size: 15px; font-weight: bold;")),
 
       #### Display variable inputs rendered from the server ----
         shinycssloaders::withSpinner(
@@ -68,7 +68,10 @@ module_ui_ipccheck <- function(id) {
           image.height = "50px",
           color = "#004225",
           caption = htmltools::tags$div(
-            htmltools::tags$h6("Checking"), htmltools::tags$h6("Please wait...")
+            htmltools::tags$h6(htmltools::tags$span("Checking", 
+            style = "font-size: 12px;")),
+            htmltools::tags$h6(htmltools::tags$span("Please wait...", 
+            style = "font-size: 12px;"))
           )
         ),
 
@@ -108,97 +111,15 @@ module_server_ipccheck <- function(id, data) {
       cols <- base::names(data())
 
       switch(input$ipccheck,
-
+        
         #### Survey ----
-        ##### Screening sites: mandatory ----
-        "survey" = list(
-          shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", 
-          htmltools::tags$span("*", style = "color: red;"),
-          htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
-          ), 
-          choices = c("", cols)
-        ),
-
-         ##### Secondary grouping area: optional ----
-          shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2", htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
-          ),
-          choices = c("", cols)
-        ),
-
-         ##### Survey clusters: mandatory ----
-          shiny::selectInput(
-            inputId = ns("psu"), 
-            label = shiny::tagList(
-              "Survey clusters",
-              htmltools::tags$span("*", style = "color: red;"),
-          ), 
-          choices = c("", cols))
-        ),
+        "survey" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)},
 
         #### Screening ----
-        ##### Primary grouping area: mandatory ----
-        "screening" = list(
-          shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", 
-          htmltools::tags$span("*", style = "color: red;"),
-          htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
-          ), 
-          choices = c("", cols)),
-
-          ##### Secondary grouping area: optional ----
-          shiny::selectInput(
-            inputId = ns("area2"), 
-          label = shiny::tagList(
-            "Area 2", htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
-          ),
-          choices = c("", cols)
-        ),
-
-         ##### Screening sites: mandatory ----
-          shiny::selectInput(
-            inputId = ns("sites"), 
-            label = shiny::tagList(
-              "Screening sites", htmltools::tags$span("*", style = "color: red;"),
-            ), 
-            choices = c("", cols)
-          )
-        ),
+        "screening" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)},
 
         #### Sentinel sites ----
-        ##### Primary grouping area: mandatory ----
-        "sentinel" = list(
-          shiny::selectInput(ns("area1"), 
-          label = shiny::tagList("Area 1", 
-          htmltools::tags$span("*", style = "color: red;"),
-          htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
-          ), 
-          choices = c("", cols)
-        ),
-
-        ##### Secondary grouping area: optional ----
-          shiny::selectInput(ns("area2"), 
-          label = shiny::tagList("Area 2", htmltools::tags$div(
-              style = "font-size: 0.85em; color: #6c7574;" ,"(Sub-area)")
-          ),
-          choices = c("", cols)
-        ),
-
-        ##### Sentinel sites: mandatory ----
-          shiny::selectInput(
-           inputId = ns("ssites"), 
-           label = shiny::tagList("Sentinel sites", 
-           htmltools::tags$span("*", style = "color: red;")
-          ),
-           choices = c("", cols)
-          )
-        )
+        "sentinel" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)}
       )
     })
 

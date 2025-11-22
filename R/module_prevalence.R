@@ -26,7 +26,7 @@ module_ui_prevalence <- function(id) {
         style = "width: 350px;",
         bslib::card_header(
           htmltools::tags$span("Define Analysis Parameters",
-            style = "font-weight: 600;"
+            style = "font-size: 15px; font-weight: bold;"
           )
         ),
 
@@ -34,7 +34,7 @@ module_ui_prevalence <- function(id) {
         shiny::radioButtons(
           inputId = ns("source"),
           label = htmltools::tags$span("Select Data Source",
-          style = "font-size: 14px; font-weight: 500;"),
+          style = "font-size: 14px; font-weight: bold;"),
           choices = list(
             "Survey" = "survey",
             "Screening" = "screening"
@@ -65,9 +65,8 @@ module_ui_prevalence <- function(id) {
     bslib::card(
       style = "background-color: #f9fdfb;",
       bslib::card_header(
-        htmltools::tags$span(
-          "Prevalence Analysis Results",
-          style = "font-weight: 600;"
+        htmltools::tags$span("Prevalence Analysis Results",
+          style = "font-size: 15px; font-weight: bold;"
         )
       ),
 
@@ -80,8 +79,10 @@ module_ui_prevalence <- function(id) {
         image.height = "50px",
         color = "#004225",
         caption = htmltools::tags$div(
-          htmltools::tags$h6("Estimating prevalence"),
-          htmltools::tags$h6("Please wait...")
+          htmltools::tags$h6(htmltools::tags$span("Estimating prevalence", 
+          style = "font-size: 12px;")),
+            htmltools::tags$h6(htmltools::tags$span("Please wait...",
+             style = "font-size: 12px;"))
         )
       ),
 
@@ -123,7 +124,7 @@ module_server_prevalence <- function(id, data) {
             shiny::radioButtons(
               inputId = ns("amn_method_survey"),
               label = htmltools::tags$span("Acute malnutrition based on:",
-              style = "font-size: 14px; font-weight: 500;"),
+              style = "font-size: 14px; font-weight: bold;"),
               choices = list(
                 "WFHZ" = "wfhz",
                 "MUAC" = "muac",
@@ -139,7 +140,7 @@ module_server_prevalence <- function(id, data) {
             shiny::radioButtons(
               inputId = ns("amn_method_screening"),
               label = htmltools::tags$span("Is age in months available?",
-              style = "font-size: 14px; font-weight: 500;"),
+              style = "font-size: 14px; font-weight: bold;"),
               choices = list("Yes" = "yes", "No" = "no"),
               selected = "yes",
               inline = TRUE

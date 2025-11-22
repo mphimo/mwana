@@ -173,40 +173,56 @@ mod_display_input_variables_survey <- function(vars, ns) {
   ### Capture namespacing ----
   list(
     shiny::selectInput(
-      inputId = ns("area1"),
-      label = shiny::tagList(
-        "Area 1",
-        htmltools::tags$div(
-          style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
-        )
-      ),
-      choices = c("", vars)
-    ),
-    shiny::selectInput(ns("area2"),
-      label = shiny::tagList("Area 2", htmltools::tags$div(
-        style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
-      )),
-      choices = c("", vars)
-    ),
-    shiny::selectInput(
-      inputId = ns("area3"),
-      label = shiny::tagList("Area 3", htmltools::tags$div(
-        style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
-      )),
-      choices = c("", vars)
-    ),
-    shiny::selectInput(
-      inputId = ns("wts"),
-      label = "Survey weights",
-      htmltools::tags$div(
-        style = "font-size: 0.85em; color: #6c7574;",
-        "Final survey weights for weighted analysis"
-      ),
-      choices = c("", vars)
-    ),
+              inputId = ns("area1"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 1", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+                htmltools::tags$div(
+                  style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
+                )
+              ),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(ns("area2"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(
+              inputId = ns("area3"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 3", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(
+              inputId = ns("wts"),
+              label = shiny::tagList(
+                htmltools::tags$span("Survey weights", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", 
+                  "Final survey weights for weighted analysis"
+              )),
+              choices = c("", vars)
+            ),
+            
     shiny::selectInput(
       inputId = ns("oedema"),
-      label = "Oedema",
+      htmltools::tags$span("Oedema", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
       choices = c("", vars)
     )
   )
@@ -225,32 +241,44 @@ mod_display_input_variables_screening <- function(vars, ns) {
   ### Capture namespacing ----
   list(
     shiny::selectInput(
-      inputId = ns("area1"),
-      label = shiny::tagList(
-        "Area 1",
-        htmltools::tags$div(
-          style = "font-size: 0.85em; color: #6c7574;", "Primary area"
-        )
-      ),
-      choices = c("", vars)
-    ),
-    shiny::selectInput(ns("area2"),
-      label = shiny::tagList("Area 2", htmltools::tags$div(
-        style = "font-size: 0.85em; color: #6c7574;", "Sub-area"
-      )),
-      choices = c("", vars)
-    ),
-    shiny::selectInput(
-      inputId = ns("area3"),
-      label = shiny::tagList("Area 3", htmltools::tags$div(
-        style = "font-size: 0.85em; color: #6c7574;", "Sub-area"
-      )),
-      choices = c("", vars)
-    ),
+              inputId = ns("area1"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 1", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+                htmltools::tags$div(
+                  style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
+                )
+              ),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(ns("area2"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
+            shiny::selectInput(
+              inputId = ns("area3"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 3", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
     shiny::selectInput(
       inputId = ns("age_cat"),
       label = shiny::tagList(
-        "Age categories (6-23 and 24-59)",
+        htmltools::tags$span("Age categories (6-23 and 24-59)",
+        style = "font-size: 14px; font-weight: bold;"
+              ),
         htmltools::tags$div(
           style = "font-size: 0.85em; color: #6c7574;",
           "Only supply in the absence of age in months"
@@ -260,15 +288,71 @@ mod_display_input_variables_screening <- function(vars, ns) {
     ),
     shiny::selectInput(
       inputId = ns("muac"),
-      label = shiny::tagList("MUAC", htmltools::tags$span("*", style = "color: red;")),
+      label = shiny::tagList(
+        htmltools::tags$span("MUAC", 
+        style = "font-size: 14px; font-weight: bold;"
+      ),
+        htmltools::tags$span("*", style = "color: red;")),
       choices = c("", vars)
     ),
     shiny::selectInput(
       inputId = ns("oedema"),
-      label = "Oedema",
+      htmltools::tags$span("Oedema", 
+                style = "font-size: 14px; font-weight: bold;"
+              ), 
       choices = c("", vars)
     )
   )
+}
+
+
+#' 
+#' 
+#' 
+#' Display input variables dynamically, according to UI for screening
+#'
+#'
+#' @keywords internal
+#'
+#'
+mod_display_input_variables_ipccheck <- function(vars, ns) {
+  list(
+          shiny::selectInput(ns("area1"), 
+          label = shiny::tagList(
+            htmltools::tags$span("Area 1",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;"),
+          htmltools::tags$div(
+              style = "font-size: 0.85em; color: #6c7574;", "(Primary area)")
+          ), 
+          choices = c("", vars)
+        ),
+
+         ##### Secondary grouping area: optional ----
+          shiny::selectInput(ns("area2"),
+              label = shiny::tagList(
+                htmltools::tags$span("Area 2", 
+                style = "font-size: 14px; font-weight: bold;"
+              ),
+              htmltools::tags$div(
+                style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
+              )),
+              choices = c("", vars)
+            ),
+
+         ##### Survey clusters: mandatory ----
+          shiny::selectInput(
+            inputId = ns("psu"), 
+            label = shiny::tagList(
+              htmltools::tags$span("Survey clusters",
+              style = "font-size: 14px; font-weight: bold;"
+            ),
+              htmltools::tags$span("*", style = "color: red;"),
+          ), 
+          choices = c("", vars)
+        )
+        )
 }
 
 #'
