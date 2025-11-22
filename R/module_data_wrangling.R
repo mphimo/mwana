@@ -26,6 +26,7 @@ module_ui_wrangling <- function(id) {
 
         ### Left side of the nav panel ----
         bslib::card(
+          style = "background-color: #f9fdfb;",
           bslib::card_header(htmltools::tags$span("Define Parameters for Data Wrangling",
             style = "font-weight: 600;"
           )),
@@ -58,6 +59,7 @@ module_ui_wrangling <- function(id) {
 
       ### Right side of the nav panel ----
       bslib::card(
+        style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span("Data Preview",
           style = "font-weight: 600;"
         )),

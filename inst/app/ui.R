@@ -68,7 +68,7 @@ ui <- tagList(
           tags$h6(tags$a(href = "#sec8", "License")),
         ),
         card(
-          style = "padding: 1rem;",
+          style = "padding: 1rem; background-color: #f9fdfb;",
           tags$html(
             tags$div(
               style = "padding: 0.5rem 1rem;",

@@ -22,6 +22,7 @@ module_ui_upload <- function(id) {
 
         ### Left side of the nav panel ----
         bslib::card(
+          style = "background-color: #f9fdfb;",
           bslib::card_header("Upload Data"),
           style = "width: 350px",
           shiny::fileInput(
@@ -49,6 +50,7 @@ module_ui_upload <- function(id) {
 
       ### Right side of the nav panel ----
       bslib::card(
+        style = "background-color: #f9fdfb;",
         bslib::card_header("Data Preview"),
         shiny::conditionalPanel(
           condition = "output.fileUploaded == true",

@@ -75,6 +75,11 @@ h1, h2, h3 {
   color:rgb(68, 68, 68);
 }
 
+/* Set table of content's font-size to 15px */
+h6 {
+  font-size: 15px;
+}
+
 /* Buttons */
 .btn-primary {
   background-color:  #004225 !important;

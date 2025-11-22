@@ -21,6 +21,7 @@ module_ui_plausibility_check <- function(id) {
 
       ### Left side of the nav panel: Parameters setup ----
       bslib::card(
+        style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span(
           "Define Parameters for Plausibility Check",
           style = "font-weight: 600;"
@@ -52,6 +53,7 @@ module_ui_plausibility_check <- function(id) {
 
     ### Right side of the nav panel: Plausibility check results ----
     bslib::card(
+      style = "background-color: #f9fdfb;",
       bslib::card_header(htmltools::tags$span("Plausibility Check Results",
         style = "font-weight: 600;"
       )),

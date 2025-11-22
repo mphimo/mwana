@@ -22,6 +22,7 @@ module_ui_prevalence <- function(id) {
 
       ### Left side of the navbar ----
       bslib::card(
+        style = "background-color: #f9fdfb;",
         style = "width: 350px;",
         bslib::card_header(
           htmltools::tags$span("Define Analysis Parameters",
@@ -62,6 +63,7 @@ module_ui_prevalence <- function(id) {
 
     ### Right side of the nav panel: Prevalence results ----
     bslib::card(
+      style = "background-color: #f9fdfb;",
       bslib::card_header(
         htmltools::tags$span(
           "Prevalence Analysis Results",

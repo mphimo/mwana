@@ -24,6 +24,7 @@ module_ui_ipccheck <- function(id) {
 
         ### Left side of the nav panel ----
         bslib::card(
+          style = "background-color: #f9fdfb;",
           bslib::card_header(htmltools::tags$span("Define Parameters for Check",
         style = "font-weight: 600;")),
 
@@ -54,6 +55,7 @@ module_ui_ipccheck <- function(id) {
 
       ### Right side of the nav panel ----
       bslib::card(
+        style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span("IPC Check Results",
       style = "font-weight: 600;")),
 
