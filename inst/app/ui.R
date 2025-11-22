@@ -75,16 +75,29 @@ ui <- tagList(
 
               #### Title + logo row ----
               tags$div(
+                class = "app-title",
                 style = "display: flex; justify-content: space-between; align-items: center;",
 
-                ##### Title ----
+                ##### Left side: title + subtitle stacked ----
+                tags$div(
+                  style = "display: flex; flex-direction: column;",
                 tags$h3(
                   style = "marging: 0; font-weight: bold;",
                   "Seamless workflow for data plausibility check and
                 wasting prevalence analysis"
                 ),
 
-                ##### Logo ----
+                #### Underlying subtitle ----
+              tags$h4(
+                style = "margin: 0; font-weight: normal; line-height: 1.2;",
+                "
+                A simplified workflow of", tags$code("mwana"), "package for non-R
+                users
+                "
+              )
+            ),
+
+                ##### Right side: logo ----
                 tags$a(
                   href = "https://nutriverse.io/mwana/",
                   tags$img(
@@ -94,15 +107,7 @@ ui <- tagList(
                     style = "marging-left: 1rem;"
                   )
                 )
-              ),
-
-              #### Underlying subtitle ----
-              tags$h4(
-                style = "margin: 0; font-weight: normal; line-height: 1.2;",
-                "
-                A simplified workflow of", tags$code("mwana"), "package for non-R
-                users
-                "
+              )
               ),
 
               #### Welcome message ----
@@ -376,7 +381,6 @@ ui <- tagList(
             )
           )
         )
-      )
     ),
 
     ## ---- Tab 2: Data Upload ---------------------------------------------------
