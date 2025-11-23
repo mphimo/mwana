@@ -38,7 +38,7 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
     input_vars <- c(base_list, list(
 
       #### Age: optional ----
-    shiny::selectInput(
+      shiny::selectInput(
         inputId = ns("age"),
         label = shiny::tagList(
           htmltools::tags$span("Age (months)",
@@ -49,17 +49,16 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
       ),
 
       #### Sex: mandatory ----
-    shiny::selectInput(
-      inputId = ns("sex"),
-      label = shiny::tagList(
-        htmltools::tags$span("Sex",
-          style = "font-size: 14px; font-weight: bold;"
+      shiny::selectInput(
+        inputId = ns("sex"),
+        label = shiny::tagList(
+          htmltools::tags$span("Sex",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;")
         ),
-        htmltools::tags$span("*", style = "color: red;")
+        choices = c("", vars)
       ),
-      choices = c("", vars)
-    ),
-
       shiny::selectInput(
         inputId = ns("weight"),
         label = shiny::tagList(
@@ -70,7 +69,6 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         ),
         choices = c("", vars)
       ),
-
       shiny::selectInput(
         inputId = ns("height"),
         label = shiny::tagList(
@@ -87,8 +85,7 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
   #### MFAZ ----
   if (method == "mfaz") {
     input_vars <- c(base_list, list(
-
-    shiny::selectInput(
+      shiny::selectInput(
         inputId = ns("age"),
         label = shiny::tagList(
           htmltools::tags$span("Age (months)",
@@ -100,17 +97,16 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
       ),
 
       #### Sex: mandatory ----
-    shiny::selectInput(
-      inputId = ns("sex"),
-      label = shiny::tagList(
-        htmltools::tags$span("Sex",
-          style = "font-size: 14px; font-weight: bold;"
+      shiny::selectInput(
+        inputId = ns("sex"),
+        label = shiny::tagList(
+          htmltools::tags$span("Sex",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;")
         ),
-        htmltools::tags$span("*", style = "color: red;")
+        choices = c("", vars)
       ),
-      choices = c("", vars)
-    ),
-
       shiny::selectInput(
         inputId = ns("muac"),
         label = shiny::tagList(
@@ -137,7 +133,6 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         ),
         choices = c("", vars)
       ),
-
       shiny::selectInput(
         inputId = ns("muac"),
         label = shiny::tagList(
@@ -154,7 +149,7 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
   #### Combined ----
   if (method == "combined") {
     input_vars <- c(base_list, list(
-          shiny::selectInput(
+      shiny::selectInput(
         inputId = ns("age"),
         label = shiny::tagList(
           htmltools::tags$span("Age (months)",
@@ -166,17 +161,16 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
       ),
 
       #### Sex: mandatory ----
-    shiny::selectInput(
-      inputId = ns("sex"),
-      label = shiny::tagList(
-        htmltools::tags$span("Sex",
-          style = "font-size: 14px; font-weight: bold;"
+      shiny::selectInput(
+        inputId = ns("sex"),
+        label = shiny::tagList(
+          htmltools::tags$span("Sex",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;")
         ),
-        htmltools::tags$span("*", style = "color: red;")
+        choices = c("", vars)
       ),
-      choices = c("", vars)
-    ),
-
       shiny::selectInput(
         inputId = ns("weight"),
         label = shiny::tagList(
@@ -570,7 +564,7 @@ mod_prevalence_display_input_variables <- function(vars, source, ns) {
   }
 
   # Always add oedema at the end
-  inputs_vars <- c(inputs, list( 
+  inputs_vars <- c(inputs, list(
     shiny::selectInput(
       inputId = ns("oedema"),
       label = shiny::tagList(
@@ -1207,8 +1201,7 @@ mod_ipccheck_display_input_variables <- function(vars, source, ns) {
         ),
         choices = c("", vars)
       )
-    )
-    )
+    ))
   }
 
   ### Screening data ----
@@ -1240,10 +1233,9 @@ mod_ipccheck_display_input_variables <- function(vars, source, ns) {
         ),
         choices = c("", vars)
       )
-    )
-    )
+    ))
   }
-  
+
   input_vars
 }
 
@@ -1260,7 +1252,7 @@ mod_ipccheck_display_input_variables <- function(vars, source, ns) {
 #'
 mod_ipccheck_call_checker <- function(df, cluster, source = character(), area1, area2) {
   ## Conditionally include area2 ----
-  if (all(nzchar(c(area2)))) {
+  if (nzchar(area2)) {
     mw_check_ipcamn_ssreq(
       df = df,
       cluster = !!rlang::sym(cluster),
