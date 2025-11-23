@@ -4,7 +4,7 @@
 \alias{mod_ipccheck_display_input_variables}
 \title{Display input variables dynamically, according to UI for screening}
 \usage{
-mod_ipccheck_display_input_variables(vars, ns)
+mod_ipccheck_display_input_variables(vars, source, ns)
 }
 \description{
 Display input variables dynamically, according to UI for screening
