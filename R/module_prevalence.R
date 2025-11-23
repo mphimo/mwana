@@ -154,11 +154,10 @@ module_server_prevalence <- function(id, data) {
 
            shiny::req(data())
           vars <- names(data())
-          if (input$source == "survey") {
-            mod_display_input_variables_survey(vars = vars, ns = ns)
-          } else {
-            mod_display_input_variables_screening(vars = vars, ns = ns)
-          }
+
+          mod_prevalence_display_input_variables(
+            vars = vars, source = input$source, ns = ns
+          )
         })
 
       ### Always observe Action button, but branch inside ----
@@ -196,36 +195,36 @@ module_server_prevalence <- function(id, data) {
             p <- if (input$source == "survey") {
               switch(input$amn_method_survey,
                 "wfhz" = {
-                  mod_call_prevalence_function_wfhz(
+                  mod_prevalence_call_wfhz_prev_estimator(
                     df = data(),
                     wts = input$wts,
                     oedema = input$oedema,
                     area1 = input$area1,
                     area2 = input$area2,
                     area3 = input$area3
-                  ) |> mod_neat_prevalence_output_survey(.type = "wfhz")
+                  ) |> mod_prevalence_neat_output_survey(.type = "wfhz")
                 },
                 "muac" = {
                   data() |>
                     dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
-                    mod_call_prevalence_function_muac(
+                    mod_prevalence_call_muac_prev_estimator(
                       wts = input$wts,
                       oedema = input$oedema,
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_neat_prevalence_output_survey(.type = "muac")
+                    ) |> mod_prevalence_neat_output_survey(.type = "muac")
                 },
                 "combined" = {
                   data() |>
                     dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
-                    mod_call_prevalence_function_combined(
+                    mod_prevalence_call_combined_prev_estimator(
                       wts = input$wts,
                       oedema = input$oedema,
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_neat_prevalence_output_survey(.type = "combined")
+                    ) |> mod_prevalence_neat_output_survey(.type = "combined")
                 }
               )
             } else {
@@ -235,26 +234,26 @@ module_server_prevalence <- function(id, data) {
 
                   data() |>
                     dplyr::mutate(muac = recode_muac(.data$muac, "mm")) |>
-                    mod_call_prevalence_function_screening(
+                    mod_prevalence_call_prev_estimator_screening(
                       muac = input$muac,
                       oedema = input$oedema,
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_neat_prevalence_output_screening()
+                    ) |> mod_prevalence_neat_output_screening()
                 },
                 "no" = {
                   shiny::req(input$muac, input$age_cat)
 
                   data() |>
-                    mod_call_prevalence_function_screening2(
+                    mod_prevalence_call_prev_estimator_screening2(
                       age_cat = input$age_cat,
                       muac = input$muac,
                       oedema = input$oedema,
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_neat_prevalence_output_screening()
+                    ) |> mod_prevalence_neat_output_screening()
                 }
               )
             }

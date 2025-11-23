@@ -113,13 +113,13 @@ module_server_ipccheck <- function(id, data) {
       switch(input$ipccheck,
         
         #### Survey ----
-        "survey" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)},
+        "survey" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)},
 
         #### Screening ----
-        "screening" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)},
+        "screening" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)},
 
         #### Sentinel sites ----
-        "sentinel" = {mod_display_input_variables_ipccheck(vars = cols, ns = ns)}
+        "sentinel" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)}
       )
     })
 
@@ -168,7 +168,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$psu)
 
               #### Check if minimum sample size requirements for survey are met ----
-              mod_call_ipcamn_checker(
+              mod_ipccheck_call_checher(
                 data(), input$psu, "survey", input$area1, input$area2
               )
             },
@@ -177,7 +177,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$sites)
 
               #### Check if minimum sample size requirements for screening are met ----
-              mod_call_ipcamn_checker(
+              mod_ipccheck_call_checher(
                 data(), input$sites, "screening", input$area1, input$area2
               )
             },
@@ -186,7 +186,7 @@ module_server_ipccheck <- function(id, data) {
               shiny::req(input$area1, input$ssites)
 
               #### Check if minimum sample size requirements for sentinel sites are met ----
-              mod_call_ipcamn_checker(
+              mod_ipccheck_call_checher(
                 data(), input$ssites, "ssite", input$area1, input$area2
               )
             }
