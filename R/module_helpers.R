@@ -29,17 +29,26 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         style = "font-size: 14px; font-weight: bold;"
       ),
       choices = c("", vars)
-    ),
-    #### Age: optional ----
-    shiny::selectInput(
-      inputId = ns("age"),
-      label = htmltools::tags$span("Age (months)",
-        style = "font-size: 14px; font-weight: bold;"
-      ),
-      choices = c("", vars)
-    ),
+    )
+  )
 
-    #### Sex: mandatory ----
+  ### Conditional inputs depending on method ----
+  #### WFHZ ----
+  if (method == "wfhz") {
+    input_vars <- c(base_list, list(
+
+      #### Age: optional ----
+    shiny::selectInput(
+        inputId = ns("age"),
+        label = shiny::tagList(
+          htmltools::tags$span("Age (months)",
+            style = "font-size: 14px; font-weight: bold;"
+          )
+        ),
+        choices = c("", vars)
+      ),
+
+      #### Sex: mandatory ----
     shiny::selectInput(
       inputId = ns("sex"),
       label = shiny::tagList(
@@ -49,13 +58,8 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         htmltools::tags$span("*", style = "color: red;")
       ),
       choices = c("", vars)
-    )
-  )
+    ),
 
-  ### Conditional inputs depending on method ----
-  #### WFHZ ----
-  if (method == "wfhz") {
-    input_vars <- c(base_list, list(
       shiny::selectInput(
         inputId = ns("weight"),
         label = shiny::tagList(
@@ -67,7 +71,6 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         choices = c("", vars)
       ),
 
-      ###### Height: mandatory ----
       shiny::selectInput(
         inputId = ns("height"),
         label = shiny::tagList(
@@ -84,6 +87,30 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
   #### MFAZ ----
   if (method == "mfaz") {
     input_vars <- c(base_list, list(
+
+    shiny::selectInput(
+        inputId = ns("age"),
+        label = shiny::tagList(
+          htmltools::tags$span("Age (months)",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;")
+        ),
+        choices = c("", vars)
+      ),
+
+      #### Sex: mandatory ----
+    shiny::selectInput(
+      inputId = ns("sex"),
+      label = shiny::tagList(
+        htmltools::tags$span("Sex",
+          style = "font-size: 14px; font-weight: bold;"
+        ),
+        htmltools::tags$span("*", style = "color: red;")
+      ),
+      choices = c("", vars)
+    ),
+
       shiny::selectInput(
         inputId = ns("muac"),
         label = shiny::tagList(
@@ -110,6 +137,7 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
         ),
         choices = c("", vars)
       ),
+
       shiny::selectInput(
         inputId = ns("muac"),
         label = shiny::tagList(
@@ -126,6 +154,29 @@ mod_data_wrangling_display_input_variables <- function(vars, method, ns) {
   #### Combined ----
   if (method == "combined") {
     input_vars <- c(base_list, list(
+          shiny::selectInput(
+        inputId = ns("age"),
+        label = shiny::tagList(
+          htmltools::tags$span("Age (months)",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;")
+        ),
+        choices = c("", vars)
+      ),
+
+      #### Sex: mandatory ----
+    shiny::selectInput(
+      inputId = ns("sex"),
+      label = shiny::tagList(
+        htmltools::tags$span("Sex",
+          style = "font-size: 14px; font-weight: bold;"
+        ),
+        htmltools::tags$span("*", style = "color: red;")
+      ),
+      choices = c("", vars)
+    ),
+
       shiny::selectInput(
         inputId = ns("weight"),
         label = shiny::tagList(
@@ -434,7 +485,7 @@ mod_plausibility_call_checker <- function(
 #'
 #'
 mod_prevalence_display_input_variables <- function(vars, source, ns) {
-  ### Capture namespacing ----
+  ### Base list input vars ----
   inputs <- list(
     shiny::selectInput(
       inputId = ns("area1"),
@@ -518,13 +569,14 @@ mod_prevalence_display_input_variables <- function(vars, source, ns) {
     ))
   }
 
-  # Always add flags at the end
-  inputs_vars <- c(inputs, list(
+  # Always add oedema at the end
+  inputs_vars <- c(inputs, list( 
     shiny::selectInput(
-      inputId = ns("flags"),
+      inputId = ns("oedema"),
       label = shiny::tagList(
-        htmltools::tags$span("Flags", style = "font-size: 14px; font-weight: bold;"),
-        htmltools::tags$span("*", style = "color: red;")
+        htmltools::tags$span("Oedema",
+          style = "font-size: 14px; font-weight: bold;"
+        )
       ),
       choices = c("", vars)
     )
@@ -534,56 +586,6 @@ mod_prevalence_display_input_variables <- function(vars, source, ns) {
 }
 
 
-#'
-#'
-#'
-#' Display input variables dynamically, according to UI for screening
-#'
-#'
-#' @keywords internal
-#'
-#'
-mod_ipccheck_display_input_variables <- function(vars, ns) {
-  list(
-    shiny::selectInput(ns("area1"),
-      label = shiny::tagList(
-        htmltools::tags$span("Area 1",
-          style = "font-size: 14px; font-weight: bold;"
-        ),
-        htmltools::tags$span("*", style = "color: red;"),
-        htmltools::tags$div(
-          style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
-        )
-      ),
-      choices = c("", vars)
-    ),
-
-    ##### Secondary grouping area: optional ----
-    shiny::selectInput(ns("area2"),
-      label = shiny::tagList(
-        htmltools::tags$span("Area 2",
-          style = "font-size: 14px; font-weight: bold;"
-        ),
-        htmltools::tags$div(
-          style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
-        )
-      ),
-      choices = c("", vars)
-    ),
-
-    ##### Survey clusters: mandatory ----
-    shiny::selectInput(
-      inputId = ns("psu"),
-      label = shiny::tagList(
-        htmltools::tags$span("Survey clusters",
-          style = "font-size: 14px; font-weight: bold;"
-        ),
-        htmltools::tags$span("*", style = "color: red;"),
-      ),
-      choices = c("", vars)
-    )
-  )
-}
 
 #'
 #'
@@ -1149,6 +1151,104 @@ mod_prevalence_neat_output_screening <- function(df) {
 #                         IPC Acute Malnutrition Checker
 # ==============================================================================
 
+
+
+#'
+#'
+#'
+#' Display input variables dynamically, according to UI for screening
+#'
+#'
+#' @keywords internal
+#'
+#'
+mod_ipccheck_display_input_variables <- function(vars, source, ns) {
+  ## Base list of variables ----
+  base_list <- list(
+    shiny::selectInput(ns("area1"),
+      label = shiny::tagList(
+        htmltools::tags$span("Area 1",
+          style = "font-size: 14px; font-weight: bold;"
+        ),
+        htmltools::tags$span("*", style = "color: red;"),
+        htmltools::tags$div(
+          style = "font-size: 0.85em; color: #6c7574;", "(Primary area)"
+        )
+      ),
+      choices = c("", vars)
+    ),
+
+    ##### Secondary grouping area: optional ----
+    shiny::selectInput(ns("area2"),
+      label = shiny::tagList(
+        htmltools::tags$span("Area 2",
+          style = "font-size: 14px; font-weight: bold;"
+        ),
+        htmltools::tags$div(
+          style = "font-size: 0.85em; color: #6c7574;", "(Sub-area)"
+        )
+      ),
+      choices = c("", vars)
+    )
+  )
+
+  ## Conditional inputs depending on source ----
+  ### Survey data ----
+  if (source == "survey") {
+    input_vars <- c(base_list, list(
+      ##### Survey clusters: mandatory ----
+      shiny::selectInput(
+        inputId = ns("psu"),
+        label = shiny::tagList(
+          htmltools::tags$span("Survey clusters",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;"),
+        ),
+        choices = c("", vars)
+      )
+    )
+    )
+  }
+
+  ### Screening data ----
+  if (source == "screening") {
+    input_vars <- c(base_list, list(
+      shiny::selectInput(
+        inputId = ns("sites"),
+        label = shiny::tagList(
+          htmltools::tags$span("Screening sites",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;"),
+        ),
+        choices = c("", vars)
+      )
+    ))
+  }
+
+  ### Sentinel sites data ----
+  if (source == "sentinel") {
+    input_vars <- c(base_list, list(
+      shiny::selectInput(
+        inputId = ns("ssites"),
+        label = shiny::tagList(
+          htmltools::tags$span("Sentinel sites",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
+          htmltools::tags$span("*", style = "color: red;"),
+        ),
+        choices = c("", vars)
+      )
+    )
+    )
+  }
+  
+  input_vars
+}
+
+
+
 #'
 #'
 #' Invoke mwana's IPC Acute Malnutrition minimum sample size requirement checker
@@ -1158,7 +1258,7 @@ mod_prevalence_neat_output_screening <- function(df) {
 #' @keywords internal
 #'
 #'
-mod_ipccheck_call_checher <- function(df, cluster, source = character(), area1, area2) {
+mod_ipccheck_call_checker <- function(df, cluster, source = character(), area1, area2) {
   ## Conditionally include area2 ----
   if (all(nzchar(c(area2)))) {
     mw_check_ipcamn_ssreq(

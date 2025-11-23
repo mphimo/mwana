@@ -113,7 +113,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
 
   ### Set the wrangling method to MFAZ ----
   app$set_inputs(`wrangle_data-wrangle` = "mfaz", wait_ = FALSE)
-
+  Sys.sleep(3)
   ### Select variables ----
   app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
   app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
@@ -122,7 +122,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   app$set_inputs(`wrangle_data-muac` = "muac", wait_ = FALSE)
 
   ### Click wrangle button ----
-  app$click(input = "wrangle_data-apply_wrangle")
+  app$click(input = "wrangle_data-apply_wrangle", wait_ = TRUE, timeout_ = 15000)
   app$wait_for_value(output = "wrangle_data-wrangled", timeout = 40000)
 
   ### Get wrangled values ----
@@ -133,7 +133,7 @@ testthat::test_that(desc = "Server data wrangling works as expected for MFAZ", {
   ") |> as.character()
 
   ### Test check ----
-  testthat::expect_true(all(vals %in% c("age_days", "mfaz", "flag_mfaz")))
+  testthat::expect_true(all(c("age_days", "mfaz", "flag_mfaz") %in% vals))
   testthat::expect_true(app$get_js("$('#ipc_check-checked').length > 0"))
 
   #### Stop the app ----

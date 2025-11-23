@@ -44,10 +44,7 @@ testthat::test_that(
     app$click(selector = "a[data-value='Data Wrangling']")
     app$wait_for_idle(timeout = 40000)
 
-    ### Select data wrangling method and wait the app till idles ----
-    app$set_inputs(`wrangle_data-wrangle` = "wfhz", wait_ = FALSE)
-    app$wait_for_idle(timeout = 40000)
-
+    ## App defaults to WFHZ ----
     ### Input variables ----
     app$set_inputs(`wrangle_data-dos` = "", wait_ = FALSE)
     app$set_inputs(`wrangle_data-dob` = "", wait_ = FALSE)
@@ -57,7 +54,7 @@ testthat::test_that(
 
     ### Click wrangle button and wait the app to idle ----
     app$click(input = "wrangle_data-apply_wrangle")
-    app$wait_for_idle(timeout = 40000)
+     Sys.sleep(3)
 
     ### Click on the Prevalence tab and wait the app to idle ----
     app$click(selector = "a[data-value='Prevalence Analysis']")
