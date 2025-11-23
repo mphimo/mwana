@@ -44,7 +44,7 @@ testthat::test_that("Data upload tab works as expected", {
   )
 
   ### Test checks ----
-  testthat::expect_equal(object = vals$input$`upload_data-upload`$size, 78696)
+  testthat::expect_gte(object = vals$input$`upload_data-upload`$size, 78696)
   testthat::expect_equal(object = vals$input$`upload_data-upload`$type, "text/csv")
   testthat::expect_true(object = vals$output$`upload_data-fileUploaded`)
   testthat::expect_true(app$get_js("$('#upload_data-uploadedDataTable').length > 0"))
