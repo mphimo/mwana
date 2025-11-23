@@ -1,16 +1,15 @@
-
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module UI for IPC Acute Malnutrition sample size requirements check
-#' 
+#'
 #' @param id Module ID
 #'
 #' @keywords internal
-#' 
-#' 
-#' 
+#'
+#'
+#'
 module_ui_ipccheck <- function(id) {
   ## Namespace ID ----
   ns <- shiny::NS(id)
@@ -26,13 +25,15 @@ module_ui_ipccheck <- function(id) {
         bslib::card(
           style = "background-color: #f9fdfb;",
           bslib::card_header(htmltools::tags$span("Define Parameters for Check",
-        style = "font-size: 15px; font-weight: bold;")),
+            style = "font-size: 15px; font-weight: bold;"
+          )),
 
-           #### Display options on source of data ----
+          #### Display options on source of data ----
           shiny::radioButtons(
             inputId = ns("ipccheck"),
             label = htmltools::tags$span(
-              "Select data source", style = "font-size: 14px; font-weight: bold;"
+              "Select data source",
+              style = "font-size: 14px; font-weight: bold;"
             ),
             choices = list(
               "Survey" = "survey",
@@ -42,7 +43,7 @@ module_ui_ipccheck <- function(id) {
             selected = "survey"
           ),
 
-           #### Display data wrangling method options from the server ----
+          #### Display data wrangling method options from the server ----
           shiny::uiOutput(ns("data_source")),
           htmltools::tags$br(),
           shiny::actionButton(
@@ -57,9 +58,10 @@ module_ui_ipccheck <- function(id) {
       bslib::card(
         style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span("IPC Check Results",
-      style = "font-size: 15px; font-weight: bold;")),
+          style = "font-size: 15px; font-weight: bold;"
+        )),
 
-      #### Display variable inputs rendered from the server ----
+        #### Display variable inputs rendered from the server ----
         shinycssloaders::withSpinner(
           ui_element = DT::DTOutput(ns("checked")),
           type = 8,
@@ -68,10 +70,12 @@ module_ui_ipccheck <- function(id) {
           image.height = "50px",
           color = "#004225",
           caption = htmltools::tags$div(
-            htmltools::tags$h6(htmltools::tags$span("Checking", 
-            style = "font-size: 12px;")),
-            htmltools::tags$h6(htmltools::tags$span("Please wait...", 
-            style = "font-size: 12px;"))
+            htmltools::tags$h6(htmltools::tags$span("Checking",
+              style = "font-size: 12px;"
+            )),
+            htmltools::tags$h6(htmltools::tags$span("Please wait...",
+              style = "font-size: 12px;"
+            ))
           )
         ),
 
@@ -86,16 +90,16 @@ module_ui_ipccheck <- function(id) {
 ## ---- Module: Sever ----------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module server for IPC Acute Malnutrition sample size requirements check
-#' 
+#'
 #' @param id Module ID
-#' 
+#'
 #'
 #' @keywords internal
-#' 
-#' 
-#' 
+#'
+#'
+#'
 module_server_ipccheck <- function(id, data) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -111,15 +115,21 @@ module_server_ipccheck <- function(id, data) {
       cols <- base::names(data())
 
       switch(input$ipccheck,
-        
+
         #### Survey ----
-        "survey" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)},
+        "survey" = {
+          mod_ipccheck_display_input_variables(vars = cols, ns = ns)
+        },
 
         #### Screening ----
-        "screening" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)},
+        "screening" = {
+          mod_ipccheck_display_input_variables(vars = cols, ns = ns)
+        },
 
         #### Sentinel sites ----
-        "sentinel" = {mod_ipccheck_display_input_variables(vars = cols, ns = ns)}
+        "sentinel" = {
+          mod_ipccheck_display_input_variables(vars = cols, ns = ns)
+        }
       )
     })
 
@@ -211,7 +221,7 @@ module_server_ipccheck <- function(id, data) {
         options = list(
           pageLength = 20,
           scrollX = FALSE,
-          scrollY = "800px", 
+          scrollY = "800px",
           columDefs = list(list(className = "dt-center", targets = "_all"))
         ),
         caption = if (nrow(dataset$checked) > 20) {

@@ -1,11 +1,11 @@
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module UI for plausibility check
-#' 
+#'
 #' @param id Module ID
-#' 
+#'
 #'
 #' @keywords internal
 #'
@@ -30,8 +30,9 @@ module_ui_plausibility_check <- function(id) {
         #### Enable plausibility check options based on data wrangling method ----
         shiny::radioButtons(
           inputId = ns("method"),
-          label = htmltools::tags$span("Select Method", 
-          style = "font-size: 14px; font-weight: bold;"),
+          label = htmltools::tags$span("Select Method",
+            style = "font-size: 14px; font-weight: bold;"
+          ),
           choices = list(
             "Weight-for-Height z-scores (WFHZ)" = "wfhz",
             "MUAC-for-Age z-scores (MFAZ)" = "mfaz",
@@ -67,10 +68,12 @@ module_ui_plausibility_check <- function(id) {
         image.height = "50px",
         color = "#004225",
         caption = htmltools::tags$div(
-          htmltools::tags$h6(htmltools::tags$span("Checking plausibility", 
-          style = "font-size: 12px;")),
-            htmltools::tags$h6(htmltools::tags$span("Please wait...", 
-            style = "font-size: 12px;"))
+          htmltools::tags$h6(htmltools::tags$span("Checking plausibility",
+            style = "font-size: 12px;"
+          )),
+          htmltools::tags$h6(htmltools::tags$span("Please wait...",
+            style = "font-size: 12px;"
+          ))
         )
       ),
 
@@ -86,12 +89,12 @@ module_ui_plausibility_check <- function(id) {
 
 #'
 #' Module server for plausibility check
-#' 
+#'
 #' @param id Module ID
-#' 
+#'
 #'
 #' @keywords internal
-#' 
+#'
 #'
 module_server_plausibility_check <- function(id, data) {
   shiny::moduleServer(
@@ -114,7 +117,6 @@ module_server_plausibility_check <- function(id, data) {
         mod_plausibility_display_input_variables(
           vars = vars, method = input$method, ns = ns
         )
-        
       })
 
 

@@ -1,13 +1,13 @@
 ## ---- Module: UI -------------------------------------------------------------
 
-#' 
-#' Module UI for data upload 
-#' 
-#' 
+#'
+#' Module UI for data upload
+#'
+#'
 #' @param id Module ID
 #'
 #' @keywords internal
-#' 
+#'
 #'
 module_ui_upload <- function(id) {
   ## Namespace ID's ----
@@ -24,12 +24,14 @@ module_ui_upload <- function(id) {
         bslib::card(
           style = "background-color: #f9fdfb;",
           bslib::card_header(htmltools::tags$span("Upload Data",
-      style = "font-size: 15px; font-weight: bold")),
+            style = "font-size: 15px; font-weight: bold"
+          )),
           style = "width: 350px",
           shiny::fileInput(
             inputId = ns("upload"),
             label = htmltools::tags$span("Upload a .csv file",
-            style = "font-size: 14px; font-weight: 500px;"),
+              style = "font-size: 14px; font-weight: 500px;"
+            ),
             buttonLabel = htmltools::tags$span("Browse...", style = "color: white;"),
             accept = ".csv"
           ),
@@ -54,7 +56,8 @@ module_ui_upload <- function(id) {
       bslib::card(
         style = "background-color: #f9fdfb;",
         bslib::card_header(htmltools::tags$span("Data Preview",
-      style = "font-size: 15px; font-weight: bold;")),
+          style = "font-size: 15px; font-weight: bold;"
+        )),
         shiny::conditionalPanel(
           condition = "output.fileUploaded == true",
           ns = ns,
@@ -88,30 +91,34 @@ module_ui_upload <- function(id) {
 ## ---- Module: Server ---------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module server for data upload
-#' 
-#' 
+#'
+#'
 #' @param id Module ID
-#' 
+#'
 #' @keywords internal
-#' 
-#' 
+#'
+#'
 #'
 module_server_upload <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-        ### Capture reactive values ----
-  values <- shiny::reactiveValues(
-    data = NULL,
-    processing = FALSE,
-    file_uploaded = FALSE 
-  )
+      ### Capture reactive values ----
+      values <- shiny::reactiveValues(
+        data = NULL,
+        processing = FALSE,
+        file_uploaded = FALSE
+      )
       #### Show data uploading progress bar ----
-      output$showProgress <- shiny::reactive({values$processing})
+      output$showProgress <- shiny::reactive({
+        values$processing
+      })
       shiny::outputOptions(output, "showProgress", suspendWhenHidden = FALSE)
-      output$fileUploaded <- shiny::reactive({values$file_uploaded})
+      output$fileUploaded <- shiny::reactive({
+        values$file_uploaded
+      })
       shiny::outputOptions(output, "fileUploaded", suspendWhenHidden = FALSE)
 
       output$uploadProgress <- shiny::renderUI({
@@ -143,7 +150,7 @@ module_server_upload <- function(id) {
         tryCatch(
           {
             df <- utils::read.csv(
-              file = input$upload$datapath, 
+              file = input$upload$datapath,
               stringsAsFactors = FALSE,
               check.names = FALSE
             )
@@ -205,7 +212,7 @@ module_server_upload <- function(id) {
           } else {
             paste("Showing all", nrow(values$data), "rows")
           }
-        ) |> 
+        ) |>
           DT::formatStyle(columns = colnames(df_preview), fontSize = "13px")
       })
 

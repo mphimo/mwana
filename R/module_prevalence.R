@@ -1,14 +1,14 @@
 ## ---- Module: UI -------------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module UI for prevalence analysis
-#' 
+#'
 #' @param id Module ID
 #'
 #' @keywords internal
 #'
-#' 
+#'
 #'
 module_ui_prevalence <- function(id) {
   ## Namespace ID ----
@@ -34,7 +34,8 @@ module_ui_prevalence <- function(id) {
         shiny::radioButtons(
           inputId = ns("source"),
           label = htmltools::tags$span("Select Data Source",
-          style = "font-size: 14px; font-weight: bold;"),
+            style = "font-size: 14px; font-weight: bold;"
+          ),
           choices = list(
             "Survey" = "survey",
             "Screening" = "screening"
@@ -79,10 +80,12 @@ module_ui_prevalence <- function(id) {
         image.height = "50px",
         color = "#004225",
         caption = htmltools::tags$div(
-          htmltools::tags$h6(htmltools::tags$span("Estimating prevalence", 
-          style = "font-size: 12px;")),
-            htmltools::tags$h6(htmltools::tags$span("Please wait...",
-             style = "font-size: 12px;"))
+          htmltools::tags$h6(htmltools::tags$span("Estimating prevalence",
+            style = "font-size: 12px;"
+          )),
+          htmltools::tags$h6(htmltools::tags$span("Please wait...",
+            style = "font-size: 12px;"
+          ))
         )
       ),
 
@@ -96,9 +99,9 @@ module_ui_prevalence <- function(id) {
 ## ---- Module: Server ---------------------------------------------------------
 
 #'
-#' 
+#'
 #' Module server for prevalence analysis
-#' 
+#'
 #' @param id Module ID
 #'
 #' @keywords internal
@@ -124,7 +127,8 @@ module_server_prevalence <- function(id, data) {
             shiny::radioButtons(
               inputId = ns("amn_method_survey"),
               label = htmltools::tags$span("Acute malnutrition based on:",
-              style = "font-size: 14px; font-weight: bold;"),
+                style = "font-size: 14px; font-weight: bold;"
+              ),
               choices = list(
                 "WFHZ" = "wfhz",
                 "MUAC" = "muac",
@@ -140,7 +144,8 @@ module_server_prevalence <- function(id, data) {
             shiny::radioButtons(
               inputId = ns("amn_method_screening"),
               label = htmltools::tags$span("Is age in months available?",
-              style = "font-size: 14px; font-weight: bold;"),
+                style = "font-size: 14px; font-weight: bold;"
+              ),
               choices = list("Yes" = "yes", "No" = "no"),
               selected = "yes",
               inline = TRUE
@@ -150,15 +155,14 @@ module_server_prevalence <- function(id, data) {
       })
 
       ### Render input variables ----
-        output$amn_vars <- shiny::renderUI({
+      output$amn_vars <- shiny::renderUI({
+        shiny::req(data())
+        vars <- names(data())
 
-           shiny::req(data())
-          vars <- names(data())
-
-          mod_prevalence_display_input_variables(
-            vars = vars, source = input$source, ns = ns
-          )
-        })
+        mod_prevalence_display_input_variables(
+          vars = vars, source = input$source, ns = ns
+        )
+      })
 
       ### Always observe Action button, but branch inside ----
       shiny::observeEvent(input$estimate, {
@@ -174,13 +178,13 @@ module_server_prevalence <- function(id, data) {
           if (input$amn_method_screening == "yes") {
             if (!nzchar(input$muac)) {
               valid <- FALSE
-          message <- "Please supply MUAC variable."
+              message <- "Please supply MUAC variable."
             }
           } else {
             if (any(!nzchar(c(input$muac, input$age_cat)))) {
-            valid <- FALSE
-            message <- "Please select all required variables: MUAC and Age category."
-          }
+              valid <- FALSE
+              message <- "Please select all required variables: MUAC and Age category."
+            }
           }
         }
 
@@ -213,7 +217,8 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_prevalence_neat_output_survey(.type = "muac")
+                    ) |>
+                    mod_prevalence_neat_output_survey(.type = "muac")
                 },
                 "combined" = {
                   data() |>
@@ -224,7 +229,8 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_prevalence_neat_output_survey(.type = "combined")
+                    ) |>
+                    mod_prevalence_neat_output_survey(.type = "combined")
                 }
               )
             } else {
@@ -240,7 +246,8 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_prevalence_neat_output_screening()
+                    ) |>
+                    mod_prevalence_neat_output_screening()
                 },
                 "no" = {
                   shiny::req(input$muac, input$age_cat)
@@ -253,7 +260,8 @@ module_server_prevalence <- function(id, data) {
                       area1 = input$area1,
                       area2 = input$area2,
                       area3 = input$area3
-                    ) |> mod_prevalence_neat_output_screening()
+                    ) |>
+                    mod_prevalence_neat_output_screening()
                 }
               )
             }

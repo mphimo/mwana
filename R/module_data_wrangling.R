@@ -2,16 +2,16 @@
 
 
 #'
-#' 
-#' 
+#'
+#'
 #' Module UI for data wrangling
-#' 
+#'
 #' @param id Module ID
-#' 
-#' 
+#'
+#'
 #' @keywords internal
-#' 
-#' 
+#'
+#'
 #'
 module_ui_wrangling <- function(id) {
   ## Namespace ID ----
@@ -45,7 +45,7 @@ module_ui_wrangling <- function(id) {
             ),
             selected = "wfhz"
           ),
-          
+
           #### Display variable inputs rendered from the server ----
           shiny::uiOutput(outputId = ns("select_vars")),
           htmltools::tags$br(),
@@ -73,10 +73,12 @@ module_ui_wrangling <- function(id) {
           image.height = "50px",
           color = "#004225",
           caption = htmltools::tags$div(
-            htmltools::tags$h6(htmltools::tags$span("Wrangling", 
-            style = "font-size: 12px;")),
-            htmltools::tags$h6(htmltools::tags$span("Please wait...", 
-            style = "font-size: 12px;"))
+            htmltools::tags$h6(htmltools::tags$span("Wrangling",
+              style = "font-size: 12px;"
+            )),
+            htmltools::tags$h6(htmltools::tags$span("Please wait...",
+              style = "font-size: 12px;"
+            ))
           )
         ),
 
@@ -94,14 +96,14 @@ module_ui_wrangling <- function(id) {
 #'
 #'
 #' Module server for data wrangling
-#' 
+#'
 #' @param id Module ID
 #'
-#' 
+#'
 #' @keywords internal
 #'
-#' 
-#' 
+#'
+#'
 module_server_wrangling <- function(id, data) {
   shiny::moduleServer(
     id,
@@ -122,7 +124,6 @@ module_server_wrangling <- function(id, data) {
         mod_data_wrangling_display_input_variables(
           vars = vars, method = input$wrangle, ns = ns
         )
-        
       })
 
       ### Render variables dynamically ----
@@ -193,7 +194,7 @@ module_server_wrangling <- function(id, data) {
                 data() |>
                   dplyr::mutate(
                     muac = recode_muac(x = !!rlang::sym(input$muac), .to = "cm")
-                  ) |> 
+                  ) |>
                   dplyr::rename(
                     age = !!rlang::sym(input$age),
                     sex = !!rlang::sym(input$sex)
@@ -213,7 +214,7 @@ module_server_wrangling <- function(id, data) {
 
                 data() |>
                   dplyr::rename(
-                    sex = !!rlang::sym(input$sex), 
+                    sex = !!rlang::sym(input$sex),
                     muac = !!rlang::sym(input$muac)
                   ) |>
                   mw_wrangle_muac(
@@ -234,7 +235,7 @@ module_server_wrangling <- function(id, data) {
                 data() |>
                   dplyr::mutate(
                     muac = recode_muac(x = !!rlang::sym(input$muac), .to = "cm")
-                  ) |> 
+                  ) |>
                   dplyr::rename(
                     age = !!rlang::sym(input$age),
                     sex = !!rlang::sym(input$sex),
@@ -263,7 +264,8 @@ module_server_wrangling <- function(id, data) {
           },
           error = function(e) {
             shiny::showNotification(
-              paste("Wrangling error:", e$message), type = "error"
+              paste("Wrangling error:", e$message),
+              type = "error"
             )
           }
         )
