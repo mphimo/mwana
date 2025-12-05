@@ -41,7 +41,7 @@ Language: en-GB
 LazyData: true
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/nutriverse/mwana, https://nutriverse.io/mwana
-BugReports: https://github.com/nutriverse/mwana/issues
+URL: https://github.com/mphimo/mwana, https://mphimo.github.io/mwana/
+BugReports: https://github.com/mphimo/mwana/issues
 VignetteBuilder: quarto
 Config/testthat/edition: 3
