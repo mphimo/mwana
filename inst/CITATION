@@ -5,6 +5,5 @@ bibentry(
   author   = c(person("Tomás Zaba"), person("Ernest Guevarra"), person("Mark Myatt")),
   year     = 2025,
   note     = "R package version 1.0.0",
-  url      = "https://nutriverse.io/mwana/",
-  doi      = "10.5281/zenodo.14176624"
+  url      = "https://mphimo.github.io/mwana/"
 )
