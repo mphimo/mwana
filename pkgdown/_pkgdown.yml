@@ -9,6 +9,7 @@ template:
   bootstrap: 5
   theme: breeze-light
   ganalytics: "G-94YZ36XGLH"
+  light-switch: true
   bslib:
     bootswatch: pulse
     pkgdown-nav-height: 100px
