@@ -9,8 +9,7 @@ type: software
 license: GPL-3.0-or-later
 title: 'mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis
   of Wasting in R'
-version: 1.0.0
-doi: 10.5281/zenodo.14176624
+version: 0.2.3
 abstract: A simple and streamlined workflow for plausibility checks and prevalence
   analysis of wasting based on the Standardized Monitoring and Assessment of Relief
   and Transition (SMART) Methodology <https://smartmethodology.org/>, with application
@@ -34,24 +33,15 @@ preferred-citation:
   - name: Ernest Guevarra
   - name: Mark Myatt
   year: '2025'
-  notes: R package version 1.0.0
-  url: https://nutriverse.io/mwana/
-  doi: 10.5281/zenodo.14176624
-repository-code: https://github.com/nutriverse/mwana
-url: https://nutriverse.io/mwana
+  notes: R package version 0.2.3
+  url: https://mphimo.github.io/mwana/
+repository-code: https://github.com/mphimo/mwana
+url: https://mphimo.github.io/mwana/
 contact:
 - family-names: Zaba
   given-names: Tomás
   email: tomas.zaba@outlook.com
   orcid: https://orcid.org/0000-0002-7079-3574
-keywords:
-- acute-malnutrition
-- anthropometry
-- muac
-- nutrition
-- smart
-- survey
-- wasting
 references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
@@ -241,152 +231,6 @@ references:
   year: '2025'
   doi: 10.32614/CRAN.package.purrr
 - type: software
-  title: shiny
-  abstract: 'shiny: Web Application Framework for R'
-  notes: Imports
-  url: https://shiny.posit.co/
-  repository: https://CRAN.R-project.org/package=shiny
-  authors:
-  - family-names: Chang
-    given-names: Winston
-    email: winston@posit.co
-    orcid: https://orcid.org/0000-0002-1576-2126
-  - family-names: Cheng
-    given-names: Joe
-    email: joe@posit.co
-  - family-names: Allaire
-    given-names: JJ
-    email: jj@posit.co
-  - family-names: Sievert
-    given-names: Carson
-    email: carson@posit.co
-    orcid: https://orcid.org/0000-0002-4958-2844
-  - family-names: Schloerke
-    given-names: Barret
-    email: barret@posit.co
-    orcid: https://orcid.org/0000-0001-9986-114X
-  - family-names: Xie
-    given-names: Yihui
-    email: yihui@posit.co
-  - family-names: Allen
-    given-names: Jeff
-  - family-names: McPherson
-    given-names: Jonathan
-    email: jonathan@posit.co
-  - family-names: Dipert
-    given-names: Alan
-  - family-names: Borges
-    given-names: Barbara
-  year: '2025'
-  doi: 10.32614/CRAN.package.shiny
-  version: '>= 1.11.1'
-- type: software
-  title: DT
-  abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
-  notes: Imports
-  url: https://github.com/rstudio/DT
-  repository: https://CRAN.R-project.org/package=DT
-  authors:
-  - family-names: Xie
-    given-names: Yihui
-  - family-names: Cheng
-    given-names: Joe
-    email: joe@posit.co
-  - family-names: Tan
-    given-names: Xianying
-  - family-names: Aden-Buie
-    given-names: Garrick
-    email: garrick@posit.co
-    orcid: https://orcid.org/0000-0002-7111-0077
-  year: '2025'
-  doi: 10.32614/CRAN.package.DT
-  version: '>= 0.33'
-- type: software
-  title: bslib
-  abstract: 'bslib: Custom ''Bootstrap'' ''Sass'' Themes for ''shiny'' and ''rmarkdown'''
-  notes: Imports
-  url: https://rstudio.github.io/bslib/
-  repository: https://CRAN.R-project.org/package=bslib
-  authors:
-  - family-names: Sievert
-    given-names: Carson
-    email: carson@posit.co
-    orcid: https://orcid.org/0000-0002-4958-2844
-  - family-names: Cheng
-    given-names: Joe
-    email: joe@posit.co
-  - family-names: Aden-Buie
-    given-names: Garrick
-    email: garrick@posit.co
-    orcid: https://orcid.org/0000-0002-7111-0077
-  year: '2025'
-  doi: 10.32614/CRAN.package.bslib
-  version: '>= 0.9.0'
-- type: software
-  title: shinycssloaders
-  abstract: 'shinycssloaders: Add Loading Animations to a ''shiny'' Output While It''s
-    Recalculating'
-  notes: Imports
-  url: https://daattali.com/shiny/shinycssloaders-demo/
-  repository: https://CRAN.R-project.org/package=shinycssloaders
-  authors:
-  - family-names: Attali
-    given-names: Dean
-    email: daattali@gmail.com
-    orcid: https://orcid.org/0000-0002-5645-3493
-  - family-names: Sali
-    given-names: Andras
-    email: andras.sali@alphacruncher.hu
-  year: '2025'
-  doi: 10.32614/CRAN.package.shinycssloaders
-  version: '>= 1.1.0'
-- type: software
-  title: openxlsx
-  abstract: 'openxlsx: Read, Write and Edit xlsx Files'
-  notes: Imports
-  url: https://ycphs.github.io/openxlsx/index.html
-  repository: https://CRAN.R-project.org/package=openxlsx
-  authors:
-  - family-names: Schauberger
-    given-names: Philipp
-    email: philipp@schauberger.co.at
-  - family-names: Walker
-    given-names: Alexander
-    email: Alexander.Walker1989@gmail.com
-  year: '2025'
-  doi: 10.32614/CRAN.package.openxlsx
-  version: '>= 4.2.8'
-- type: software
-  title: htmltools
-  abstract: 'htmltools: Tools for HTML'
-  notes: Imports
-  url: https://rstudio.github.io/htmltools/
-  repository: https://CRAN.R-project.org/package=htmltools
-  authors:
-  - family-names: Cheng
-    given-names: Joe
-    email: joe@posit.co
-  - family-names: Sievert
-    given-names: Carson
-    email: carson@posit.co
-    orcid: https://orcid.org/0000-0002-4958-2844
-  - family-names: Schloerke
-    given-names: Barret
-    email: barret@posit.co
-    orcid: https://orcid.org/0000-0001-9986-114X
-  - family-names: Chang
-    given-names: Winston
-    email: winston@posit.co
-    orcid: https://orcid.org/0000-0002-1576-2126
-  - family-names: Xie
-    given-names: Yihui
-    email: yihui@posit.co
-  - family-names: Allen
-    given-names: Jeff
-  year: '2025'
-  doi: 10.32614/CRAN.package.htmltools
-  version: '>= 0.5.8.1'
-- type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
   notes: Suggests
@@ -489,17 +333,4 @@ references:
   year: '2025'
   doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
-- type: software
-  title: shinytest2
-  abstract: 'shinytest2: Testing for Shiny Applications'
-  notes: Suggests
-  url: https://rstudio.github.io/shinytest2/
-  repository: https://CRAN.R-project.org/package=shinytest2
-  authors:
-  - family-names: Schloerke
-    given-names: Barret
-    email: barret@posit.co
-    orcid: https://orcid.org/0000-0001-9986-114X
-  year: '2025'
-  doi: 10.32614/CRAN.package.shinytest2
 

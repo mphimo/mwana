@@ -1,9 +1,4 @@
-# mwana 1.0.0
-
-## New features 
-
-* Added a Shiny application. Hereafter, not-well-versed R users and non-R users 
-can now benefit from this package's handy workflow through a web application. 
+# mwana 0.2.3
 
 ## General updates 
 
