@@ -8,6 +8,5 @@
 
 library(testthat)
 library(mwana)
-library(shinytest2)
 
 test_check("mwana")
