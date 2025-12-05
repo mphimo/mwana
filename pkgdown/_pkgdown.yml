@@ -1,6 +1,6 @@
 title: mwana
 
-url: https://nutriverse.io/mwana/
+url:  https://mphimo.github.io/mwana/
 
 development:
   mode: devel
@@ -19,7 +19,7 @@ navbar:
   type: dark
   structure:
     left:  [home, intro, reference, articles, news]
-    right: [search, mastodon, github]
+    right: [search, github]
 
   components:
     articles:
@@ -31,13 +31,11 @@ navbar:
         href: articles/prevalence.html
       - text: "IPC sample size requirements"
         href: articles/ipc_amn_check.html
-    mastodon:
-      icon: "fab fa-mastodon fa-lg"
-      href: https://mastodon.social/@nutriverse
-      aria-label: Mastodon
 
 home:
   links:
+  - text: Learn more about mwanaApp
+    href: https://mphimo.github.io/mwana/articles/ipc_amn_check.html 
   - text: Read more about SMART Methodology
     href: https://smartmethodology.org/
   - text: Read more about IPC
@@ -94,10 +92,6 @@ reference:
      - flag_outliers
      - remove_flags
      - define_wasting
-    
-   - title: Built-in Shiny app
-     contents:
-     - mw_run_app
 
    - title: Datasets
      contents:
