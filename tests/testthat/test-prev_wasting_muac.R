@@ -46,7 +46,7 @@ testthat::test_that(
       mutate(muac = recode_muac(muac, .to = "mm"))
 
     #### Observed results ----
-    p <- smart_age_weighting2(x, muac, age, edema)
+    p <- mw_estimate_smart_age_wt(x, muac, age, edema, raw_muac = FALSE)
 
 
     ## Tests ----
@@ -460,7 +460,7 @@ testthat::test_that(
   {
     ## Observed results ----
     p <- anthro.04 |>
-      mw_estimate_smart_age_wt(raw_muac = FALSE, edema = NULL, province)
+      mw_estimate_smart_age_wt(muac, age, raw_muac = FALSE, edema = NULL, province)
 
     ## Expected results ----
     gam <- 11.2

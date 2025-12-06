@@ -7,7 +7,7 @@
 \usage{
 mw_estimate_prevalence_muac(df, wt = NULL, edema = NULL, ...)
 
-mw_estimate_smart_age_wt(df, edema = NULL, raw_muac = FALSE, ...)
+mw_estimate_smart_age_wt(df, muac, age, edema = NULL, raw_muac = FALSE, ...)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -74,11 +74,13 @@ mw_estimate_prevalence_muac(
 )
 
 ## An application of `mw_estimate_smart_age_wt()` ----
-.data <- anthro.04 |> subset(province == "Province 2")
-
 mw_estimate_smart_age_wt(
-  df = .data,
-  edema = edema
+  df = anthro.04,
+  edema = edema, 
+age = age, 
+edema = edema, 
+raw_muac = FALSE, 
+province
 )
 
 }
