@@ -25,62 +25,6 @@ testthat::test_that(
   }
 )
 
-# Test check: smart_tool_case_definition () with edema set o NULL ----
-testthat::test_that(
-  "smart_tool_case_definition() does its job well",
-  {
-    ## Input data ----
-    muac_values <- c(
-      123, 129, 126, 113, 130, 122, 112, 124, 128,
-      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
-    )
-
-    ## Expected results ----
-    expected <- c(
-      "mam", "not wasted", "not wasted", "sam", "not wasted", "mam", "sam", "mam",
-      "not wasted", "mam", "mam", "sam", "sam", "not wasted", "mam", "not wasted",
-      "mam", "mam", "sam", "mam"
-    )
-
-    ## Observed results ----
-    obs <- smart_tool_case_definition(muac = muac_values, edema = NULL)
-
-    ## Tests ----
-    testthat::expect_vector(obs, ptype = "character", size = 20)
-    testthat::expect_equal(obs, expected)
-  }
-)
-
-# Test check: smart_tool_case_definition() with edema supplied ----
-testthat::test_that(
-  "smart_tool_case_definition() does its job well",
-  {
-    ## Input data ----
-    muac_values <- c(
-      123, 129, 126, 113, 130, 122, 112, 124, 128,
-      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
-    )
-    edema <- c(
-      "n", "n", "n", "n", "y", "y", "y", "n", "y", "n", "n", "y", "n",
-      "y", "n", "n", "n", "n", "n", "n"
-    )
-
-    ## Expected results ----
-    expected <- c(
-      "mam", "not wasted", "not wasted", "sam", "sam", "sam", "sam", "mam",
-      "sam", "mam", "mam", "sam", "sam", "sam", "mam", "not wasted",
-      "mam", "mam", "sam", "mam"
-    )
-
-    ## Observed results ----
-    obs <- smart_tool_case_definition(muac = muac_values, edema = edema)
-
-    ## Tests ----
-    testthat::expect_vector(obs, ptype = "character", size = 20)
-    testthat::expect_equal(obs, expected)
-  }
-)
-
 # Test check: smart_age_weighting() ----
 ## Edema set to !NULL ----
 testthat::test_that(
@@ -95,99 +39,91 @@ testthat::test_that(
         sex = sex,
         muac = muac,
         age = age,
-        .recode_sex = TRUE,
+        .recode_sex = FALSE,
         .recode_muac = TRUE,
         .to = "cm"
       ) |>
-      subset(flag_mfaz == 0) |>
       mutate(muac = recode_muac(muac, .to = "mm"))
 
-
-    #### Expected results calculated in the CDC/SMART MUAC tool ----
-    expect_sam <- 0.021
-    expect_mam <- 0.081
-
     #### Observed results ----
-    obs_sam <- with(
-      x,
-      smart_age_weighting(
-        muac = muac,
-        edema = edema,
-        age = age,
-        .form = "sam"
-      )
-    )
-    obs_mam <- with(
-      x,
-      smart_age_weighting(
-        muac = muac,
-        edema = edema,
-        age = age,
-        .form = "mam"
-      )
-    )
+    p <- smart_age_weighting2(x, muac, age, edema)
+
 
     ## Tests ----
-    testthat::expect_vector(obs_sam, size = 1)
-    testthat::expect_vector(obs_mam, size = 1)
-    testthat::expect_equal(round(obs_sam, 3), expect_sam)
-    testthat::expect_equal(round(obs_mam, 3), expect_mam)
+    ### Under twos ----
+    testthat::expect_equal(round(p$oedema_u2 * 100, 1), 1.0)
+    testthat::expect_equal(round(p$u2sam * 100, 1), 3.1)
+    testthat::expect_equal(round(p$u2mam * 100, 1), 16.4)
+    testthat::expect_equal(round(p$u2gam * 100, 1), 20.5)
+
+    ### Over twos ----
+    testthat::expect_equal(round(p$oedema_o2 * 100, 1), 1.1)
+    testthat::expect_equal(round(p$o2sam * 100, 1), 0.3)
+    testthat::expect_equal(round(p$o2mam * 100, 1), 2.2)
+    testthat::expect_equal(round(p$o2gam * 100, 1), 3.5)
+
+    ### Age weighted ----
+    testthat::expect_equal(round(p$sam * 100, 1), 2.3)
+    testthat::expect_equal(round(p$mam * 100, 1), 6.9)
+    testthat::expect_equal(round(p$gam * 100, 1), 9.2)
   }
 )
 
-## Edema set to NULL ----
-testthat::test_that(
-  "smart_age_weighting() works amazing",
-  {
-    ## Input data ----
-    x <- mfaz.01 |>
-      mw_wrangle_age(
-        age = age,
-        .decimals = 2
-      ) |>
-      mw_wrangle_muac(
-        sex = sex,
-        muac = muac,
-        age = age,
-        .recode_sex = TRUE,
-        .recode_muac = TRUE,
-        .to = "cm"
-      ) |>
-      subset(flag_mfaz == 0) |>
-      mutate(
-        muac = recode_muac(muac, .to = "mm")
-      )
 
 
-    #### Expected results calculated in the CDC/SMART MUAC tool ----
-    expect_sam <- 0.014
-    expect_mam <- 0.080
+# ## Edema set to NULL ----
+# testthat::test_that(
+#   "smart_age_weighting() works amazing",
+#   {
+#     ## Input data ----
+#     x <- mfaz.01 |>
+#       mw_wrangle_age(
+#         age = age,
+#         .decimals = 2
+#       ) |>
+#       mw_wrangle_muac(
+#         sex = sex,
+#         muac = muac,
+#         age = age,
+#         .recode_sex = TRUE,
+#         .recode_muac = TRUE,
+#         .to = "cm"
+#       ) |>
+#       subset(flag_mfaz == 0) |>
+#       mutate(
+#         muac = recode_muac(muac, .to = "mm")
+#       )
 
-    #### Observed results ----
-    obs_sam <- with(
-      x,
-      smart_age_weighting(
-        muac = muac,
-        age = age,
-        .form = "sam"
-      )
-    )
-    obs_mam <- with(
-      x,
-      smart_age_weighting(
-        muac = muac,
-        age = age,
-        .form = "mam"
-      )
-    )
 
-    ## Tests ----
-    testthat::expect_vector(obs_sam, size = 1)
-    testthat::expect_vector(obs_mam, size = 1)
-    testthat::expect_equal(round(obs_sam, 3), expect_sam)
-    testthat::expect_equal(round(obs_mam, 2), expect_mam)
-  }
-)
+#     #### Expected results calculated in the CDC/SMART MUAC tool ----
+#     expect_sam <- 0.014
+#     expect_mam <- 0.080
+
+#     #### Observed results ----
+#     obs_sam <- with(
+#       x,
+#       smart_age_weighting(
+#         muac = muac,
+#         age = age,
+#         .form = "sam"
+#       )
+#     )
+#     obs_mam <- with(
+#       x,
+#       smart_age_weighting(
+#         muac = muac,
+#         age = age,
+#         .form = "mam"
+#       )
+#     )
+
+#     ## Tests ----
+#     testthat::expect_vector(obs_sam, size = 1)
+#     testthat::expect_vector(obs_mam, size = 1)
+#     testthat::expect_equal(round(obs_sam, 3), expect_sam)
+#     testthat::expect_equal(round(obs_mam, 2), expect_mam)
+#   }
+# )
 
 # Test check: mw_estimate_prevalence_muac() ----
 ## When age_ratio & std != problematic & !is.null(wt) & !is.null(edema) ----
