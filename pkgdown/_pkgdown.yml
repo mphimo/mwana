@@ -2,8 +2,8 @@ title: mwana
 
 url:  https://mphimo.github.io/mwana/
 
-# development:
-#   mode: devel
+development:
+  mode: devel
 
 template:
   bootstrap: 5
