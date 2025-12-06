@@ -7,19 +7,20 @@ development:
 
 template:
   bootstrap: 5
-  theme: breeze-light
+  theme: github-light
   ganalytics: "G-94YZ36XGLH"
+  light-switch: true
   bslib:
     bootswatch: pulse
+    navbar-bg: "#004225"
     pkgdown-nav-height: 100px
     success: "#004225"
+destination: docs
 
 navbar:
-  bg: success
-  type: dark
   structure:
     left:  [home, intro, reference, articles, news]
-    right: [search, github]
+    # right: [search, github, light-switch]
 
   components:
     articles:
