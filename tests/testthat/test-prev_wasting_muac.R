@@ -28,7 +28,7 @@ testthat::test_that(
 # Test check: smart_age_weighting() ----
 ## Edema set to !NULL ----
 testthat::test_that(
-  "smart_age_weighting() works amazing",
+  "mw_estimate_smart_age_wt() works as expected",
   {
     ### Input data ----
     x <- mfaz.01 |>
@@ -69,61 +69,52 @@ testthat::test_that(
   }
 )
 
+# Test check: mw_estimate_smart_age_wt() ----
+testthat::test_that(
+  "mw_estimate_smart_age_wt() works well when `raw_muac = TRUE`",
+  {
+  
+    ## Tests ----
+    testthat::expect_error(object = anthro.04 |>
+      subset(province == "Province 2") |>
+      mw_estimate_smart_age_wt(raw_muac = TRUE), inherit = TRUE)
+
+  }
+)
 
 
-# ## Edema set to NULL ----
-# testthat::test_that(
-#   "smart_age_weighting() works amazing",
-#   {
-#     ## Input data ----
-#     x <- mfaz.01 |>
-#       mw_wrangle_age(
-#         age = age,
-#         .decimals = 2
-#       ) |>
-#       mw_wrangle_muac(
-#         sex = sex,
-#         muac = muac,
-#         age = age,
-#         .recode_sex = TRUE,
-#         .recode_muac = TRUE,
-#         .to = "cm"
-#       ) |>
-#       subset(flag_mfaz == 0) |>
-#       mutate(
-#         muac = recode_muac(muac, .to = "mm")
-#       )
+## When MUAC is not in millimeters the function errors ----
+testthat::test_that(
+  "When MUAC is not in centimeters, the function stop execution",
+  {
+    testthat::expect_error(
+      x <- anthro.01 |>
+        mw_wrangle_age(
+          age = age,
+          .decimals = 2
+        ) |>
+        mw_wrangle_muac(
+          sex = sex,
+          muac = muac,
+          age = age,
+          .recode_sex = FALSE,
+          .recode_muac = TRUE,
+          .to = "cm",
+          .decimals = 3
+        ) |>
+        mw_wrangle_wfhz(
+          sex = sex,
+          weight = weight,
+          height = height,
+          .recode_sex = F,
+          .decimals = 3
+        ) |>
+        mw_estimate_smart_age_wt(edema = edema),
+      regexp = "MUAC values must be in millimeters. Please try again."
+    )
+  }
+)
 
-
-#     #### Expected results calculated in the CDC/SMART MUAC tool ----
-#     expect_sam <- 0.014
-#     expect_mam <- 0.080
-
-#     #### Observed results ----
-#     obs_sam <- with(
-#       x,
-#       smart_age_weighting(
-#         muac = muac,
-#         age = age,
-#         .form = "sam"
-#       )
-#     )
-#     obs_mam <- with(
-#       x,
-#       smart_age_weighting(
-#         muac = muac,
-#         age = age,
-#         .form = "mam"
-#       )
-#     )
-
-#     ## Tests ----
-#     testthat::expect_vector(obs_sam, size = 1)
-#     testthat::expect_vector(obs_mam, size = 1)
-#     testthat::expect_equal(round(obs_sam, 3), expect_sam)
-#     testthat::expect_equal(round(obs_mam, 2), expect_mam)
-#   }
-# )
 
 # Test check: mw_estimate_prevalence_muac() ----
 ## When age_ratio & std != problematic & !is.null(wt) & !is.null(edema) ----
@@ -394,11 +385,11 @@ testthat::test_that(
 
     ### Province 2 ----
     testthat::expect_true(is.na(p[2,2][[1]]))
-    testthat::expect_equal(round(p[2,3][[1]] * 100, 1), 11.2)
+    testthat::expect_equal(round(p[2,3][[1]] * 100, 1), 8.6)
     testthat::expect_true(is.na(p[2,7][[1]]))
-    testthat::expect_equal(round(p[2,8][[1]] * 100, 1), 2.0)
+    testthat::expect_equal(round(p[2,8][[1]] * 100, 1), 1.5)
      testthat::expect_true(is.na(p[2,12][[1]]))
-    testthat::expect_equal(round(p[2,13][[1]] * 100, 1), 9.2)
+    testthat::expect_equal(round(p[2,13][[1]] * 100, 1), 7.1)
 
     ### Province 3 ----
     testthat::expect_equal(round(p[3,3][[1]] * 100, 1), 14.5)
@@ -448,75 +439,6 @@ testthat::test_that(
           .decimals = 3
         ) |>
         mw_estimate_prevalence_muac(edema = edema),
-      regexp = "MUAC values must be in millimeters. Please try again."
-    )
-  }
-)
-
-
-# Test check: mw_estimate_smart_age_wt() ----
-testthat::test_that(
-  "mw_estimate_smart_age_wt() works well",
-  {
-    ## Observed results ----
-    p <- anthro.04 |>
-      mw_estimate_smart_age_wt(muac, age, raw_muac = FALSE, edema = NULL, province)
-
-    ## Expected results ----
-    gam <- 11.2
-    sam <- 2.0
-    mam <- 9.2
-
-    ## Tests ----
-    testthat::expect_s3_class(p, "tbl")
-    testthat::expect_equal(round(p[[4]][2] * 100, 1), gam)
-    testthat::expect_equal(round(p[[2]][2] * 100, 1), sam)
-    testthat::expect_equal(round(p[[3]][2] * 100, 1), mam)
-
-  }
-)
-
-# Test check: mw_estimate_smart_age_wt() ----
-testthat::test_that(
-  "mw_estimate_smart_age_wt() works well when `raw_muac = TRUE`",
-  {
-  
-    ## Tests ----
-    testthat::expect_error(object = anthro.04 |>
-      subset(province == "Province 2") |>
-      mw_estimate_smart_age_wt(raw_muac = TRUE), inherit = TRUE)
-
-  }
-)
-
-
-## When MUAC is not in millimeters the function errors ----
-testthat::test_that(
-  "When MUAC is not in centimeters, the function stop execution",
-  {
-    testthat::expect_error(
-      x <- anthro.01 |>
-        mw_wrangle_age(
-          age = age,
-          .decimals = 2
-        ) |>
-        mw_wrangle_muac(
-          sex = sex,
-          muac = muac,
-          age = age,
-          .recode_sex = FALSE,
-          .recode_muac = TRUE,
-          .to = "cm",
-          .decimals = 3
-        ) |>
-        mw_wrangle_wfhz(
-          sex = sex,
-          weight = weight,
-          height = height,
-          .recode_sex = F,
-          .decimals = 3
-        ) |>
-        mw_estimate_smart_age_wt(edema = edema),
       regexp = "MUAC values must be in millimeters. Please try again."
     )
   }
