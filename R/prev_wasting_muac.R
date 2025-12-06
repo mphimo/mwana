@@ -205,16 +205,23 @@ mw_estimate_prevalence_muac <- function(df,
       if (length(.by) > 0) {
         output <- mw_estimate_smart_age_wt(
           data_subset,
+          muac = .data$muac,
+          age = .data$age,
           edema = {{ edema }},
           raw_muac = FALSE,
           !!!.by
-        )
+        ) |>  
+          dplyr::select(!!!.by, sam_p = sam, mam_p = mam, gam_p = gam)
       } else {
         ### Estimate age-weighted prevalence as per SMART MUAC tool ----
         output <- mw_estimate_smart_age_wt(
           data_subset,
-          edema = {{ edema }}, raw_muac = FALSE
-        )
+          muac = .data$muac,
+          age = .data$age,
+          edema = {{ edema }}, 
+          raw_muac = FALSE
+        ) |> 
+          dplyr::select(sam_p = sam, mam_p = mam, gam_p = gam)
       }
     }
     results[[i]] <- output
