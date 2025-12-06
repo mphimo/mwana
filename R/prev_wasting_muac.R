@@ -283,9 +283,9 @@ mw_estimate_smart_age_wt <- function(df, muac, age, edema = NULL, raw_muac = FAL
         o2gam = o2sam + o2mam + oedema_o2
       )
 
-  if (dplyr::n_groups(o2) > 0) o2 <- dplyr::select(o2, -dplyr::n_groups(o2))
+  if (length(dplyr::group_vars(o2)) > 0) o2 <- dplyr::select(o2, -length(dplyr::group_vars(o2)))
  
-  x <- dplyr::bind_cols(u2, o2) |> 
+  x <- dplyr::left_join(u2, o2, by = dplyr::group_vars(df)) |> 
     dplyr::mutate(
       sam = ((oedema_u2 + u2sam) + (2 * (oedema_o2 + o2sam))) / 3,
       mam = (u2mam + (2 * o2mam)) / 3,
