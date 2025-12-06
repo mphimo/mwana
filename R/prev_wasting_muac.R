@@ -245,7 +245,6 @@ mw_estimate_prevalence_muac <- function(df,
 #' ## An application of `mw_estimate_smart_age_wt()` ----
 #' mw_estimate_smart_age_wt(
 #'   df = anthro.04,
-#'   edema = edema, 
 #' age = age, 
 #' edema = edema, 
 #' raw_muac = FALSE, 

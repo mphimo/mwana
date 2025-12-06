@@ -46,7 +46,7 @@ testthat::test_that(
       mutate(muac = recode_muac(muac, .to = "mm"))
 
     #### Observed results ----
-    p <- mw_estimate_smart_age_wt(x, muac, age, edema, raw_muac = FALSE)
+    p <- mw_estimate_smart_age_wt(x, muac, age, edema, raw_muac = FALSE, has_agemo = TRUE)
 
 
     ## Tests ----

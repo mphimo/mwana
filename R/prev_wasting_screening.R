@@ -228,12 +228,23 @@ mw_estimate_prevalence_screening <- function(df,
     } else {
       if (length(.by) > 0) {
         output <- mw_estimate_smart_age_wt(
-          df = data_subset, edema = {{ edema }}, raw_muac = FALSE, !!!.by
-        )
+          data_subset,
+          muac = .data$muac,
+          age = .data$age,
+          edema = {{ edema }},
+          raw_muac = FALSE,
+          !!!.by
+        ) |>  
+          dplyr::select(!!!.by, sam_p = sam, mam_p = mam, gam_p = gam)
       } else {
         output <- mw_estimate_smart_age_wt(
-          df = data_subset, edema = {{ edema }}, raw_muac = FALSE
-        )
+          data_subset,
+          muac = .data$muac,
+          age = .data$age,
+          edema = {{ edema }}, 
+          raw_muac = FALSE
+        ) |> 
+          dplyr::select(sam_p = sam, mam_p = mam, gam_p = gam)
       }
     }
 
