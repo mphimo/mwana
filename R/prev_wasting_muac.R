@@ -23,35 +23,63 @@ set_analysis_path <- function(ageratio_class, sd_class) {
 #' @keywords internal
 #'
 #'
-smart_age_weighting <- function(muac,
-                                age,
-                                edema = NULL,
-                                .form = c("sam", "mam")) {
-  ## Match arguments ----
-  .form <- match.arg(.form)
+# smart_age_weighting <- function(muac,
+#                                 age,
+#                                 edema = NULL,
+#                                 .form = c("sam", "mam")) {
+#   ## Match arguments ----
+#   .form <- match.arg(.form)
 
-  if (!is.null(edema)) {
-    ### Define cases ----
-    nut_status <- smart_tool_case_definition(muac = muac, edema = {{ edema }})
+#   if (!is.null(edema)) {
+#     ### Define cases ----
+#     nut_status <- smart_tool_case_definition(muac = muac, edema = {{ edema }})
 
-    ### Estimate age-weighted prevalence as per SMART MUAC Tool ----
-    age_group <- ifelse(age < 24, "under_2", "over_2")
-    nut_U2 <- ifelse(age_group == "under_2" & nut_status == .form, 1, 0)
-    nut_O2 <- ifelse(age_group == "over_2" & nut_status == .form, 1, 0)
-    p <- mean(nut_U2, na.rm = TRUE) + (2 * mean(nut_O2, na.rm = TRUE)) / 3
-  } else {
-    ### Define cases ----
-    nut_status <- smart_tool_case_definition(muac)
+#     ### Estimate age-weighted prevalence as per SMART MUAC Tool ----
+#     age_group <- ifelse(age < 24, "under_2", "over_2")
+#     nut_U2 <- ifelse(age_group == "under_2" & nut_status == .form, 1, 0)
+#     nut_O2 <- ifelse(age_group == "over_2" & nut_status == .form, 1, 0)
+#     p <- (mean(nut_U2, na.rm = TRUE) + (2 * mean(nut_O2, na.rm = TRUE))) / 3
+#   } else {
+#     ### Define cases ----
+#     nut_status <- smart_tool_case_definition(muac)
 
-    ### Estimate age-weighted prevalence as per SMART MUAC Tool ----
-    age_group <- ifelse(age < 24, "under_2", "over_2")
-    nut_U2 <- ifelse(age_group == "under_2" & nut_status == .form, 1, 0)
-    nut_O2 <- ifelse(age_group == "over_2" & nut_status == .form, 1, 0)
-    p <- mean(nut_U2, na.rm = TRUE) + (2 * mean(nut_O2, na.rm = TRUE)) / 3
-  }
-  p
+#     ### Estimate age-weighted prevalence as per SMART MUAC Tool ----
+#     age_group <- ifelse(age < 24, "under_2", "over_2")
+#     nut_U2 <- ifelse(age_group == "under_2" & nut_status == .form, 1, 0)
+#     nut_O2 <- ifelse(age_group == "over_2" & nut_status == .form, 1, 0)
+#     p <- (mean(nut_U2, na.rm = TRUE) + (2 * mean(nut_O2, na.rm = TRUE))) / 3
+#   }
+#   p
+# }
+
+smart_age_weighting <- function(df, muac, age, edema = NULL) {
+
+   u2 <- df |> 
+     dplyr::filter(flag_mfaz == 0 & {{ age }} < 24) |> 
+      dplyr::summarise(
+        oedema_u2 = mean(ifelse({{ edema }} == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse({{ muac }} < 115 & {{ edema }} == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse({{ muac }} >= 115 & {{ muac }} < 125 & {{ edema }} == "n", 1, 0), na.rm = TRUE),
+        u2gam = oedema_u2 + u2sam + u2mam
+      )
+  
+  o2 <- df |> 
+     dplyr::filter(flag_mfaz == 0 & .data$age >= 24) |> 
+      dplyr::summarise(
+        oedema_o2 = mean(ifelse({{ edema }} == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse({{ muac }} < 115 & {{ edema }} == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse({{ muac }} >= 115 & {{ muac }} < 125 & {{ edema }} == "n", 1, 0), na.rm = TRUE),
+        o2gam = o2sam + o2mam + oedema_o2
+      )
+
+  x <- dplyr::bind_cols(u2, o2) |> 
+    dplyr::mutate(
+      sam = ((oedema_u2 + u2sam) + (2 * (oedema_o2 + o2sam))) / 3,
+      mam = (u2mam + (2 * o2mam)) / 3,
+      gam = (u2gam + (2 * o2gam)) / 3
+    )
+  x
 }
-
 
 #'
 #'
@@ -282,7 +310,7 @@ mw_estimate_prevalence_muac <- function(df,
 #' @export
 #'
 
-mw_estimate_smart_age_wt <- function(df, edema = NULL, raw_muac = FALSE, ...) {
+mw_estimate_smart_age_wt <- function(df, muac, age, edema = NULL, raw_muac = FALSE, ...) {
   ## Defuse argument `.by` ----
   .by <- rlang::enquos(...)
 
@@ -300,9 +328,9 @@ mw_estimate_smart_age_wt <- function(df, edema = NULL, raw_muac = FALSE, ...) {
   ## Summarise ----
   df <- df |>
     dplyr::summarise(
-      sam = smart_age_weighting(.data$muac, .data$age, {{ edema }}, .form = "sam"),
-      mam = smart_age_weighting(.data$muac, .data$age, {{ edema }}, .form = "mam"),
-      gam = .data$sam + .data$mam,
+      sam = smart_age_weighting(.data$muac, .data$age, {{ edema }})[["sam"]],
+      mam = smart_age_weighting(.data$muac, .data$age, {{ edema }})[["mam"]],
+      gam = smart_age_weighting(.data$muac, .data$age, {{ edema }})[["gam"]],
       N = n(),
       .groups = "keep"
     ) |>
