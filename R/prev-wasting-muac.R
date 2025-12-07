@@ -103,7 +103,7 @@ complex_survey_estimates_muac <- function(df,
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
-#' must be in millimeters after using [mw_wrangle_muac()]. Also, `df`
+#' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit 
 #' identifiers are stored.
 #'
@@ -158,7 +158,7 @@ mw_estimate_prevalence_muac <- function(df,
 
   ## Enforce measuring unit is in "mm" ----
   if (any(grepl("\\.", df$muac))) {
-    stop("MUAC values must be in millimeters. Please try again.")
+    stop("MUAC values must be in millimetres. Please try again.")
   }
 
   ## Empty vector type list to store results ----

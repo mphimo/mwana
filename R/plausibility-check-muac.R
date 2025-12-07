@@ -12,7 +12,7 @@
 #'
 #' @param sex A `numeric` vector for child's sex with 1 = males and 2 = females.
 #'
-#' @param muac A vector of class `double` of child's MUAC in centimeters.
+#' @param muac A vector of class `double` of child's MUAC in centimetres.
 #'
 #' @param flags A `numeric` vector of flagged records.
 #'

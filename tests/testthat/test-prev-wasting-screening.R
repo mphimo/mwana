@@ -47,7 +47,7 @@ testthat::test_that(
           muac = muac,
           oedema = oedema
         ),
-      regexp = "MUAC values must be in millimeters. Try again!"
+      regexp = "MUAC values must be in millimetres. Try again!"
     )
     testthat::expect_error(
       df |>

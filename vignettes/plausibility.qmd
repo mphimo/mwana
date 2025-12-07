@@ -441,7 +441,7 @@ anthro.01 |>
 ```
 
 :::{.callout-note}
-`mw_wrangle_muac()` accepts MUAC values in centimeters. This is why it takes the arguments `.recode_muac` and `.to` to control whether there is need to transform the variable `muac` or not. Read the function documentation to learn about how to control these two arguments.
+`mw_wrangle_muac()` accepts MUAC values in centimetres. This is why it takes the arguments `.recode_muac` and `.to` to control whether there is need to transform the variable `muac` or not. Read the function documentation to learn about how to control these two arguments.
 :::
 
 ### On to *de facto* plausibility check of MFAZ data

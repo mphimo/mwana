@@ -71,8 +71,8 @@ get_age_months <- function(dos, dob) {
 #'
 #' For flagging z-scores, z-scores that deviate substantially from the sample's 
 #' z-score mean are considered outliers and are unlikely to reflect accurate 
-#' measurements. For raw MUAC, values that are less than 100 millimeters or 
-#' greater than 200 millimeters are considered outliers as recommended by
+#' measurements. For raw MUAC, values that are less than 100 millimetres or 
+#' greater than 200 millimetres are considered outliers as recommended by
 #' Bilukha & Kianian (2023). Including these values in the analysis could 
 #' compromise the accuracy of the resulting estimates.
 #' 
@@ -205,19 +205,19 @@ remove_flags <- function(x, .from = c("zscores", "raw_muac")) {
 
 
 #'
-#' Convert MUAC values to either centimeters or millimeters
+#' Convert MUAC values to either centimetres or millimetres
 #'
 #' @param x A vector of raw MUAC values. The class can either be `double` or 
 #' `numeric` or `integer`.
 #'
-#' @param .to Either "cm" (centimeters) or "mm" (millimeters) for the unit of 
+#' @param .to Either "cm" (centimetres) or "mm" (millimetres) for the unit of 
 #' measurement to convert MUAC values to.
 #'
 #' @returns A `numeric` vector of the same length as `x` with values set to
 #' specified unit of measurement.
 #'
 #' @examples
-#' ## Recode from millimeters to centimeters ----
+#' ## Recode from millimetres to centimetres ----
 #' muac_cm <- recode_muac(
 #'   x = anthro.01$muac,
 #'   .to = "cm"
@@ -247,18 +247,18 @@ recode_muac <- function(x, .to = c("cm", "mm")) {
 
   ## Recode muac conditionally ----
   switch(.to,
-    ### Recode to centimeters ----
+    ### Recode to centimetres ----
     "cm" = {
       #### Enforce measuring unit is in "mm" ----
       if (any(grepl("\\.", x))) {
-        stop("MUAC values are not in millimeters. Please try again.")
+        stop("MUAC values are not in millimetres. Please try again.")
       }
       #### Convert MUAC to cm ----
       z <- (x / 10)
       z
     },
 
-    ### Recode to millimeters ----
+    ### Recode to millimetres ----
     "mm" = {
       #### Enforce measuring unit is in "cm" ----
       if (all(!grepl("\\.", x))) {

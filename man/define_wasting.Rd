@@ -19,7 +19,7 @@ wrangling functions for WFHZ or MUAC, or both (for combined) as appropriate.}
 \item{zscores}{A vector of class \code{double} of WFHZ or MFAZ values.}
 
 \item{muac}{An \code{integer} or \code{character} vector of raw MUAC values in
-millimeters.}
+millimetres.}
 
 \item{oedema}{A \code{character} vector indicating oedema status. Default is NULL.
 Code values should be "y" for presence and "n" for absence of nutritional

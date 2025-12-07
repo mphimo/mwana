@@ -18,7 +18,7 @@
 #' @param df A `tibble` object produced by `mwana` data wranglers.
 #'
 #' @param muac A `numeric` or `integer` vector of raw MUAC values. The
-#' measurement unit should be millimeters.
+#' measurement unit should be millimetres.
 #'
 #' @param has_age Logical. Specifies whether the input dataset provides age in
 #' months or in categories ('6–23', '24–59'). Defaults to `TRUE` when age is
@@ -98,7 +98,7 @@ mw_estimate_age_weighted_prev_muac <- function(
 
   ## Enforce measuring unit is in "mm" ----
   if (any(grepl("\\.", df$muac))) {
-    stop("MUAC values must be in millimeters. Please try again.")
+    stop("MUAC values must be in millimetres. Please try again.")
   }
 
   flag_var <- if (raw_muac) "flag_muac" else "flag_mfaz"

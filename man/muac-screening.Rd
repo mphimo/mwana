@@ -12,12 +12,12 @@ mw_estimate_prevalence_screening2(df, age_cat, muac, oedema = NULL, ...)
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
 \code{\link[=mw_wrangle_age]{mw_wrangle_age()}} functions. Note that MUAC values in \code{df}
-must be in millimeters unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
+must be in millimetres unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
 must have a variable called \code{cluster} wherein the primary sampling unit
 identifiers are stored.}
 
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
-measurement unit should be millimeters.}
+measurement unit should be millimetres.}
 
 \item{oedema}{A \code{character} vector for presence of nutritional oedema. Code
 values should be "y" for presence and "n" for absence. Default is NULL.}

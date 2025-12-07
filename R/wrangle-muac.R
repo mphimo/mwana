@@ -20,11 +20,11 @@
 #' @param muac A `numeric` vector of child's age in months.
 #'
 #' @param .recode_muac Logical. Set to TRUE if the values for raw MUAC should be
-#' converted to either centimeters or millimeters. Otherwise, set to FALSE
+#' converted to either centimetres or millimetres. Otherwise, set to FALSE
 #' (default)
 #'
 #' @param .to A choice of the measuring unit to convert MUAC values into. Can be 
-#' "cm" for centimeters, "mm" for millimeters, or "none" to leave as it is.
+#' "cm" for centimetres, "mm" for millimetres, or "none" to leave as it is.
 #'
 #' @param .decimals The number of decimal places to use for z-score outputs.
 #' Default is 3.

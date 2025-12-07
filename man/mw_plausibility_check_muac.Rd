@@ -12,7 +12,7 @@ the \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} function.}
 
 \item{sex}{A \code{numeric} vector for child's sex with 1 = males and 2 = females.}
 
-\item{muac}{A vector of class \code{double} of child's MUAC in centimeters.}
+\item{muac}{A vector of class \code{double} of child's MUAC in centimetres.}
 
 \item{flags}{A \code{numeric} vector of flagged records.}
 

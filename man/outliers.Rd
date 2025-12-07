@@ -28,8 +28,8 @@ following the same approach.
 
 For flagging z-scores, z-scores that deviate substantially from the sample's
 z-score mean are considered outliers and are unlikely to reflect accurate
-measurements. For raw MUAC, values that are less than 100 millimeters or
-greater than 200 millimeters are considered outliers as recommended by
+measurements. For raw MUAC, values that are less than 100 millimetres or
+greater than 200 millimetres are considered outliers as recommended by
 Bilukha & Kianian (2023). Including these values in the analysis could
 compromise the accuracy of the resulting estimates.
 

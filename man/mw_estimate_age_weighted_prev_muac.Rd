@@ -19,7 +19,7 @@ mw_estimate_age_weighted_prev_muac(
 \item{df}{A \code{tibble} object produced by \code{mwana} data wranglers.}
 
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
-measurement unit should be millimeters.}
+measurement unit should be millimetres.}
 
 \item{has_age}{Logical. Specifies whether the input dataset provides age in
 months or in categories ('6–23', '24–59'). Defaults to \code{TRUE} when age is

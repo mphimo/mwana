@@ -20,7 +20,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 
   ### Enforce measuring unit is in "mm" ----
   if (any(grepl("\\.", df$muac))) {
-    stop("MUAC values must be in millimeters. Try again!")
+    stop("MUAC values must be in millimetres. Try again!")
   }
 
   ## Wasting definition including `oedema` ----
@@ -112,7 +112,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
-#' must be in millimeters unit after using [mw_wrangle_muac()]. Also, `df`
+#' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit 
 #' identifiers are stored.
 #'
@@ -120,7 +120,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' should be "6-23" and "24-59".
 #'
 #' @param muac A `numeric` or `integer` vector of raw MUAC values. The
-#' measurement unit should be millimeters.
+#' measurement unit should be millimetres.
 #'
 #' @param oedema A `character` vector for presence of nutritional oedema. Code 
 #' values should be "y" for presence and "n" for absence. Default is NULL.

@@ -148,7 +148,7 @@ define_wasting_combined <- function(zscores,
 #' @param zscores A vector of class `double` of WFHZ or MFAZ values.
 #'
 #' @param muac An `integer` or `character` vector of raw MUAC values in
-#' millimeters.
+#' millimetres.
 #'
 #' @param oedema A `character` vector indicating oedema status. Default is NULL.
 #' Code values should be "y" for presence and "n" for absence of nutritional 

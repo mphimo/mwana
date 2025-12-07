@@ -9,7 +9,7 @@ mw_estimate_prevalence_muac(df, wt = NULL, oedema = NULL, ...)
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
 \code{\link[=mw_wrangle_age]{mw_wrangle_age()}} functions. Note that MUAC values in \code{df}
-must be in millimeters after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
+must be in millimetres after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
 must have a variable called \code{cluster} wherein the primary sampling unit
 identifiers are stored.}
 

@@ -16,7 +16,7 @@ mw_plausibility_check_wfhz(df, sex, age, weight, height, flags, ...)
 
 \item{weight}{A vector of class \code{double} of child's weight in kilograms.}
 
-\item{height}{A vector of class \code{double} of child's height in centimeters.}
+\item{height}{A vector of class \code{double} of child's height in centimetres.}
 
 \item{flags}{A \code{numeric} vector of flagged records.}
 

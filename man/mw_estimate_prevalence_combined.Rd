@@ -9,7 +9,7 @@ mw_estimate_prevalence_combined(df, wt = NULL, oedema = NULL, ...)
 \arguments{
 \item{df}{A \code{tibble} object produced by sequential application of the
 \code{\link[=mw_wrangle_wfhz]{mw_wrangle_wfhz()}} and \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Note that MUAC values in \code{df}
-must be in millimeters unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
+must be in millimetres unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
 must have a variable called \code{cluster} which contains the primary sampling
 unit identifiers.}
 

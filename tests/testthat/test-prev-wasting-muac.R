@@ -321,9 +321,9 @@ testthat::test_that(
   }
 )
 
-## When MUAC is not in millimeters the function errors ----
+## When MUAC is not in millimetres the function errors ----
 testthat::test_that(
-  "When MUAC is not in centimeters, the function stop execution",
+  "When MUAC is not in centimetres, the function stop execution",
   {
     testthat::expect_error(
       x <- anthro.01 |>
@@ -348,7 +348,7 @@ testthat::test_that(
           .decimals = 3
         ) |>
         mw_estimate_prevalence_muac(oedema = oedema),
-      regexp = "MUAC values must be in millimeters. Please try again."
+      regexp = "MUAC values must be in millimetres. Please try again."
     )
   }
 )

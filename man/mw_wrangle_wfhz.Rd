@@ -14,7 +14,7 @@ should only be 1 or "m" for males and 2 or "f" for females.}
 
 \item{weight}{A vector of class \code{double} of child's weight in kilograms.}
 
-\item{height}{A vector of class \code{double} of child's height in centimeters.}
+\item{height}{A vector of class \code{double} of child's height in centimetres.}
 
 \item{.recode_sex}{Logical. Set to TRUE if the values for \code{sex} are not coded
 as 1 (for males) or 2 (for females). Otherwise, set to FALSE (default).}

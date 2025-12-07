@@ -191,7 +191,7 @@ testthat::test_that(
     ### Sample data ----
     x <- anthro.02$muac
 
-    ### A sample data in centimeters ----
+    ### A sample data in centimetres ----
     e <- seq(10.3, 20.3, 0.7)
 
     ### Expected results ----
@@ -213,7 +213,7 @@ testthat::test_that(
     )
     testthat::expect_error(
       recode_muac(e, .to = "cm"),
-      regexp = paste0("MUAC values are not in millimeters. Please try again.")
+      regexp = paste0("MUAC values are not in millimetres. Please try again.")
     )
   }
 )
