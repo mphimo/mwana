@@ -46,7 +46,15 @@ testthat::test_that(
       mutate(muac = recode_muac(muac, .to = "mm"))
 
     #### Observed results ----
-    p <- mw_estimate_smart_age_wt(x, muac, age, edema, raw_muac = FALSE, has_agemo = TRUE)
+    p <- mw_estimate_smart_age_wt(
+      df = x, 
+      muac = muac, 
+      has_age = TRUE,
+      age_cat = NULL,
+      age = age, 
+      edema = edema, 
+      raw_muac = FALSE
+    )
 
 
     ## Tests ----
@@ -102,14 +110,13 @@ testthat::test_that(
           .to = "cm",
           .decimals = 3
         ) |>
-        mw_wrangle_wfhz(
-          sex = sex,
-          weight = weight,
-          height = height,
-          .recode_sex = F,
-          .decimals = 3
-        ) |>
-        mw_estimate_smart_age_wt(edema = edema),
+        mw_estimate_smart_age_wt(
+          muac = muac,
+          has_age = TRUE,
+          age = age,
+          edema = edema,
+          raw_muac = FALSE
+        ),
       regexp = "MUAC values must be in millimeters. Please try again."
     )
   }

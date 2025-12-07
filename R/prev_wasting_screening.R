@@ -230,21 +230,23 @@ mw_estimate_prevalence_screening <- function(df,
         output <- mw_estimate_smart_age_wt(
           data_subset,
           muac = .data$muac,
+          has_age = TRUE,
           age = .data$age,
           edema = {{ edema }},
           raw_muac = FALSE,
           !!!.by
         ) |>  
-          dplyr::select(!!!.by, sam_p = sam, mam_p = mam, gam_p = gam)
+          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
         output <- mw_estimate_smart_age_wt(
           data_subset,
           muac = .data$muac,
+          has_age = TRUE,
           age = .data$age,
           edema = {{ edema }}, 
           raw_muac = FALSE
         ) |> 
-          dplyr::select(sam_p = sam, mam_p = mam, gam_p = gam)
+          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       }
     }
 
@@ -359,17 +361,22 @@ mw_estimate_prevalence_screening2 <- function(
     } else {
       if (length(.by) > 0) {
         r <- mw_estimate_smart_age_wt(
-          df = data_subset,
+          data_subset,
+          muac = .data$muac,
+          has_age = FALSE,
           edema = {{ edema }},
           raw_muac = TRUE,
           !!!.by
-        )
+        )|>  
+          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
         r <- mw_estimate_smart_age_wt(
           df = data_subset,
+          has_age = FALSE,
           edema = {{ edema }},
           raw_muac = TRUE
-        )
+        )|>  
+          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       }
     }
     results[[i]] <- r

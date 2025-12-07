@@ -255,7 +255,16 @@ mw_estimate_prevalence_muac <- function(df,
 #' @export
 #'
 
-mw_estimate_smart_age_wt <- function(df, muac, age, edema = NULL, raw_muac = FALSE, ...) {
+mw_estimate_smart_age_wt <- function(
+  df,
+   muac, 
+   has_age = TRUE,
+   age = NULL, 
+   age_cat = NULL,
+   edema = NULL, 
+   raw_muac = FALSE, 
+   ...
+) {
   ## Defuse argument `.by` ----
   .by <- rlang::enquos(...)
 
@@ -270,14 +279,15 @@ mw_estimate_smart_age_wt <- function(df, muac, age, edema = NULL, raw_muac = FAL
   ## Apply grouping if needed ----
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
 
-  ## Summarise ----
+  ## Summarise when age is months is given ----
+  if (has_age) {
   u2 <- df |> 
      dplyr::filter(.data$age < 24) |> 
       dplyr::summarise(
         oedema_u2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
         u2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
         u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        u2gam = oedema_u2 + u2sam + u2mam
+        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
       )
   
   o2 <- df |> 
@@ -286,16 +296,40 @@ mw_estimate_smart_age_wt <- function(df, muac, age, edema = NULL, raw_muac = FAL
         oedema_o2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
         o2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
         o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        o2gam = o2sam + o2mam + oedema_o2
+        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
       )
+  } 
 
+  ## Summarise when age is given in age categories instead ----
+  if (has_age == FALSE) {
+    u2 <- df |> 
+     dplyr::filter(.data$age_cat == "6-23") |> 
+      dplyr::summarise(
+        oedema_u2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
+      )
+  
+  o2 <- df |> 
+     dplyr::filter(.data$age_cat == "24-59") |> 
+      dplyr::summarise(
+        oedema_o2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
+      )
+  }
+
+  ## Check the number of grouping variables to then exclude them from over twos before binding ----
   if (length(dplyr::group_vars(o2)) > 0) o2 <- dplyr::select(o2, -length(dplyr::group_vars(o2)))
  
+  ## Bind cols and apply age-weighting formulae ----
   x <- dplyr::left_join(u2, o2, by = dplyr::group_vars(df)) |> 
     dplyr::mutate(
-      sam = ((oedema_u2 + u2sam) + (2 * (oedema_o2 + o2sam))) / 3,
-      mam = (u2mam + (2 * o2mam)) / 3,
-      gam = (u2gam + (2 * o2gam)) / 3
+      sam = ((.data$oedema_u2 + .data$u2sam) + (2 * (.data$oedema_o2 + .data$o2sam))) / 3,
+      mam = (.data$u2mam + (2 * .data$o2mam)) / 3,
+      gam = (.data$u2gam + (2 * .data$o2gam)) / 3
     )
   x
-}
+  }
