@@ -2,21 +2,9 @@
 % Please edit documentation in R/prev_wasting_muac.R
 \name{mw_estimate_prevalence_muac}
 \alias{mw_estimate_prevalence_muac}
-\alias{mw_estimate_age_weighted_prev_muac}
 \title{Estimate the prevalence of wasting based on MUAC for survey data}
 \usage{
 mw_estimate_prevalence_muac(df, wt = NULL, edema = NULL, ...)
-
-mw_estimate_age_weighted_prev_muac(
-  df,
-  muac,
-  has_age = TRUE,
-  age = NULL,
-  age_cat = NULL,
-  edema = NULL,
-  raw_muac = FALSE,
-  ...
-)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -35,9 +23,6 @@ values should be "y" for presence and "n" for absence. Default is NULL.}
 \item{...}{A vector of class \code{character}, specifying the categories for which
 the analysis should be summarised for. Usually geographical areas. More than
 one vector can be specified.}
-
-\item{raw_muac}{Logical. Whether outliers should be excluded based on the raw
-MUAC values or MFAZ.}
 }
 \value{
 A summary \code{tibble} for the descriptive statistics about wasting based
@@ -82,14 +67,6 @@ mw_estimate_prevalence_muac(
   province
 )
 
-## An application of `mw_estimate_age_weighted_prev_muac()` ----
-mw_estimate_age_weighted_prev_muac(
-  df = anthro.04,
-age = age, 
-edema = edema, 
-raw_muac = FALSE, 
-province
-)
 
 }
 \references{
