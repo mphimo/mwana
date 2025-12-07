@@ -28,7 +28,7 @@ testthat::test_that(
 # Test check: smart_age_weighting() ----
 ## Edema set to !NULL ----
 testthat::test_that(
-  "mw_estimate_smart_age_wt() works as expected",
+  "mw_estimate_age_weighted_prev_muac() works as expected",
   {
     ### Input data ----
     x <- mfaz.01 |>
@@ -46,7 +46,7 @@ testthat::test_that(
       mutate(muac = recode_muac(muac, .to = "mm"))
 
     #### Observed results ----
-    p <- mw_estimate_smart_age_wt(
+    p <- mw_estimate_age_weighted_prev_muac(
       df = x, 
       muac = muac, 
       has_age = TRUE,
@@ -77,15 +77,15 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_estimate_smart_age_wt() ----
+# Test check: mw_estimate_age_weighted_prev_muac() ----
 testthat::test_that(
-  "mw_estimate_smart_age_wt() works well when `raw_muac = TRUE`",
+  "mw_estimate_age_weighted_prev_muac() works well when `raw_muac = TRUE`",
   {
   
     ## Tests ----
     testthat::expect_error(object = anthro.04 |>
       subset(province == "Province 2") |>
-      mw_estimate_smart_age_wt(raw_muac = TRUE), inherit = TRUE)
+      mw_estimate_age_weighted_prev_muac(raw_muac = TRUE), inherit = TRUE)
 
   }
 )
@@ -110,7 +110,7 @@ testthat::test_that(
           .to = "cm",
           .decimals = 3
         ) |>
-        mw_estimate_smart_age_wt(
+        mw_estimate_age_weighted_prev_muac(
           muac = muac,
           has_age = TRUE,
           age = age,

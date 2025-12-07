@@ -136,7 +136,7 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #' SMART Initiative (no date). *Updated MUAC data collection tool*. Available at:
 #' <https://smartmethodology.org/survey-planning-tools/updated-muac-tool/>
 #'
-#' @seealso [mw_estimate_prevalence_muac()], [mw_estimate_smart_age_wt()],
+#' @seealso [mw_estimate_prevalence_muac()], [mw_estimate_age_weighted_prev_muac()],
 #' [flag_outliers()] and [remove_flags()].
 #'
 #'
@@ -227,7 +227,7 @@ mw_estimate_prevalence_screening <- function(df,
       }
     } else {
       if (length(.by) > 0) {
-        output <- mw_estimate_smart_age_wt(
+        output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
           muac = .data$muac,
           has_age = TRUE,
@@ -238,7 +238,7 @@ mw_estimate_prevalence_screening <- function(df,
         ) |>  
           dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
-        output <- mw_estimate_smart_age_wt(
+        output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
           muac = .data$muac,
           has_age = TRUE,
@@ -360,7 +360,7 @@ mw_estimate_prevalence_screening2 <- function(
       }
     } else {
       if (length(.by) > 0) {
-        r <- mw_estimate_smart_age_wt(
+        r <- mw_estimate_age_weighted_prev_muac(
           data_subset,
           muac = .data$muac,
           has_age = FALSE,
@@ -370,7 +370,7 @@ mw_estimate_prevalence_screening2 <- function(
         )|>  
           dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
-        r <- mw_estimate_smart_age_wt(
+        r <- mw_estimate_age_weighted_prev_muac(
           df = data_subset,
           has_age = FALSE,
           edema = {{ edema }},

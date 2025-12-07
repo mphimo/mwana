@@ -2,12 +2,21 @@
 % Please edit documentation in R/prev_wasting_muac.R
 \name{mw_estimate_prevalence_muac}
 \alias{mw_estimate_prevalence_muac}
-\alias{mw_estimate_smart_age_wt}
+\alias{mw_estimate_age_weighted_prev_muac}
 \title{Estimate the prevalence of wasting based on MUAC for survey data}
 \usage{
 mw_estimate_prevalence_muac(df, wt = NULL, edema = NULL, ...)
 
-mw_estimate_smart_age_wt(df, muac, age, edema = NULL, raw_muac = FALSE, ...)
+mw_estimate_age_weighted_prev_muac(
+  df,
+  muac,
+  has_age = TRUE,
+  age = NULL,
+  age_cat = NULL,
+  edema = NULL,
+  raw_muac = FALSE,
+  ...
+)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -73,8 +82,8 @@ mw_estimate_prevalence_muac(
   province
 )
 
-## An application of `mw_estimate_smart_age_wt()` ----
-mw_estimate_smart_age_wt(
+## An application of `mw_estimate_age_weighted_prev_muac()` ----
+mw_estimate_age_weighted_prev_muac(
   df = anthro.04,
 age = age, 
 edema = edema, 
@@ -88,6 +97,6 @@ SMART Initiative (no date). \emph{Updated MUAC data collection tool}. Available 
 \url{https://smartmethodology.org/survey-planning-tools/updated-muac-tool/}
 }
 \seealso{
-\code{\link[=mw_estimate_smart_age_wt]{mw_estimate_smart_age_wt()}} \code{\link[=mw_estimate_prevalence_mfaz]{mw_estimate_prevalence_mfaz()}}
+\code{\link[=mw_estimate_age_weighted_prev_muac]{mw_estimate_age_weighted_prev_muac()}} \code{\link[=mw_estimate_prevalence_mfaz]{mw_estimate_prevalence_mfaz()}}
 \code{\link[=mw_estimate_prevalence_screening]{mw_estimate_prevalence_screening()}}
 }

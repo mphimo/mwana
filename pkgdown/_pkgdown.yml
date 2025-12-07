@@ -84,7 +84,7 @@ reference:
      - mw_estimate_prevalence_combined
      - mw_estimate_prevalence_screening
      - mw_estimate_prevalence_screening2
-     - mw_estimate_smart_age_wt
+     - mw_estimate_age_weighted_prev_muac
 
    - title: Utilities
      contents:

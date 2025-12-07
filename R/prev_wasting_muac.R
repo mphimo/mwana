@@ -129,7 +129,7 @@ complex_survey_estimates_muac <- function(df,
 #' <https://smartmethodology.org/survey-planning-tools/updated-muac-tool/>
 #'
 #'
-#' @seealso [mw_estimate_smart_age_wt()] [mw_estimate_prevalence_mfaz()]
+#' @seealso [mw_estimate_age_weighted_prev_muac()] [mw_estimate_prevalence_mfaz()]
 #' [mw_estimate_prevalence_screening()]
 #'
 #' @examples
@@ -203,25 +203,27 @@ mw_estimate_prevalence_muac <- function(df,
     } else {
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
       if (length(.by) > 0) {
-        output <- mw_estimate_smart_age_wt(
+        output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
           muac = .data$muac,
+          has_age = TRUE,
           age = .data$age,
           edema = {{ edema }},
           raw_muac = FALSE,
           !!!.by
         ) |>  
-          dplyr::select(!!!.by, sam_p = sam, mam_p = mam, gam_p = gam)
+          dplyr::select(!!!.by, sam_p = .data$sam, mam_p =.data$ mam, gam_p = .data$gam)
       } else {
         ### Estimate age-weighted prevalence as per SMART MUAC tool ----
-        output <- mw_estimate_smart_age_wt(
+        output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
           muac = .data$muac,
+          has_age = TRUE,
           age = .data$age,
           edema = {{ edema }}, 
           raw_muac = FALSE
         ) |> 
-          dplyr::select(sam_p = sam, mam_p = mam, gam_p = gam)
+          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       }
     }
     results[[i]] <- output
@@ -242,8 +244,8 @@ mw_estimate_prevalence_muac <- function(df,
 
 #'
 #' @examples
-#' ## An application of `mw_estimate_smart_age_wt()` ----
-#' mw_estimate_smart_age_wt(
+#' ## An application of `mw_estimate_age_weighted_prev_muac()` ----
+#' mw_estimate_age_weighted_prev_muac(
 #'   df = anthro.04,
 #' age = age, 
 #' edema = edema, 
@@ -255,7 +257,7 @@ mw_estimate_prevalence_muac <- function(df,
 #' @export
 #'
 
-mw_estimate_smart_age_wt <- function(
+mw_estimate_age_weighted_prev_muac <- function(
   df,
    muac, 
    has_age = TRUE,
