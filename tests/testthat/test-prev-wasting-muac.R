@@ -289,21 +289,21 @@ testthat::test_that(
     ### The test ----
     testthat::expect_vector(select(p, !province), size = 3, ncol(17))
     testthat::expect_s3_class(p, "tbl")
-    testthat::expect_false(all(sapply(p[1,][columns_to_check], \(.) all(is.na(.)))))
-    testthat::expect_true(all(sapply(p[2,][columns_to_check], \(.) all(is.na(.)))))
+    testthat::expect_false(all(sapply(p[1, ][columns_to_check], \(.) all(is.na(.)))))
+    testthat::expect_true(all(sapply(p[2, ][columns_to_check], \(.) all(is.na(.)))))
 
     ### Province 2 ----
-    testthat::expect_true(is.na(p[2,2][[1]]))
-    testthat::expect_equal(round(p[2,3][[1]] * 100, 1), 8.6)
-    testthat::expect_true(is.na(p[2,7][[1]]))
-    testthat::expect_equal(round(p[2,8][[1]] * 100, 1), 1.5)
-     testthat::expect_true(is.na(p[2,12][[1]]))
-    testthat::expect_equal(round(p[2,13][[1]] * 100, 1), 7.1)
+    testthat::expect_true(is.na(p[2, 2][[1]]))
+    testthat::expect_equal(round(p[2, 3][[1]] * 100, 1), 8.6)
+    testthat::expect_true(is.na(p[2, 7][[1]]))
+    testthat::expect_equal(round(p[2, 8][[1]] * 100, 1), 1.5)
+    testthat::expect_true(is.na(p[2, 12][[1]]))
+    testthat::expect_equal(round(p[2, 13][[1]] * 100, 1), 7.1)
 
     ### Province 3 ----
-    testthat::expect_equal(round(p[3,3][[1]] * 100, 1), 14.5)
-    testthat::expect_equal(round(p[3,8][[1]] * 100, 1), 4.2)
-    testthat::expect_equal(round(p[3,13][[1]] * 100, 1), 10.3)
+    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 14.5)
+    testthat::expect_equal(round(p[3, 8][[1]] * 100, 1), 4.2)
+    testthat::expect_equal(round(p[3, 13][[1]] * 100, 1), 10.3)
   }
 )
 

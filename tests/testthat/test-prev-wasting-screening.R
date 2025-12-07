@@ -144,7 +144,7 @@ testthat::test_that(
     testthat::expect_equal(nrow(p), 2)
     testthat::expect_true(
       all(c("province", "gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N")
-        %in% names(p))
+      %in% names(p))
     )
     testthat::expect_equal(p[[2]][1], gam_n)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), gam_p)
@@ -306,76 +306,74 @@ testthat::test_that(
     p <- anthro.04 |>
       mw_estimate_prevalence_screening(muac = muac, oedema = oedema, province)
 
-    columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p","N")
+    columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N")
 
     ### test ----
     testthat::expect_vector(select(p, !province), size = 3, ncol(8))
     testthat::expect_s3_class(p, "tbl")
-    testthat::expect_false(all(sapply(p[2,][columns_to_check], \(.) all(is.na(.)))))
+    testthat::expect_false(all(sapply(p[2, ][columns_to_check], \(.) all(is.na(.)))))
 
     ### Province 2 ----
-    testthat::expect_true(is.na(p[2,2][[1]]))
-    testthat::expect_equal(round(p[2,3][[1]] * 100, 1), 8.6)
-    testthat::expect_true(is.na(p[2,4][[1]]))
-    testthat::expect_equal(round(p[2,5][[1]] * 100, 1), 1.5)
-     testthat::expect_true(is.na(p[2,6][[1]]))
-    testthat::expect_equal(round(p[2,7][[1]] * 100, 1), 7.1)
+    testthat::expect_true(is.na(p[2, 2][[1]]))
+    testthat::expect_equal(round(p[2, 3][[1]] * 100, 1), 8.6)
+    testthat::expect_true(is.na(p[2, 4][[1]]))
+    testthat::expect_equal(round(p[2, 5][[1]] * 100, 1), 1.5)
+    testthat::expect_true(is.na(p[2, 6][[1]]))
+    testthat::expect_equal(round(p[2, 7][[1]] * 100, 1), 7.1)
 
     ### Province 3 ----
-    testthat::expect_equal(round(p[3,3][[1]] * 100, 1), 14.5)
-    testthat::expect_equal(round(p[3,5][[1]] * 100, 1), 4.2)
-    testthat::expect_equal(round(p[3,7][[1]] * 100, 1), 10.3)
+    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 14.5)
+    testthat::expect_equal(round(p[3, 5][[1]] * 100, 1), 4.2)
+    testthat::expect_equal(round(p[3, 7][[1]] * 100, 1), 10.3)
   }
 )
 
 # Test check: mw_estimate_prevalence_screening2() ----
 testthat::test_that(
   "mw_estimate_prevalence_screening2() works as expected when grouping vars are not supplied",
-  { 
-
+  {
     ## Observed results ----
-    p <- anthro.01 |> 
-      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |> 
+    p <- anthro.01 |>
+      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |>
       mw_wrangle_muac(
         sex = sex,
         .recode_sex = TRUE,
         muac = muac
-      ) |> 
-        mw_estimate_prevalence_screening2(
-          age_cat = age_cat,
-          muac = muac
-        )
-    
+      ) |>
+      mw_estimate_prevalence_screening2(
+        age_cat = age_cat,
+        muac = muac
+      )
+
     ## Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(round(p[[2]]*100, 1), 2.9)
+    testthat::expect_equal(round(p[[2]] * 100, 1), 2.9)
   }
 )
 
 testthat::test_that(
   "mw_estimate_prevalence_screening2() works as expected when grouping vars are specified",
-  { 
-
+  {
     ## Observed results ----
-    p <- anthro.01 |> 
-      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |> 
+    p <- anthro.01 |>
+      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |>
       mw_wrangle_muac(
         sex = sex,
         .recode_sex = TRUE,
         .recode_muac = FALSE,
         .to = "none",
         muac = muac
-      ) |> 
-        mw_estimate_prevalence_screening2(
-          age_cat = age_cat,
-          muac = muac, 
-          oedema = NULL,
-          area
-        )
-    
+      ) |>
+      mw_estimate_prevalence_screening2(
+        age_cat = age_cat,
+        muac = muac,
+        oedema = NULL,
+        area
+      )
+
     ## Tests ----
     testthat::expect_s3_class(p, "tbl_df")
-    testthat::expect_equal(round(p[[3]][2]*100, 2), 3.22)
+    testthat::expect_equal(round(p[[3]][2] * 100, 2), 3.22)
     testthat::expect_equal(names(p[1]), "area")
   }
 )
@@ -386,14 +384,14 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |> 
+      mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |>
       mw_wrangle_muac(
-        muac = muac, 
+        muac = muac,
         .recode_muac = FALSE,
         .to = "none",
         sex = sex,
         .recode_sex = FALSE
-      ) |> 
+      ) |>
       mw_estimate_prevalence_screening2(
         age_cat = age_cat,
         muac = muac,
@@ -401,7 +399,7 @@ testthat::test_that(
         province
       )
 
-    
+
     ### Tests ----
     testthat::expect_s3_class(p, "tbl_df")
     testthat::expect_equal(round(p[[3]][1] * 100, 1), expected = 10.5)
@@ -410,6 +408,5 @@ testthat::test_that(
     testthat::expect_equal(p[[6]][1], expected = 116)
     testthat::expect_true(is.na(p[[2]][2]))
     testthat::expect_equal(round(p[[3]][3] * 100, 1), expected = 11.9)
-
   }
 )

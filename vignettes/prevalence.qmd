@@ -21,7 +21,7 @@ library(dplyr)
 ```
 
 ## Introduction 
-This vignette demonstrates the use of `mwana` package's functions to estimate the prevalence of wasting based on: 
+This vignette demonstrates the use of `mwana` package's functions to estimate the prevalence of wasting based on:  
 
   + Weight-for-height z-score (WFHZ) and/or oedema
   + Raw MUAC values and/or oedema
