@@ -20,7 +20,7 @@
 #'
 #' @param weight A vector of class `double` of child's weight in kilograms.
 #'
-#' @param height A vector of class `double` of child's height in centimeters.
+#' @param height A vector of class `double` of child's height in centimetres.
 #'
 #' @param flags A `numeric` vector of flagged records.
 #'

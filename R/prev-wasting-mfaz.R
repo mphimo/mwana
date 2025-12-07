@@ -5,18 +5,18 @@
 #'
 complex_survey_estimates_mfaz <- function(df,
                                           wt = NULL,
-                                          edema = NULL,
+                                          oedema = NULL,
                                           ...) {
   ## Difuse arguments ----
   wt <- rlang::enquo(wt)
-  edema <- rlang::enquo(edema)
+  oedema <- rlang::enquo(oedema)
   .by <- rlang::enquos(...)
 
-  ## Defines case based on the availability of edema ----
+  ## Defines case based on the availability of oedema ----
   df <- define_wasting(
     df,
     zscores = .data$mfaz,
-    edema = !!edema,
+    oedema = !!oedema,
     .by = "zscores"
   )
 
@@ -60,7 +60,7 @@ complex_survey_estimates_mfaz <- function(df,
 #'
 #' @description
 #' Calculate the prevalence estimates of wasting based on z-scores of
-#' MUAC-for-age and/or bilateral edema. The function allows users to estimate
+#' MUAC-for-age and/or bilateral oedema. The function allows users to estimate
 #' prevalence in accordance with complex sample design properties such as
 #' accounting for survey sample weights when needed or applicable. The quality
 #' of the data is first evaluated by calculating and rating the standard
@@ -80,9 +80,9 @@ complex_survey_estimates_mfaz <- function(df,
 #' sample selected proportional to population size (i.e., SMART survey sample).
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param edema A `character` vector for presence of nutritional edema coded as
-#' "y" for presence of nutritional edema and "n" for absence of nutritional
-#' edema. Default is NULL.
+#' @param oedema A `character` vector for presence of nutritional oedema coded as
+#' "y" for presence of nutritional oedema and "n" for absence of nutritional
+#' oedema. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
 #' the analysis should be summarised for. Usually geographical areas. More than
@@ -95,14 +95,14 @@ complex_survey_estimates_mfaz <- function(df,
 #' mw_estimate_prevalence_mfaz(
 #'   df = anthro.04,
 #'   wt = NULL,
-#'   edema = edema
+#'   oedema = oedema
 #' )
 #'
 #' ## With grouping variables ----
 #' mw_estimate_prevalence_mfaz(
 #'   df = anthro.04,
 #'   wt = NULL,
-#'   edema = edema,
+#'   oedema = oedema,
 #'   province
 #' )
 #'
@@ -110,7 +110,7 @@ complex_survey_estimates_mfaz <- function(df,
 #'
 mw_estimate_prevalence_mfaz <- function(df,
                                         wt = NULL,
-                                        edema = NULL,
+                                        oedema = NULL,
                                         ...) {
   ## Defuse argument .by ----
   .by <- rlang::enquos(...)
@@ -142,7 +142,7 @@ mw_estimate_prevalence_mfaz <- function(df,
     if (std != "Problematic") {
       ### Compute standard complex sample based prevalence analysis ----
       result <- complex_survey_estimates_mfaz(
-        data_subset, {{ wt }}, {{ edema }}, !!!.by
+        data_subset, {{ wt }}, {{ oedema }}, !!!.by
       )
     } else {
       ### Compute grouped PROBIT based prevalence ----

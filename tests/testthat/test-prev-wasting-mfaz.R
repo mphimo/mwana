@@ -1,11 +1,11 @@
 # Test check: mw_estimate_prevalence_mfaz ----
-## When std != problematic & is.null(.wt) & !is.null(edema) ----
+## When std != problematic & is.null(.wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_mfaz() yields correct estimates",
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_mfaz(edema = edema)
+      mw_estimate_prevalence_mfaz(oedema = oedema)
 
     ### Expected results ----
     #### GAM estimates and uncertainty ----
@@ -42,7 +42,7 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(.wt) & is.null(edema) ----
+## When std != problematic & is.null(.wt) & is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_mfaz() yields correct estimates",
   {
@@ -93,7 +93,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_mfaz(edema = edema, wt = NULL, province)
+      mw_estimate_prevalence_mfaz(oedema = oedema, wt = NULL, province)
 
     ### Subset a province whose analysis approach is unweighted ---
     province_1 <- subset(p, province == "Province 1")

@@ -1,5 +1,5 @@
 # Test check: smart_age_weighting() ----
-## Edema set to !NULL ----
+## oedema set to !NULL ----
 testthat::test_that(
   "mw_estimate_age_weighted_prev_muac() works as expected",
   {
@@ -20,12 +20,12 @@ testthat::test_that(
 
     #### Observed results ----
     p <- mw_estimate_age_weighted_prev_muac(
-      df = x, 
-      muac = muac, 
+      df = x,
+      muac = muac,
       has_age = TRUE,
       age_cat = NULL,
-      age = age, 
-      edema = edema, 
+      age = age,
+      oedema = oedema,
       raw_muac = FALSE
     )
 
@@ -54,19 +54,17 @@ testthat::test_that(
 testthat::test_that(
   "mw_estimate_age_weighted_prev_muac() works well when `raw_muac = TRUE`",
   {
-  
     ## Tests ----
     testthat::expect_error(object = anthro.04 |>
       subset(province == "Province 2") |>
       mw_estimate_age_weighted_prev_muac(raw_muac = TRUE), inherit = TRUE)
-
   }
 )
 
 
-## When MUAC is not in millimeters the function errors ----
+## When MUAC is not in millimetres the function errors ----
 testthat::test_that(
-  "When MUAC is not in centimeters, the function stop execution",
+  "When MUAC is not in centimetres, the function stop execution",
   {
     testthat::expect_error(
       x <- anthro.01 |>
@@ -87,10 +85,10 @@ testthat::test_that(
           muac = muac,
           has_age = TRUE,
           age = age,
-          edema = edema,
+          oedema = oedema,
           raw_muac = FALSE
         ),
-      regexp = "MUAC values must be in millimeters. Please try again."
+      regexp = "MUAC values must be in millimetres. Please try again."
     )
   }
 )

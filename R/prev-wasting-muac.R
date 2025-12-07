@@ -25,18 +25,18 @@ set_analysis_path <- function(ageratio_class, sd_class) {
 #'
 complex_survey_estimates_muac <- function(df,
                                           wt = NULL,
-                                          edema = NULL,
+                                          oedema = NULL,
                                           ...) {
   ## Difuse arguments ----
   wt <- rlang::enquo(wt)
-  edema <- rlang::enquo(edema)
+  oedema <- rlang::enquo(oedema)
   .by <- rlang::enquos(...)
 
   ## Define acute malnutrition ----
   df <- define_wasting(
     df = df,
     muac = .data$muac,
-    edema = !!edema,
+    oedema = !!oedema,
     .by = "muac"
   )
 
@@ -103,7 +103,7 @@ complex_survey_estimates_muac <- function(df,
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
-#' must be in millimeters after using [mw_wrangle_muac()]. Also, `df`
+#' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit 
 #' identifiers are stored.
 #'
@@ -111,7 +111,7 @@ complex_survey_estimates_muac <- function(df,
 #' is NULL, which assumes a self-weighted survey, the case of SMART surveys.
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param edema A `character` vector for presence of nutritional oedema Code 
+#' @param oedema A `character` vector for presence of nutritional oedema Code 
 #' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
@@ -134,14 +134,14 @@ complex_survey_estimates_muac <- function(df,
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
 #'   wt = NULL,
-#'   edema = edema
+#'   oedema = oedema
 #' )
 #'
 #' ## Grouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
 #'   wt = NULL,
-#'   edema = edema,
+#'   oedema = oedema,
 #'   province
 #' )
 #'
@@ -150,7 +150,7 @@ complex_survey_estimates_muac <- function(df,
 #'
 mw_estimate_prevalence_muac <- function(df,
                                         wt = NULL,
-                                        edema = NULL,
+                                        oedema = NULL,
                                         ...) {
   ## Difuse argument `.by` ----
   .by <- rlang::enquos(...)
@@ -158,7 +158,7 @@ mw_estimate_prevalence_muac <- function(df,
 
   ## Enforce measuring unit is in "mm" ----
   if (any(grepl("\\.", df$muac))) {
-    stop("MUAC values must be in millimeters. Please try again.")
+    stop("MUAC values must be in millimetres. Please try again.")
   }
 
   ## Empty vector type list to store results ----
@@ -194,7 +194,7 @@ mw_estimate_prevalence_muac <- function(df,
     if (analysis_approach %in% c("unweighted", "missing")) {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(
-        data_subset, {{ wt }}, {{ edema }}, !!!.by
+        data_subset, {{ wt }}, {{ oedema }}, !!!.by
       )
     } else {
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
@@ -204,7 +204,7 @@ mw_estimate_prevalence_muac <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = FALSE,
           !!!.by
         ) |>  
@@ -216,7 +216,7 @@ mw_estimate_prevalence_muac <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          edema = {{ edema }}, 
+          oedema = {{ oedema }}, 
           raw_muac = FALSE
         ) |> 
           dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)

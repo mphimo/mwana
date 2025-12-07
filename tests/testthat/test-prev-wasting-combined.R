@@ -1,12 +1,12 @@
 # Test check: mw_estimate_prevalence_combined() ----
 ## When std != problematic & MUAC analysis path is unweighted & !is.null(wt) ----
 testthat::test_that(
-  "mw_estimate_prevalence_combined() yields correct estimates when edema and
+  "mw_estimate_prevalence_combined() yields correct estimates when oedema and
     survey weights are supplied",
   {
     ### Get prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_combined(edema = edema, wt = wtfactor)
+      mw_estimate_prevalence_combined(oedema = oedema, wt = wtfactor)
 
     ### Expected results ----
     #### combined GAM estimates and uncertainty ----
@@ -51,11 +51,11 @@ testthat::test_that(
 
 ## When std != problematic & MUAC analysis path is unweighted & !is.null(wt) ----
 testthat::test_that(
-  "mw_estimate_prevalence_combined() yields correct estimates when edema is NULL",
+  "mw_estimate_prevalence_combined() yields correct estimates when oedema is NULL",
   {
     ### Get prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_combined(edema = NULL, wt = wtfactor)
+      mw_estimate_prevalence_combined(oedema = NULL, wt = wtfactor)
 
     ### Expected results ----
     #### Combined GAM estimates and uncertainty ----
@@ -103,7 +103,7 @@ testthat::test_that(
   {
     ### Get prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_combined(edema = edema)
+      mw_estimate_prevalence_combined(oedema = oedema)
 
     ### Expected results ----
     #### combined GAM estimates and uncertainty ----
@@ -148,7 +148,7 @@ testthat::test_that(
     ### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_combined(
-        edema = edema,
+        oedema = oedema,
         wt = wtfactor,
         province
       )
@@ -196,7 +196,7 @@ testthat::test_that(
 
 ## When !is.null(.by) and analysis approach has different categories ----
 testthat::test_that(
-  "mw_estimate_prevalence_combined() works well on a multiple area survey data set
+  "mw_estimate_prevalence_combined() works well on a multiple area survey dataset
   where different analysis approaches are required",
   {
     ### Get the prevalence estimates ----
@@ -221,7 +221,7 @@ testthat::test_that(
         .recode_sex = TRUE
       ) |>
       mw_estimate_prevalence_combined(
-        edema = edema,
+        oedema = oedema,
         wt = NULL,
         district
       )
@@ -268,7 +268,7 @@ testthat::test_that(
       ) |>
       subset(district == "Maravia") |>
       mw_estimate_prevalence_combined(
-        edema = edema
+        oedema = oedema
       )
 
     ### Tests ----
@@ -278,9 +278,9 @@ testthat::test_that(
   }
 )
 
-## When MUAC is not in millimeters the function errors ----
+## When MUAC is not in millimetres the function errors ----
 testthat::test_that(
-  "When MUAC is not in centimeters, the function stop execution",
+  "When MUAC is not in centimetres, the function stop execution",
   {
     testthat::expect_error(
       x <- anthro.01 |>
@@ -304,8 +304,8 @@ testthat::test_that(
           .recode_sex = F,
           .decimals = 3
           ) |>
-        mw_estimate_prevalence_combined(edema = edema),
-      regexp = "MUAC values must be in millimeters. Please try again."
+        mw_estimate_prevalence_combined(oedema = oedema),
+      regexp = "MUAC values must be in millimetres. Please try again."
     )
   }
 )

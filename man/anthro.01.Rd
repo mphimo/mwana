@@ -16,7 +16,7 @@ A tibble of 1,191 rows and 11 columns.\tabular{ll}{
    \emph{age} \tab Age in months, typically estimated using local event calendars \cr
    \emph{weight} \tab Weight in kilograms \cr
    \emph{height} \tab Height in centimetres \cr
-   \emph{edema} \tab Edema; "n" = no edema, "y" = with edema \cr
+   \emph{oedema} \tab oedema; "n" = no oedema, "y" = with oedema \cr
    \emph{muac} \tab Mid-upper arm circumference in millimetres \cr
 }
 }

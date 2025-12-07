@@ -15,7 +15,7 @@
 #'
 #' @param weight A vector of class `double` of child's weight in kilograms.
 #'
-#' @param height A vector of class `double` of child's height in centimeters.
+#' @param height A vector of class `double` of child's height in centimetres.
 #'
 #' @param .decimals The number of decimal places to use for z-score outputs.
 #' Default is 3.

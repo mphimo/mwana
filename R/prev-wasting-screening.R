@@ -3,11 +3,11 @@
 #' @keywords internal
 #'
 #'
-get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
+get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
   ## Difuse arguments ----
   by <- rlang::enquos(...)
   muac <- rlang::eval_tidy(enquo(muac), df)
-  edema <- rlang::eval_tidy(enquo(edema), df)
+  oedema <- rlang::eval_tidy(enquo(oedema), df)
 
 
   ## Enforce class of `muac` ----
@@ -20,34 +20,34 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 
   ### Enforce measuring unit is in "mm" ----
   if (any(grepl("\\.", df$muac))) {
-    stop("MUAC values must be in millimeters. Try again!")
+    stop("MUAC values must be in millimetres. Try again!")
   }
 
-  ## Wasting definition including `edema` ----
-  if (!is.null(edema)) {
-    ### Enforce class of `edema` ----
-    if (!is.character(edema)) {
+  ## Wasting definition including `oedema` ----
+  if (!is.null(oedema)) {
+    ### Enforce class of `oedema` ----
+    if (!is.character(oedema)) {
       stop(
-        "`edema` should be of class character not ", class(edema),
+        "`oedema` should be of class character not ", class(oedema),
         ". Try again!"
       )
     }
-    ### Enforce code values in `edema` ----
-    if (!all(levels(as.factor(edema)) %in% c("y", "n"))) {
-      stop('Code values in `edema` must only be "y" and "n". Try again!')
+    ### Enforce code values in `oedema` ----
+    if (!all(levels(as.factor(oedema)) %in% c("y", "n"))) {
+      stop('Code values in `oedema` must only be "y" and "n". Try again!')
     }
-    ## Wasting definition including `edema` ----
+    ## Wasting definition including `oedema` ----
     x <- with(
       df,
       define_wasting(
         df,
         muac = muac,
-        edema = edema,
+        oedema = oedema,
         .by = "muac"
       )
     )
   } else {
-    ## Wasting definition without `edema` ----
+    ## Wasting definition without `oedema` ----
     x <- with(
       df,
       define_wasting(
@@ -112,7 +112,7 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
-#' must be in millimeters unit after using [mw_wrangle_muac()]. Also, `df`
+#' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit 
 #' identifiers are stored.
 #'
@@ -120,9 +120,9 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #' should be "6-23" and "24-59".
 #'
 #' @param muac A `numeric` or `integer` vector of raw MUAC values. The
-#' measurement unit should be millimeters.
+#' measurement unit should be millimetres.
 #'
-#' @param edema A `character` vector for presence of nutritional oedema. Code 
+#' @param oedema A `character` vector for presence of nutritional oedema. Code 
 #' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
@@ -144,15 +144,15 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#'   edema = edema,
+#'   oedema = oedema,
 #'   province
 #' )
 #'
-#' ## With `edema` set to `NULL` ----
+#' ## With `oedema` set to `NULL` ----
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#'   edema = NULL,
+#'   oedema = NULL,
 #'   province
 #' )
 #'
@@ -160,7 +160,7 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#'   edema = NULL,
+#'   oedema = NULL,
 #'   province
 #' )
 #'
@@ -170,7 +170,7 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #'
 mw_estimate_prevalence_screening <- function(df,
                                              muac,
-                                             edema = NULL,
+                                             oedema = NULL,
                                              ...) {
   ## Difuse argument `.by` ----
   .by <- rlang::enquos(...)
@@ -213,7 +213,7 @@ mw_estimate_prevalence_screening <- function(df,
         output <- get_estimates(
           df = data_subset,
           muac = {{ muac }},
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = FALSE,
           !!!.by
         )
@@ -221,7 +221,7 @@ mw_estimate_prevalence_screening <- function(df,
         output <- get_estimates(
           df = data_subset,
           muac = {{ muac }},
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = FALSE
         )
       }
@@ -232,7 +232,7 @@ mw_estimate_prevalence_screening <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = FALSE,
           !!!.by
         ) |>  
@@ -243,7 +243,7 @@ mw_estimate_prevalence_screening <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          edema = {{ edema }}, 
+          oedema = {{ oedema }}, 
           raw_muac = FALSE
         ) |> 
           dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
@@ -283,7 +283,7 @@ mw_estimate_prevalence_screening <- function(df,
 #'   mw_estimate_prevalence_screening2(
 #'     age_cat = age_cat,
 #'     muac = muac,
-#'     edema = edema,
+#'     oedema = oedema,
 #'     area
 #'   )
 #'
@@ -294,7 +294,7 @@ mw_estimate_prevalence_screening <- function(df,
 #'
 #'
 mw_estimate_prevalence_screening2 <- function(
-    df, age_cat, muac, edema = NULL, ...) {
+    df, age_cat, muac, oedema = NULL, ...) {
   ## Difuse argument `.by` ----
   .by <- rlang::enquos(...)
 
@@ -346,7 +346,7 @@ mw_estimate_prevalence_screening2 <- function(
         r <- get_estimates(
           df = data_subset,
           muac = {{ muac }},
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = TRUE,
           !!!.by
         )
@@ -354,7 +354,7 @@ mw_estimate_prevalence_screening2 <- function(
         r <- get_estimates(
           df = data_subset,
           muac = {{ muac }},
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = TRUE
         )
       }
@@ -364,7 +364,7 @@ mw_estimate_prevalence_screening2 <- function(
           data_subset,
           muac = .data$muac,
           has_age = FALSE,
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = TRUE,
           !!!.by
         )|>  
@@ -373,7 +373,7 @@ mw_estimate_prevalence_screening2 <- function(
         r <- mw_estimate_age_weighted_prev_muac(
           df = data_subset,
           has_age = FALSE,
-          edema = {{ edema }},
+          oedema = {{ oedema }},
           raw_muac = TRUE
         )|>  
           dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)

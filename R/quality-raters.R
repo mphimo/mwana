@@ -6,9 +6,9 @@
 #' and raw MUAC data following the SMART methodology criteria.
 #'
 #' @param p A vector of class `double` of the proportions of flagged records in 
-#' the data set.
+#' the dataset.
 #'
-#' @param .in Specifies the data set where the rating should be done. Can be 
+#' @param .in Specifies the dataset where the rating should be done. Can be 
 #' "wfhz", "mfaz", or "raw_muac". Default to "wfhz".
 #'
 #' @returns A vector of class `factor` with the same length as `p` for the
@@ -64,9 +64,9 @@ rate_propof_flagged <- function(p, .in = c("mfaz", "wfhz", "raw_muac")) {
 #' data. Rating follows the SMART methodology criteria.
 #'
 #' @param sd A vector of class `double` of standard deviation values from the 
-#' data set.
+#' dataset.
 #'
-#' @param .of Specifies the data set to which the rating should be done. Can be
+#' @param .of Specifies the dataset to which the rating should be done. Can be
 #' "wfhz", "mfaz", or "raw_muac".
 #'
 #' @returns A vector of class `factor` of the same length as `sd` for the

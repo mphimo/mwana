@@ -19,7 +19,7 @@
 #'
 #' @param age A vector of class `double` of child's age in months.
 #'
-#' @param muac A `numeric` vector of child's MUAC in centimeters.
+#' @param muac A `numeric` vector of child's MUAC in centimetres.
 #'
 #' @param flags A `numeric` vector of flagged records.
 #'
