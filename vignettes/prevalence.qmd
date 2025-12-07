@@ -325,9 +325,9 @@ anthro.04 |>
 
 We see that in Province 1, all columns are filled with numbers; in Province 2, some columns are filled with numbers, while other columns are filled with `NA`s: this is where the age-weighting approach was applied. 
 
-Alternatively, we can choose to apply the function that calculates the age-weighted prevalence estimates inside `mw_estimate_prevalence_muac()` directly onto our data set. This can be done by calling the `mw_estimate_smart_age_wt()` function. It worth noting that although possible, we recommend to use the main function. This is simply due the fact that if we decide to use the function independently, then we must, before calling it, check the acceptability of the standard deviation of MFAZ and of the age ratio test, and then evaluate if the conditions that fits the use `mw_estimate_smart_age_wt()` are there. We would have to do that ourselves. This introduces some kind of cumbersomeness in the workflow, and along with that, a risk of picking a wrong analysis workflow.
+Alternatively, we can choose to apply the function that calculates the age-weighted prevalence estimates inside `mw_estimate_prevalence_muac()` directly onto our data set. This can be done by calling the `mw_estimate_age_weighted_prev_muac()` function. It worth noting that although possible, we recommend to use the main function. This is simply due the fact that if we decide to use the function independently, then we must, before calling it, check the acceptability of the standard deviation of MFAZ and of the age ratio test, and then evaluate if the conditions that fits the use `mw_estimate_age_weighted_prev_muac()` are there. We would have to do that ourselves. This introduces some kind of cumbersomeness in the workflow, and along with that, a risk of picking a wrong analysis workflow.
 
-Nonetheless, if for any reason we decide to go for it anyway, then we would apply the function as demonstrated below. We will continue using the `anthro.04` data set. For this demonstration, we will just pull out the data set from `Province 2` where we already know that the conditions to apply `mw_estimate_smart_age_wt()` are met, and then we will pipe it in to the function:
+Nonetheless, if for any reason we decide to go for it anyway, then we would apply the function as demonstrated below. We will continue using the `anthro.04` data set. For this demonstration, we will just pull out the data set from `Province 2` where we already know that the conditions to apply `mw_estimate_age_weighted_prev_muac()` are met, and then we will pipe it in to the function:
 ```{r}
 #| label: smart_wt
 #| echo: true
@@ -335,7 +335,7 @@ Nonetheless, if for any reason we decide to go for it anyway, then we would appl
 
 anthro.04 |>
   subset(province == "Province 2") |>
-  mw_estimate_smart_age_wt(
+  mw_estimate_age_weighted_prev_muac(
     edema = edema
   )
 ```
@@ -347,7 +347,7 @@ This returns the following:
 
 anthro.04 |>
   subset(province == "Province 2") |>
-  mw_estimate_smart_age_wt()
+  mw_estimate_age_weighted_prev_muac()
 ```
 
 #### Estimation of weighted prevalence

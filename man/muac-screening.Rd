@@ -108,6 +108,6 @@ SMART Initiative (no date). \emph{Updated MUAC data collection tool}. Available 
 \url{https://smartmethodology.org/survey-planning-tools/updated-muac-tool/}
 }
 \seealso{
-\code{\link[=mw_estimate_prevalence_muac]{mw_estimate_prevalence_muac()}}, \code{\link[=mw_estimate_smart_age_wt]{mw_estimate_smart_age_wt()}},
+\code{\link[=mw_estimate_prevalence_muac]{mw_estimate_prevalence_muac()}}, \code{\link[=mw_estimate_age_weighted_prev_muac]{mw_estimate_age_weighted_prev_muac()}},
 \code{\link[=flag_outliers]{flag_outliers()}} and \code{\link[=remove_flags]{remove_flags()}}.
 }

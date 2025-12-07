@@ -315,29 +315,3 @@ define_wasting <- function(df,
     }
   )
 }
-
-
-
-#'
-#'
-#' @keywords internal
-#'
-#'
-smart_tool_case_definition <- function(muac, edema = NULL) {
-  if (!is.null(edema)) {
-    ## Define cases including edema ----
-    x <- dplyr::case_when(
-      muac < 115 | {{ edema }} == "y" ~ "sam",
-      muac >= 115 & muac < 125 & {{ edema }} == "n" ~ "mam",
-      .default = "not wasted"
-    )
-  } else {
-    ## Define cases excluding edema ----
-    x <- dplyr::case_when(
-      muac < 115 ~ "sam",
-      muac >= 115 & muac < 125 ~ "mam",
-      .default = "not wasted"
-    )
-  }
-  x
-}

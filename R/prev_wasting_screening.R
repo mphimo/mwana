@@ -136,7 +136,7 @@ get_estimates <- function(df, muac, edema = NULL, raw_muac = FALSE, ...) {
 #' SMART Initiative (no date). *Updated MUAC data collection tool*. Available at:
 #' <https://smartmethodology.org/survey-planning-tools/updated-muac-tool/>
 #'
-#' @seealso [mw_estimate_prevalence_muac()], [mw_estimate_smart_age_wt()],
+#' @seealso [mw_estimate_prevalence_muac()], [mw_estimate_age_weighted_prev_muac()],
 #' [flag_outliers()] and [remove_flags()].
 #'
 #'
@@ -227,13 +227,26 @@ mw_estimate_prevalence_screening <- function(df,
       }
     } else {
       if (length(.by) > 0) {
-        output <- mw_estimate_smart_age_wt(
-          df = data_subset, edema = {{ edema }}, raw_muac = FALSE, !!!.by
-        )
+        output <- mw_estimate_age_weighted_prev_muac(
+          data_subset,
+          muac = .data$muac,
+          has_age = TRUE,
+          age = .data$age,
+          edema = {{ edema }},
+          raw_muac = FALSE,
+          !!!.by
+        ) |>  
+          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
-        output <- mw_estimate_smart_age_wt(
-          df = data_subset, edema = {{ edema }}, raw_muac = FALSE
-        )
+        output <- mw_estimate_age_weighted_prev_muac(
+          data_subset,
+          muac = .data$muac,
+          has_age = TRUE,
+          age = .data$age,
+          edema = {{ edema }}, 
+          raw_muac = FALSE
+        ) |> 
+          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       }
     }
 
@@ -347,18 +360,23 @@ mw_estimate_prevalence_screening2 <- function(
       }
     } else {
       if (length(.by) > 0) {
-        r <- mw_estimate_smart_age_wt(
-          df = data_subset,
+        r <- mw_estimate_age_weighted_prev_muac(
+          data_subset,
+          muac = .data$muac,
+          has_age = FALSE,
           edema = {{ edema }},
           raw_muac = TRUE,
           !!!.by
-        )
+        )|>  
+          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       } else {
-        r <- mw_estimate_smart_age_wt(
+        r <- mw_estimate_age_weighted_prev_muac(
           df = data_subset,
+          has_age = FALSE,
           edema = {{ edema }},
           raw_muac = TRUE
-        )
+        )|>  
+          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
       }
     }
     results[[i]] <- r
