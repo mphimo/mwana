@@ -32,7 +32,7 @@ df <- ena_df |>
   ) |>
   dplyr::select(
     sex, dplyr::starts_with("age"),
-    wt = WEIGHT, ht = HEIGHT, oed = EDEMA, muac = MUAC, wfhz_ena = WHZ.WHO
+    wt = WEIGHT, ht = HEIGHT, oed = oedema, muac = MUAC, wfhz_ena = WHZ.WHO
   )
 
 df <- addWGSR(

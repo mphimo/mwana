@@ -57,7 +57,7 @@ of wasting by MUAC from non survey data: screenings, sentinel sites, etc.
 * Resolved issues with `mw_neat_output_mfaz()`, `mw_neat_output_wfhz()` and 
 `mw_neat_output_muac()` not returning neat and tidy output for grouped `data.frame` from their respective plausibility checkers.
 
-* Resolved issue with `edema` argument in prevalence functions that was not working as expected when set to `NULL`.
+* Resolved issue with `oedema` argument in prevalence functions that was not working as expected when set to `NULL`.
 
 ## General updates
 

@@ -4,7 +4,7 @@
 \alias{mw_estimate_prevalence_mfaz}
 \title{Estimate the prevalence of wasting based on z-scores of muac-for-age (MFAZ)}
 \usage{
-mw_estimate_prevalence_mfaz(df, wt = NULL, edema = NULL, ...)
+mw_estimate_prevalence_mfaz(df, wt = NULL, oedema = NULL, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} object that has been produced by the
@@ -16,9 +16,9 @@ is NULL which assumes a self-weighted survey as is the case for a survey
 sample selected proportional to population size (i.e., SMART survey sample).
 Otherwise, a weighted analysis is implemented.}
 
-\item{edema}{A \code{character} vector for presence of nutritional edema coded as
-"y" for presence of nutritional edema and "n" for absence of nutritional
-edema. Default is NULL.}
+\item{oedema}{A \code{character} vector for presence of nutritional oedema coded as
+"y" for presence of nutritional oedema and "n" for absence of nutritional
+oedema. Default is NULL.}
 
 \item{...}{A vector of class \code{character}, specifying the categories for which
 the analysis should be summarised for. Usually geographical areas. More than
@@ -29,7 +29,7 @@ A summary \code{tibble} for the descriptive statistics about wasting.
 }
 \description{
 Calculate the prevalence estimates of wasting based on z-scores of
-MUAC-for-age and/or bilateral edema. The function allows users to estimate
+MUAC-for-age and/or bilateral oedema. The function allows users to estimate
 prevalence in accordance with complex sample design properties such as
 accounting for survey sample weights when needed or applicable. The quality
 of the data is first evaluated by calculating and rating the standard
@@ -45,14 +45,14 @@ performed.
 mw_estimate_prevalence_mfaz(
   df = anthro.04,
   wt = NULL,
-  edema = edema
+  oedema = oedema
 )
 
 ## With grouping variables ----
 mw_estimate_prevalence_mfaz(
   df = anthro.04,
   wt = NULL,
-  edema = edema,
+  oedema = oedema,
   province
 )
 

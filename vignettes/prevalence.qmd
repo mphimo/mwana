@@ -23,9 +23,9 @@ library(dplyr)
 ## Introduction 
 This vignette demonstrates how to use the `mwana` package's functions to estimate the prevalence of wasting. The package allow users to estimate prevalence based on: 
 
-  + Weight-for-height z-score (WFHZ) and/or edema;
-  + Raw MUAC values and/or edema;
-  + MUAC-for-age z-score (MFAZ) and/or edema, and
+  + Weight-for-height z-score (WFHZ) and/or oedema;
+  + Raw MUAC values and/or oedema;
+  + MUAC-for-age z-score (MFAZ) and/or oedema, and
   + Combined prevalence. 
 
 The prevalence functions in `mwana` were carefully conceived and designed to simplify the workflow of a nutrition data analyst, especially when dealing with data sets containing imperfections that require additional layers of analysis. Let's try to clarify this with two scenarios that I believe will remind you of the complexity involved: 
@@ -76,7 +76,7 @@ To achieve this we do:
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = edema
+    oedema = oedema
   )
 ```
 
@@ -88,11 +88,11 @@ This will return:
 mw_estimate_prevalence_wfhz(
   df = anthro.02,
   wt = NULL,
-  edema = edema
+  oedema = oedema
 )
 ```
 
-If for some reason the variable edema is not available in the data set, or it's there but not plausible, we can exclude it from the analysis by setting the argument `edema` to `NULL`:
+If for some reason the variable oedema is not available in the data set, or it's there but not plausible, we can exclude it from the analysis by setting the argument `oedema` to `NULL`:
 
 ```{r}
 #| label: unwt_wast_wfhz_noedema
@@ -102,7 +102,7 @@ If for some reason the variable edema is not available in the data set, or it's 
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = NULL # Setting edema to NULL
+    oedema = NULL # Setting oedema to NULL
   )
 ```
 
@@ -115,13 +115,13 @@ And we get:
 mw_estimate_prevalence_wfhz(
   df = anthro.02,
   wt = NULL,
-  edema = NULL
+  oedema = NULL
 )
 ```
 
-If we inspect the `gam_n` and `gam_p` columns of this output table and the previous, we notice differences in the numbers. This occurs because edema cases were excluded in the second implementation. Note that you will observe a change if there are positive cases of edema in the data set; otherwise, setting `edema = NULL` will have no effect whatsoever. 
+If we inspect the `gam_n` and `gam_p` columns of this output table and the previous, we notice differences in the numbers. This occurs because oedema cases were excluded in the second implementation. Note that you will observe a change if there are positive cases of oedema in the data set; otherwise, setting `oedema = NULL` will have no effect whatsoever. 
 
-The above output summary does not show results by province. We can control this by supplying the variable or set of variables containing the locations where the data was collected, or any other category (such as teams, sex, etc.) after edema. In our case, we will use the column `province`: 
+The above output summary does not show results by province. We can control this by supplying the variable or set of variables containing the locations where the data was collected, or any other category (such as teams, sex, etc.) after oedema. In our case, we will use the column `province`: 
 
 ```{r}
 #| label: unwt_wast_wfhz_province
@@ -131,7 +131,7 @@ The above output summary does not show results by province. We can control this 
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     province # province is the variable name holding data on where the survey was conducted.
   )
 ```
@@ -145,7 +145,7 @@ And _voila_ :
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -164,7 +164,7 @@ To get the weighted prevalence, we make the use of the `wt` argument. We pass to
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = wtfactor, # Passing the wtfactor to wt
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -178,7 +178,7 @@ And you get:
 anthro.02 |>
   mw_estimate_prevalence_wfhz(
     wt = wtfactor,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -217,7 +217,7 @@ anthro.03 |>
   ) |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     district
   )
 ```
@@ -237,7 +237,7 @@ anthro.03 |>
   ) |>
   mw_estimate_prevalence_wfhz(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     district
   )
 ```
@@ -304,7 +304,7 @@ As in ENA Software, make sure you run the plausibility check before you call the
 anthro.04 |>
   mw_estimate_prevalence_muac(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -318,7 +318,7 @@ This will return:
 anthro.04 |>
   mw_estimate_prevalence_muac(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -336,7 +336,7 @@ Nonetheless, if for any reason we decide to go for it anyway, then we would appl
 anthro.04 |>
   subset(province == "Province 2") |>
   mw_estimate_age_weighted_prev_muac(
-    edema = edema
+    oedema = oedema
   )
 ```
 
@@ -379,7 +379,7 @@ anthro.02 |>
   ) |>
   mw_estimate_prevalence_muac(
     wt = wtfactor,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -409,7 +409,7 @@ anthro.02 |>
   ) |>
   mw_estimate_prevalence_muac(
     wt = wtfactor,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -429,7 +429,7 @@ The `anthro.04` dataset will be used to illustrate the application of these func
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -442,7 +442,7 @@ The returned output is:
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -466,7 +466,7 @@ anthro.04 |>
   mw_estimate_prevalence_screening2(
     age_cat = age_cat,
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -489,7 +489,7 @@ anthro.04 |>
   mw_estimate_prevalence_screening2(
     age_cat = age_cat,
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     province
   )
 ```
@@ -497,7 +497,7 @@ anthro.04 |>
 
 ## Estimation of the combined prevalence of wasting
 
-The estimation of the combined prevalence of wasting is a task attributed to the `mw_estimate_prevalence_combined()` function. The case-definition is based on the WFHZ, the raw MUAC values and edema. From the workflow standpoint, it combines the workflow demonstrated in @sec-prevalence-wfhz and in @sec-prevalence-muac.
+The estimation of the combined prevalence of wasting is a task attributed to the `mw_estimate_prevalence_combined()` function. The case-definition is based on the WFHZ, the raw MUAC values and oedema. From the workflow standpoint, it combines the workflow demonstrated in @sec-prevalence-wfhz and in @sec-prevalence-muac.
 
 To demonstrate it's implementation we will use the `anthro.01` data set.
 
@@ -632,7 +632,7 @@ anthro.01 |>
   ) |>
   mw_estimate_prevalence_combined(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     area
   )
 ```
@@ -670,7 +670,7 @@ anthro.01 |>
   ) |>
   mw_estimate_prevalence_combined(
     wt = NULL,
-    edema = edema,
+    oedema = oedema,
     area
   )
 ```

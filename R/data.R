@@ -19,7 +19,7 @@
 #' | *age* | Age in months, typically estimated using local event calendars |
 #' | *weight* | Weight in kilograms |
 #' | *height* | Height in centimetres |
-#' | *edema* | Edema; "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema; "n" = no oedema, "y" = with oedema |
 #' | *muac* | Mid-upper arm circumference in millimetres |
 #'
 #' @source Anonymous
@@ -51,7 +51,7 @@
 #' | *age* | Calculated age in months with two decimal places |
 #' | *weight* | Weight in kilograms |
 #' | *height* | Height in centimetres |
-#' | *edema* | Edema; "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema; "n" = no oedema, "y" = with oedema |
 #' | *muac* | Mid-upper arm circumference in millimetres |
 #' | *wtfactor* | Survey weights |
 #' | *wfhz* | Weight-for-height z-scores with 3 decimal places |
@@ -95,7 +95,7 @@
 #' | *age* | Calculated age in months with two decimal places |
 #' | *weight* | Weight in kilograms |
 #' | *height* | Height in centimetres |
-#' | *edema* | Edema; "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema; "n" = no oedema, "y" = with oedema |
 #' | *muac* | Mid-upper arm circumference in millimetres |
 #'
 #' @source Anonymous
@@ -136,7 +136,7 @@
 #' | *sex* | Sex; "m" = boys, "f" = girls |
 #' | *age* | Calculated age in months with two decimal places |
 #' | *muac* | Mid-upper arm circumference in millimetres |
-#' | *edema* | Edema; "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema; "n" = no oedema, "y" = with oedema |
 #' | *mfaz* | MUAC-for-age z-scores with 3 decimal places |
 #' | *flag_mfaz* | Flagged MUAC-for-age z-score value; 1 = flagged, 0 = not flagged |
 #'
@@ -160,7 +160,7 @@
 #' | *cluster* | Primary sampling unit |
 #' | *sex* | Sex; "m" = boys, "f" = girls |
 #' | *age* | Calculated age in months with two decimal places |
-#' | *edema* | Edema, "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema, "n" = no oedema, "y" = with oedema |
 #' | *wfhz* | MUAC-for-age z-scores with 3 decimal places |
 #' | *flag_wfhz* | Flagged weight-for-height z-score value; 1 = flagged, 0 = not flagged |
 #'
@@ -182,7 +182,7 @@
 #' | :--- | :---|
 #' | *sex* | Sex; "m" = boys, "f" = girls |
 #' | *months* | Calculated age in months with two decimal places |
-#' | *edema* | Edema, "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema, "n" = no oedema, "y" = with oedema |
 #' | *muac* | Mid-upper arm circumference in millimetres |
 #'
 #' @source Anonymous
@@ -202,7 +202,7 @@
 #' | *cluster* | Primary sampling unit |
 #' | *sex* | Sex; "m" = boys, "f" = girls |
 #' | *age* | Calculated age in months with two decimal places |
-#' | *edema* | Edema, "n" = no edema, "y" = with edema |
+#' | *oedema* | oedema, "n" = no oedema, "y" = with oedema |
 #' | *mfaz* | MUAC-for-age z-scores with 3 decimal places |
 #' | *flag_mfaz* | Flagged MUAC-for-age z-score value. 1 = flagged, 0 = not flagged |
 #'

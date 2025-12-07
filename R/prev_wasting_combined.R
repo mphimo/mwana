@@ -5,18 +5,18 @@
 #'
 complex_survey_estimates_combined <- function(df,
                                               wt = NULL,
-                                              edema = NULL,
+                                              oedema = NULL,
                                               ...) {
   ## Defuse arguments ----
   wt <- rlang::enquo(wt)
-  edema <- rlang::enquo(edema)
+  oedema <- rlang::enquo(oedema)
   .by <- rlang::enquos(...)
 
-  ## Defines case based on the availability of edema ----
+  ## Defines case based on the availability of oedema ----
   df <- define_wasting(df,
     zscores = .data$wfhz,
     muac = .data$muac,
-    edema = !!edema,
+    oedema = !!oedema,
     .by = "combined"
   ) |>
     dplyr::mutate(
@@ -64,7 +64,7 @@ complex_survey_estimates_combined <- function(df,
 #'
 #' @description
 #' Estimate the prevalence of wasting based on the combined case-definition of
-#' weight-for-height z-scores (WFHZ), MUAC and/or edema. The function allows
+#' weight-for-height z-scores (WFHZ), MUAC and/or oedema. The function allows
 #' users to estimate prevalence in accordance with complex sample design
 #' properties such as accounting for survey sample weights when needed or
 #' applicable. The quality of the data is first evaluated by calculating and
@@ -86,9 +86,9 @@ complex_survey_estimates_combined <- function(df,
 #' sample selected proportional to population size (i.e., SMART survey sample).
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param edema A `character` vector for presence of nutritional edema coded as
-#' "y" for presence of nutritional edema and "n" for absence of nutritional
-#' edema. Default is NULL.
+#' @param oedema A `character` vector for presence of nutritional oedema coded as
+#' "y" for presence of nutritional oedema and "n" for absence of nutritional
+#' oedema. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
 #' the analysis should be summarised for. Usually geographical areas. More than
@@ -115,14 +115,14 @@ complex_survey_estimates_combined <- function(df,
 #' mw_estimate_prevalence_combined(
 #'   df = anthro.02,
 #'   wt = NULL,
-#'   edema = edema
+#'   oedema = oedema
 #' )
 #'
 #' ## When `wt` is not set to NULL ----
 #' mw_estimate_prevalence_combined(
 #'   df = anthro.02,
 #'   wt = wtfactor,
-#'   edema = edema
+#'   oedema = oedema
 #' )
 #'
 #' @export
@@ -130,7 +130,7 @@ complex_survey_estimates_combined <- function(df,
 #'
 mw_estimate_prevalence_combined <- function(df,
                                             wt = NULL,
-                                            edema = NULL,
+                                            oedema = NULL,
                                             ...) {
   ## Capture grouping vars ----
   .by <- rlang::enquos(...)
@@ -174,7 +174,7 @@ mw_estimate_prevalence_combined <- function(df,
       output <- complex_survey_estimates_combined(
         df = data_subset,
         wt = {{ wt }},
-        edema = {{ edema }},
+        oedema = {{ oedema }},
         !!!.by
       )
     } else {

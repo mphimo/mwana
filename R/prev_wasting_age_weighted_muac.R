@@ -30,7 +30,7 @@
 #' @param age_cat A `character` vector of child's age in categories. Code values
 #' should be "6-23" and "24-59". Defaults to `NULL`. Only use it if `has_age = FALSE`.
 #' 
-#' @param edema A `character` vector for presence of nutritional oedema. Code 
+#' @param oedema A `character` vector for presence of nutritional oedema. Code 
 #' values should be "y" for presence and "n" for absence. Defaults to NULL.
 #' 
 #' @param raw_muac Logical. Whether outliers should be excluded based on the raw
@@ -59,7 +59,7 @@
 #' has_age = TRUE,
 #' age = age, 
 #' age_cat = FALSE,
-#' edema = edema, 
+#' oedema = oedema, 
 #' raw_muac = FALSE, 
 #' province
 #' )
@@ -78,7 +78,7 @@
 #' has_age = FALSE,
 #' age = NULL, 
 #' age_cat = age_cat,
-#' edema = edema, 
+#' oedema = oedema, 
 #' raw_muac = FALSE
 #' )
 #' 
@@ -90,7 +90,7 @@ mw_estimate_age_weighted_prev_muac <- function(
    has_age = TRUE,
    age = NULL, 
    age_cat = NULL,
-   edema = NULL, 
+   oedema = NULL, 
    raw_muac = FALSE, 
    ...
 ) {
@@ -113,18 +113,18 @@ mw_estimate_age_weighted_prev_muac <- function(
   u2 <- df |> 
      dplyr::filter(.data$age < 24) |> 
       dplyr::summarise(
-        oedema_u2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
       )
   
   o2 <- df |> 
      dplyr::filter(.data$age >= 24) |> 
       dplyr::summarise(
-        oedema_o2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
       )
   } 
@@ -134,18 +134,18 @@ mw_estimate_age_weighted_prev_muac <- function(
     u2 <- df |> 
      dplyr::filter(.data$age_cat == "6-23") |> 
       dplyr::summarise(
-        oedema_u2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
       )
   
   o2 <- df |> 
      dplyr::filter(.data$age_cat == "24-59") |> 
       dplyr::summarise(
-        oedema_o2 = mean(ifelse(.data$edema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$edema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$edema == "n", 1, 0), na.rm = TRUE),
+        oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
       )
   }

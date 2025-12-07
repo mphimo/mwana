@@ -5,9 +5,9 @@
 \alias{mw_estimate_prevalence_screening2}
 \title{Estimate the prevalence of wasting based on MUAC for non-survey data}
 \usage{
-mw_estimate_prevalence_screening(df, muac, edema = NULL, ...)
+mw_estimate_prevalence_screening(df, muac, oedema = NULL, ...)
 
-mw_estimate_prevalence_screening2(df, age_cat, muac, edema = NULL, ...)
+mw_estimate_prevalence_screening2(df, age_cat, muac, oedema = NULL, ...)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -19,7 +19,7 @@ identifiers are stored.}
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
 measurement unit should be millimeters.}
 
-\item{edema}{A \code{character} vector for presence of nutritional oedema. Code
+\item{oedema}{A \code{character} vector for presence of nutritional oedema. Code
 values should be "y" for presence and "n" for absence. Default is NULL.}
 
 \item{...}{A vector of class \code{character}, specifying the categories for which
@@ -65,15 +65,15 @@ from the prevalence estimation.
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-  edema = edema,
+  oedema = oedema,
   province
 )
 
-## With `edema` set to `NULL` ----
+## With `oedema` set to `NULL` ----
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-  edema = NULL,
+  oedema = NULL,
   province
 )
 
@@ -81,7 +81,7 @@ mw_estimate_prevalence_screening(
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-  edema = NULL,
+  oedema = NULL,
   province
 )
 
@@ -98,7 +98,7 @@ anthro.01 |>
   mw_estimate_prevalence_screening2(
     age_cat = age_cat,
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     area
   )
 

@@ -10,7 +10,7 @@ mw_estimate_age_weighted_prev_muac(
   has_age = TRUE,
   age = NULL,
   age_cat = NULL,
-  edema = NULL,
+  oedema = NULL,
   raw_muac = FALSE,
   ...
 )
@@ -31,7 +31,7 @@ NULL. Only use if \code{has_age = TRUE}, otherwise set it to \code{NULL}.}
 \item{age_cat}{A \code{character} vector of child's age in categories. Code values
 should be "6-23" and "24-59". Defaults to \code{NULL}. Only use it if \code{has_age = FALSE}.}
 
-\item{edema}{A \code{character} vector for presence of nutritional oedema. Code
+\item{oedema}{A \code{character} vector for presence of nutritional oedema. Code
 values should be "y" for presence and "n" for absence. Defaults to NULL.}
 
 \item{raw_muac}{Logical. Whether outliers should be excluded based on the raw
@@ -70,7 +70,7 @@ muac = muac,
 has_age = TRUE,
 age = age, 
 age_cat = FALSE,
-edema = edema, 
+oedema = oedema, 
 raw_muac = FALSE, 
 province
 )
@@ -89,7 +89,7 @@ mw_estimate_age_weighted_prev_muac(
 has_age = FALSE,
 age = NULL, 
 age_cat = age_cat,
-edema = edema, 
+oedema = oedema, 
 raw_muac = FALSE
 )
 

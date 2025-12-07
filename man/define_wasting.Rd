@@ -8,7 +8,7 @@ define_wasting(
   df,
   zscores = NULL,
   muac = NULL,
-  edema = NULL,
+  oedema = NULL,
   .by = c("zscores", "muac", "combined")
 )
 }
@@ -21,9 +21,9 @@ wrangling functions for WFHZ or MUAC, or both (for combined) as appropriate.}
 \item{muac}{An \code{integer} or \code{character} vector of raw MUAC values in
 millimeters.}
 
-\item{edema}{A \code{character} vector indicating edema status. Default is NULL.
+\item{oedema}{A \code{character} vector indicating oedema status. Default is NULL.
 Code values should be "y" for presence and "n" for absence of nutritional
-edema.}
+oedema.}
 
 \item{.by}{A choice of the criterion by which a case is to be defined. Choose
 "zscores" for WFHZ or MFAZ, "muac" for raw MUAC and "combined" for combined.
@@ -47,7 +47,7 @@ z <- anthro.02 |>
   define_wasting(
     zscores = wfhz,
     muac = NULL,
-    edema = edema,
+    oedema = oedema,
     .by = "zscores"
   )
 head(z)
@@ -57,7 +57,7 @@ m <- anthro.02 |>
   define_wasting(
     zscores = NULL,
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     .by = "muac"
   )
 head(m)
@@ -67,7 +67,7 @@ c <- anthro.02 |>
   define_wasting(
     zscores = wfhz,
     muac = muac,
-    edema = edema,
+    oedema = oedema,
     .by = "combined"
   )
 head(c)

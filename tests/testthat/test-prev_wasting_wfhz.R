@@ -1,12 +1,12 @@
 # Test check: mw_estimate_prevalence_wfhz() ----
-## When std =! problematic & !is.null(wt) & !is.null(edema) ----
+## When std =! problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates",
   {
     ### Get the prevalence estimates ----
     p <- mw_estimate_prevalence_wfhz(
       df = anthro.02,
-      edema = edema,
+      oedema = oedema,
       wt = wtfactor
     )
 
@@ -51,7 +51,7 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(wt) & !is.null(edema) ----
+## When std != problematic & is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates when survey weights is
     NULL",
@@ -59,7 +59,7 @@ testthat::test_that(
     ### Get the prevalence estimates ----
     p <- mw_estimate_prevalence_wfhz(
       df = wfhz.01,
-      edema = edema
+      oedema = oedema
     )
 
     ### Expected results ----
@@ -97,15 +97,15 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(wt) & is.null(edema) ----
+## When std != problematic & is.null(wt) & is.null(oedema) ----
 testthat::test_that(
-  "mw_estimate_prevalence_wfhz() yields correct estimates when edema is
+  "mw_estimate_prevalence_wfhz() yields correct estimates when oedema is
     NULL",
   {
     ### Get the prevalence estimates ----
     p <- mw_estimate_prevalence_wfhz(
       df = anthro.02,
-      edema = NULL
+      oedema = NULL
     )
 
     ### Expected results ----
@@ -151,7 +151,7 @@ testthat::test_that(
     ### Get the prevalence estimates ----
     p <- mw_estimate_prevalence_wfhz(
       df = anthro.02,
-      edema = edema,
+      oedema = oedema,
       wt = wtfactor,
       province
     )
@@ -211,7 +211,7 @@ testthat::test_that(
         .recode_sex = TRUE
       ) |>
       mw_estimate_prevalence_wfhz(
-        edema = edema,
+        oedema = oedema,
         wt = NULL,
         district
       )

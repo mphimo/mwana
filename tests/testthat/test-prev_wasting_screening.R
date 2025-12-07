@@ -7,15 +7,15 @@ testthat::test_that(
     df <- anthro.02 |>
       mutate(
         muacx = as.character(muac),
-        edemax = as.factor(edema),
-        ede = ifelse(edema == "y", "yes", 0)
+        oedemax = as.factor(oedema),
+        ede = ifelse(oedema == "y", "yes", 0)
       )
 
     ### Get estimates ----
     p <- df |>
       get_estimates(
         muac = muac,
-        edema = edema,
+        oedema = oedema,
         raw_muac = FALSE
       )
 
@@ -45,7 +45,7 @@ testthat::test_that(
         mutate(muac = recode_muac(muac, .to = "cm")) |>
         get_estimates(
           muac = muac,
-          edema = edema
+          oedema = oedema
         ),
       regexp = "MUAC values must be in millimeters. Try again!"
     )
@@ -53,7 +53,7 @@ testthat::test_that(
       df |>
         get_estimates(
           muac = muacx,
-          edema = edema
+          oedema = oedema
         ),
       regexp = paste0(
         "`muac` should be of class numeric not ",
@@ -64,33 +64,33 @@ testthat::test_that(
       df |>
         get_estimates(
           muac = muac,
-          edema = edemax
+          oedema = oedemax
         ),
       regexp = paste0(
-        "`edema` should be of class character not ",
-        class(df$edemax), ". Try again!"
+        "`oedema` should be of class character not ",
+        class(df$oedemax), ". Try again!"
       )
     )
     testthat::expect_error(
       df |>
         get_estimates(
           muac = muac,
-          edema = ede
+          oedema = ede
         ),
-      regexp = 'Code values in `edema` must only be "y" and "n". Try again!'
+      regexp = 'Code values in `oedema` must only be "y" and "n". Try again!'
     )
   }
 )
 
-## When is.null(edema) & grouping variables are not supplied ----
+## When is.null(oedema) & grouping variables are not supplied ----
 testthat::test_that(
-  "get_estimates() works OK when edema and grouping variables null",
+  "get_estimates() works OK when oedema and grouping variables null",
   {
     ### Get estimates ----
     p <- anthro.02 |>
       get_estimates(
         muac = muac,
-        edema = NULL
+        oedema = NULL
       )
 
     ### Observed estimates ----
@@ -125,7 +125,7 @@ testthat::test_that(
     p <- anthro.02 |>
       get_estimates(
         muac = muac,
-        edema = edema,
+        oedema = oedema,
         raw_muac = FALSE,
         province
       )
@@ -216,7 +216,7 @@ testthat::test_that(
     p <- anthro.02 |>
       mw_estimate_prevalence_screening(
         muac = muac,
-        edema = edema,
+        oedema = oedema,
         province
       )
 
@@ -252,7 +252,7 @@ testthat::test_that(
     p <- anthro.02 |>
       mw_estimate_prevalence_screening(
         muac = muac,
-        edema = edema
+        oedema = oedema
       )
 
     ### Observed estimates ----
@@ -304,7 +304,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_screening(muac = muac, edema = edema, province)
+      mw_estimate_prevalence_screening(muac = muac, oedema = oedema, province)
 
     columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p","N")
 
@@ -369,7 +369,7 @@ testthat::test_that(
         mw_estimate_prevalence_screening2(
           age_cat = age_cat,
           muac = muac, 
-          edema = NULL,
+          oedema = NULL,
           area
         )
     
@@ -397,7 +397,7 @@ testthat::test_that(
       mw_estimate_prevalence_screening2(
         age_cat = age_cat,
         muac = muac,
-        edema = NULL,
+        oedema = NULL,
         province
       )
 

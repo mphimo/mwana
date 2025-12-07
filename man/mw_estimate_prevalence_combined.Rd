@@ -4,7 +4,7 @@
 \alias{mw_estimate_prevalence_combined}
 \title{Estimate the prevalence of combined wasting}
 \usage{
-mw_estimate_prevalence_combined(df, wt = NULL, edema = NULL, ...)
+mw_estimate_prevalence_combined(df, wt = NULL, oedema = NULL, ...)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by sequential application of the
@@ -18,9 +18,9 @@ is NULL which assumes a self-weighted survey as is the case for a survey
 sample selected proportional to population size (i.e., SMART survey sample).
 Otherwise, a weighted analysis is implemented.}
 
-\item{edema}{A \code{character} vector for presence of nutritional edema coded as
-"y" for presence of nutritional edema and "n" for absence of nutritional
-edema. Default is NULL.}
+\item{oedema}{A \code{character} vector for presence of nutritional oedema coded as
+"y" for presence of nutritional oedema and "n" for absence of nutritional
+oedema. Default is NULL.}
 
 \item{...}{A vector of class \code{character}, specifying the categories for which
 the analysis should be summarised for. Usually geographical areas. More than
@@ -32,7 +32,7 @@ wasting.
 }
 \description{
 Estimate the prevalence of wasting based on the combined case-definition of
-weight-for-height z-scores (WFHZ), MUAC and/or edema. The function allows
+weight-for-height z-scores (WFHZ), MUAC and/or oedema. The function allows
 users to estimate prevalence in accordance with complex sample design
 properties such as accounting for survey sample weights when needed or
 applicable. The quality of the data is first evaluated by calculating and
@@ -60,14 +60,14 @@ analysis.\tabular{ccc}{
 mw_estimate_prevalence_combined(
   df = anthro.02,
   wt = NULL,
-  edema = edema
+  oedema = oedema
 )
 
 ## When `wt` is not set to NULL ----
 mw_estimate_prevalence_combined(
   df = anthro.02,
   wt = wtfactor,
-  edema = edema
+  oedema = oedema
 )
 
 }

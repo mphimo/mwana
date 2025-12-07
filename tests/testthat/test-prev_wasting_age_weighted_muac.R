@@ -1,5 +1,5 @@
 # Test check: smart_age_weighting() ----
-## Edema set to !NULL ----
+## oedema set to !NULL ----
 testthat::test_that(
   "mw_estimate_age_weighted_prev_muac() works as expected",
   {
@@ -25,7 +25,7 @@ testthat::test_that(
       has_age = TRUE,
       age_cat = NULL,
       age = age, 
-      edema = edema, 
+      oedema = oedema, 
       raw_muac = FALSE
     )
 
@@ -87,7 +87,7 @@ testthat::test_that(
           muac = muac,
           has_age = TRUE,
           age = age,
-          edema = edema,
+          oedema = oedema,
           raw_muac = FALSE
         ),
       regexp = "MUAC values must be in millimeters. Please try again."
