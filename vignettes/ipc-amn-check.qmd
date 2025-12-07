@@ -26,7 +26,7 @@ Evidence on the prevalence of acute malnutrition used in the IPC Acute Malnutrit
 
 In the IPC AMN analysis workflow, the first step a data analyst has to take is the checking of sample size requirements as set by IPC for each survey area to be included in the IPC AMN analysis. `mwana` provides the `mw_check_ipcamn_ssreq()` function for this purpose.
 
-To demonstrate its usage, we will use the built-in sample data set `anthro.01`.
+To demonstrate its usage, we will use the built-in sample dataset `anthro.01`.
 
 ```{r}
 #| label: view-data
@@ -38,7 +38,7 @@ head(anthro.01)
 
 `anthro.01` contains anthropometry data from SMART surveys from anonymized locations. To learn more about this dataset, call `help("anthro.01")` in your `R` console. 
 
-Now that we got acquainted with the data set, we can proceed to executing the task. To achieve this, we simply do:
+Now that we got acquainted with the dataset, we can proceed to executing the task. To achieve this, we simply do:
 
 
 ```{r}
@@ -89,7 +89,7 @@ anthro.01 |>
 
 A `tibble` object is returned with three columns:  
 
-  + `n_clusters` counts the number of unique cluster or villages or community identifiers in the data set where the data collection took place.
+  + `n_clusters` counts the number of unique cluster or villages or community identifiers in the dataset where the data collection took place.
   
   + `n_obs` counts the number of children from which data were collected.
   

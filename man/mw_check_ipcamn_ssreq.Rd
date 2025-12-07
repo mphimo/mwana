@@ -35,7 +35,7 @@ A summary \code{tibble} containing check results for:
 \itemize{
 \item \code{n_clusters} - the total number of unique clusters or
 screening or site identifiers;
-\item \code{n_obs} - the corresponding total number of children in the data set; and,
+\item \code{n_obs} - the corresponding total number of children in the dataset; and,
 \item \code{meet_ipc} - whether the IPC AMN requirements were met.
 }
 }

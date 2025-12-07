@@ -196,7 +196,7 @@ testthat::test_that(
 
 ## When !is.null(.by) and analysis approach has different categories ----
 testthat::test_that(
-  "mw_estimate_prevalence_combined() works well on a multiple area survey data set
+  "mw_estimate_prevalence_combined() works well on a multiple area survey dataset
   where different analysis approaches are required",
   {
     ### Get the prevalence estimates ----

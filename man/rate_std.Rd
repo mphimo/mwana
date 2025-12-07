@@ -8,9 +8,9 @@ rate_std(sd, .of = c("zscores", "raw_muac"))
 }
 \arguments{
 \item{sd}{A vector of class \code{double} of standard deviation values from the
-data set.}
+dataset.}
 
-\item{.of}{Specifies the data set to which the rating should be done. Can be
+\item{.of}{Specifies the dataset to which the rating should be done. Can be
 "wfhz", "mfaz", or "raw_muac".}
 }
 \value{

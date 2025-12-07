@@ -74,7 +74,7 @@
 #' A sample data of district level SMART surveys conducted in Mozambique
 #'
 #' @description
-#' `anthro.03` contains survey data of four districts. Each district data set
+#' `anthro.03` contains survey data of four districts. Each district dataset
 #' presents distinct data quality scenarios that require a specific prevalence
 #' analysis approach. Data from two districts have a problematic WFHZ standard 
 #' deviation. The data from the remaining two districts are all within range.
@@ -113,7 +113,7 @@
 #'
 #' @description
 #' Data was collected from community-based sentinel sites located across three 
-#' provinces. Each provincial data set presents distinct data quality scenarios, 
+#' provinces. Each provincial dataset presents distinct data quality scenarios, 
 #' requiring tailored prevalence analysis:
 #' 
 #' - *Province 1* has a MUAC-for-age z-score standard deviation and age ratio 

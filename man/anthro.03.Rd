@@ -25,7 +25,7 @@ Anonymous
 anthro.03
 }
 \description{
-\code{anthro.03} contains survey data of four districts. Each district data set
+\code{anthro.03} contains survey data of four districts. Each district dataset
 presents distinct data quality scenarios that require a specific prevalence
 analysis approach. Data from two districts have a problematic WFHZ standard
 deviation. The data from the remaining two districts are all within range.

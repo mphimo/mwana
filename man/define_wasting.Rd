@@ -36,7 +36,7 @@ The \code{tibble} object \code{df} with additional columns named named \code{gam
 named \code{cgam}, \code{csam} and \code{cmam}.
 }
 \description{
-Determine if a given observation in the data set is wasted or not, and its
+Determine if a given observation in the dataset is wasted or not, and its
 respective form of wasting (global, severe or moderate) on the basis of
 z-scores of weight-for-height (WFHZ), muac-for-age (MFAZ), raw MUAC
 values and combined case-definition.

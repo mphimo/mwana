@@ -25,7 +25,7 @@ anthro.04
 }
 \description{
 Data was collected from community-based sentinel sites located across three
-provinces. Each provincial data set presents distinct data quality scenarios,
+provinces. Each provincial dataset presents distinct data quality scenarios,
 requiring tailored prevalence analysis:
 \itemize{
 \item \emph{Province 1} has a MUAC-for-age z-score standard deviation and age ratio

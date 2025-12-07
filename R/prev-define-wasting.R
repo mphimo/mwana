@@ -137,7 +137,7 @@ define_wasting_combined <- function(zscores,
 #' Define wasting
 #'
 #' @description
-#' Determine if a given observation in the data set is wasted or not, and its
+#' Determine if a given observation in the dataset is wasted or not, and its
 #' respective form of wasting (global, severe or moderate) on the basis of
 #' z-scores of weight-for-height (WFHZ), muac-for-age (MFAZ), raw MUAC 
 #' values and combined case-definition.

@@ -297,7 +297,7 @@ testthat::test_that(
   }
 )
 
-## When used on a multiple-area data set ----
+## When used on a multiple-area dataset ----
 testthat::test_that(
   "mw_estimate_prevalence_screening() works well on a multiple-area dataset with
     different categories of analysis_approach",

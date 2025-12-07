@@ -8,9 +8,9 @@ rate_propof_flagged(p, .in = c("mfaz", "wfhz", "raw_muac"))
 }
 \arguments{
 \item{p}{A vector of class \code{double} of the proportions of flagged records in
-the data set.}
+the dataset.}
 
-\item{.in}{Specifies the data set where the rating should be done. Can be
+\item{.in}{Specifies the dataset where the rating should be done. Can be
 "wfhz", "mfaz", or "raw_muac". Default to "wfhz".}
 }
 \value{

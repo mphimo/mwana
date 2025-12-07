@@ -29,7 +29,7 @@
 #'
 #' - `n_clusters` - the total number of unique clusters or
 #' screening or site identifiers;
-#' - `n_obs` - the corresponding total number of children in the data set; and,
+#' - `n_obs` - the corresponding total number of children in the dataset; and,
 #' - `meet_ipc` - whether the IPC AMN requirements were met.
 #'
 #' @references
