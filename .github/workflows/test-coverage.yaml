@@ -4,7 +4,7 @@ on:
     branches: [main, master]
   pull_request:
 
-name: test-coverage.yaml
+name: Test coverage
 
 permissions: read-all
 
@@ -34,7 +34,7 @@ jobs:
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
           print(cov)
-          covr::to_cobertura(cov)
+          covr::to_cobertura(cov, file = "cobertura.xml")
         shell: Rscript {0}
 
       - uses: codecov/codecov-action@v5
@@ -43,11 +43,11 @@ jobs:
           plugins: noop
           disable_search: true
           fail_ci_if_error: ${{ github.event_name != 'pull_request' }}
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Show testthat output
         if: always()
         run: |
-          ## --------------------------------------------------------------------
           find '${{ runner.temp }}/package' -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
