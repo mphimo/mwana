@@ -49,8 +49,7 @@ multi-area datasets.
 
 ## Installation
 
-`mwana` is not yet on [CRAN](https::cran.r-project.org) but can be
-installed from GitHub:
+`mwana` is not yet on CRAN but can be installed from GitHub:
 
 ``` r
 # First install remotes package with: install.package("remotes")
