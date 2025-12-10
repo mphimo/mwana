@@ -9,7 +9,7 @@ A tibble with 661 rows and 4 columns.\tabular{ll}{
    \strong{Variable} \tab \strong{Description} \cr
    \emph{sex} \tab Sex; "m" = boys, "f" = girls \cr
    \emph{months} \tab Calculated age in months with two decimal places \cr
-   \emph{edema} \tab Edema, "n" = no edema, "y" = with edema \cr
+   \emph{oedema} \tab oedema, "n" = no oedema, "y" = with oedema \cr
    \emph{muac} \tab Mid-upper arm circumference in millimetres \cr
 }
 }

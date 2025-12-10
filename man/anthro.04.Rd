@@ -12,7 +12,7 @@ A tibble of 3,002 x 8.\tabular{ll}{
    \emph{sex} \tab Sex; "m" = boys, "f" = girls \cr
    \emph{age} \tab Calculated age in months with two decimal places \cr
    \emph{muac} \tab Mid-upper arm circumference in millimetres \cr
-   \emph{edema} \tab Edema; "n" = no edema, "y" = with edema \cr
+   \emph{oedema} \tab oedema; "n" = no oedema, "y" = with oedema \cr
    \emph{mfaz} \tab MUAC-for-age z-scores with 3 decimal places \cr
    \emph{flag_mfaz} \tab Flagged MUAC-for-age z-score value; 1 = flagged, 0 = not flagged \cr
 }
@@ -25,7 +25,7 @@ anthro.04
 }
 \description{
 Data was collected from community-based sentinel sites located across three
-provinces. Each provincial data set presents distinct data quality scenarios,
+provinces. Each provincial dataset presents distinct data quality scenarios,
 requiring tailored prevalence analysis:
 \itemize{
 \item \emph{Province 1} has a MUAC-for-age z-score standard deviation and age ratio

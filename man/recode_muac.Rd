@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{recode_muac}
 \alias{recode_muac}
-\title{Convert MUAC values to either centimeters or millimeters}
+\title{Convert MUAC values to either centimetres or millimetres}
 \usage{
 recode_muac(x, .to = c("cm", "mm"))
 }
@@ -10,7 +10,7 @@ recode_muac(x, .to = c("cm", "mm"))
 \item{x}{A vector of raw MUAC values. The class can either be \code{double} or
 \code{numeric} or \code{integer}.}
 
-\item{.to}{Either "cm" (centimeters) or "mm" (millimeters) for the unit of
+\item{.to}{Either "cm" (centimetres) or "mm" (millimetres) for the unit of
 measurement to convert MUAC values to.}
 }
 \value{
@@ -18,10 +18,10 @@ A \code{numeric} vector of the same length as \code{x} with values set to
 specified unit of measurement.
 }
 \description{
-Convert MUAC values to either centimeters or millimeters
+Convert MUAC values to either centimetres or millimetres
 }
 \examples{
-## Recode from millimeters to centimeters ----
+## Recode from millimetres to centimetres ----
 muac_cm <- recode_muac(
   x = anthro.01$muac,
   .to = "cm"

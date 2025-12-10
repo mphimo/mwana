@@ -1,0 +1,416 @@
+# Test checks: define_wasting_muac() ----
+## With oedema ----
+testthat::test_that(
+  "define_wasting_muac() defines cases as it should",
+  {
+    ### Sample data ----
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+    oedema <- c(
+      "n", "n", "y", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", "y", "y", "n"
+    )
+
+    ### Expected results ----
+    exp_gam <- c(1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1)
+    exp_sam <- c(0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0)
+    exp_mam <- c(1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1)
+
+    ### Observed results ----
+    obs_gam <- define_wasting_muac(muac_values, oedema, .cases = "gam")
+    obs_sam <- define_wasting_muac(muac_values, oedema, .cases = "sam")
+    obs_mam <- define_wasting_muac(muac_values, oedema, .cases = "mam")
+
+    ### Tests ----
+    testthat::expect_equal(obs_gam, exp_gam)
+    testthat::expect_vector(obs_gam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_sam, exp_sam)
+    testthat::expect_vector(obs_sam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_mam, exp_mam)
+    testthat::expect_vector(obs_mam, ptype = numeric(), size = 20)
+  }
+)
+
+## With oedema set to NULL
+testthat::test_that(
+  "define_wasting_muac() defines cases as it should when oedema is set to NULL",
+  {
+    ### Sample data ----
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+
+    ### Expected results ----
+    exp_gam <- c(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1)
+    exp_sam <- c(0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0)
+    exp_mam <- c(1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1)
+
+    ### Observed results ----
+    obs_gam <- define_wasting_muac(muac_values, .cases = "gam")
+    obs_sam <- define_wasting_muac(muac_values, .cases = "sam")
+    obs_mam <- define_wasting_muac(muac_values, .cases = "mam")
+
+    ### Tests ----
+    testthat::expect_equal(obs_gam, exp_gam)
+    testthat::expect_vector(obs_gam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_sam, exp_sam)
+    testthat::expect_vector(obs_sam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_mam, exp_mam)
+    testthat::expect_vector(obs_mam, ptype = numeric(), size = 20)
+  }
+)
+
+
+# Test check: define_wasting_zscores() ----
+## With oedema ----
+testthat::test_that(
+  "define_wasting_zscores() defines cases as it should",
+  {
+    ### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+    oedema <- c(
+      "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", "y", "y", "n"
+    )
+
+    ### Expected results ----
+    exp_gam <- c(0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0)
+    exp_sam <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0)
+    exp_mam <- c(0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+    ### Observed results ----
+    obs_gam <- define_wasting_zscores(zscores = wfhz, oedema = oedema, .cases = "gam")
+    obs_sam <- define_wasting_zscores(zscores = wfhz, oedema = oedema, .cases = "sam")
+    obs_mam <- define_wasting_zscores(zscores = wfhz, oedema = oedema, .cases = "mam")
+
+    ### Tests ----
+    testthat::expect_equal(obs_gam, exp_gam)
+    testthat::expect_vector(obs_gam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_sam, exp_sam)
+    testthat::expect_vector(obs_sam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_mam, exp_mam)
+    testthat::expect_vector(obs_mam, ptype = numeric(), size = 20)
+  }
+)
+
+
+# Test check: define_wasting_cases_whz() ----
+## With oedema set to NULL ----
+testthat::test_that(
+  "define_wasting_zscores() defines cases as it should when oedema is set to NULL",
+  {
+    ### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+
+    oedema <- NULL
+
+    ### Expected results ----
+    exp_gam <- c(0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0)
+    exp_sam <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0)
+    exp_mam <- c(0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+    ### Observed results ----
+    obs_gam <- define_wasting_zscores(zscores = wfhz, oedema, .cases = "gam")
+    obs_sam <- define_wasting_zscores(zscores = wfhz, oedema, .cases = "sam")
+    obs_mam <- define_wasting_zscores(zscores = wfhz, oedema, .cases = "mam")
+
+    ### Tests ----
+    testthat::expect_equal(obs_gam, exp_gam)
+    testthat::expect_vector(obs_gam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_sam, exp_sam)
+    testthat::expect_vector(obs_sam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_mam, exp_mam)
+    testthat::expect_vector(obs_mam, ptype = numeric(), size = 20)
+  }
+)
+
+# Test check: define_wasting_combined() ----
+## With oedema ----
+testthat::test_that(
+  "define_wasting_combined() defines cases as it should",
+  {
+    ### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+    oedema <- c(
+      "n", "n", "y", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", "y", "y", "n"
+    )
+
+    ### Expected results ----
+    exp_cgam <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+    exp_csam <- c(0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0)
+    exp_cmam <- c(1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1)
+
+    ### Observed results ----
+    obs_cgam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "cgam"
+    )
+    obs_csam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "csam"
+    )
+    obs_cmam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "cmam"
+    )
+
+    ### The test ----
+    testthat::expect_equal(obs_cgam, exp_cgam)
+    testthat::expect_vector(obs_cgam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_csam, exp_csam)
+    testthat::expect_vector(obs_csam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_cmam, exp_cmam)
+    testthat::expect_vector(obs_cmam, ptype = numeric(), size = 20)
+  }
+)
+
+## With oedema set to NULL ----
+testthat::test_that(
+  "define_wasting_combined() defines cases as it should when oedema is set to NULL",
+  {
+    ### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+    oedema <- NULL
+
+    ### Expected results ----
+    exp_cgam <- c(1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+    exp_csam <- c(0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0)
+    exp_cmam <- c(1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1)
+
+    ### Observed results ----
+    obs_cgam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "cgam"
+    )
+    obs_csam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "csam"
+    )
+    obs_cmam <- define_wasting_combined(
+      zscores = wfhz,
+      muac = muac_values,
+      oedema = oedema,
+      .cases = "cmam"
+    )
+
+    ### The test ----
+    testthat::expect_equal(obs_cgam, exp_cgam)
+    testthat::expect_vector(obs_cgam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_csam, exp_csam)
+    testthat::expect_vector(obs_csam, ptype = numeric(), size = 20)
+    testthat::expect_equal(obs_cmam, exp_cmam)
+    testthat::expect_vector(obs_cmam, ptype = numeric(), size = 20)
+  }
+)
+
+
+# Test check: define_wasting() ----
+## `.by` set to "zscores" ----
+testthat::test_that(
+  "define_wasting() works as expected with zscores",
+  {
+    ### Input data ----
+    df <- wfhz.01 |>
+      define_wasting(
+        zscores = wfhz,
+        muac = NULL,
+        oedema = oedema,
+        .by = "zscores"
+      ) |>
+      select(gam, sam, mam)
+
+    ### Vectors of wrong class ----
+    data <- wfhz.01
+    data$x <- as.character(data$wfhz)
+    data$ed <- as.factor(data$oedema)
+
+    ### Tests ----
+    testthat::expect_s3_class(df, "data.frame")
+    testthat::expect_named(df, c("gam", "sam", "mam"))
+    testthat::expect_vector(df$gam, size = 303)
+    testthat::expect_vector(df$sam, size = 303)
+    testthat::expect_vector(df$mam, size = 303)
+    testthat::expect_error(
+      define_wasting(
+        df = data,
+        zscores = x,
+        muac = NULL,
+        oedema = oedema,
+        .by = "zscores"
+      ),
+      regexp = paste0(
+        "`zscores` must be of class double not ", class(data$x),
+        ". Please try again."
+      )
+    )
+    testthat::expect_error(
+      define_wasting(
+        df = data,
+        zscores = wfhz,
+        muac = NULL,
+        oedema = ed,
+        .by = "zscores"
+      ),
+      regexp = paste0(
+        "`oedema` must be of class character not ",
+        class(data$ed), ". Please try again."
+      )
+    )
+  }
+)
+
+## `.by` set to "muac" ----
+testthat::test_that(
+  "define_wasting() works as expected with muac",
+  {
+    ### Input data ----
+    df <- mfaz.02 |>
+      define_wasting(
+        muac = muac,
+        oedema = oedema,
+        .by = "muac"
+      ) |>
+      select(gam, sam, mam)
+
+    ### Vectors of wrong class ----
+    data <- mfaz.02
+    data$m <- as.character(data$muac)
+    data$ed <- as.factor(data$oedema)
+
+    ### Tests ----
+    testthat::expect_s3_class(df, "data.frame")
+    testthat::expect_named(df, c("gam", "sam", "mam"))
+    testthat::expect_vector(df$gam, size = 303)
+    testthat::expect_vector(df$sam, size = 303)
+    testthat::expect_vector(df$mam, size = 303)
+    testthat::expect_error(
+      define_wasting(
+        df = data,
+        muac = m,
+        oedema = oedema,
+        .by = "muac"
+      ),
+      regexp = paste0(
+        "`muac` must be of class numeric or integer not ",
+        class(data$m), ". Please try again."
+      )
+    )
+    testthat::expect_error(
+      define_wasting(
+        df = data,
+        muac = muac,
+        oedema = ed,
+        .by = "muac"
+      ),
+      regexp = paste0(
+        "`oedema` must be of class character not ",
+        class(data$ed), ". Please try again."
+      )
+    )
+  }
+)
+
+
+## `.by` set to "combined" ----
+testthat::test_that(
+  "define_wasting() works as expected with for combined",
+  {
+    ### Input data ----
+    x <- anthro.02 |>
+      define_wasting(
+        zscores = wfhz,
+        muac = muac,
+        oedema = oedema,
+        .by = "combined"
+      ) |>
+      select(cgam, csam, cmam)
+
+    ### Wrong vectors ----
+    y <- anthro.02
+    y$zs <- as.character(anthro.02$wfhz)
+    y$m <- as.character(anthro.02$muac)
+    y$ed <- ifelse(y$oedema == "n", "p", "y")
+    ### Tests ----
+    testthat::expect_s3_class(x, "data.frame")
+    testthat::expect_named(x, c("cgam", "csam", "cmam"))
+    testthat::expect_vector(x$cgam, size = 2267)
+    testthat::expect_vector(x$csam, size = 2267)
+    testthat::expect_vector(x$cmam, size = 2267)
+    testthat::expect_error(
+      define_wasting(
+        df = y,
+        zscores = zs,
+        muac = muac,
+        oedema = oedema,
+        .by = "combined"
+      ),
+      regexp = paste0(
+        "`zscores` must be of class double not ", class(y$zs),
+        ". Please try again."
+      )
+    )
+    testthat::expect_error(
+      define_wasting(
+        df = y,
+        zscores = wfhz,
+        muac = m,
+        oedema = oedema,
+        .by = "combined"
+      ),
+      regexp = paste0(
+        "`muac` must be of class numeric or integer not ",
+        class(y$m), ". Please try again."
+      )
+    )
+    testthat::expect_error(
+      define_wasting(
+        df = y,
+        zscores = wfhz,
+        muac = muac,
+        oedema = ed,
+        .by = "combined"
+      ),
+      regexp = paste0(
+        'Values in `oedema` should either be "y" or "n". Please try again.'
+      )
+    )
+  }
+)

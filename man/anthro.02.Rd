@@ -14,7 +14,7 @@ A tibble of 2,267 rows and 14 columns.\tabular{ll}{
    \emph{age} \tab Calculated age in months with two decimal places \cr
    \emph{weight} \tab Weight in kilograms \cr
    \emph{height} \tab Height in centimetres \cr
-   \emph{edema} \tab Edema; "n" = no edema, "y" = with edema \cr
+   \emph{oedema} \tab oedema; "n" = no oedema, "y" = with oedema \cr
    \emph{muac} \tab Mid-upper arm circumference in millimetres \cr
    \emph{wtfactor} \tab Survey weights \cr
    \emph{wfhz} \tab Weight-for-height z-scores with 3 decimal places \cr

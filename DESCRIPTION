@@ -2,7 +2,7 @@ Type: Package
 Package: mwana
 Title: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of
     Wasting in R
-Version: 2.2.9000
+Version: 0.2.3
 Authors@R: c(
     person("Tomás", "Zaba", , "tomas.zaba@outlook.com", 
            role = c("aut", "cre", "cph"),
@@ -35,13 +35,13 @@ Suggests:
     rmarkdown,
     quarto,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/nutriverse/mwana, https://nutriverse.io/mwana
-BugReports: https://github.com/nutriverse/mwana/issues
-VignetteBuilder: knitr
+URL: https://github.com/mphimo/mwana, https://mphimo.github.io/mwana/
+BugReports: https://github.com/mphimo/mwana/issues
+VignetteBuilder: quarto
 Config/testthat/edition: 3

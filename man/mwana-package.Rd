@@ -13,9 +13,9 @@ A simple and streamlined workflow for plausibility checks and prevalence analysi
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/nutriverse/mwana}
-  \item \url{https://nutriverse.io/mwana}
-  \item Report bugs at \url{https://github.com/nutriverse/mwana/issues}
+  \item \url{https://github.com/mphimo/mwana}
+  \item \url{https://mphimo.github.io/mwana/}
+  \item Report bugs at \url{https://github.com/mphimo/mwana/issues}
 }
 
 }

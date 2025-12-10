@@ -9,8 +9,7 @@ type: software
 license: GPL-3.0-or-later
 title: 'mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis
   of Wasting in R'
-version: 2.2.9000
-doi: 10.5281/zenodo.14176624
+version: 0.2.3
 abstract: A simple and streamlined workflow for plausibility checks and prevalence
   analysis of wasting based on the Standardized Monitoring and Assessment of Relief
   and Transition (SMART) Methodology <https://smartmethodology.org/>, with application
@@ -34,24 +33,15 @@ preferred-citation:
   - name: Ernest Guevarra
   - name: Mark Myatt
   year: '2025'
-  notes: R package version 0.2.2
-  url: https://nutriverse.io/mwana/
-  doi: 10.5281/zenodo.14176624
-repository-code: https://github.com/nutriverse/mwana
-url: https://nutriverse.io/mwana
+  notes: R package version 0.2.3
+  url: https://mphimo.github.io/mwana/
+repository-code: https://github.com/mphimo/mwana
+url: https://mphimo.github.io/mwana/
 contact:
 - family-names: Zaba
   given-names: Tomás
   email: tomas.zaba@outlook.com
   orcid: https://orcid.org/0000-0002-7079-3574
-keywords:
-- acute-malnutrition
-- anthropometry
-- muac
-- nutrition
-- smart
-- survey
-- wasting
 references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'

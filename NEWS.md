@@ -1,3 +1,18 @@
+# mwana 0.2.3
+
+## General updates 
+
+* Refactored MUAC prevalence functions to return results even when standard deviation is problematic. Hereafter, users should go over the plausibility check report thoroughly before going over the prevalence results. 
+
+* Refactored `mw_estimate_age_weighted_prev_muac()` to return MUAC-based prevalence split into 6-23 and 24-59 months, and thereafter
+provide the actual age-weighted prevalence of Severe Acute Malnutrition (SAM), Moderate Acute Malnutrition (MAM) and Global Acute Malnutrition (GAM). This update ensures alignment with the SMART MUAC tool for age weighting. It is noteworthy that the main MUAC prevalence estimators only return the age‑weighted SAM, MAM, and GAM prevalence. For a full breakdown, users should use `mw_estimate_age_weighted_prev_muac()`.
+
+* Rebuilt vignettes using `quarto` engine. 
+
+* The `mwana` package has been relocated from the nutriverse GitHub organisation to the mphimo organisation. 
+
+<br/>
+
 # mwana 0.2.2
 
 ## New features
@@ -45,7 +60,7 @@ of wasting by MUAC from non survey data: screenings, sentinel sites, etc.
 * Resolved issues with `mw_neat_output_mfaz()`, `mw_neat_output_wfhz()` and 
 `mw_neat_output_muac()` not returning neat and tidy output for grouped `data.frame` from their respective plausibility checkers.
 
-* Resolved issue with `edema` argument in prevalence functions that was not working as expected when set to `NULL`.
+* Resolved issue with `oedema` argument in prevalence functions that was not working as expected when set to `NULL`.
 
 ## General updates
 

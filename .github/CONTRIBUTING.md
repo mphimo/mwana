@@ -2,7 +2,7 @@
 
 ## Bugs
 
-* Submit an issue on the [issues page](https://github.com/nutriverse/mwana/issues)
+* Submit an issue on the [issues page](https://github.com/mphimo/mwana/issues)
 
 ## Code contributions
 
@@ -15,10 +15,10 @@ git clone https://github.com/<yourgithubusername>/mwana.git
 ```
 
 * Make sure to track progress upstream i.e., on our version of `mwana` 
-at `nutriverse/mwana`, by doing 
+at `mphimo/mwana`, by doing 
 
 ```
-git remote add upstream https://github.com/nutriverse/mwana.git
+git remote add upstream https://github.com/mphimo/mwana.git
 ```
 
 * Before making changes make sure to pull changes in from `upstream` by doing 
@@ -32,4 +32,4 @@ documentation
 
 * Push up changes to your account
 
-* Submit a pull request at `nutriverse/mwana`
+* Submit a pull request at `mphimo/mwana`
