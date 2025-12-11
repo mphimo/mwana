@@ -95,9 +95,7 @@ If you use `mwana` package in your work, please cite using the suggested citatio
 #| results: asis
 #| echo: false
 
-cat("```bibtex\n")
-print(citation("mwana"), style = "bibtex")
-cat("```\n")
+citation("mwana")
 ```
 
 ## Community guidelines  
