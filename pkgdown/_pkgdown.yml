@@ -1,5 +1,8 @@
 title: mwana 
 
+development:
+  mode: devel
+
 url: https://mphimo.github.io/mwana/
 
 template:
