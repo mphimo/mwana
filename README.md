@@ -132,7 +132,8 @@ citation("mwana")
 
       Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
+      in R_. R package version 0.2.3.9000,
+      <https://mphimo.github.io/mwana/dev>.
 
     A BibTeX entry for LaTeX users is
 
@@ -140,8 +141,8 @@ citation("mwana")
         title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
         year = {2025},
-        note = {R package version 0.2.3},
-        url = {https://mphimo.github.io/mwana/},
+        note = {R package version 0.2.3.9000},
+        url = {https://mphimo.github.io/mwana/dev},
       }
 
 ## Community guidelines
