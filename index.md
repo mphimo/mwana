@@ -37,7 +37,7 @@ multi-area datasets.
 
 ``` r
 # First install remotes package with: install.package("remotes")
-# The install mwana package from GitHub with: 
+# Then install mwana package from GitHub with: 
 remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
 ```
 
@@ -110,18 +110,27 @@ citation provided by a call to
 [`citation()`](https://rdrr.io/r/utils/citation.html) function as
 follows:
 
+``` r
+citation("mwana")
+```
+
+``` R
 To cite mwana in publications use:
 
-Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). *mwana: An Efficient
-Workflow for Plausibility Checks and Prevalence Analysis of Wasting in
-R*. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
+  Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
+  Workflow for Plausibility Checks and Prevalence Analysis of Wasting
+  in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
 
 A BibTeX entry for LaTeX users is
 
-@Manual{, title = {mwana: An Efficient Workflow for Plausibility Checks
-and Prevalence Analysis of Wasting in R}, author = {{Tomás Zaba} and
-{Ernest Guevarra} and {Mark Myatt}}, year = {2025}, note = {R package
-version 0.2.3}, url = {<https://mphimo.github.io/mwana/>}, }
+  @Manual{,
+    title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
+    author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
+    year = {2025},
+    note = {R package version 0.2.3},
+    url = {https://mphimo.github.io/mwana/},
+  }
+```
 
 ## Community guidelines
 

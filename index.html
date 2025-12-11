@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">mwana</a>
 
@@ -41,9 +41,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/ipc-amn-check.html">Checking if IPC Acute Malnutrition sample size requirements were met</a></li>
-    <li><a class="dropdown-item" href="articles/plausibility.html">Running plausibility checks</a></li>
+<li><a class="dropdown-item" href="articles/plausibility.html">Running plausibility checks</a></li>
     <li><a class="dropdown-item" href="articles/prevalence.html">Estimating the prevalence of wasting</a></li>
+    <li><a class="dropdown-item" href="articles/ipc_amn_check.html">IPC sample size requirements</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -53,6 +53,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/mphimo/mwana/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -82,7 +90,7 @@
 <p><code>mwana</code> is not yet on CRAN but can be installed from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First install remotes package with: install.package("remotes")</span></span>
-<span><span class="co"># The install mwana package from GitHub with: </span></span>
+<span><span class="co"># Then install mwana package from GitHub with: </span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"mphimo/mwana"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -127,10 +135,23 @@
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use <code>mwana</code> package in your work, please cite using the suggested citation provided by a call to <code><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation()</a></code> function as follows:</p>
-<p>To cite mwana in publications use:</p>
-<p>Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). <em>mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R</em>. R package version 0.2.3, <a href="https://mphimo.github.io/mwana/" class="uri">https://mphimo.github.io/mwana/</a>.</p>
-<p>A BibTeX entry for LaTeX users is</p>
-<p>@Manual{, title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R}, author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}}, year = {2025}, note = {R package version 0.2.3}, url = {<a href="https://mphimo.github.io/mwana/" class="uri">https://mphimo.github.io/mwana/</a>}, }</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"mwana"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>To cite mwana <span class="cf">in</span> publications use<span class="sc">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  Tomás Zaba, Ernest Guevarra, Mark <span class="fu">Myatt</span> (<span class="dv">2025</span>). _mwana<span class="sc">:</span> An Efficient</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="cf">in</span> R_. R package version <span class="dv">0</span>.<span class="fl">2.3</span>, <span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span><span class="er">&gt;</span>.</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    title <span class="ot">=</span> {mwana<span class="sc">:</span> An Efficient Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting <span class="cf">in</span> R},</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    author <span class="ot">=</span> {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">2.3</span>},</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span>},</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  }</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="community-guidelines">Community guidelines<a class="anchor" aria-label="anchor" href="#community-guidelines"></a>
@@ -144,6 +165,10 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/mphimo/mwana/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/mphimo/mwana/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://mphimo.github.io/mwana/articles/ipc_amn_check.html">Learn more about mwanaApp</a></li>
+<li><a href="https://smartmethodology.org/" class="external-link">Read more about SMART Methodology</a></li>
+<li><a href="https://www.ipcinfo.org/" class="external-link">Read more about IPC</a></li>
+<li><a href="https://nutriverse.io/nipnTK/" class="external-link">Read more about nipnTK</a></li>
 </ul>
 </div>
 
