@@ -1,0 +1,132 @@
+# Checking if IPC Acute Malnutrition sample size requirements were met
+
+Evidence on the prevalence of acute malnutrition used in the IPC Acute
+Malnutrition (IPC AMN) can come from different sources: representative
+surveys, screenings, or community-based surveillance system (known as
+sentinel sites). The IPC sets minimum sample size requirements for each
+of these sources ([IPC Global Partners, 2021](#ref-ipcmanual)).
+
+In the IPC AMN analysis workflow, the first step a data analyst has to
+take is the checking of sample size requirements as set by IPC for each
+survey area to be included in the IPC AMN analysis. `mwana` provides the
+[`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/reference/mw_check_ipcamn_ssreq.md)
+function for this purpose.
+
+To demonstrate its usage, we will use the built-in sample dataset
+`anthro.01`.
+
+``` r
+head(anthro.01)
+#> # A tibble: 6 × 11
+#>   area      dos        cluster  team sex   dob      age weight height oedema
+#>   <chr>     <date>       <int> <int> <chr> <date> <int>  <dbl>  <dbl> <chr> 
+#> 1 District… 2023-12-04       1     3 m     NA        59   15.6  109.  n     
+#> 2 District… 2023-12-04       1     3 m     NA         8    7.5   68.6 n     
+#> 3 District… 2023-12-04       1     3 m     NA        19    9.7   79.5 n     
+#> 4 District… 2023-12-04       1     3 f     NA        49   14.3  100.  n     
+#> 5 District… 2023-12-04       1     3 f     NA        32   12.4   92.1 n     
+#> 6 District… 2023-12-04       1     3 f     NA        17    9.3   77.8 n     
+#> # ℹ 1 more variable: muac <int>
+```
+
+`anthro.01` contains anthropometry data from SMART surveys from
+anonymized locations. To learn more about this dataset, call
+[`help("anthro.01")`](https://mphimo.github.io/mwana/reference/anthro.01.md)
+in your `R` console.
+
+Now that we got acquainted with the dataset, we can proceed to executing
+the task. To achieve this, we simply do:
+
+``` r
+mw_check_ipcamn_ssreq(
+1  df = anthro.01,
+2  cluster = cluster,
+3  .source = "survey"
+)
+```
+
+- 1:
+
+  The argument `df` should be specified with the dataset you want to
+  assess sample sizes for. In this case, `anthro.01`.
+
+- 2:
+
+  The argument `cluster` should be specified with the unquoted variable
+  name in `df` that contains information for the unique cluster or
+  screening or sentinel site identifiers. In this case, `anthro.01` has
+  a variable called `cluster` which we supply to this argument unquoted.
+
+- 3:
+
+  The argument `.source` should be specified with the type of the source
+  for the data in `df`. Since `anthro.01` data is from a survey, we
+  specify this argument as *“survey”*.
+
+We can also chain `anthro.01` to the function using the native pipe
+operator `|>`:
+
+``` r
+anthro.01 |>
+  mw_check_ipcamn_ssreq(
+    cluster = cluster,
+    .source = "survey"
+  )
+```
+
+Either way, the returned output will be:
+
+    #> # A tibble: 1 × 3
+    #>   n_clusters n_obs meet_ipc
+    #>        <int> <int> <chr>
+    #> 1         30  1191 yes
+
+A `tibble` object is returned with three columns:
+
+- `n_clusters` counts the number of unique cluster or villages or
+  community identifiers in the dataset where the data collection took
+  place.
+
+- `n_obs` counts the number of children from which data were collected.
+
+- `meet_ipc` indicates whether the IPC AMN sample size requirements (for
+  surveys in this case) were met or not.
+
+The above output is not quite useful yet as we often deal with
+multiple-area datasets. We can get a summarized output by area as
+follows:
+
+``` r
+anthro.01 |>
+  mw_check_ipcamn_ssreq(
+    cluster = cluster,
+    .source = "survey",
+1    area
+  )
+```
+
+- 1:
+
+  A vector containing the categories for which the analysis should be
+  summarised. More than one vector can be specified, separated by `,`.
+
+This will return:
+
+    #> # A tibble: 2 × 4
+    #>   area       n_clusters n_obs meet_ipc
+    #>   <chr>           <int> <int> <chr>
+    #> 1 District E         28   505 yes
+    #> 2 District G         30   686 yes
+
+For screening or sentinel site-based data, we approach the task the same
+way; we only have to change the `.source` parameter to “screening” or to
+“ssite” as appropriate, as well as to supply `cluster` with the right
+column name of the sub-areas inside the main area (villages, localities,
+comunas, communities, etc).
+
+## References
+
+IPC Global Partners (2021) *Integrated food security phase
+classification technical manual version 3.1: Evidence and standards for
+better food security and nutrition decisions*. Available at:
+<https://www.ipcinfo.org/ipcinfo-website/resources/ipc-manual/en/>.
