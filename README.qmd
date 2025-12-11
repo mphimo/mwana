@@ -1,10 +1,5 @@
 ---
 format: gfm
-knitr:
-  opts_chunk: 
-    collapse: true
-    comment: "#>"
-    fig.path: "man/figures/README-"
 ---
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
@@ -45,7 +40,7 @@ The standard child-anthropometry appraisal workflow is complex and time-consumin
 #| eval: false
 
 # First install remotes package with: install.package("remotes")
-# The install mwana package from GitHub with: 
+# Then install mwana package from GitHub with: 
 remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
 ```
 
@@ -92,8 +87,7 @@ If you use `mwana` package in your work, please cite using the suggested citatio
 
 ```{r}
 #| label: citation
-#| results: asis
-#| echo: false
+#| echo: true
 
 citation("mwana")
 ```
