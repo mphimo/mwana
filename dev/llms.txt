@@ -1,0 +1,261 @@
+# mwana: An efficient workflow for plausibility checks and prevalence analysis of wasting in R
+
+Child anthropometric assessments are central to child nutrition and
+food-security surveillance worldwide. Ensuring the quality of these data
+is essential for accurate estimates of child undernutrition prevalence.
+Timely reporting is also critical for situation analysis and for
+mounting effective responses.
+
+The `mwana` package streamlines data-quality checks and
+acute-undernutrition prevalence estimation from anthropometric data for
+children aged 6–59 months. It builds on methods and guidance from the
+[Standardized Monitoring and Assessment of Relief and Transitions
+(SMART) initiative](https://smartmethodology.org) and provides
+convenient wrappers around functions in the
+[`nipnTK`](https://nutriverse.io/nipnTK) package.
+
+The term ***mwana*** means child in *Elómwè*, a local language spoken in
+the central-northern regions of Mozambique where the author hails from.
+It also has a similar meaning across other Bantu languages, such as
+*Swahili*, spoken in many parts of Africa.
+
+## Motivation
+
+The standard child-anthropometry appraisal workflow is complex and
+time-consuming, relying on multiple tools—such as SPSS, Microsoft Excel,
+and SMART ENA software—for various steps of the process. Each dataset
+requires the repetition of these steps—often under tight deadlines,
+which makes the manual and repetitive workflow highly error-prone.
+
+`mwana` provides functions that simplify this cumbersome workflow,
+enabling it to be programmatically designed, particularly when handling
+multi-area datasets.
+
+## Installation
+
+`mwana` is not yet on CRAN but can be installed from GitHub:
+
+``` r
+# First install remotes package with: install.package("remotes")
+# Then install mwana package from GitHub with: 
+remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
+```
+
+## What does `mwana` do?
+
+> \[!NOTE\]
+>
+> `mwana` is experimental and currently in late-stage alpha testing,
+> approaching a stable release. Future changes are expected to be
+> backward-compatible (patch or minor releases), but some functionality
+> may still change.
+
+![](reference/figures/workflow.png)Currently, `mwana` has the following
+functionalities that support the creation of a programmatic workflow
+illustrated in the figure to the left.
+
+### 1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old
+
+`mwana` provides functions to perform data plausibility checks on
+weight-for-height z-score (WFHZ) data. These are based on the SMART
+plausibility checkers, data quality scoring, and classification criteria
+implemented in the ENA for SMART software. Moreover, it provides
+functions to perform data plausibility checks on Mid-Upper Arm
+Circumference (MUAC) data. These are based on recent research and
+recommendations concerning the MUAC-for-age z-score (MFAZ) and its
+utility for assessing the plausibility of MUAC data. To learn more, see
+[Plausibility check
+guide](https://mphimo.github.io/mwana/articles/plausibility.html).
+
+### 2. Prevalence estimation of acute undernutrition
+
+`mwana` provides prevalence estimators that follow SMART guidelines on
+the estimation approach to apply, based on an assessment of data
+quality. These functions accept datasets containing multiple survey
+domains and produce summary tables with prevalence estimates for each
+domain.
+
+### 3. IPC sample size checker
+
+`mwana` provides a function to check whether each domain in an
+anthropometric dataset meets IPC minimum sample-size requirements. The
+check accounts for the data-collection mode (survey, screening exercise,
+or sentinel-site surveillance). Read [IPC check
+guide](https://mphimo.github.io/mwana/articles/ipc_amn_check.html).
+
+### 4. Reporting of data plausibility checks and prevalence estimation summary outputs
+
+`mwana` includes helper functions that process summary outputs into
+presentation- or report-ready tables.
+
+> \[!TIP\]
+>
+> If you are researching anthropometric data for children aged 6–59
+> months (focusing on acute undernutrition), `mwana` includes functions
+> to wrangle weight, height, age, WFHZ, MUAC, and MFAZ prior to
+> analysis.
+
+### Shiny App
+
+This package has a lightweight, field-ready and convenient web-based
+application (`mwanaApp`) that enables users to upload their data and
+benefit from the `mwana` utilities needless to be well versed in R.
+Learn more about `mwanaApp` and how to install and use
+[here](https://github.com/mphimo/mwanaApp.git).
+
+## Citation
+
+If you use `mwana` package in your work, please cite using the suggested
+citation provided by a call to
+[`citation()`](https://rdrr.io/r/utils/citation.html) function as
+follows:
+
+``` r
+citation("mwana")
+```
+
+``` R
+To cite mwana in publications use:
+
+  Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
+  Workflow for Plausibility Checks and Prevalence Analysis of Wasting
+  in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
+    author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
+    year = {2025},
+    note = {R package version 0.2.3},
+    url = {https://mphimo.github.io/mwana/},
+  }
+```
+
+## Community guidelines
+
+Feedback, bug reports and feature requests are welcome; file issues or
+seek support [here](https://github.com/mphimo/mwana/issues). If you
+would like to contribute to the package, please see our [contributing
+guidelines](https://mphimo.github.io/mwana/CONTRIBUTING.html).
+
+This project is released with a [Contributor Code of
+Conduct](https://mphimo.github.io/mwana/CODE_OF_CONDUCT.html). By
+participating in this project you agree to abide by its terms.
+
+# Package index
+
+## Description
+
+- [`mwana`](https://mphimo.github.io/mwana/dev/reference/mwana-package.md)
+  [`mwana-package`](https://mphimo.github.io/mwana/dev/reference/mwana-package.md)
+  : mwana: An Efficient Workflow for Plausibility Checks and Prevalence
+  Analysis of Wasting in R
+
+## Wrangle data
+
+- [`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
+  : Wrangle child's age
+- [`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
+  : Wrangle weight-for-height data
+- [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
+  : Wrangle MUAC data
+
+## Statistical tests
+
+- [`mw_stattest_ageratio()`](https://mphimo.github.io/mwana/dev/reference/age_ratio.md)
+  [`mw_stattest_ageratio2()`](https://mphimo.github.io/mwana/dev/reference/age_ratio.md)
+  : Test for statistical difference between the proportion of children
+  aged 24 to 59 months old over those aged 6 to 23 months old
+
+## IPC sample size checks
+
+- [`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/dev/reference/mw_check_ipcamn_ssreq.md)
+  : Check whether sample size requirements for IPC Acute Malnutrition
+  (IPC AMN) analysis are met
+
+## Plausibility checks
+
+- [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
+  : Check the plausibility and acceptability of weight-for-height
+  z-score (WFHZ) data
+- [`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_mfaz.md)
+  : Check the plausibility and acceptability of MUAC-for-age z-score
+  (MFAZ) data
+- [`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_muac.md)
+  : Check the plausibility and acceptability of raw MUAC data
+
+## Neat output tables
+
+- [`mw_neat_output_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_wfhz.md)
+  : Clean and format the output tibble returned from the WFHZ
+  plausibility check
+- [`mw_neat_output_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_mfaz.md)
+  : Clean and format the output tibble returned from the MUAC-for-age
+  z-score plausibility check
+- [`mw_neat_output_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_muac.md)
+  : Clean and format the output tibble returned from the MUAC
+  plausibility check
+
+## Prevalence estimators
+
+- [`mw_estimate_prevalence_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_wfhz.md)
+  : Estimate the prevalence of wasting based on weight-for-height
+  z-scores (WFHZ)
+- [`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md)
+  : Estimate the prevalence of wasting based on MUAC for survey data
+- [`mw_estimate_prevalence_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_mfaz.md)
+  : Estimate the prevalence of wasting based on z-scores of muac-for-age
+  (MFAZ)
+- [`mw_estimate_prevalence_combined()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_combined.md)
+  : Estimate the prevalence of combined wasting
+- [`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md)
+  [`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md)
+  : Estimate the prevalence of wasting based on MUAC for non-survey data
+- [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md)
+  : Estimate age-weighted prevalence of wasting by MUAC
+
+## Utilities
+
+- [`get_age_months()`](https://mphimo.github.io/mwana/dev/reference/get_age_months.md)
+  : Calculate child's age in months
+- [`recode_muac()`](https://mphimo.github.io/mwana/dev/reference/recode_muac.md)
+  : Convert MUAC values to either centimetres or millimetres
+- [`flag_outliers()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
+  [`remove_flags()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
+  : Identify, flag, and remove outliers
+- [`define_wasting()`](https://mphimo.github.io/mwana/dev/reference/define_wasting.md)
+  : Define wasting
+
+## Datasets
+
+- [`anthro.01`](https://mphimo.github.io/mwana/dev/reference/anthro.01.md)
+  : A sample data of district level SMART surveys with location
+  anonymised
+- [`anthro.02`](https://mphimo.github.io/mwana/dev/reference/anthro.02.md)
+  : A sample of an already wrangled survey data
+- [`anthro.03`](https://mphimo.github.io/mwana/dev/reference/anthro.03.md)
+  : A sample data of district level SMART surveys conducted in
+  Mozambique
+- [`anthro.04`](https://mphimo.github.io/mwana/dev/reference/anthro.04.md)
+  : A sample data from a community-based sentinel site in an anonymized
+  location
+- [`mfaz.01`](https://mphimo.github.io/mwana/dev/reference/mfaz.01.md) :
+  A sample mid-upper arm circumference (MUAC) screening data
+- [`mfaz.02`](https://mphimo.github.io/mwana/dev/reference/mfaz.02.md) :
+  A sample SMART survey data with mid-upper arm circumference
+  measurements
+- [`wfhz.01`](https://mphimo.github.io/mwana/dev/reference/wfhz.01.md) :
+  A sample SMART survey data with weight-for-height z-score standard
+  deviation rated as problematic
+
+# Articles
+
+### All vignettes
+
+- [Checking if IPC Acute Malnutrition sample size requirements were
+  met](https://mphimo.github.io/mwana/dev/articles/ipc-amn-check.md):
+- [Running plausibility
+  checks](https://mphimo.github.io/mwana/dev/articles/plausibility.md):
+- [Estimating the prevalence of
+  wasting](https://mphimo.github.io/mwana/dev/articles/prevalence.md):
