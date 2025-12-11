@@ -124,23 +124,14 @@ Learn more about `mwanaApp` and how to install and use
 If you use `mwana` package in your work, please cite using the suggested
 citation provided by a call to `citation()` function as follows:
 
-``` r
-citation("mwana")
-#> To cite mwana in publications use:
-#> 
-#>   Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
-#>   Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-#>   in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
-#>     author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
-#>     year = {2025},
-#>     note = {R package version 0.2.3},
-#>     url = {https://mphimo.github.io/mwana/},
-#>   }
+``` bibtex
+@Manual{,
+  title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
+  author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
+  year = {2025},
+  note = {R package version 0.2.3},
+  url = {https://mphimo.github.io/mwana/},
+}
 ```
 
 ## Community guidelines
