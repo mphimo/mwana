@@ -92,8 +92,12 @@ If you use `mwana` package in your work, please cite using the suggested citatio
 
 ```{r}
 #| label: citation
+#| results: asis
+#| echo: false
 
-citation("mwana")
+cat("```bibtex\n")
+print(citation("mwana"), style = "bibtex")
+cat("```\n")
 ```
 
 ## Community guidelines  
