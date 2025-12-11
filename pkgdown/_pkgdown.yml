@@ -11,10 +11,9 @@ template:
   ganalytics: "G-94YZ36XGLH"
   light-switch: true
   bslib:
-    bootswatch: pulse
     navbar-bg: "#004225"
+    bootswatch: pulse
     pkgdown-nav-height: 100px
-    success: "#004225"
 destination: docs
 
 navbar:
