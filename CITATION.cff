@@ -34,7 +34,7 @@ preferred-citation:
   - name: Mark Myatt
   year: '2025'
   notes: R package version 0.2.3
-  url: https://mphimo.github.io/mwana/
+  url: https://mphimo.github.io/mwana/dev
 repository-code: https://github.com/mphimo/mwana
 url: https://mphimo.github.io/mwana/
 contact:
