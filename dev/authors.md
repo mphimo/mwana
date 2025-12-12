@@ -17,12 +17,12 @@ Source:
 
 Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). *mwana: An Efficient
 Workflow for Plausibility Checks and Prevalence Analysis of Wasting in
-R*. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
+R*. R package version 0.2.3, <https://mphimo.github.io/mwana/dev>.
 
     @Manual{,
       title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
       author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
       year = {2025},
       note = {R package version 0.2.3},
-      url = {https://mphimo.github.io/mwana/},
+      url = {https://mphimo.github.io/mwana/dev},
     }
