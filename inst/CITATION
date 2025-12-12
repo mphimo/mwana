@@ -4,6 +4,6 @@ bibentry(
   title    = "mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R",
   author   = c(person("Tomás Zaba"), person("Ernest Guevarra"), person("Mark Myatt")),
   year     = 2025,
-  note     = "R package version 0.2.3.9000",
+  note     = "R package version 0.2.3",
   url      = "https://mphimo.github.io/mwana/dev"
 )
