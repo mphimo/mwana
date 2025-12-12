@@ -1,7 +1,7 @@
 title: mwana 
 
 development:
-  mode: devel
+  mode: auto
 
 url: https://mphimo.github.io/mwana/
 
