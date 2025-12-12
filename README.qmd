@@ -21,7 +21,7 @@ library(mwana)
 
 Child anthropometric assessments are central to child nutrition and food-security surveillance worldwide. Ensuring the quality of these data is essential for accurate estimates of child undernutrition prevalence. Timely reporting is also critical for situation analysis and for mounting effective responses.  
 
-The `mwana` package streamlines data-quality checks and acute-undernutrition prevalence estimation from anthropometric data for children aged 6–59 months. It builds on methods and guidance from the [Standardized Monitoring and Assessment of Relief and Transitions (SMART) initiative](https://smartmethodology.org) and provides convenient wrappers around functions in the [`nipnTK`](https://nutriverse.io/nipnTK) package.
+The `mwana` package streamlines data-quality checks and acute-undernutrition prevalence estimation from anthropometric data for children aged 6–59 months. It builds on methods and guidance from the [SMART initiative](https://smartmethodology.org) and provides convenient wrappers around functions in the [`nipnTK`](https://nutriverse.io/nipnTK) package.
 
 The term ***mwana*** means child in *Elómwè*, a local language spoken in the central-northern regions of Mozambique where the author hails from. It also has a similar meaning across other Bantu languages, such as *Swahili*, spoken in many parts of Africa.
 
@@ -64,7 +64,7 @@ remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
 
 ### 3. IPC sample size checker
 
-`mwana` provides a function to check whether each domain in an anthropometric dataset meets IPC minimum sample-size requirements. The check accounts for the data-collection mode (survey, screening exercise, or sentinel-site surveillance). Read [IPC check guide](https://mphimo.github.io/mwana/articles/ipc_amn_check.html).
+`mwana` provides a function to check whether each domain in an anthropometric dataset meets IPC minimum sample-size requirements. The check accounts for the data-collection mode (survey, screening exercise, or sentinel-site surveillance). Read [IPC check guide](https://mphimo.github.io/mwana/articles/ipc-amn-check.html).
 
 ### 4. Reporting of data plausibility checks and prevalence estimation summary outputs
 
@@ -96,4 +96,4 @@ citation("mwana")
 
 Feedback, bug reports and feature requests are welcome; file issues or seek support [here](https://github.com/mphimo/mwana/issues). If you would like to contribute to the package, please see our [contributing guidelines](https://mphimo.github.io/mwana/CONTRIBUTING.html).  
 
-This project is released with a [Contributor Code of Conduct](https://mphimo.github.io/mwana/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
+This project is released with a [Contributor Code of Conduct](https://mphimo.github.io/mwana/CODE-OF-CONDUCT.html). By participating in this project you agree to abide by its terms.

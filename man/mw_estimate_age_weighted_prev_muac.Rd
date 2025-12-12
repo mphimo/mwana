@@ -52,7 +52,11 @@ Accepts age in months or in categories ('6–23', '24–59').
 The default is age in months.
 
 The prevalence is weighted as:
-\deqn{( prevalence_{6-23} + 2 \times prevalence_{24-59} ) / 3}
+\deqn{
+  \frac{ \mathrm{prevalence}_{6\text{--}23} + 2 \times \mathrm{prevalence}_{24\text{--}59} }{3}
+}{
+  (prevalence_{6–23} + 2 × prevalence_{24–59}) / 3
+}
 
 Whilst the function is exported to users as a standalone, it is embedded into
 the following major MUAC prevalence functions of this package:

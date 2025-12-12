@@ -9,7 +9,7 @@ type: software
 license: GPL-3.0-or-later
 title: 'mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis
   of Wasting in R'
-version: 0.2.3.9000
+version: 0.2.3
 abstract: A simple and streamlined workflow for plausibility checks and prevalence
   analysis of wasting based on the Standardized Monitoring and Assessment of Relief
   and Transition (SMART) Methodology <https://smartmethodology.org/>, with application
@@ -33,7 +33,7 @@ preferred-citation:
   - name: Ernest Guevarra
   - name: Mark Myatt
   year: '2025'
-  notes: R package version 0.2.3.9000
+  notes: R package version 0.2.3
   url: https://mphimo.github.io/mwana/dev
 repository-code: https://github.com/mphimo/mwana
 url: https://mphimo.github.io/mwana/
