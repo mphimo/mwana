@@ -30,12 +30,12 @@ navbar:
       - text: "Estimating the prevalence of wasting"
         href: articles/prevalence.html
       - text: "IPC sample size requirements"
-        href: articles/ipc_amn_check.html
+        href: articles/ipc-amn-check.html
 
 home:
   links:
   - text: Learn more about mwanaApp
-    href: https://mphimo.github.io/mwana/articles/ipc_amn_check.html 
+    href: https://github.com/mphimo/mwanaApp 
   - text: Read more about SMART Methodology
     href: https://smartmethodology.org/
   - text: Read more about IPC
