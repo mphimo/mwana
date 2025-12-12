@@ -9,9 +9,8 @@ mounting effective responses.
 The `mwana` package streamlines data-quality checks and
 acute-undernutrition prevalence estimation from anthropometric data for
 children aged 6–59 months. It builds on methods and guidance from the
-[Standardized Monitoring and Assessment of Relief and Transitions
-(SMART) initiative](https://smartmethodology.org) and provides
-convenient wrappers around functions in the
+[SMART initiative](https://smartmethodology.org) and provides convenient
+wrappers around functions in the
 [`nipnTK`](https://nutriverse.io/nipnTK) package.
 
 The term ***mwana*** means child in *Elómwè*, a local language spoken in
@@ -81,7 +80,7 @@ domain.
 anthropometric dataset meets IPC minimum sample-size requirements. The
 check accounts for the data-collection mode (survey, screening exercise,
 or sentinel-site surveillance). Read [IPC check
-guide](https://mphimo.github.io/mwana/articles/ipc_amn_check.html).
+guide](https://mphimo.github.io/mwana/articles/ipc-amn-check.html).
 
 ### 4. Reporting of data plausibility checks and prevalence estimation summary outputs
 
@@ -119,7 +118,7 @@ To cite mwana in publications use:
 
   Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
   Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-  in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/>.
+  in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/dev>.
 
 A BibTeX entry for LaTeX users is
 
@@ -128,7 +127,7 @@ A BibTeX entry for LaTeX users is
     author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
     year = {2025},
     note = {R package version 0.2.3},
-    url = {https://mphimo.github.io/mwana/},
+    url = {https://mphimo.github.io/mwana/dev},
   }
 ```
 
@@ -140,5 +139,5 @@ would like to contribute to the package, please see our [contributing
 guidelines](https://mphimo.github.io/mwana/CONTRIBUTING.html).
 
 This project is released with a [Contributor Code of
-Conduct](https://mphimo.github.io/mwana/CODE_OF_CONDUCT.html). By
+Conduct](https://mphimo.github.io/mwana/CODE-OF-CONDUCT.html). By
 participating in this project you agree to abide by its terms.
