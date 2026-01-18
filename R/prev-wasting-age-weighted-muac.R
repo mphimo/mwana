@@ -115,7 +115,8 @@ mw_estimate_age_weighted_prev_muac <- function(
         oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
         u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
+        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam,
+        total_u2 = n()
       )
 
     o2 <- df |>
@@ -124,7 +125,8 @@ mw_estimate_age_weighted_prev_muac <- function(
         oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
         o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
+        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2,
+        total_o2 = n()
       )
   }
 
@@ -136,7 +138,8 @@ mw_estimate_age_weighted_prev_muac <- function(
         oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
         u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam
+        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam,
+        total_u2 = n()
       )
 
     o2 <- df |>
@@ -145,7 +148,8 @@ mw_estimate_age_weighted_prev_muac <- function(
         oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
         o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
         o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2
+        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2,
+        total_o2 = n()
       )
   }
 
@@ -157,7 +161,9 @@ mw_estimate_age_weighted_prev_muac <- function(
     dplyr::mutate(
       sam = ((.data$oedema_u2 + .data$u2sam) + (2 * (.data$oedema_o2 + .data$o2sam))) / 3,
       mam = (.data$u2mam + (2 * .data$o2mam)) / 3,
-      gam = (.data$u2gam + (2 * .data$o2gam)) / 3
-    )
+      gam = (.data$u2gam + (2 * .data$o2gam)) / 3,
+      N = .data$total_u2 + .data$total_o2
+    ) |> 
+    select(!c(.data$total_u2, .data$total_o2))
   x
 }

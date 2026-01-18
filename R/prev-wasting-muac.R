@@ -204,7 +204,7 @@ mw_estimate_prevalence_muac <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          oedema = {{ oedema }},
+          oedema = .data$oedema,
           raw_muac = FALSE,
           !!!.by
         ) |>  
@@ -216,7 +216,7 @@ mw_estimate_prevalence_muac <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          oedema = {{ oedema }}, 
+          oedema = .data$oedema, 
           raw_muac = FALSE
         ) |> 
           dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
