@@ -208,7 +208,7 @@ mw_estimate_prevalence_muac <- function(df,
           raw_muac = FALSE,
           !!!.by
         ) |>  
-          dplyr::select(!!!.by, sam_p = .data$sam, mam_p =.data$ mam, gam_p = .data$gam)
+          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         ### Estimate age-weighted prevalence as per SMART MUAC tool ----
         output <- mw_estimate_age_weighted_prev_muac(
@@ -219,7 +219,7 @@ mw_estimate_prevalence_muac <- function(df,
           oedema = .data$oedema, 
           raw_muac = FALSE
         ) |> 
-          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }
     results[[i]] <- output

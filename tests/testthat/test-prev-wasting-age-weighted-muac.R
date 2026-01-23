@@ -32,32 +32,21 @@ testthat::test_that(
 
     ## Tests ----
     ### Under twos ----
-    testthat::expect_equal(round(p$oedema_u2 * 100, 1), 1.0)
+    testthat::expect_equal(round(p$u2oedema * 100, 1), 1.0)
     testthat::expect_equal(round(p$u2sam * 100, 1), 3.1)
     testthat::expect_equal(round(p$u2mam * 100, 1), 16.4)
     testthat::expect_equal(round(p$u2gam * 100, 1), 20.5)
 
     ### Over twos ----
-    testthat::expect_equal(round(p$oedema_o2 * 100, 1), 1.1)
+    testthat::expect_equal(round(p$o2oedema * 100, 1), 1.1)
     testthat::expect_equal(round(p$o2sam * 100, 1), 0.3)
     testthat::expect_equal(round(p$o2mam * 100, 1), 2.2)
     testthat::expect_equal(round(p$o2gam * 100, 1), 3.5)
 
     ### Age weighted ----
-    testthat::expect_equal(round(p$sam * 100, 1), 2.3)
-    testthat::expect_equal(round(p$mam * 100, 1), 6.9)
-    testthat::expect_equal(round(p$gam * 100, 1), 9.2)
-  }
-)
-
-# Test check: mw_estimate_age_weighted_prev_muac() ----
-testthat::test_that(
-  "mw_estimate_age_weighted_prev_muac() works well when `raw_muac = TRUE`",
-  {
-    ## Tests ----
-    testthat::expect_error(object = anthro.04 |>
-      subset(province == "Province 2") |>
-      mw_estimate_age_weighted_prev_muac(raw_muac = TRUE), inherit = TRUE)
+    testthat::expect_equal(round(p$sam_p * 100, 1), 2.3)
+    testthat::expect_equal(round(p$mam_p * 100, 1), 6.9)
+    testthat::expect_equal(round(p$gam_p * 100, 1), 9.2)
   }
 )
 

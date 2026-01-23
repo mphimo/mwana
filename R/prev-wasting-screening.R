@@ -236,7 +236,7 @@ mw_estimate_prevalence_screening <- function(df,
           raw_muac = FALSE,
           !!!.by
         ) |>  
-          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
@@ -246,7 +246,7 @@ mw_estimate_prevalence_screening <- function(df,
           oedema = oedema, 
           raw_muac = FALSE
         ) |> 
-          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }
 
@@ -369,7 +369,7 @@ mw_estimate_prevalence_screening2 <- function(
           raw_muac = TRUE,
           !!!.by
         )|>  
-          dplyr::select(!!!.by, sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         r <- mw_estimate_age_weighted_prev_muac(
           df = data_subset,
@@ -379,7 +379,7 @@ mw_estimate_prevalence_screening2 <- function(
           age_cat = age_cat,
           raw_muac = TRUE
         )|>  
-          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }
     results[[i]] <- r

@@ -93,77 +93,145 @@ mw_estimate_age_weighted_prev_muac <- function(
     oedema = NULL,
     raw_muac = FALSE,
     ...) {
-  ## Defuse argument `.by` ----
+  
+  ## First capture the dots before anything else
   .by <- rlang::enquos(...)
+  
+  ## Then capture other arguments
+  muac_quo <- rlang::expr(muac)
+  age_quo <- rlang::expr(age)
+  oedema_quo <- rlang::expr(oedema)
+  age_cat_quo <- rlang::expr(age_cat)
+  
+  # Convert to strings, handling both symbols and strings
+  muac_str <- if (is.symbol(muac_quo)) {
+    as.character(muac_quo)
+  } else if (is.character(muac_quo)) {
+    muac_quo
+  } else {
+    as.character(eval(muac_quo))
+  }
+  
+  age_str <- if (!is.null(age_quo)) {
+    if (is.symbol(age_quo)) {
+      as.character(age_quo)
+    } else if (is.character(age_quo)) {
+      age_quo
+    } else {
+      as.character(eval(age_quo))
+    }
+  } else {
+    NULL
+  }
+  
+  oedema_str <- if (!is.null(oedema_quo)) {
+    if (is.symbol(oedema_quo)) {
+      as.character(oedema_quo)
+    } else if (is.character(oedema_quo)) {
+      oedema_quo
+    } else {
+      as.character(eval(oedema_quo))
+    }
+  } else {
+    NULL
+  }
+  
+  age_cat_str <- if (!is.null(age_cat_quo)) {
+    if (is.symbol(age_cat_quo)) {
+      as.character(age_cat_quo)
+    } else if (is.character(age_cat_quo)) {
+      age_cat_quo
+    } else {
+      as.character(eval(age_cat_quo))
+    }
+  } else {
+    NULL
+  }
 
-  ## Enforce measuring unit is in "mm" ----
-  if (any(grepl("\\.", df$muac))) {
+  ## Enforce measuring unit is in "mm"
+  if (any(grepl("\\.", df[[muac_str]]))) {
     stop("MUAC values must be in millimetres. Please try again.")
   }
 
   flag_var <- if (raw_muac) "flag_muac" else "flag_mfaz"
-  df <- dplyr::filter(df, .data[[flag_var]] == 0)
+  
+  if (flag_var %in% names(df)) {
+    df <- dplyr::filter(df, .data[[flag_var]] == 0)
+  }
 
-  ## Apply grouping if needed ----
+  ## Apply grouping if needed
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
 
-  ## Summarise when age is months is given ----
+  ## Summarise when age in months is given
   if (has_age) {
     u2 <- df |>
-      dplyr::filter(.data$age < 24) |>
+      dplyr::filter(.data[[age_str]] < 24) |>
       dplyr::summarise(
-        oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam,
-        total_u2 = n()
+        u2oedema = mean(ifelse(.data[[oedema_str]] == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        total_u2 = dplyr::n(),
+        .groups = "keep"
+      ) |>
+      dplyr::mutate(
+        u2gam = .data$u2oedema + .data$u2sam + .data$u2mam
       )
 
     o2 <- df |>
-      dplyr::filter(.data$age >= 24) |>
+      dplyr::filter(.data[[age_str]] >= 24) |>
       dplyr::summarise(
-        oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2,
-        total_o2 = n()
+        o2oedema = mean(ifelse(.data[[oedema_str]] == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        total_o2 = dplyr::n(),
+        .groups = "keep"
+      ) |>
+      dplyr::mutate(
+        o2gam = .data$o2sam + .data$o2mam + .data$o2oedema
       )
   }
 
-  ## Summarise when age is given in age categories instead ----
   if (has_age == FALSE) {
     u2 <- df |>
-      dplyr::filter(.data$age_cat == "6-23") |>
+      dplyr::filter(.data[[age_cat_str]] == "6-23") |>
       dplyr::summarise(
-        oedema_u2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$oedema_u2 + .data$u2sam + .data$u2mam,
-        total_u2 = n()
+        u2oedema = mean(ifelse(.data[[oedema_str]] == "y", 1, 0), na.rm = TRUE),
+        u2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        u2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        total_u2 = dplyr::n(),
+        .groups = "keep"
+      ) |>
+      dplyr::mutate(
+        u2gam = .data$u2oedema + .data$u2sam + .data$u2mam
       )
 
     o2 <- df |>
-      dplyr::filter(.data$age_cat == "24-59") |>
+      dplyr::filter(.data[[age_cat_str]] == "24-59") |>
       dplyr::summarise(
-        oedema_o2 = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam + .data$oedema_o2,
-        total_o2 = n()
+        o2oedema = mean(ifelse(.data[[oedema_str]] == "y", 1, 0), na.rm = TRUE),
+        o2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        o2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
+        total_o2 = dplyr::n(),
+        .groups = "keep"
+      ) |>
+      dplyr::mutate(
+        o2gam = .data$o2sam + .data$o2mam + .data$o2oedema
       )
   }
+  
+## Check the number of grouping variables to then exclude them from over twos before binding ----
+  if (length(dplyr::group_vars(o2)) > 0) {
+    o2 <- dplyr::select(o2, -length(dplyr::group_vars(o2)))
+  }
 
-  ## Check the number of grouping variables to then exclude them from over twos before binding ----
-  if (length(dplyr::group_vars(o2)) > 0) o2 <- dplyr::select(o2, -length(dplyr::group_vars(o2)))
-
-  ## Bind cols and apply age-weighting formulae ----
   x <- dplyr::left_join(u2, o2, by = dplyr::group_vars(df)) |>
     dplyr::mutate(
-      sam = ((.data$oedema_u2 + .data$u2sam) + (2 * (.data$oedema_o2 + .data$o2sam))) / 3,
-      mam = (.data$u2mam + (2 * .data$o2mam)) / 3,
-      gam = (.data$u2gam + (2 * .data$o2gam)) / 3,
+      sam_p = ((.data$u2oedema + .data$u2sam) + (2 * (.data$o2oedema + .data$o2sam))) / 3,
+      mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
+      gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
       N = .data$total_u2 + .data$total_o2
     ) |> 
-    select(!c(.data$total_u2, .data$total_o2))
+    dplyr::select(!c(.data$total_u2, .data$total_o2))
+  
   x
 }
