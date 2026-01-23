@@ -82,19 +82,19 @@ complex_survey_estimates_muac <- function(df,
 #' Estimate the prevalence of wasting based on MUAC and/or nutritional oedema.
 #' The function allows users to estimate prevalence in accordance with complex
 #' sample design properties, such as accounting for survey sample weights when
-#' needed or applicable. 
-#' 
+#' needed or applicable.
+#'
 #' The quality of the data is first evaluated by calculating and rating the
-#' standard deviation (SD) of MFAZ and the p-value of the age ratio test. 
-#' Thereafter, if the latter test is problematic, age-weighting approach is 
-#' applied to prevalence estimation, to account for the over-representation 
+#' standard deviation (SD) of MFAZ and the p-value of the age ratio test.
+#' Thereafter, if the latter test is problematic, age-weighting approach is
+#' applied to prevalence estimation, to account for the over-representation
 #' of younger children in the sample; otherwise, a non-age-weighted prevalence
-#' is estimated. This means that even if the SD of MFAZ is problematic, the 
+#' is estimated. This means that even if the SD of MFAZ is problematic, the
 #' prevalence is estimated, with no adjustments, and returned.
-#' 
+#'
 #' @details
 #' A typical user analysis workflow is expected to begin with data quality checks,
-#' followed by a thorough review, and only thereafter proceed to prevalence 
+#' followed by a thorough review, and only thereafter proceed to prevalence
 #' estimation. This sequence places the user in the strongest position to assess
 #' whether the resulting prevalence estimates are reliable.
 #'
@@ -104,14 +104,14 @@ complex_survey_estimates_muac <- function(df,
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
 #' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
-#' must have a variable called `cluster` wherein the primary sampling unit 
+#' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
 #' is NULL, which assumes a self-weighted survey, the case of SMART surveys.
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param oedema A `character` vector for presence of nutritional oedema Code 
+#' @param oedema A `character` vector for presence of nutritional oedema Code
 #' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
@@ -144,7 +144,6 @@ complex_survey_estimates_muac <- function(df,
 #'   oedema = oedema,
 #'   province
 #' )
-#'
 #'
 #' @export
 #'
@@ -207,7 +206,7 @@ mw_estimate_prevalence_muac <- function(df,
           oedema = .data$oedema,
           raw_muac = FALSE,
           !!!.by
-        ) |>  
+        ) |>
           dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         ### Estimate age-weighted prevalence as per SMART MUAC tool ----
@@ -216,9 +215,9 @@ mw_estimate_prevalence_muac <- function(df,
           muac = .data$muac,
           has_age = TRUE,
           age = .data$age,
-          oedema = .data$oedema, 
+          oedema = .data$oedema,
           raw_muac = FALSE
-        ) |> 
+        ) |>
           dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }

@@ -84,36 +84,36 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #'
 #' @description
 #' It is common to estimate prevalence of wasting from non-survey data, such
-#' as screenings or any other data derived from community-based surveillance 
+#' as screenings or any other data derived from community-based surveillance
 #' systems. In such situations, the analysis usually consists only in estimating
-#' the point prevalence and the counts of positive cases, without necessarily 
+#' the point prevalence and the counts of positive cases, without necessarily
 #' estimating the uncertainty. This function serves this purpose.
 #'
 #' The quality of the data is first evaluated by calculating and rating the
 #' standard deviation (SD) of MFAZ (in `mw_estimate_prevalence_screening()`)
 #' or SD of the raw MUAC values (in `mw_estimate_prevalence_screening2()`),
-#' and the p-value of the age ratio test in either functions. 
-#' Thereafter, if the latter test is problematic, age-weighting approach is 
-#' applied to the prevalence estimation, to account for the over-representation 
+#' and the p-value of the age ratio test in either functions.
+#' Thereafter, if the latter test is problematic, age-weighting approach is
+#' applied to the prevalence estimation, to account for the over-representation
 #' of younger children in the sample; otherwise, a non-age-weighted prevalence
-#' is estimated. This means that even if the SD in either functions is 
+#' is estimated. This means that even if the SD in either functions is
 #' problematic, the prevalence is estimated, with no adjustments, and returned.
-#' 
+#'
 #' @details
 #' A typical user analysis workflow is expected to begin with data quality checks,
-#' followed by a thorough review, and only thereafter proceed to prevalence 
+#' followed by a thorough review, and only thereafter proceed to prevalence
 #' estimation. This sequence places the user in the strongest position to assess
 #' whether the resulting prevalence estimates are reliable.
 #'
-#' In `mw_estimate_prevalence_screening()`, outliers are identified using SMART 
+#' In `mw_estimate_prevalence_screening()`, outliers are identified using SMART
 #' flagging criteria applied to MFAZ, whereas `mw_estimate_prevalence_screening2()`
-#' are based on the raw MUAC values. In either functions, outliers are excluded 
+#' are based on the raw MUAC values. In either functions, outliers are excluded
 #' from the prevalence estimation.
 #'
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
 #' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
-#' must have a variable called `cluster` wherein the primary sampling unit 
+#' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
 #'
 #' @param age_cat A `character` vector of child's age in categories. Code values
@@ -122,7 +122,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' @param muac A `numeric` or `integer` vector of raw MUAC values. The
 #' measurement unit should be millimetres.
 #'
-#' @param oedema A `character` vector for presence of nutritional oedema. Code 
+#' @param oedema A `character` vector for presence of nutritional oedema. Code
 #' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
@@ -235,7 +235,7 @@ mw_estimate_prevalence_screening <- function(df,
           oedema = oedema,
           raw_muac = FALSE,
           !!!.by
-        ) |>  
+        ) |>
           dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         output <- mw_estimate_age_weighted_prev_muac(
@@ -243,9 +243,9 @@ mw_estimate_prevalence_screening <- function(df,
           muac = muac,
           has_age = TRUE,
           age = .data$age,
-          oedema = oedema, 
+          oedema = oedema,
           raw_muac = FALSE
-        ) |> 
+        ) |>
           dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }
@@ -254,8 +254,8 @@ mw_estimate_prevalence_screening <- function(df,
   }
   ## Relocate variables ----
   results <- dplyr::bind_rows(results)
- .df <- if (any(names(results) %in% c("gam_n"))) {
-    results |> 
+  .df <- if (any(names(results) %in% c("gam_n"))) {
+    results |>
       dplyr::relocate(.data$gam_p, .after = .data$gam_n) |>
       dplyr::relocate(.data$sam_p, .after = .data$sam_n) |>
       dplyr::relocate(.data$mam_p, .after = .data$mam_n)
@@ -368,7 +368,7 @@ mw_estimate_prevalence_screening2 <- function(
           oedema = oedema,
           raw_muac = TRUE,
           !!!.by
-        )|>  
+        ) |>
           dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         r <- mw_estimate_age_weighted_prev_muac(
@@ -378,7 +378,7 @@ mw_estimate_prevalence_screening2 <- function(
           oedema = oedema,
           age_cat = age_cat,
           raw_muac = TRUE
-        )|>  
+        ) |>
           dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }

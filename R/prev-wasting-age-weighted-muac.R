@@ -93,17 +93,17 @@ mw_estimate_age_weighted_prev_muac <- function(
     oedema = NULL,
     raw_muac = FALSE,
     ...) {
-  
-  ## First capture the dots before anything else
+  ## First capture the dots before anything else ----
   .by <- rlang::enquos(...)
-  
-  ## Then capture other arguments
+
+  ## Quote function arguments for later evaluation ----
   muac_quo <- rlang::expr(muac)
   age_quo <- rlang::expr(age)
   oedema_quo <- rlang::expr(oedema)
   age_cat_quo <- rlang::expr(age_cat)
-  
-  # Convert to strings, handling both symbols and strings
+
+  ## If arguments are symbols, conver to strings to be shiny friendly ----
+  ### MUAC ----
   muac_str <- if (is.symbol(muac_quo)) {
     as.character(muac_quo)
   } else if (is.character(muac_quo)) {
@@ -111,7 +111,8 @@ mw_estimate_age_weighted_prev_muac <- function(
   } else {
     as.character(eval(muac_quo))
   }
-  
+
+  ### Age ----
   age_str <- if (!is.null(age_quo)) {
     if (is.symbol(age_quo)) {
       as.character(age_quo)
@@ -123,7 +124,8 @@ mw_estimate_age_weighted_prev_muac <- function(
   } else {
     NULL
   }
-  
+
+  ### Oedema ----
   oedema_str <- if (!is.null(oedema_quo)) {
     if (is.symbol(oedema_quo)) {
       as.character(oedema_quo)
@@ -135,7 +137,8 @@ mw_estimate_age_weighted_prev_muac <- function(
   } else {
     NULL
   }
-  
+
+  ### Age category ----
   age_cat_str <- if (!is.null(age_cat_quo)) {
     if (is.symbol(age_cat_quo)) {
       as.character(age_cat_quo)
@@ -154,15 +157,15 @@ mw_estimate_age_weighted_prev_muac <- function(
   }
 
   flag_var <- if (raw_muac) "flag_muac" else "flag_mfaz"
-  
+
   if (flag_var %in% names(df)) {
     df <- dplyr::filter(df, .data[[flag_var]] == 0)
   }
 
-  ## Apply grouping if needed
+  ## Apply grouping if needed ----
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
 
-  ## Summarise when age in months is given
+  ## Summarise when age in months is given ----
   if (has_age) {
     u2 <- df |>
       dplyr::filter(.data[[age_str]] < 24) |>
@@ -218,8 +221,8 @@ mw_estimate_age_weighted_prev_muac <- function(
         o2gam = .data$o2sam + .data$o2mam + .data$o2oedema
       )
   }
-  
-## Check the number of grouping variables to then exclude them from over twos before binding ----
+
+  ## Check the number of grouping variables to then exclude them from over twos before binding ----
   if (length(dplyr::group_vars(o2)) > 0) {
     o2 <- dplyr::select(o2, -length(dplyr::group_vars(o2)))
   }
@@ -230,8 +233,8 @@ mw_estimate_age_weighted_prev_muac <- function(
       mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
       gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
       N = .data$total_u2 + .data$total_o2
-    ) |> 
+    ) |>
     dplyr::select(!c(.data$total_u2, .data$total_o2))
-  
+
   x
 }
