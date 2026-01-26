@@ -214,7 +214,7 @@ mw_estimate_prevalence_muac <- function(df,
           muac = {{ muac }},
           has_age = TRUE,
           age = {{ age }},
-          oedema = .data$oedema,
+          oedema = {{ oedema }},
           raw_muac = FALSE,
           !!!.by
         ) |>
