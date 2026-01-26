@@ -33,7 +33,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = wtfactor)
+      mw_estimate_prevalence_muac(oedema = oedema, wt = wtfactor, age = age)
 
     ### Expected results ----
     ### GAM estimates and uncertainty ----
@@ -79,7 +79,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(wt = NULL)
+      mw_estimate_prevalence_muac(age = age, wt = NULL)
 
     ### Expected results ----
     ### GAM estimates and uncertainty ----
@@ -124,7 +124,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = NULL, wt = wtfactor)
+      mw_estimate_prevalence_muac(age = age, oedema = NULL, wt = wtfactor)
 
     ### Expected results ----
     #### GAM estimates and uncertainty ----
@@ -168,7 +168,7 @@ testthat::test_that(
   {
     ### Get prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = NULL)
+      mw_estimate_prevalence_muac(age = age, oedema = NULL)
 
     ### Expected results ----
     #### GAM estimates and uncertainty ----
@@ -215,6 +215,7 @@ testthat::test_that(
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         oedema = oedema,
+        age = age,
         wt = wtfactor,
         province
       )
@@ -268,7 +269,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = NULL, province)
+      mw_estimate_prevalence_muac(age = age, oedema = oedema, wt = NULL, province)
 
     ### A Province whose analysis approach is unweighted ---
     province_1 <- subset(p, province == "Province 1")
@@ -313,7 +314,7 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = NULL, province)
+      mw_estimate_prevalence_muac(age = age, oedema = oedema, wt = NULL, province)
 
     ### The test ----
     testthat::expect_s3_class(p, "tbl")

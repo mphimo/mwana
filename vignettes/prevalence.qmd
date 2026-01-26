@@ -299,6 +299,7 @@ As in ENA Software, make sure you run the plausibility check before you call the
 
 anthro.04 |>
   mw_estimate_prevalence_muac(
+    age = age,
     wt = NULL,
     oedema = oedema,
     province
@@ -313,6 +314,7 @@ This will return:
 
 anthro.04 |>
   mw_estimate_prevalence_muac(
+    age = age,
     wt = NULL,
     oedema = oedema,
     province
@@ -331,7 +333,8 @@ Alternatively, we can choose to apply the function that estimates age-weighted p
 anthro.04 |>
   subset(province == "Province 2") |>
   mw_estimate_age_weighted_prev_muac(
-    oedema = oedema
+    oedema = oedema,
+    age = age
   )
 ```
 
@@ -342,7 +345,7 @@ This returns the prevalence estimates split into age categories and the overall 
 
 anthro.04 |>
   subset(province == "Province 2") |>
-  mw_estimate_age_weighted_prev_muac()
+  mw_estimate_age_weighted_prev_muac(age = age)
 ```
 
 ::: {.callout-note}
@@ -379,6 +382,7 @@ anthro.02 |>
     muac = recode_muac(muac, .to = "mm")
   ) |>
   mw_estimate_prevalence_muac(
+    age = age,
     wt = wtfactor,
     oedema = oedema,
     province
@@ -409,6 +413,7 @@ anthro.02 |>
     muac = recode_muac(muac, .to = "mm")
   ) |>
   mw_estimate_prevalence_muac(
+    age = age,
     wt = wtfactor,
     oedema = oedema,
     province

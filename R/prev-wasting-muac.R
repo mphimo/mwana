@@ -106,6 +106,8 @@ complex_survey_estimates_muac <- function(df,
 #' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
+#' 
+#' @param age A vector of class `double` of child's age in months.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
 #' is NULL, which assumes a self-weighted survey, the case of SMART surveys.
@@ -133,6 +135,7 @@ complex_survey_estimates_muac <- function(df,
 #' ## Ungrouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
+#' age = age,
 #'   wt = NULL,
 #'   oedema = oedema
 #' )
@@ -140,6 +143,7 @@ complex_survey_estimates_muac <- function(df,
 #' ## Grouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
+#' age = age,
 #'   wt = NULL,
 #'   oedema = oedema,
 #'   province
@@ -148,6 +152,7 @@ complex_survey_estimates_muac <- function(df,
 #' @export
 #'
 mw_estimate_prevalence_muac <- function(df,
+                                        age,
                                         wt = NULL,
                                         oedema = NULL,
                                         ...) {
@@ -167,7 +172,7 @@ mw_estimate_prevalence_muac <- function(df,
   x <- dplyr::summarise(
     .data = df,
     age_ratio = rate_agesex_ratio(
-      mw_stattest_ageratio(.data$age, .expectedP = 0.66)$p
+      mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
     std = rate_std(
       stats::sd(
@@ -202,7 +207,7 @@ mw_estimate_prevalence_muac <- function(df,
           data_subset,
           muac = .data$muac,
           has_age = TRUE,
-          age = .data$age,
+          age = {{ age }},
           oedema = .data$oedema,
           raw_muac = FALSE,
           !!!.by
@@ -214,7 +219,7 @@ mw_estimate_prevalence_muac <- function(df,
           data_subset,
           muac = .data$muac,
           has_age = TRUE,
-          age = .data$age,
+          age = {{ age }},
           oedema = .data$oedema,
           raw_muac = FALSE
         ) |>

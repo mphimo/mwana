@@ -4,7 +4,7 @@
 \alias{mw_estimate_prevalence_muac}
 \title{Estimate the prevalence of wasting based on MUAC for survey data}
 \usage{
-mw_estimate_prevalence_muac(df, wt = NULL, oedema = NULL, ...)
+mw_estimate_prevalence_muac(df, age, wt = NULL, oedema = NULL, ...)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -12,6 +12,8 @@ mw_estimate_prevalence_muac(df, wt = NULL, oedema = NULL, ...)
 must be in millimetres after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
 must have a variable called \code{cluster} wherein the primary sampling unit
 identifiers are stored.}
+
+\item{age}{A vector of class \code{double} of child's age in months.}
 
 \item{wt}{A vector of class \code{double} of the survey sampling weights. Default
 is NULL, which assumes a self-weighted survey, the case of SMART surveys.
@@ -55,6 +57,7 @@ excluded from the prevalence estimation.
 ## Ungrouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
+age = age,
   wt = NULL,
   oedema = oedema
 )
@@ -62,11 +65,11 @@ mw_estimate_prevalence_muac(
 ## Grouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
+age = age,
   wt = NULL,
   oedema = oedema,
   province
 )
-
 
 }
 \references{
