@@ -115,6 +115,8 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
+#' 
+#' @param age A vector of class `double` of child's age in months.
 #'
 #' @param age_cat A `character` vector of child's age in categories. Code values
 #' should be "6-23" and "24-59".
@@ -144,6 +146,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
+#' age = age,
 #'   oedema = oedema,
 #'   province
 #' )
@@ -152,6 +155,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
+#' age = age,
 #'   oedema = NULL,
 #'   province
 #' )
@@ -160,6 +164,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
+#' age = age,
 #'   oedema = NULL,
 #'   province
 #' )
@@ -170,6 +175,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #'
 mw_estimate_prevalence_screening <- function(df,
                                              muac,
+                                             age,
                                              oedema = NULL,
                                              ...) {
   ## Difuse argument `.by` ----
@@ -185,7 +191,7 @@ mw_estimate_prevalence_screening <- function(df,
   path <- dplyr::summarise(
     .data = df,
     age_ratio = rate_agesex_ratio(
-      mw_stattest_ageratio(.data$age, .expectedP = 0.66)$p
+      mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
     std = rate_std(
       stats::sd(
@@ -231,7 +237,7 @@ mw_estimate_prevalence_screening <- function(df,
           data_subset,
           muac = muac,
           has_age = TRUE,
-          age = .data$age,
+          age = {{ age }},
           oedema = oedema,
           raw_muac = FALSE,
           !!!.by
@@ -242,7 +248,7 @@ mw_estimate_prevalence_screening <- function(df,
           data_subset,
           muac = muac,
           has_age = TRUE,
-          age = .data$age,
+          age = {{ age }},
           oedema = oedema,
           raw_muac = FALSE
         ) |>

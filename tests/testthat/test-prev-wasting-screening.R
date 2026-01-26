@@ -216,6 +216,7 @@ testthat::test_that(
     p <- anthro.02 |>
       mw_estimate_prevalence_screening(
         muac = muac,
+        age = age,
         oedema = oedema,
         province
       )
@@ -252,6 +253,7 @@ testthat::test_that(
     p <- anthro.02 |>
       mw_estimate_prevalence_screening(
         muac = muac,
+        age = age,
         oedema = oedema
       )
 
@@ -287,7 +289,7 @@ testthat::test_that(
     ## Observed results ----
     p <- anthro.04 |>
       subset(province == "Province 2") |>
-      mw_estimate_prevalence_screening()
+      mw_estimate_prevalence_screening(muac = muac, age = age, oedema = NULL)
 
     ## Tests ----
     testthat::expect_s3_class(p, "tbl")
@@ -304,7 +306,12 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_screening(muac = muac, oedema = oedema, province)
+      mw_estimate_prevalence_screening(
+        muac = muac, 
+        age = age,
+        oedema = oedema, 
+        province
+      )
 
     columns_to_check <- c("gam_n", "gam_p", "sam_n", "sam_p", "mam_n", "mam_p", "N")
 

@@ -432,6 +432,7 @@ The `anthro.04` dataset will be used to illustrate the application of these func
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
+    age = age,
     oedema = oedema,
     province
   )
@@ -445,6 +446,7 @@ The returned output is:
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
+    age = age,
     oedema = oedema,
     province
   )
