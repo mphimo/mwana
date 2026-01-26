@@ -67,7 +67,7 @@ from the prevalence estimation.
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-age = age,
+  age = age,
   oedema = oedema,
   province
 )
@@ -76,7 +76,7 @@ age = age,
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-age = age,
+  age = age,
   oedema = NULL,
   province
 )
@@ -85,7 +85,7 @@ age = age,
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
-age = age,
+  age = age,
   oedema = NULL,
   province
 )

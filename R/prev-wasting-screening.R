@@ -115,7 +115,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
-#' 
+#'
 #' @param age A vector of class `double` of child's age in months.
 #'
 #' @param age_cat A `character` vector of child's age in categories. Code values
@@ -146,7 +146,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#' age = age,
+#'   age = age,
 #'   oedema = oedema,
 #'   province
 #' )
@@ -155,7 +155,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#' age = age,
+#'   age = age,
 #'   oedema = NULL,
 #'   province
 #' )
@@ -164,7 +164,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' mw_estimate_prevalence_screening(
 #'   df = anthro.02,
 #'   muac = muac,
-#' age = age,
+#'   age = age,
 #'   oedema = NULL,
 #'   province
 #' )

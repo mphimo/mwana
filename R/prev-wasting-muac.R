@@ -106,10 +106,10 @@ complex_survey_estimates_muac <- function(df,
 #' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
 #' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
-#' 
+#'
 #' @param muac A `numeric` or `integer` vector of raw MUAC values. The
 #' measurement unit should be millimetres.
-#' 
+#'
 #' @param age A vector of class `double` of child's age in months.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
@@ -138,8 +138,8 @@ complex_survey_estimates_muac <- function(df,
 #' ## Ungrouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
-#' muac = muac,
-#' age = age,
+#'   muac = muac,
+#'   age = age,
 #'   wt = NULL,
 #'   oedema = oedema
 #' )
@@ -147,8 +147,8 @@ complex_survey_estimates_muac <- function(df,
 #' ## Grouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
-#' muac = muac,
-#' age = age,
+#'   muac = muac,
+#'   age = age,
 #'   wt = NULL,
 #'   oedema = oedema,
 #'   province

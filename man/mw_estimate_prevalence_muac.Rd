@@ -60,8 +60,8 @@ excluded from the prevalence estimation.
 ## Ungrouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
-muac = muac,
-age = age,
+  muac = muac,
+  age = age,
   wt = NULL,
   oedema = oedema
 )
@@ -69,8 +69,8 @@ age = age,
 ## Grouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
-muac = muac,
-age = age,
+  muac = muac,
+  age = age,
   wt = NULL,
   oedema = oedema,
   province

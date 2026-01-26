@@ -471,7 +471,7 @@ The `mw_estimate_prevalence_screening2()` function is applied as demonstrated be
 
 anthro.04 |>
   mutate(
-    age_cat = ifelse(age < 24, "6-23", "24-59") 
+    age_cat = ifelse(age < 24, "6-23", "24-59")
   ) |>
   mw_wrangle_muac(
     sex = sex,
