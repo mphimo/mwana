@@ -299,6 +299,8 @@ As in ENA Software, make sure you run the plausibility check before you call the
 
 anthro.04 |>
   mw_estimate_prevalence_muac(
+    muac = muac,
+    age = age,
     wt = NULL,
     oedema = oedema,
     province
@@ -313,6 +315,8 @@ This will return:
 
 anthro.04 |>
   mw_estimate_prevalence_muac(
+    muac = muac,
+    age = age,
     wt = NULL,
     oedema = oedema,
     province
@@ -331,7 +335,9 @@ Alternatively, we can choose to apply the function that estimates age-weighted p
 anthro.04 |>
   subset(province == "Province 2") |>
   mw_estimate_age_weighted_prev_muac(
-    oedema = oedema
+    muac = muac,
+    oedema = oedema,
+    age = age
   )
 ```
 
@@ -342,7 +348,7 @@ This returns the prevalence estimates split into age categories and the overall 
 
 anthro.04 |>
   subset(province == "Province 2") |>
-  mw_estimate_age_weighted_prev_muac()
+  mw_estimate_age_weighted_prev_muac(muac = muac, age = age)
 ```
 
 ::: {.callout-note}
@@ -379,6 +385,8 @@ anthro.02 |>
     muac = recode_muac(muac, .to = "mm")
   ) |>
   mw_estimate_prevalence_muac(
+    muac = muac,
+    age = age,
     wt = wtfactor,
     oedema = oedema,
     province
@@ -409,6 +417,8 @@ anthro.02 |>
     muac = recode_muac(muac, .to = "mm")
   ) |>
   mw_estimate_prevalence_muac(
+    muac = muac,
+    age = age,
     wt = wtfactor,
     oedema = oedema,
     province
@@ -432,6 +442,7 @@ The `anthro.04` dataset will be used to illustrate the application of these func
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
+    age = age,
     oedema = oedema,
     province
   )
@@ -445,6 +456,7 @@ The returned output is:
 anthro.04 |>
   mw_estimate_prevalence_screening(
     muac = muac,
+    age = age,
     oedema = oedema,
     province
   )
@@ -459,7 +471,7 @@ The `mw_estimate_prevalence_screening2()` function is applied as demonstrated be
 
 anthro.04 |>
   mutate(
-    age_cat = ifelse(age < 24, "6-23", "24-59") 
+    age_cat = ifelse(age < 24, "6-23", "24-59")
   ) |>
   mw_wrangle_muac(
     sex = sex,

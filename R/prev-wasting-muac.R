@@ -82,19 +82,19 @@ complex_survey_estimates_muac <- function(df,
 #' Estimate the prevalence of wasting based on MUAC and/or nutritional oedema.
 #' The function allows users to estimate prevalence in accordance with complex
 #' sample design properties, such as accounting for survey sample weights when
-#' needed or applicable. 
-#' 
+#' needed or applicable.
+#'
 #' The quality of the data is first evaluated by calculating and rating the
-#' standard deviation (SD) of MFAZ and the p-value of the age ratio test. 
-#' Thereafter, if the latter test is problematic, age-weighting approach is 
-#' applied to prevalence estimation, to account for the over-representation 
+#' standard deviation (SD) of MFAZ and the p-value of the age ratio test.
+#' Thereafter, if the latter test is problematic, age-weighting approach is
+#' applied to prevalence estimation, to account for the over-representation
 #' of younger children in the sample; otherwise, a non-age-weighted prevalence
-#' is estimated. This means that even if the SD of MFAZ is problematic, the 
+#' is estimated. This means that even if the SD of MFAZ is problematic, the
 #' prevalence is estimated, with no adjustments, and returned.
-#' 
+#'
 #' @details
 #' A typical user analysis workflow is expected to begin with data quality checks,
-#' followed by a thorough review, and only thereafter proceed to prevalence 
+#' followed by a thorough review, and only thereafter proceed to prevalence
 #' estimation. This sequence places the user in the strongest position to assess
 #' whether the resulting prevalence estimates are reliable.
 #'
@@ -104,14 +104,19 @@ complex_survey_estimates_muac <- function(df,
 #' @param df A `tibble` object produced by [mw_wrangle_muac()] and
 #' [mw_wrangle_age()] functions. Note that MUAC values in `df`
 #' must be in millimetres after using [mw_wrangle_muac()]. Also, `df`
-#' must have a variable called `cluster` wherein the primary sampling unit 
+#' must have a variable called `cluster` wherein the primary sampling unit
 #' identifiers are stored.
+#'
+#' @param muac A `numeric` or `integer` vector of raw MUAC values. The
+#' measurement unit should be millimetres.
+#'
+#' @param age A vector of class `double` of child's age in months.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
 #' is NULL, which assumes a self-weighted survey, the case of SMART surveys.
 #' Otherwise, a weighted analysis is implemented.
 #'
-#' @param oedema A `character` vector for presence of nutritional oedema Code 
+#' @param oedema A `character` vector for presence of nutritional oedema Code
 #' values should be "y" for presence and "n" for absence. Default is NULL.
 #'
 #' @param ... A vector of class `character`, specifying the categories for which
@@ -133,6 +138,8 @@ complex_survey_estimates_muac <- function(df,
 #' ## Ungrouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
+#'   muac = muac,
+#'   age = age,
 #'   wt = NULL,
 #'   oedema = oedema
 #' )
@@ -140,15 +147,18 @@ complex_survey_estimates_muac <- function(df,
 #' ## Grouped analysis ----
 #' mw_estimate_prevalence_muac(
 #'   df = anthro.04,
+#'   muac = muac,
+#'   age = age,
 #'   wt = NULL,
 #'   oedema = oedema,
 #'   province
 #' )
 #'
-#'
 #' @export
 #'
 mw_estimate_prevalence_muac <- function(df,
+                                        age,
+                                        muac,
                                         wt = NULL,
                                         oedema = NULL,
                                         ...) {
@@ -168,7 +178,7 @@ mw_estimate_prevalence_muac <- function(df,
   x <- dplyr::summarise(
     .data = df,
     age_ratio = rate_agesex_ratio(
-      mw_stattest_ageratio(.data$age, .expectedP = 0.66)$p
+      mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
     std = rate_std(
       stats::sd(
@@ -201,25 +211,25 @@ mw_estimate_prevalence_muac <- function(df,
       if (length(.by) > 0) {
         output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
-          muac = .data$muac,
+          muac = {{ muac }},
           has_age = TRUE,
-          age = .data$age,
+          age = {{ age }},
           oedema = {{ oedema }},
           raw_muac = FALSE,
           !!!.by
-        ) |>  
-          dplyr::select(!!!.by, sam_p = .data$sam, mam_p =.data$ mam, gam_p = .data$gam)
+        ) |>
+          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
       } else {
         ### Estimate age-weighted prevalence as per SMART MUAC tool ----
         output <- mw_estimate_age_weighted_prev_muac(
           data_subset,
-          muac = .data$muac,
+          muac = {{ muac }},
           has_age = TRUE,
-          age = .data$age,
-          oedema = {{ oedema }}, 
+          age = {{ age }},
+          oedema = {{ oedema }},
           raw_muac = FALSE
-        ) |> 
-          dplyr::select(sam_p = .data$sam, mam_p = .data$mam, gam_p = .data$gam)
+        ) |>
+          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
     }
     results[[i]] <- output

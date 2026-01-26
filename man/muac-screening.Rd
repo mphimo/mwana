@@ -5,7 +5,7 @@
 \alias{mw_estimate_prevalence_screening2}
 \title{Estimate the prevalence of wasting based on MUAC for non-survey data}
 \usage{
-mw_estimate_prevalence_screening(df, muac, oedema = NULL, ...)
+mw_estimate_prevalence_screening(df, muac, age, oedema = NULL, ...)
 
 mw_estimate_prevalence_screening2(df, age_cat, muac, oedema = NULL, ...)
 }
@@ -18,6 +18,8 @@ identifiers are stored.}
 
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
 measurement unit should be millimetres.}
+
+\item{age}{A vector of class \code{double} of child's age in months.}
 
 \item{oedema}{A \code{character} vector for presence of nutritional oedema. Code
 values should be "y" for presence and "n" for absence. Default is NULL.}
@@ -65,6 +67,7 @@ from the prevalence estimation.
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = oedema,
   province
 )
@@ -73,6 +76,7 @@ mw_estimate_prevalence_screening(
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = NULL,
   province
 )
@@ -81,6 +85,7 @@ mw_estimate_prevalence_screening(
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = NULL,
   province
 )
