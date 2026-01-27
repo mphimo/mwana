@@ -177,18 +177,14 @@ mw_estimate_prevalence_muac <- function(df,
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
   x <- dplyr::summarise(
     .data = df,
-    age_ratio = rate_agesex_ratio(
+    age_ratio_prop = mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$observedP,
+    age_ratio_pval = rate_agesex_ratio(
       mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
-    std = rate_std(
-      stats::sd(
-        remove_flags(as.numeric(.data$mfaz), "zscores"),
-        na.rm = TRUE
-      )
-    ),
-    analysis_approach = set_analysis_path(.data$age_ratio, .data$std),
-    .groups = "keep"
+    .groups = "drop"
   )
+
+  print(x)
 
   ## Iterate over a data frame and compute estimates as per analysis path ----
   for (i in seq_len(nrow(x))) {
@@ -200,13 +196,7 @@ mw_estimate_prevalence_muac <- function(df,
       data_subset <- df
     }
 
-    analysis_approach <- x$analysis_approach[i]
-    if (analysis_approach %in% c("unweighted", "missing")) {
-      ## Estimate PPS-based prevalence ----
-      output <- complex_survey_estimates_muac(
-        data_subset, {{ wt }}, {{ oedema }}, !!!.by
-      )
-    } else {
+    if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
       if (length(.by) > 0) {
         output <- mw_estimate_age_weighted_prev_muac(
@@ -231,6 +221,11 @@ mw_estimate_prevalence_muac <- function(df,
         ) |>
           dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
       }
+    } else {
+      ## Estimate PPS-based prevalence ----
+      output <- complex_survey_estimates_muac(
+        data_subset, {{ wt }}, {{ oedema }}, !!!.by
+      )
     }
     results[[i]] <- output
   }
