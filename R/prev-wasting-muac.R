@@ -184,43 +184,24 @@ mw_estimate_prevalence_muac <- function(df,
     .groups = "drop"
   )
 
-  print(x)
-
   ## Iterate over a data frame and compute estimates as per analysis path ----
   for (i in seq_len(nrow(x))) {
-    if (length(.by) > 0) {
-      vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
-      exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
-      data_subset <- dplyr::filter(df, !!!exprs)
-    } else {
-      data_subset <- df
-    }
+    vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
+    exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
+    data_subset <- dplyr::filter(df, !!!exprs)
 
     if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
-      if (length(.by) > 0) {
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE,
-          !!!.by
-        ) |>
-          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
-      } else {
-        ### Estimate age-weighted prevalence as per SMART MUAC tool ----
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE
-        ) |>
-          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
-      }
+      output <- mw_estimate_age_weighted_prev_muac(
+        data_subset,
+        muac = {{ muac }},
+        has_age = TRUE,
+        age = {{ age }},
+        oedema = {{ oedema }},
+        raw_muac = FALSE,
+        !!!.by
+      ) |>
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
     } else {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(
