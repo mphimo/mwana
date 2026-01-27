@@ -92,7 +92,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' It first evaluates the quality of the data to determine the appropriate
 #' prevalence-analysis flow to be employed. Quality is evaluated by estimating
 #' the observed proportion of children aged 24-59 months of the total children in
-#' the dataset, then it estimates the p-value of the difference between the
+#' the dataset, then it estimates the p-value for the difference between the
 #' above-mentioned category against the expected (0.66) and rates it.
 #'
 #' If age ratio test is "problematic" and the proportion of children aged 24-59
