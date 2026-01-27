@@ -33,15 +33,19 @@ wasting.
 \description{
 Estimate the prevalence of wasting based on the combined case-definition of
 weight-for-height z-scores (WFHZ), MUAC and/or oedema. The function allows
-users to estimate prevalence in accordance with complex sample design
+users to estimate prevalence in accordance with complex-sample design
 properties such as accounting for survey sample weights when needed or
-applicable. The quality of the data is first evaluated by calculating and
-rating the standard deviation of WFHZ and MFAZ and the p-value of the age
-ratio test. Prevalence is calculated only when all tests are rated as not
-problematic. If any of the tests rate as problematic, no estimation is done
-and an NA value is returned. Outliers are detected in both WFHZ and MFAZ
-datasets based on SMART flagging criteria. Identified outliers are then
-excluded before prevalence estimation is performed.
+applicable.
+
+The data quality is first assessed by calculating and rating the standard
+deviation (SD) of WFHZ. It then calculates the observed proportion of children
+aged 24–59 months out of all children in the dataset. Next, it estimates the
+p-value for the difference between this observed proportion and the expected
+value (0.66), and rates the result.
+
+Prevalence is estimated only when the WFHZ SD is not problematic and the age
+ratio test is not problematic, or — if the age ratio test is problematic — the
+proportion of children aged 24–59 months is ≥ 0.66.
 }
 \details{
 A concept of \emph{combined flags} is introduced in this function. Any observation

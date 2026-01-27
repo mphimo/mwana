@@ -3,26 +3,6 @@
 #' @keywords internal
 #'
 #'
-set_analysis_path <- function(ageratio_class, sd_class) {
-  ## Enforce class of both arguments ----
-  ageratio_class <- as.character(ageratio_class)
-  sd_class <- as.character(sd_class)
-
-  ## Set the analysis path ----
-  dplyr::case_when(
-    ageratio_class == "Problematic" & sd_class != "Problematic" ~ "weighted",
-    ageratio_class != "Problematic" & sd_class == "Problematic" ~ "missing",
-    ageratio_class == "Problematic" & sd_class == "Problematic" ~ "missing",
-    .default = "unweighted"
-  )
-}
-
-
-#'
-#'
-#' @keywords internal
-#'
-#'
 complex_survey_estimates_muac <- function(df,
                                           wt = NULL,
                                           oedema = NULL,
@@ -84,13 +64,16 @@ complex_survey_estimates_muac <- function(df,
 #' sample design properties, such as accounting for survey sample weights when
 #' needed or applicable.
 #'
-#' The quality of the data is first evaluated by calculating and rating the
-#' standard deviation (SD) of MFAZ and the p-value of the age ratio test.
-#' Thereafter, if the latter test is problematic, age-weighting approach is
-#' applied to prevalence estimation, to account for the over-representation
-#' of younger children in the sample; otherwise, a non-age-weighted prevalence
-#' is estimated. This means that even if the SD of MFAZ is problematic, the
-#' prevalence is estimated, with no adjustments, and returned.
+#' It first evaluates the quality of the data to determine the appropriate 
+#' prevalence-analysis flow to be employed. Quality is evaluated by estimating 
+#' the observed proportion of children aged 24-59 months of the total children in 
+#' the dataset, then it estimates the p-value for the difference between the 
+#' above-mentioned category against the expected (0.66) and rates it. 
+#' 
+#' If age ratio test is "problematic" and the proportion of children aged 24-59 
+#' months is < 0.66, age-weighting approach is applied to prevalence estimation, 
+#' to account for the over-representation of younger children in the sample; 
+#' otherwise, a non-age-weighted prevalence is estimated.
 #'
 #' @details
 #' A typical user analysis workflow is expected to begin with data quality checks,
@@ -177,60 +160,36 @@ mw_estimate_prevalence_muac <- function(df,
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
   x <- dplyr::summarise(
     .data = df,
-    age_ratio = rate_agesex_ratio(
+    age_ratio_prop = mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$observedP,
+    age_ratio_pval = rate_agesex_ratio(
       mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
-    std = rate_std(
-      stats::sd(
-        remove_flags(as.numeric(.data$mfaz), "zscores"),
-        na.rm = TRUE
-      )
-    ),
-    analysis_approach = set_analysis_path(.data$age_ratio, .data$std),
-    .groups = "keep"
+    .groups = "drop"
   )
 
   ## Iterate over a data frame and compute estimates as per analysis path ----
   for (i in seq_len(nrow(x))) {
-    if (length(.by) > 0) {
-      vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
-      exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
-      data_subset <- dplyr::filter(df, !!!exprs)
-    } else {
-      data_subset <- df
-    }
+    vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
+    exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
+    data_subset <- dplyr::filter(df, !!!exprs)
 
-    analysis_approach <- x$analysis_approach[i]
-    if (analysis_approach %in% c("unweighted", "missing")) {
+    if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
+      ### Estimate age-weighted prevalence as per SMART MUAC tool ----
+      output <- mw_estimate_age_weighted_prev_muac(
+        data_subset,
+        muac = {{ muac }},
+        has_age = TRUE,
+        age = {{ age }},
+        oedema = {{ oedema }},
+        raw_muac = FALSE,
+        !!!.by
+      ) |>
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
+    } else {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(
         data_subset, {{ wt }}, {{ oedema }}, !!!.by
       )
-    } else {
-      ### Estimate age-weighted prevalence as per SMART MUAC tool ----
-      if (length(.by) > 0) {
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE,
-          !!!.by
-        ) |>
-          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
-      } else {
-        ### Estimate age-weighted prevalence as per SMART MUAC tool ----
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE
-        ) |>
-          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
-      }
     }
     results[[i]] <- output
   }

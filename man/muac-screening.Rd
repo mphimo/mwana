@@ -42,15 +42,16 @@ systems. In such situations, the analysis usually consists only in estimating
 the point prevalence and the counts of positive cases, without necessarily
 estimating the uncertainty. This function serves this purpose.
 
-The quality of the data is first evaluated by calculating and rating the
-standard deviation (SD) of MFAZ (in \code{mw_estimate_prevalence_screening()})
-or SD of the raw MUAC values (in \code{mw_estimate_prevalence_screening2()}),
-and the p-value of the age ratio test in either functions.
-Thereafter, if the latter test is problematic, age-weighting approach is
-applied to the prevalence estimation, to account for the over-representation
-of younger children in the sample; otherwise, a non-age-weighted prevalence
-is estimated. This means that even if the SD in either functions is
-problematic, the prevalence is estimated, with no adjustments, and returned.
+It first evaluates the quality of the data to determine the appropriate
+prevalence-analysis flow to be employed. Quality is evaluated by estimating
+the observed proportion of children aged 24-59 months of the total children in
+the dataset, then it estimates the p-value for the difference between the
+above-mentioned category against the expected (0.66) and rates it.
+
+If age ratio test is "problematic" and the proportion of children aged 24-59
+months is < 0.66, age-weighting approach is applied to prevalence estimation,
+to account for the over-representation of younger children in the sample;
+otherwise, a non-age-weighted prevalence is estimated.
 }
 \details{
 A typical user analysis workflow is expected to begin with data quality checks,
@@ -59,7 +60,7 @@ estimation. This sequence places the user in the strongest position to assess
 whether the resulting prevalence estimates are reliable.
 
 In \code{mw_estimate_prevalence_screening()}, outliers are identified using SMART
-flagging criteria applied to MFAZ, whereas \code{mw_estimate_prevalence_screening2()}
+flagging criteria applied to MFAZ, whereas in \code{mw_estimate_prevalence_screening2()}
 are based on the raw MUAC values. In either functions, outliers are excluded
 from the prevalence estimation.
 }
