@@ -89,15 +89,16 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' the point prevalence and the counts of positive cases, without necessarily
 #' estimating the uncertainty. This function serves this purpose.
 #'
-#' The quality of the data is first evaluated by calculating and rating the
-#' standard deviation (SD) of MFAZ (in `mw_estimate_prevalence_screening()`)
-#' or SD of the raw MUAC values (in `mw_estimate_prevalence_screening2()`),
-#' and the p-value of the age ratio test in either functions.
-#' Thereafter, if the latter test is problematic, age-weighting approach is
-#' applied to the prevalence estimation, to account for the over-representation
-#' of younger children in the sample; otherwise, a non-age-weighted prevalence
-#' is estimated. This means that even if the SD in either functions is
-#' problematic, the prevalence is estimated, with no adjustments, and returned.
+#' It first evaluates the quality of the data to determine the appropriate 
+#' prevalence-analysis flow to be employed. Quality is evaluated by estimating 
+#' the observed proportion of children aged 24-59 months of the total children in 
+#' the dataset, then it estimates the p-value of the difference between the 
+#' above-mentioned category against the expected (0.66) and rates it. 
+#' 
+#' If age ratio test is "problematic" and the proportion of children aged 24-59 
+#' months is < 0.66, age-weighting approach is applied to prevalence estimation, 
+#' to account for the over-representation of younger children in the sample; 
+#' otherwise, a non-age-weighted prevalence is estimated.
 #'
 #' @details
 #' A typical user analysis workflow is expected to begin with data quality checks,
@@ -106,7 +107,7 @@ get_estimates <- function(df, muac, oedema = NULL, raw_muac = FALSE, ...) {
 #' whether the resulting prevalence estimates are reliable.
 #'
 #' In `mw_estimate_prevalence_screening()`, outliers are identified using SMART
-#' flagging criteria applied to MFAZ, whereas `mw_estimate_prevalence_screening2()`
+#' flagging criteria applied to MFAZ, whereas in `mw_estimate_prevalence_screening2()`
 #' are based on the raw MUAC values. In either functions, outliers are excluded
 #' from the prevalence estimation.
 #'
@@ -188,72 +189,40 @@ mw_estimate_prevalence_screening <- function(df,
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
 
   ## Determine the analysis path that fits the data ----
-  path <- dplyr::summarise(
+  x <- dplyr::summarise(
     .data = df,
-    age_ratio = rate_agesex_ratio(
+    age_ratio_prop = mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$observedP,
+    age_ratio_pval = rate_agesex_ratio(
       mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
     ),
-    std = rate_std(
-      stats::sd(
-        remove_flags(as.numeric(.data$mfaz), "zscores"),
-        na.rm = TRUE
-      )
-    ),
-    analysis_approach = set_analysis_path(.data$age_ratio, .data$std),
     .groups = "drop"
   )
 
   ## Iterate over a data frame and compute estimates as per analysis path ----
-  for (i in seq_len(nrow(path))) {
-    if (length(.by) > 0) {
-      vals <- purrr::map(.by, ~ dplyr::pull(path, !!.x)[i])
-      exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
-      data_subset <- dplyr::filter(df, !!!exprs)
-    } else {
-      data_subset <- df
-    }
+  for (i in seq_len(nrow(x))) {
+    vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
+    exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
+    data_subset <- dplyr::filter(df, !!!exprs)
 
-    analysis_approach <- path$analysis_approach[i]
-    if (analysis_approach %in% c("unweighted", "missing")) {
-      if (length(.by) > 0) {
-        output <- get_estimates(
-          df = data_subset,
-          muac = {{ muac }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE,
-          !!!.by
-        )
-      } else {
-        output <- get_estimates(
-          df = data_subset,
-          muac = {{ muac }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE
-        )
-      }
+    if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
+      output <- mw_estimate_age_weighted_prev_muac(
+        data_subset,
+        muac = {{ muac }},
+        has_age = TRUE,
+        age = {{ age }},
+        oedema = {{ oedema }},
+        raw_muac = FALSE,
+        !!!.by
+      ) |>
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
     } else {
-      if (length(.by) > 0) {
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE,
-          !!!.by
-        ) |>
-          dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
-      } else {
-        output <- mw_estimate_age_weighted_prev_muac(
-          data_subset,
-          muac = {{ muac }},
-          has_age = TRUE,
-          age = {{ age }},
-          oedema = {{ oedema }},
-          raw_muac = FALSE
-        ) |>
-          dplyr::select(.data$sam_p, .data$mam_p, .data$gam_p)
-      }
+      output <- get_estimates(
+        df = data_subset,
+        muac = {{ muac }},
+        oedema = {{ oedema }},
+        raw_muac = FALSE,
+        !!!.by
+      )
     }
 
     results[[i]] <- output

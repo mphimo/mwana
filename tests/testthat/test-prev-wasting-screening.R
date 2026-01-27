@@ -329,9 +329,9 @@ testthat::test_that(
     testthat::expect_equal(round(p[2, 7][[1]] * 100, 1), 7.1)
 
     ### Province 3 ----
-    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 14.5)
-    testthat::expect_equal(round(p[3, 5][[1]] * 100, 1), 4.2)
-    testthat::expect_equal(round(p[3, 7][[1]] * 100, 1), 10.3)
+    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 11.1)
+    testthat::expect_equal(round(p[3, 5][[1]] * 100, 1), 2.8)
+    testthat::expect_equal(round(p[3, 7][[1]] * 100, 1), 8.3)
   }
 )
 
