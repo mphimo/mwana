@@ -3,26 +3,6 @@
 #' @keywords internal
 #'
 #'
-set_analysis_path <- function(ageratio_class, sd_class) {
-  ## Enforce class of both arguments ----
-  ageratio_class <- as.character(ageratio_class)
-  sd_class <- as.character(sd_class)
-
-  ## Set the analysis path ----
-  dplyr::case_when(
-    ageratio_class == "Problematic" & sd_class != "Problematic" ~ "weighted",
-    ageratio_class != "Problematic" & sd_class == "Problematic" ~ "missing",
-    ageratio_class == "Problematic" & sd_class == "Problematic" ~ "missing",
-    .default = "unweighted"
-  )
-}
-
-
-#'
-#'
-#' @keywords internal
-#'
-#'
 complex_survey_estimates_muac <- function(df,
                                           wt = NULL,
                                           oedema = NULL,
