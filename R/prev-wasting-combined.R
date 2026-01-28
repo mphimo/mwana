@@ -70,10 +70,10 @@ complex_survey_estimates_combined <- function(df,
 #' applicable. 
 #' 
 #' The data quality is first assessed by calculating and rating the standard
-#' deviation (SD) of WFHZ. It then calculates the observed proportion of children
+#' deviation (SD) of WFHZ. Then it calculates the observed proportion of children
 #' aged 24–59 months out of all children in the dataset. Next, it estimates the
 #' p-value for the difference between this observed proportion and the expected
-#' value (0.66), and rates the result.
+#'  (0.66), and rates the result.
 #'
 #' Prevalence is estimated only when the WFHZ SD is not problematic and the age
 #' ratio test is not problematic, or — if the age ratio test is problematic — the
@@ -81,8 +81,8 @@ complex_survey_estimates_combined <- function(df,
 #'
 #' @param df A `tibble` object produced by sequential application of the
 #' [mw_wrangle_wfhz()] and [mw_wrangle_muac()]. Note that MUAC values in `df`
-#' must be in millimetres unit after using [mw_wrangle_muac()]. Also, `df`
-#' must have a variable called `cluster` which contains the primary sampling
+#' must be in millimetres unit after using [mw_wrangle_muac()]. In addition, `df`
+#' must have a variable called `cluster`, which contains the primary sampling
 #' unit identifiers.
 #'
 #' @param wt A vector of class `double` of the survey sampling weights. Default
@@ -161,11 +161,11 @@ mw_estimate_prevalence_combined <- function(df,
     dplyr::mutate(
       path = dplyr::case_when(
         .data$std_wfhz != "Problematic" & .data$age_ratio_pval != "Problematic" ~ "analyse",
-        .data$std_wfhz != "Problematic" & .data$age_ratio_pval == "Problematic" & .data$age_ratio_prop < 0.66 ~ "analyse",
+        .data$std_wfhz != "Problematic" & .data$age_ratio_pval == "Problematic" & .data$age_ratio_prop >= 0.66 ~ "analyse",
         .default = "not analyse"
       )
     )
-
+print(x)
   ## Iterate over data.frame to compute prevalence according to the SD ----
   for (i in seq_len(nrow(x))) {
       vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
@@ -181,7 +181,7 @@ mw_estimate_prevalence_combined <- function(df,
         !!!.by
       )
     } else {
-      ## Add NA ----
+      ### Add NA ----
         output <- data_subset |>
           dplyr::group_by(!!!.by) |>
           dplyr::summarise(
@@ -203,5 +203,7 @@ mw_estimate_prevalence_combined <- function(df,
   } else {
     results
   }
+
+  ### Return df ----
   .df
 }
