@@ -1,5 +1,15 @@
 # mwana 0.2.4
 
+## Bug fixes
+
+* Resolved issue with MUAC prevalences applying age-weighting estimation when age-ratio test was rated as "problematic", even when the observed proportion of children aged 24-59 months exceeded the expected value (0.66). Going forward, prevalence is age-weighted only when the age-ratio test is problematic and the proportion of children aged 24-59 months is < 0.66. 
+
+## General updates
+
+* Refactored MUAC‑prevalence functions to take explicit `age` and `muac` arguments in the function call, rather than accessing these variables implicitly from the dataset as in earlier versions. 
+
+<br>
+
 # mwana 0.2.3
 
 ## General updates 
@@ -13,7 +23,7 @@ provide the actual age-weighted prevalence of Severe Acute Malnutrition (SAM), M
 
 * The `mwana` package has been relocated from the nutriverse GitHub organisation to the mphimo organisation. 
 
-<br/>
+<br>
 
 # mwana 0.2.2
 
