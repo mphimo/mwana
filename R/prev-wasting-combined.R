@@ -52,7 +52,7 @@ complex_survey_estimates_combined <- function(df,
         )
       )
     ),
-    wt_pop = sum(srvyr::cur_svy_wts())
+    N = sum(srvyr::cur_svy_wts())
   )
   p
 }

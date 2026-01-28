@@ -48,7 +48,7 @@ complex_survey_estimates_mfaz <- function(df,
         )
       )
     ),
-    wt_pop = round(sum(srvyr::cur_svy_wts()))
+    N = round(sum(srvyr::cur_svy_wts()))
   )
   p
 }
@@ -130,13 +130,9 @@ mw_estimate_prevalence_mfaz <- function(df,
 
   ## Iterate over data frame to compute prevalence according to the SD ----
   for (i in seq_len(nrow(x))) {
-    if (length(.by) > 0) {
       vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
       exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
       data_subset <- dplyr::filter(df, !!!exprs)
-    } else {
-      data_subset <- df
-    }
 
     std <- x$std[i]
     if (std != "Problematic") {
@@ -146,12 +142,7 @@ mw_estimate_prevalence_mfaz <- function(df,
       )
     } else {
       ### Compute grouped PROBIT based prevalence ----
-      if (length(.by) > 0) {
         result <- estimate_probit_prevalence(data_subset, .for = "mfaz", !!!.by)
-      } else {
-        ### Compute PROBIT based prevalence ----
-        result <- estimate_probit_prevalence(data_subset, .for = "mfaz")
-      }
     }
     results[[i]] <- result
   }

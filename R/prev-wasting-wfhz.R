@@ -48,7 +48,7 @@ complex_survey_estimates_wfhz <- function(df,
           )
         )
       ),
-      wt_pop = round(sum(srvyr::cur_svy_wts()))
+      N = round(sum(srvyr::cur_svy_wts()))
     )
   p
 }
@@ -149,13 +149,9 @@ mw_estimate_prevalence_wfhz <- function(df,
 
   ## Compute prevalence based on the rate of the SD ----
   for (i in seq_len(nrow(d))) {
-     if (length(.by) > 0) {
       vals <- purrr::map(.by, ~ dplyr::pull(d, !!.x)[i])
       exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
       data_subset <- dplyr::filter(df, !!!exprs)
-    } else {
-      data_subset <- df
-    }
 
     std <- d$std[i]
     if (std != "Problematic") {
@@ -168,16 +164,11 @@ mw_estimate_prevalence_wfhz <- function(df,
       )
     } else {
       ### Compute PROBIT-based prevalence estimates----
-      if (length(.by) > 0) {
         result <- estimate_probit_prevalence(
           data_subset,
           .for = "wfhz",
           !!!.by
         )
-      } else {
-        ### Compute PROBIT-based prevalence estimates ----
-        result <- estimate_probit_prevalence(data_subset, .for = "wfhz")
-      }
     }
 
     results[[i]] <- result
