@@ -129,17 +129,17 @@ citation("mwana")
 
     To cite mwana in publications use:
 
-      Tomás Zaba, Ernest Guevarra, Mark Myatt (2025). _mwana: An Efficient
+      Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.3, <https://mphimo.github.io/mwana/dev>.
+      in R_. R package version 0.2.4, <https://mphimo.github.io/mwana/dev>.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
-        year = {2025},
-        note = {R package version 0.2.3},
+        year = {2026},
+        note = {R package version 0.2.4},
         url = {https://mphimo.github.io/mwana/dev},
       }
 
