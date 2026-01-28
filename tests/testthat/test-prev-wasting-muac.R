@@ -1,30 +1,3 @@
-# Test check: set_analysis_path() ----
-testthat::test_that(
-  "set_analysis_path() works",
-  {
-    ## Input data ----
-    age_ratio_class_1 <- "Problematic"
-    age_ratio_class_2 <- "Good"
-    std_class_1 <- "Excellent"
-    std_class_2 <- "Problematic"
-
-    ## Expected results ----
-    expected_1 <- "weighted"
-    expected_2 <- "missing"
-    expected_3 <- "unweighted"
-
-    ## Observed results ----
-    obs_1 <- set_analysis_path(age_ratio_class_1, std_class_1)
-    obs_2 <- set_analysis_path(age_ratio_class_1, std_class_2)
-    obs_3 <- set_analysis_path(age_ratio_class_2, std_class_1)
-
-    ## Tests ----
-    testthat::expect_equal(obs_1, expected_1)
-    testthat::expect_equal(obs_2, expected_2)
-    testthat::expect_equal(obs_3, expected_3)
-  }
-)
-
 # Test check: mw_estimate_prevalence_muac() ----
 ## When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
@@ -33,7 +6,12 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = wtfactor)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        oedema = oedema, 
+        wt = wtfactor, 
+        age = age
+      )
 
     ### Expected results ----
     ### GAM estimates and uncertainty ----
@@ -79,7 +57,11 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(wt = NULL)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        age = age, 
+        wt = NULL
+      )
 
     ### Expected results ----
     ### GAM estimates and uncertainty ----
@@ -124,7 +106,12 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = NULL, wt = wtfactor)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        age = age, 
+        oedema = NULL, 
+        wt = wtfactor
+      )
 
     ### Expected results ----
     #### GAM estimates and uncertainty ----
@@ -168,7 +155,11 @@ testthat::test_that(
   {
     ### Get prevalence estimates ----
     p <- anthro.02 |>
-      mw_estimate_prevalence_muac(oedema = NULL)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        age = age, 
+        oedema = NULL
+      )
 
     ### Expected results ----
     #### GAM estimates and uncertainty ----
@@ -214,7 +205,9 @@ testthat::test_that(
     ### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
+        muac = muac,
         oedema = oedema,
+        age = age,
         wt = wtfactor,
         province
       )
@@ -268,7 +261,13 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = NULL, province)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        age = age, 
+        oedema = oedema, 
+        wt = NULL, 
+        province
+      )
 
     ### A Province whose analysis approach is unweighted ---
     province_1 <- subset(p, province == "Province 1")
@@ -283,7 +282,7 @@ testthat::test_that(
     columns_to_check <- c(
       "gam_n", "gam_p_low", "gam_p_upp", "sam_n",
       "sam_p_low", "sam_p_upp", "mam_n", "mam_p_low",
-      "mam_p_upp", "wt_pop"
+      "mam_p_upp", "N"
     )
 
     ### The test ----
@@ -301,9 +300,9 @@ testthat::test_that(
     testthat::expect_equal(round(p[2, 13][[1]] * 100, 1), 7.1)
 
     ### Province 3 ----
-    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 14.5)
-    testthat::expect_equal(round(p[3, 8][[1]] * 100, 1), 4.2)
-    testthat::expect_equal(round(p[3, 13][[1]] * 100, 1), 10.3)
+    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 11.1)
+    testthat::expect_equal(round(p[3, 8][[1]] * 100, 1), 2.8)
+    testthat::expect_equal(round(p[3, 13][[1]] * 100, 1), 8.3)
   }
 )
 
@@ -313,7 +312,13 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_muac(oedema = oedema, wt = NULL, province)
+      mw_estimate_prevalence_muac(
+        muac = muac,
+        age = age, 
+        oedema = oedema, 
+        wt = NULL, 
+        province
+      )
 
     ### The test ----
     testthat::expect_s3_class(p, "tbl")

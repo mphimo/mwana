@@ -4,7 +4,7 @@
 \alias{mw_estimate_prevalence_muac}
 \title{Estimate the prevalence of wasting based on MUAC for survey data}
 \usage{
-mw_estimate_prevalence_muac(df, wt = NULL, oedema = NULL, ...)
+mw_estimate_prevalence_muac(df, age, muac, wt = NULL, oedema = NULL, ...)
 }
 \arguments{
 \item{df}{A \code{tibble} object produced by \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}} and
@@ -12,6 +12,11 @@ mw_estimate_prevalence_muac(df, wt = NULL, oedema = NULL, ...)
 must be in millimetres after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
 must have a variable called \code{cluster} wherein the primary sampling unit
 identifiers are stored.}
+
+\item{age}{A vector of class \code{double} of child's age in months.}
+
+\item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
+measurement unit should be millimetres.}
 
 \item{wt}{A vector of class \code{double} of the survey sampling weights. Default
 is NULL, which assumes a self-weighted survey, the case of SMART surveys.
@@ -34,13 +39,16 @@ The function allows users to estimate prevalence in accordance with complex
 sample design properties, such as accounting for survey sample weights when
 needed or applicable.
 
-The quality of the data is first evaluated by calculating and rating the
-standard deviation (SD) of MFAZ and the p-value of the age ratio test.
-Thereafter, if the latter test is problematic, age-weighting approach is
-applied to prevalence estimation, to account for the over-representation
-of younger children in the sample; otherwise, a non-age-weighted prevalence
-is estimated. This means that even if the SD of MFAZ is problematic, the
-prevalence is estimated, with no adjustments, and returned.
+It first evaluates the quality of the data to determine the appropriate
+prevalence-analysis flow to be employed. Quality is evaluated by estimating
+the observed proportion of children aged 24-59 months of the total children in
+the dataset, then it estimates the p-value for the difference between the
+above-mentioned category against the expected (0.66) and rates it.
+
+If age ratio test is "problematic" and the proportion of children aged 24-59
+months is < 0.66, age-weighting approach is applied to prevalence estimation,
+to account for the over-representation of younger children in the sample;
+otherwise, a non-age-weighted prevalence is estimated.
 }
 \details{
 A typical user analysis workflow is expected to begin with data quality checks,
@@ -55,6 +63,8 @@ excluded from the prevalence estimation.
 ## Ungrouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
+  muac = muac,
+  age = age,
   wt = NULL,
   oedema = oedema
 )
@@ -62,11 +72,12 @@ mw_estimate_prevalence_muac(
 ## Grouped analysis ----
 mw_estimate_prevalence_muac(
   df = anthro.04,
+  muac = muac,
+  age = age,
   wt = NULL,
   oedema = oedema,
   province
 )
-
 
 }
 \references{

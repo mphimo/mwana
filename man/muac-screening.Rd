@@ -5,7 +5,7 @@
 \alias{mw_estimate_prevalence_screening2}
 \title{Estimate the prevalence of wasting based on MUAC for non-survey data}
 \usage{
-mw_estimate_prevalence_screening(df, muac, oedema = NULL, ...)
+mw_estimate_prevalence_screening(df, muac, age, oedema = NULL, ...)
 
 mw_estimate_prevalence_screening2(df, age_cat, muac, oedema = NULL, ...)
 }
@@ -18,6 +18,8 @@ identifiers are stored.}
 
 \item{muac}{A \code{numeric} or \code{integer} vector of raw MUAC values. The
 measurement unit should be millimetres.}
+
+\item{age}{A vector of class \code{double} of child's age in months.}
 
 \item{oedema}{A \code{character} vector for presence of nutritional oedema. Code
 values should be "y" for presence and "n" for absence. Default is NULL.}
@@ -40,15 +42,16 @@ systems. In such situations, the analysis usually consists only in estimating
 the point prevalence and the counts of positive cases, without necessarily
 estimating the uncertainty. This function serves this purpose.
 
-The quality of the data is first evaluated by calculating and rating the
-standard deviation (SD) of MFAZ (in \code{mw_estimate_prevalence_screening()})
-or SD of the raw MUAC values (in \code{mw_estimate_prevalence_screening2()}),
-and the p-value of the age ratio test in either functions.
-Thereafter, if the latter test is problematic, age-weighting approach is
-applied to the prevalence estimation, to account for the over-representation
-of younger children in the sample; otherwise, a non-age-weighted prevalence
-is estimated. This means that even if the SD in either functions is
-problematic, the prevalence is estimated, with no adjustments, and returned.
+It first evaluates the quality of the data to determine the appropriate
+prevalence-analysis flow to be employed. Quality is evaluated by estimating
+the observed proportion of children aged 24-59 months of the total children in
+the dataset, then it estimates the p-value for the difference between the
+above-mentioned category against the expected (0.66) and rates it.
+
+If age ratio test is "problematic" and the proportion of children aged 24-59
+months is < 0.66, age-weighting approach is applied to prevalence estimation,
+to account for the over-representation of younger children in the sample;
+otherwise, a non-age-weighted prevalence is estimated.
 }
 \details{
 A typical user analysis workflow is expected to begin with data quality checks,
@@ -57,7 +60,7 @@ estimation. This sequence places the user in the strongest position to assess
 whether the resulting prevalence estimates are reliable.
 
 In \code{mw_estimate_prevalence_screening()}, outliers are identified using SMART
-flagging criteria applied to MFAZ, whereas \code{mw_estimate_prevalence_screening2()}
+flagging criteria applied to MFAZ, whereas in \code{mw_estimate_prevalence_screening2()}
 are based on the raw MUAC values. In either functions, outliers are excluded
 from the prevalence estimation.
 }
@@ -65,6 +68,7 @@ from the prevalence estimation.
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = oedema,
   province
 )
@@ -73,6 +77,7 @@ mw_estimate_prevalence_screening(
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = NULL,
   province
 )
@@ -81,6 +86,7 @@ mw_estimate_prevalence_screening(
 mw_estimate_prevalence_screening(
   df = anthro.02,
   muac = muac,
+  age = age,
   oedema = NULL,
   province
 )

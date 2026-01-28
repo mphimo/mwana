@@ -105,7 +105,7 @@ testthat::test_that(
     columns_to_check <- c(
       "gam_n", "gam_p_low", "gam_p_upp", "sam_n",
       "sam_p_low", "sam_p_upp", "mam_n", "mam_p_low",
-      "mam_p_upp", "wt_pop"
+      "mam_p_upp", "N"
     )
 
     ### Tests ----
