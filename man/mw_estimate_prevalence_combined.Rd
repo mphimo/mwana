@@ -9,8 +9,8 @@ mw_estimate_prevalence_combined(df, wt = NULL, oedema = NULL, ...)
 \arguments{
 \item{df}{A \code{tibble} object produced by sequential application of the
 \code{\link[=mw_wrangle_wfhz]{mw_wrangle_wfhz()}} and \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Note that MUAC values in \code{df}
-must be in millimetres unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. Also, \code{df}
-must have a variable called \code{cluster} which contains the primary sampling
+must be in millimetres unit after using \code{\link[=mw_wrangle_muac]{mw_wrangle_muac()}}. In addition, \code{df}
+must have a variable called \code{cluster}, which contains the primary sampling
 unit identifiers.}
 
 \item{wt}{A vector of class \code{double} of the survey sampling weights. Default
@@ -38,10 +38,10 @@ properties such as accounting for survey sample weights when needed or
 applicable.
 
 The data quality is first assessed by calculating and rating the standard
-deviation (SD) of WFHZ. It then calculates the observed proportion of children
+deviation (SD) of WFHZ. Then it calculates the observed proportion of children
 aged 24–59 months out of all children in the dataset. Next, it estimates the
 p-value for the difference between this observed proportion and the expected
-value (0.66), and rates the result.
+(0.66), and rates the result.
 
 Prevalence is estimated only when the WFHZ SD is not problematic and the age
 ratio test is not problematic, or — if the age ratio test is problematic — the

@@ -48,7 +48,7 @@ complex_survey_estimates_muac <- function(df,
         )
       )
     ),
-    wt_pop = sum(srvyr::cur_svy_wts())
+    N = sum(srvyr::cur_svy_wts())
   )
   p
 }

@@ -214,7 +214,7 @@ mw_estimate_prevalence_screening <- function(df,
         raw_muac = FALSE,
         !!!.by
       ) |>
-        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p, .data$N)
     } else {
       output <- get_estimates(
         df = data_subset,

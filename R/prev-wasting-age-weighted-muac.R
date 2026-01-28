@@ -174,7 +174,7 @@ mw_estimate_age_weighted_prev_muac <- function(
         u2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         u2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         total_u2 = dplyr::n(),
-        .groups = "keep"
+        .groups = "drop"
       ) |>
       dplyr::mutate(
         u2gam = .data$u2oedema + .data$u2sam + .data$u2mam
@@ -187,7 +187,7 @@ mw_estimate_age_weighted_prev_muac <- function(
         o2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         o2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         total_o2 = dplyr::n(),
-        .groups = "keep"
+        .groups = "drop"
       ) |>
       dplyr::mutate(
         o2gam = .data$o2sam + .data$o2mam + .data$o2oedema
@@ -202,7 +202,7 @@ mw_estimate_age_weighted_prev_muac <- function(
         u2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         u2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         total_u2 = dplyr::n(),
-        .groups = "keep"
+        .groups = "drop"
       ) |>
       dplyr::mutate(
         u2gam = .data$u2oedema + .data$u2sam + .data$u2mam
@@ -215,7 +215,7 @@ mw_estimate_age_weighted_prev_muac <- function(
         o2sam = mean(ifelse(.data[[muac_str]] < 115 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         o2mam = mean(ifelse(.data[[muac_str]] >= 115 & .data[[muac_str]] < 125 & .data[[oedema_str]] == "n", 1, 0), na.rm = TRUE),
         total_o2 = dplyr::n(),
-        .groups = "keep"
+        .groups = "drop"
       ) |>
       dplyr::mutate(
         o2gam = .data$o2sam + .data$o2mam + .data$o2oedema
