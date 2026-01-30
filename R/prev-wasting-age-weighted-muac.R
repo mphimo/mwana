@@ -104,52 +104,10 @@ mw_estimate_age_weighted_prev_muac <- function(
 
   ## If arguments are symbols, conver to strings to be shiny friendly ----
   ### MUAC ----
-  muac_str <- if (is.symbol(muac_quo)) {
-    as.character(muac_quo)
-  } else if (is.character(muac_quo)) {
-    muac_quo
-  } else {
-    as.character(eval(muac_quo))
-  }
-
-  ### Age ----
-  age_str <- if (!is.null(age_quo)) {
-    if (is.symbol(age_quo)) {
-      as.character(age_quo)
-    } else if (is.character(age_quo)) {
-      age_quo
-    } else {
-      as.character(eval(age_quo))
-    }
-  } else {
-    NULL
-  }
-
-  ### Oedema ----
-  oedema_str <- if (!is.null(oedema_quo)) {
-    if (is.symbol(oedema_quo)) {
-      as.character(oedema_quo)
-    } else if (is.character(oedema_quo)) {
-      oedema_quo
-    } else {
-      as.character(eval(oedema_quo))
-    }
-  } else {
-    NULL
-  }
-
-  ### Age category ----
-  age_cat_str <- if (!is.null(age_cat_quo)) {
-    if (is.symbol(age_cat_quo)) {
-      as.character(age_cat_quo)
-    } else if (is.character(age_cat_quo)) {
-      age_cat_quo
-    } else {
-      as.character(eval(age_cat_quo))
-    }
-  } else {
-    NULL
-  }
+  muac_str <- if (is.symbol(muac_quo)) rlang::as_string(muac_quo) else muac_quo
+  age_str <- if (is.symbol(age_quo)) rlang::as_string(age_quo) else age_quo
+  oedema_str <- if (is.symbol(oedema_quo)) rlang::as_string(oedema_quo) else oedema_quo
+  age_cat_str <- if (is.symbol(age_cat_quo)) rlang::as_string(age_cat_quo) else age_cat_quo
 
   ## Enforce measuring unit is in "mm"
   if (any(grepl("\\.", df[[muac_str]]))) {

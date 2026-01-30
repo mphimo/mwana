@@ -191,9 +191,9 @@ mw_estimate_prevalence_screening <- function(df,
   ## Determine the analysis path that fits the data ----
   x <- dplyr::summarise(
     .data = df,
-    age_ratio_prop = mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$observedP,
+    age_ratio_prop = mw_stattest_ageratio(age, .expectedP = 0.66)$observedP,
     age_ratio_pval = rate_agesex_ratio(
-      mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
+      mw_stattest_ageratio(age, .expectedP = 0.66)$p
     ),
     .groups = "drop"
   )
@@ -207,10 +207,10 @@ mw_estimate_prevalence_screening <- function(df,
     if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
       output <- mw_estimate_age_weighted_prev_muac(
         data_subset,
-        muac = {{ muac }},
+        muac = muac,
         has_age = TRUE,
-        age = {{ age }},
-        oedema = {{ oedema }},
+        age = age,
+        oedema = oedema,
         raw_muac = FALSE,
         !!!.by
       ) |>
@@ -282,9 +282,9 @@ mw_estimate_prevalence_screening2 <- function(
   ## Determine the analysis path that fits the data ----
   x <- df |>
     dplyr::summarise(
-      age_ratio_prop = mw_stattest_ageratio2({{ age_cat }}, 0.66)$observedP,
+      age_ratio_prop = mw_stattest_ageratio2(age_cat, 0.66)$observedP,
       age_ratio_pval = rate_agesex_ratio(
-        mw_stattest_ageratio2({{ age_cat }}, 0.66)$p
+        mw_stattest_ageratio2(age_cat, 0.66)$p
       ),
       .groups = "drop"
     )
@@ -301,10 +301,10 @@ mw_estimate_prevalence_screening2 <- function(
     if (x$age_ratio_pval[i] == "Problematic" && x$age_ratio_prop[i] < 0.66) {
       r <- mw_estimate_age_weighted_prev_muac(
         data_subset,
-        muac = {{ muac }},
+        muac = "muac",
         has_age = FALSE,
-        age_cat = {{ age_cat }},
-        oedema = {{ oedema }},
+        age_cat = "age_cat",
+        oedema = "oedema",
         raw_muac = TRUE,
         !!!.by
       ) |>
