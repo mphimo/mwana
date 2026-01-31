@@ -53,7 +53,7 @@ testthat::test_that(
 
 ## When MUAC is not in millimetres the function errors ----
 testthat::test_that(
-  "When MUAC is not in centimetres, the function stop execution",
+  "When MUAC is not in centimetres, the function stops execution",
   {
     testthat::expect_error(
       x <- anthro.01 |>
