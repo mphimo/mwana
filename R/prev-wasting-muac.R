@@ -160,9 +160,9 @@ mw_estimate_prevalence_muac <- function(df,
   if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
   x <- dplyr::summarise(
     .data = df,
-    age_ratio_prop = mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$observedP,
+    age_ratio_prop = mw_stattest_ageratio(age, .expectedP = 0.66)$observedP,
     age_ratio_pval = rate_agesex_ratio(
-      mw_stattest_ageratio({{ age }}, .expectedP = 0.66)$p
+      mw_stattest_ageratio(age, .expectedP = 0.66)$p
     ),
     .groups = "drop"
   )
@@ -177,10 +177,10 @@ mw_estimate_prevalence_muac <- function(df,
       ### Estimate age-weighted prevalence as per SMART MUAC tool ----
       output <- mw_estimate_age_weighted_prev_muac(
         data_subset,
-        muac = {{ muac }},
+        muac = muac,
         has_age = TRUE,
-        age = {{ age }},
-        oedema = {{ oedema }},
+        age = age,
+        oedema = oedema,
         raw_muac = FALSE,
         !!!.by
       ) |>
