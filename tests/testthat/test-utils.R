@@ -1,4 +1,12 @@
-# Test check: get_age_months() ----
+# ==============================================================================
+# 📦 Functions: get_age_months() and flag_outliers(), remove_flags(), 
+# recode_muac()
+# ==============================================================================
+
+
+## ---- Test check: get_age_months() -------------------------------------------
+
+
 testthat::test_that(
   "calculate_age_in_months() does the job as expected",
   {
@@ -55,8 +63,11 @@ testthat::test_that(
   }
 )
 
-# Test check: "flag_outliers()" ----
-## flag_outliers with '.from' set to "zscores" ----
+
+## ---- Test check: "flag_outliers()" ------------------------------------------
+
+
+### flag_outliers with '.from' set to "zscores" ----
 testthat::test_that(
   "flag_outliers() works as expected when .from = 'zscore'",
   {
@@ -90,7 +101,7 @@ testthat::test_that(
 )
 
 
-## flag_outliers() with '.from' set to "raw_muac" ----
+### flag_outliers() with '.from' set to "raw_muac" ----
 testthat::test_that(
   "flag_outliers() works as expected when .from = 'raw_muac'",
   {
@@ -120,8 +131,10 @@ testthat::test_that(
   }
 )
 
-# Test check: remove_flags() -----
-## With .from set to "raw_muac" ----
+## ---- Test check: remove_flags() ---------------------------------------------
+
+
+### With .from set to "raw_muac" ----
 testthat::test_that(
   "remove_flags() assign NA's when flags are identified",
   {
@@ -156,7 +169,7 @@ testthat::test_that(
   }
 )
 
-## With .from set to "zscores" ----
+### With .from set to "zscores" ----
 testthat::test_that(
   "remove_flags() assign NA's when flaggs are identified",
   {
@@ -183,7 +196,10 @@ testthat::test_that(
   }
 )
 
-# Test check: recode_muac() ----
+
+## ---- Test check: recode_muac() ----------------------------------------------
+
+
 ## With .to set to "cm" ----
 testthat::test_that(
   "recode_muac() works well when .to = 'cm'",
@@ -218,7 +234,8 @@ testthat::test_that(
   }
 )
 
-## With .to set to "mm" ----
+
+### With .to set to "mm" ----
 testthat::test_that(
   "recode_muac() works well when .to = 'mm'",
   {

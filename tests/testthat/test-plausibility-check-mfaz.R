@@ -1,4 +1,12 @@
-# Test check: mw_plausibility_check_mfaz() ----
+# ==============================================================================
+# 📦 Functions: mw_plausibility_check_mfaz() and mw_neat_output_mfaz()
+# ==============================================================================
+
+
+## ---- Test check: mw_plausibility_check_mfaz() -------------------------------
+
+
+### Without grouping variables ----
 testthat::test_that(
   "mw_plausibility_check_mfaz() works as expected",
   {
@@ -44,7 +52,11 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_mfaz() ----
+
+## ---- Test check: mw_neat_output_mfaz() --------------------------------------
+
+
+### Without grouping variables ----
 testthat::test_that(
   "mw_neat_output_mfaz() works",
   {
@@ -90,7 +102,8 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_mfaz() ----
+
+### When grouping variables are provided ----
 testthat::test_that(
   "mw_neat_output_mfaz() works OK when `df` is grouped",
   {

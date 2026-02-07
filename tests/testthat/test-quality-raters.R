@@ -1,4 +1,12 @@
-# Test check: rate_propof_flagged() ----
+# ==============================================================================
+# 📦 Functions: rate_propof_flagged(), rate_std(), rate_agesex_ratio(),
+# rate_skewkurt(), rate_overall_quality()
+# ==============================================================================
+
+
+## ---- Test check: rate_propof_flagged() --------------------------------------
+
+
 ## With `.in` set to "mfaz" ----
 testthat::test_that(
   "rate_propof_flagged() with `.in` set to 'mfaz' returns the
@@ -48,7 +56,8 @@ testthat::test_that(
   }
 )
 
-## With `.in` set to "wfhz" ----
+
+### With `.in` set to "wfhz" ----
 testthat::test_that(
   "rate_propof_flagged() with with `.in` set to 'wfhz' returns the
       expected output and correct rating",
@@ -99,7 +108,7 @@ testthat::test_that(
 )
 
 
-## With `.in` set to "raw_muac" ----
+### With `.in` set to "raw_muac" ----
 testthat::test_that(
   "rate_propof_flagged() with with `.in` set to 'raw_muac' returns the
       expected output and correct rating",
@@ -149,8 +158,10 @@ testthat::test_that(
 )
 
 
-# Test check: rate_std()
-## With `.of` set "zscores" ----
+## ---- Test check: rate_std() -------------------------------------------------
+
+
+### With `.of` set "zscores" ----
 testthat::test_that(
   "Rating of acceptability of standard deviation of z-scores works as expected",
   {
@@ -193,7 +204,8 @@ testthat::test_that(
   }
 )
 
-## With `.of` set to "raw_muac" ----
+
+### With `.of` set to "raw_muac" ----
 testthat::test_that(
   "Rating of acceptability of standard deviation of raw MUAC values works as expected",
   {
@@ -239,7 +251,9 @@ testthat::test_that(
 )
 
 
-# Test check: rate_agesex_ratio() ----
+## ---- Test check: rate_agesex_ratio() ----------------------------------------
+
+
 testthat::test_that(
   "Rate of the acceptability of the age and sex ratio test's p-values works well",
   {
@@ -283,7 +297,10 @@ testthat::test_that(
   }
 )
 
-# Test check: rate_skewkurt() ----
+
+## ---- Test check: rate_skewkurt() --------------------------------------------
+
+
 testthat::test_that(
   "Rate of acceptability of skewness and kurtosis is as expected",
   {
@@ -322,7 +339,10 @@ testthat::test_that(
   }
 )
 
-# Test check: classify_overall_quality() ----
+
+## ---- Test check: classify_overall_quality() ---------------------------------
+
+
 testthat::test_that(
   "rate_overall_quality() works",
   {

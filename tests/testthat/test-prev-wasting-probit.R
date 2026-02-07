@@ -1,4 +1,11 @@
-# Test check: apply_probit_method() ----
+# ==============================================================================
+# 📦 Functions: apply_probit_method()
+# ==============================================================================
+
+
+## ---- Test check: apply_probit_method() --------------------------------------
+
+
 testthat::test_that(
   "apply_probit_approach works",
   {
@@ -16,7 +23,10 @@ testthat::test_that(
   }
 )
 
-# Test check: estimate_probit_prevalence() ----
+
+## ---- Test check: estimate_probit_prevalence() -------------------------------
+
+
 testthat::test_that(
   "estimate_probit_prevalence works OK",
   {
@@ -33,8 +43,9 @@ testthat::test_that(
   }
 )
 
-# Test check: estimate_probit_prevalence() ----
-## When `.by` is not NULL ----
+
+
+### When `.by` is not NULL ----
 testthat::test_that(
   "estimate_probit_prevalence works OK",
   {
@@ -50,7 +61,7 @@ testthat::test_that(
   }
 )
 
-# Test check: estimate_probit_prevalence() ----
+### When `.by` is NULL ----
 testthat::test_that(
   "estimate_probit_prevalence works OK with `.for` set to 'mfaz'",
   {

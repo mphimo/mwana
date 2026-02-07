@@ -1,5 +1,12 @@
-# Test check: mw_estimate_prevalence_wfhz() ----
-## When std =! problematic & !is.null(wt) & !is.null(oedema) ----
+# ==============================================================================
+# 📦 Functions: mw_estimate_prevalence_wfhz()
+# ==============================================================================
+
+
+## ---- Test check: mw_estimate_prevalence_wfhz() ------------------------------
+
+
+### When std =! problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates",
   {
@@ -51,7 +58,8 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(wt) & !is.null(oedema) ----
+
+### When std != problematic & is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates when survey weights is
     NULL",
@@ -97,7 +105,8 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(wt) & is.null(oedema) ----
+
+### When std != problematic & is.null(wt) & is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates when oedema is
     NULL",
@@ -143,7 +152,8 @@ testthat::test_that(
   }
 )
 
-## When std =! problematic & !is.null(wt) with .by = province ----
+
+### When std =! problematic & !is.null(wt) with .by = province ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() yields correct estimates when grouping variables
   are used",
@@ -197,7 +207,8 @@ testthat::test_that(
   }
 )
 
-## When std == problematic & is.null(wt) ----
+
+### When std == problematic & is.null(wt) ----
 testthat::test_that(
   "mw_estimate_prevalence_wfhz() works well on a multi-area dataset with
   wfhz standard deviation taking different rates",

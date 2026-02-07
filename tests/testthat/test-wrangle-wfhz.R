@@ -1,4 +1,11 @@
-# Test check: mw_wrangle_wfhz() ----
+# ==============================================================================
+# 📦 Functions: mw_wrangle_wfhz() 
+# ==============================================================================
+
+
+## ---- Test check: mw_wrangle_wfhz() ------------------------------------------
+
+
 testthat::test_that(
   "mw_wrangle_wfhz() works as designed",
   {
@@ -41,7 +48,8 @@ testthat::test_that(
   }
 )
 
-## Check if function errors when wrong input for sex is supplied ----
+
+### Check if function errors when wrong input for sex is supplied ----
 testthat::test_that(
   "mw_wrangle_wfhz() throws error when a wrong input is supplied",
   {
@@ -67,7 +75,8 @@ testthat::test_that(
   }
 )
 
-## Check if function errors when wrong input for sex is supplied ----
+
+### Check if function errors when wrong input for sex is supplied ----
 testthat::test_that(
   "mw_wrangle_wfhz() throws error when a wrong input is supplied",
   {

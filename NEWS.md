@@ -8,6 +8,8 @@
 
 * Refactored MUAC‑prevalence functions to take explicit `age` and `muac` arguments in the function call, rather than accessing these variables implicitly from the dataset as in earlier versions. 
 
+* Replaced `anthro.04` dataset with another with the same name, but containing scenarios that match the expected behaviour of the refactored muac-prevalence functions, and then updated expectations in corresponding unit tests. 
+
 <br>
 
 # mwana 0.2.3

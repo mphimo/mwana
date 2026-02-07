@@ -64,16 +64,26 @@ As a standalone function, the user must check data quality before calling the fu
 }
 \examples{
 ## Example application when age is given in months ----
-mw_estimate_age_weighted_prev_muac(
-  df = anthro.04,
-  muac = muac,
-  has_age = TRUE,
-  age = age,
-  age_cat = FALSE,
-  oedema = oedema,
-  raw_muac = FALSE,
-  province
-)
+anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  transform(muac = recode_muac(muac, "mm")) |>
+  mw_estimate_age_weighted_prev_muac(
+    muac = muac,
+    has_age = TRUE,
+    age = age,
+    age_cat = FALSE,
+    oedema = oedema,
+    raw_muac = FALSE,
+    analysis_unit
+  )
 
 ## Example application when age is given in categories ----
 anthro.04 |>
@@ -90,7 +100,7 @@ anthro.04 |>
     age = NULL,
     age_cat = age_cat,
     oedema = oedema,
-    raw_muac = FALSE
+    raw_muac = TRUE
   )
 
 }
