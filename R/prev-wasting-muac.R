@@ -184,7 +184,7 @@ mw_estimate_prevalence_muac <- function(df,
         raw_muac = FALSE,
         !!!.by
       ) |>
-        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p, .data$N)
     } else {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(
