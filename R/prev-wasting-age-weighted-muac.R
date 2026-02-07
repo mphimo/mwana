@@ -53,16 +53,26 @@
 #'
 #' @examples
 #' ## Example application when age is given in months ----
-#' mw_estimate_age_weighted_prev_muac(
-#'   df = anthro.04,
-#'   muac = muac,
-#'   has_age = TRUE,
-#'   age = age,
-#'   age_cat = FALSE,
-#'   oedema = oedema,
-#'   raw_muac = FALSE,
-#'   province
-#' )
+#' anthro.04 |>
+#'   mw_wrangle_age(age = age) |>
+#'   mw_wrangle_muac(
+#'     muac = muac,
+#'     .recode_muac = TRUE,
+#'     .to = "cm",
+#'     age = age,
+#'     sex = sex,
+#'     .recode_sex = FALSE
+#'   ) |>
+#'   transform(muac = recode_muac(muac, "mm")) |>
+#'   mw_estimate_age_weighted_prev_muac(
+#'     muac = muac,
+#'     has_age = TRUE,
+#'     age = age,
+#'     age_cat = FALSE,
+#'     oedema = oedema,
+#'     raw_muac = FALSE,
+#'     analysis_unit
+#'   )
 #'
 #' ## Example application when age is given in categories ----
 #' anthro.04 |>
@@ -79,7 +89,7 @@
 #'     age = NULL,
 #'     age_cat = age_cat,
 #'     oedema = oedema,
-#'     raw_muac = FALSE
+#'     raw_muac = TRUE
 #'   )
 #'
 #' @export
@@ -93,7 +103,6 @@ mw_estimate_age_weighted_prev_muac <- function(
     oedema = NULL,
     raw_muac = FALSE,
     ...) {
-  
   ## Defuse argument `.by` ----
   .by <- rlang::enquos(...)
 
@@ -111,43 +120,43 @@ mw_estimate_age_weighted_prev_muac <- function(
   ## Summarise when age is months is given ----
   if (has_age) {
     if (!is.null(df$oedema)) {
-    u2 <- df |>
-      dplyr::filter(age < 24) |>
-      dplyr::summarise(
-        u2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$u2oedema + .data$u2sam + .data$u2mam,
-        total_u2 = n()
-      )
+      u2 <- df |>
+        dplyr::filter(age < 24) |>
+        dplyr::summarise(
+          u2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+          u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          u2gam = .data$u2oedema + .data$u2sam + .data$u2mam,
+          total_u2 = n()
+        )
 
-    o2 <- df |>
-      dplyr::filter(.data$age >= 24) |>
-      dplyr::summarise(
-        o2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2oedema + .data$o2sam + .data$o2mam,
-        total_o2 = n()
-      )
+      o2 <- df |>
+        dplyr::filter(.data$age >= 24) |>
+        dplyr::summarise(
+          o2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+          o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          o2gam = .data$o2oedema + .data$o2sam + .data$o2mam,
+          total_o2 = n()
+        )
     } else {
-        u2 <- df |>
-      dplyr::filter(.data$age < 24) |>
-      dplyr::summarise(
-        u2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
-        u2gam = .data$u2sam + .data$u2mam,
-        total_u2 = n()
-      )
+      u2 <- df |>
+        dplyr::filter(.data$age < 24) |>
+        dplyr::summarise(
+          u2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
+          u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
+          u2gam = .data$u2sam + .data$u2mam,
+          total_u2 = n()
+        )
 
-    o2 <- df |>
-      dplyr::filter(.data$age >= 24) |>
-      dplyr::summarise(
-        o2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam,
-        total_o2 = n()
-      )
+      o2 <- df |>
+        dplyr::filter(.data$age >= 24) |>
+        dplyr::summarise(
+          o2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
+          o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
+          o2gam = .data$o2sam + .data$o2mam,
+          total_o2 = n()
+        )
     }
   }
 
@@ -155,44 +164,43 @@ mw_estimate_age_weighted_prev_muac <- function(
   if (has_age == FALSE) {
     if (!is.null(df$oedema)) {
       u2 <- df |>
-      dplyr::filter(.data$age_cat == "6-23") |>
-      dplyr::summarise(
-        u2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        u2gam = .data$u2oedema + .data$u2sam + .data$u2mam,
-        total_u2 = n()
-      )
+        dplyr::filter(.data$age_cat == "6-23") |>
+        dplyr::summarise(
+          u2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+          u2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          u2gam = .data$u2oedema + .data$u2sam + .data$u2mam,
+          total_u2 = n()
+        )
 
-    o2 <- df |>
-      dplyr::filter(.data$age_cat == "24-59") |>
-      dplyr::summarise(
-        o2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
-        o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
-        o2gam = .data$o2oedema + .data$o2sam + .data$o2mam,
-        total_o2 = n()
-      )
+      o2 <- df |>
+        dplyr::filter(.data$age_cat == "24-59") |>
+        dplyr::summarise(
+          o2oedema = mean(ifelse(.data$oedema == "y", 1, 0), na.rm = TRUE),
+          o2sam = mean(ifelse(.data$muac < 115 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125 & .data$oedema == "n", 1, 0), na.rm = TRUE),
+          o2gam = .data$o2oedema + .data$o2sam + .data$o2mam,
+          total_o2 = n()
+        )
     } else {
       u2 <- df |>
-      dplyr::filter(.data$age_cat == "6-23") |>
-      dplyr::summarise(
-        u2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
-        u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
-        u2gam = .data$u2sam + .data$u2mam,
-        total_u2 = n()
-      )
+        dplyr::filter(.data$age_cat == "6-23") |>
+        dplyr::summarise(
+          u2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
+          u2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
+          u2gam = .data$u2sam + .data$u2mam,
+          total_u2 = n()
+        )
 
-    o2 <- df |>
-      dplyr::filter(.data$age_cat == "24-59") |>
-      dplyr::summarise(
-        o2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
-        o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
-        o2gam = .data$o2sam + .data$o2mam,
-        total_o2 = n()
-      )
+      o2 <- df |>
+        dplyr::filter(.data$age_cat == "24-59") |>
+        dplyr::summarise(
+          o2sam = mean(ifelse(.data$muac < 115, 1, 0), na.rm = TRUE),
+          o2mam = mean(ifelse(.data$muac >= 115 & .data$muac < 125, 1, 0), na.rm = TRUE),
+          o2gam = .data$o2sam + .data$o2mam,
+          total_o2 = n()
+        )
     }
-    
   }
 
   ## Check the number of grouping variables to then exclude them from over twos before binding ----
@@ -201,24 +209,23 @@ mw_estimate_age_weighted_prev_muac <- function(
   }
   if (!is.null(df$oedema)) {
     x <- dplyr::left_join(u2, o2, by = dplyr::group_vars(df)) |>
-    dplyr::mutate(
-      sam_p = ((.data$u2oedema + .data$u2sam) + (2 * (.data$o2oedema + .data$o2sam))) / 3,
-      mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
-      gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
-      N = .data$total_u2 + .data$total_o2
-    ) |>
-    dplyr::select(!c(.data$total_u2, .data$total_o2))
+      dplyr::mutate(
+        sam_p = ((.data$u2oedema + .data$u2sam) + (2 * (.data$o2oedema + .data$o2sam))) / 3,
+        mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
+        gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
+        N = .data$total_u2 + .data$total_o2
+      ) |>
+      dplyr::select(!c(.data$total_u2, .data$total_o2))
   } else {
     x <- dplyr::left_join(u2, o2, by = dplyr::group_vars(df)) |>
-    dplyr::mutate(
-      sam_p = (.data$u2sam + (2 * .data$o2sam)) / 3,
-      mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
-      gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
-      N = .data$total_u2 + .data$total_o2
-    ) |>
-    dplyr::select(!c(.data$total_u2, .data$total_o2))
-
+      dplyr::mutate(
+        sam_p = (.data$u2sam + (2 * .data$o2sam)) / 3,
+        mam_p = (.data$u2mam + (2 * .data$o2mam)) / 3,
+        gam_p = (.data$u2gam + (2 * .data$o2gam)) / 3,
+        N = .data$total_u2 + .data$total_o2
+      ) |>
+      dplyr::select(!c(.data$total_u2, .data$total_o2))
   }
-  
+
   x
 }

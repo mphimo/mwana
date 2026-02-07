@@ -92,19 +92,22 @@ complex_survey_estimates_mfaz <- function(df,
 #'
 #' @examples
 #' ## Without grouping variables ----
-#' mw_estimate_prevalence_mfaz(
-#'   df = anthro.04,
-#'   wt = NULL,
-#'   oedema = oedema
-#' )
-#'
-#' ## With grouping variables ----
-#' mw_estimate_prevalence_mfaz(
-#'   df = anthro.04,
-#'   wt = NULL,
-#'   oedema = oedema,
-#'   province
-#' )
+#' anthro.04 |>
+#'   mw_wrangle_age(age = age) |>
+#'   mw_wrangle_muac(
+#'     muac = muac,
+#'     .recode_muac = TRUE,
+#'     .to = "cm",
+#'     age = age,
+#'     sex = sex,
+#'     .recode_sex = FALSE
+#'   ) |>
+#'   transform(muac = recode_muac(muac, "mm")) |>
+#'   mw_estimate_prevalence_mfaz(
+#'     wt = NULL,
+#'     oedema = oedema,
+#'     analysis_unit
+#'   )
 #'
 #' @export
 #'
@@ -130,9 +133,9 @@ mw_estimate_prevalence_mfaz <- function(df,
 
   ## Iterate over data frame to compute prevalence according to the SD ----
   for (i in seq_len(nrow(x))) {
-      vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
-      exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
-      data_subset <- dplyr::filter(df, !!!exprs)
+    vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
+    exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
+    data_subset <- dplyr::filter(df, !!!exprs)
 
     std <- x$std[i]
     if (std != "Problematic") {
@@ -142,7 +145,7 @@ mw_estimate_prevalence_mfaz <- function(df,
       )
     } else {
       ### Compute grouped PROBIT based prevalence ----
-        result <- estimate_probit_prevalence(data_subset, .for = "mfaz", !!!.by)
+      result <- estimate_probit_prevalence(data_subset, .for = "mfaz", !!!.by)
     }
     results[[i]] <- result
   }

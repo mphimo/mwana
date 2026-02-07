@@ -1,10 +1,17 @@
-# Test check: mw_estimate_prevalence_muac() ----
-## When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
+# ==============================================================================
+# 📦 Functions: mw_estimate_prevalence_muac()
+# ==============================================================================
+
+
+## ---- Test check: mw_estimate_prevalence_muac() ------------------------------
+
+
+### When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates when oedema and survey
     weights are supplied",
   {
-    ### Get the prevalence estimates ----
+    #### Get the prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         muac = muac,
@@ -13,27 +20,27 @@ testthat::test_that(
         age = age
       )
 
-    ### Expected results ----
-    ### GAM estimates and uncertainty ----
+    #### Expected results ----
+    #### GAM estimates and uncertainty ----
     n_gam <- 118
     p_gam <- 5.6
     p_gam_lci <- 4.3
     p_gam_uci <- 6.9
     deff <- 1.86
 
-    ### SAM estimates and uncertainty ----
+    #### SAM estimates and uncertainty ----
     n_sam <- 29
     p_sam <- 1.7
     p_sam_lci <- 0.9
     p_sam_uci <- 2.4
 
-    ### MAM estimates and uncertainty ----
+    #### MAM estimates and uncertainty ----
     n_mam <- 89
     p_mam <- 4.0
     p_mam_lci <- 3.0
     p_mam_uci <- 4.9
 
-    ### Tests ----
+    #### Tests ----
 
     testthat::expect_equal(p[[1]][1], n_gam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_gam)
@@ -50,12 +57,13 @@ testthat::test_that(
   }
 )
 
-## When age_ratio & std != problematic & is.null(wt) & !is.null(oedema) ----
+
+### When age_ratio & std != problematic & is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates survey
     weights are not supplied",
   {
-    ### Get the prevalence estimates ----
+    #### Get the prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         muac = muac,
@@ -63,27 +71,26 @@ testthat::test_that(
         wt = NULL
       )
 
-    ### Expected results ----
-    ### GAM estimates and uncertainty ----
+    #### Expected results ----
+    #### GAM estimates and uncertainty ----
     n_gam <- 106
     p_gam <- 4.9
     p_gam_lci <- 3.8
     p_gam_uci <- 5.9
 
-    ### SAM estimates and uncertainty ----
+    #### SAM estimates and uncertainty ----
     n_sam <- 16
     p_sam <- 0.7
     p_sam_lci <- 0.4
     p_sam_uci <- 1.1
 
-    ### MAM estimates and uncertainty ----
+    #### MAM estimates and uncertainty ----
     n_mam <- 90
     p_mam <- 4.1
     p_mam_lci <- 3.2
     p_mam_uci <- 5.1
 
-    ### Tests ----
-
+    #### Tests ----
     testthat::expect_equal(p[[1]][1], n_gam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_gam)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), p_gam_lci)
@@ -99,12 +106,13 @@ testthat::test_that(
   }
 )
 
-## When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
+
+### When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates when oedema is not
     supplied",
   {
-    ### Get the prevalence estimates ----
+    #### Get the prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         muac = muac,
@@ -113,7 +121,7 @@ testthat::test_that(
         wt = wtfactor
       )
 
-    ### Expected results ----
+    #### Expected results ----
     #### GAM estimates and uncertainty ----
     n_gam <- 106
     p_gam <- 5.0
@@ -133,7 +141,7 @@ testthat::test_that(
     p_mam_lci <- 3.1
     p_mam_uci <- 5.0
 
-    ### Tests ----
+    #### Tests ----
     testthat::expect_equal(p[[1]][1], n_gam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_gam)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), p_gam_lci)
@@ -149,11 +157,12 @@ testthat::test_that(
   }
 )
 
-## When age_ratio & std != problematic & is.null(wt) ----
+
+### When age_ratio != problematic & is.null(wt) ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates when oedema is not supplied",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         muac = muac,
@@ -161,7 +170,7 @@ testthat::test_that(
         oedema = NULL
       )
 
-    ### Expected results ----
+    #### Expected results ----
     #### GAM estimates and uncertainty ----
     n_gam <- 106
     p_gam <- 4.9
@@ -180,7 +189,7 @@ testthat::test_that(
     p_mam_lci <- 3.2
     p_mam_uci <- 5.1
 
-    ### The test ----
+    #### The test ----
     testthat::expect_equal(p[[1]][1], n_gam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_gam)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), p_gam_lci)
@@ -197,12 +206,12 @@ testthat::test_that(
 )
 
 
-## When age_ratio & std != problematic & !is.null(wt) by grouped vars
+### When age ratio != problematic & !is.null(wt) by grouped vars
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates when grouping variables are
     specified",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_muac(
         muac = muac,
@@ -212,7 +221,7 @@ testthat::test_that(
         province
       )
 
-    ### Expected results for Zambezia province ----
+    #### Expected results for Zambezia province ----
     #### GAM estimates and uncertainty ----
     n_gam <- 57
     p_gam <- 5.5
@@ -235,7 +244,7 @@ testthat::test_that(
     #### Sum of weigths ----
     sum_wt <- 880902
 
-    ### The test ----
+    #### The test ----
     testthat::expect_equal(p[[2]][2], n_gam)
     testthat::expect_equal(round(p[[3]][2] * 100, 1), p_gam)
     testthat::expect_equal(round(p[[4]][2] * 100, 1), p_gam_lci)
@@ -254,79 +263,54 @@ testthat::test_that(
 )
 
 
-## When !is.null(.by) and analysis approach has different categories ----
+### When different analaysis approaches are applied ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() works well on a dataframe with multiple survey areas with
     different categories of analysis_approach",
   {
-    ### Get the prevalence estimates ----
+    #### Get the prevalence estimates ----
     p <- anthro.04 |>
+      mw_wrangle_age(age = age) |> 
+      mw_wrangle_muac(sex, muac, age, FALSE, TRUE, "cm") |> 
+      mutate(muac = recode_muac(muac, "mm")) |> 
       mw_estimate_prevalence_muac(
         muac = muac,
         age = age, 
         oedema = oedema, 
         wt = NULL, 
-        province
+        analysis_unit
       )
 
-    ### A Province whose analysis approach is unweighted ---
-    province_1 <- subset(p, province == "Province 1")
-
-    ### A Province whose analysis approach is weighted ---
-    province_2 <- subset(p, province == "Province 2")
-
-    ### A Province whose analysis approach is add missing (NA's) ---
-    province_3 <- subset(p, province == "Province 3") |>
-      select(!province)
-
     columns_to_check <- c(
-      "gam_n", "gam_p_low", "gam_p_upp", "sam_n",
-      "sam_p_low", "sam_p_upp", "mam_n", "mam_p_low",
-      "mam_p_upp", "N"
+      "gam_p_low", "gam_p_upp", "sam_p_low", "sam_p_upp", "mam_p_low", "mam_p_upp"
     )
 
     ### The test ----
-    testthat::expect_vector(select(p, !province), size = 3, ncol(17))
+    testthat::expect_vector(select(p, !analysis_unit), size = 3, ncol(17))
     testthat::expect_s3_class(p, "tbl")
     testthat::expect_false(all(sapply(p[1, ][columns_to_check], \(.) all(is.na(.)))))
     testthat::expect_true(all(sapply(p[2, ][columns_to_check], \(.) all(is.na(.)))))
 
-    ### Province 2 ----
+    #### Unit B: age-weighted prevalence ----
     testthat::expect_true(is.na(p[2, 2][[1]]))
-    testthat::expect_equal(round(p[2, 3][[1]] * 100, 1), 8.6)
-    testthat::expect_true(is.na(p[2, 7][[1]]))
-    testthat::expect_equal(round(p[2, 8][[1]] * 100, 1), 1.5)
-    testthat::expect_true(is.na(p[2, 12][[1]]))
-    testthat::expect_equal(round(p[2, 13][[1]] * 100, 1), 7.1)
+    testthat::expect_equal(round(p[2, 3][[1]] * 100, 1), 12.1)
+    testthat::expect_true(is.na(p[2, 4][[1]]))
+    testthat::expect_equal(round(p[2, 8][[1]] * 100, 1), 2.9)
+    testthat::expect_true(is.na(p[2, 6][[1]]))
+    testthat::expect_equal(round(p[2, 13][[1]] * 100, 1), 9.2)
+    testthat::expect_equal(p[2, 17][[1]], 1354)
 
-    ### Province 3 ----
-    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 11.1)
-    testthat::expect_equal(round(p[3, 8][[1]] * 100, 1), 2.8)
-    testthat::expect_equal(round(p[3, 13][[1]] * 100, 1), 8.3)
+    #### Unit C: Age ratio is problematic but prop >= 0.66 (non-age-weighted p) ----
+    testthat::expect_equal(round(p[3, 3][[1]] * 100, 1), 9.1)
+    testthat::expect_equal(round(p[3, 4][[1]] * 100, 1), 4.9)
+    testthat::expect_equal(round(p[3, 8][[1]] * 100, 1), 2.4)
+    testthat::expect_equal(round(p[3, 13][[1]] * 100, 1), 6.7)
+    testthat::expect_equal(p[3, 17][[1]], 209)
   }
 )
 
-## When is.null(.by) and analysis pah is add NA's ----
-testthat::test_that(
-  "mw_estimate_prevalence_muac() works as expected",
-  {
-    ### Get the prevalence estimates ----
-    p <- anthro.04 |>
-      mw_estimate_prevalence_muac(
-        muac = muac,
-        age = age, 
-        oedema = oedema, 
-        wt = NULL, 
-        province
-      )
 
-    ### The test ----
-    testthat::expect_s3_class(p, "tbl")
-    testthat::expect_true(all(sapply(p[names(p[[3]])], \(.) all(is.na(.)))))
-  }
-)
-
-## When MUAC is not in millimetres the function errors ----
+### When MUAC is not in millimetres the function errors ----
 testthat::test_that(
   "When MUAC is not in centimetres, the function stop execution",
   {

@@ -1,5 +1,12 @@
-# Test check: mw_wrangle_muac() ----
-## When age is available ----
+# ==============================================================================
+# 📦 Functions: mw_wrangle_muac() 
+# ==============================================================================
+
+
+## ---- Test check: mw_wrangle_muac() ------------------------------------------
+
+
+### When age is available ----
 testthat::test_that(
   "mw_wrangle_muac() works well when age is supplied",
   {
@@ -30,8 +37,11 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_wrangle_muac() ----
-## When age = NULL ----
+
+## ---- Test check: mw_wrangle_muac() ------------------------------------------
+
+
+### When age = NULL ----
 testthat::test_that(
   "mw_wrangle_muac() works well when age is not supplied",
   {
@@ -53,7 +63,8 @@ testthat::test_that(
   }
 )
 
-## Check if function errors when wrong input for sex is supplied ----
+
+### Check if function errors when wrong input for sex is supplied ----
 testthat::test_that(
   "mw_wrangle_muac() throws error when wrong sex input is supplied",
   {
@@ -88,7 +99,8 @@ testthat::test_that(
   }
 )
 
-## Check if function errors when wrong input for sex is supplied ----
+
+### Check if function errors when wrong input for sex is supplied ----
 testthat::test_that(
   "mw_wrangle_muac() throws error when wrong sex input is supplied",
   {

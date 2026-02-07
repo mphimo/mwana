@@ -3,18 +3,16 @@
 \docType{data}
 \name{anthro.04}
 \alias{anthro.04}
-\title{A sample data from a community-based sentinel site in an anonymized location}
+\title{A sample data from a community-based sentinel site with location anonymised}
 \format{
-A tibble of 3,002 x 8.\tabular{ll}{
+A tibble of 2,192 × 6.\tabular{ll}{
    \strong{Variable} \tab \strong{Description} \cr
-   \emph{province} \tab Survey location \cr
+   \emph{analysis_unit} \tab Location wherein the assessment was conducted \cr
    \emph{cluster} \tab Primary sampling unit \cr
-   \emph{sex} \tab Sex; "m" = boys, "f" = girls \cr
-   \emph{age} \tab Calculated age in months with two decimal places \cr
+   \emph{sex} \tab Sex; "1" = boys, "2" = girls \cr
+   \emph{age} \tab Calculated age in months \cr
    \emph{muac} \tab Mid-upper arm circumference in millimetres \cr
-   \emph{oedema} \tab oedema; "n" = no oedema, "y" = with oedema \cr
-   \emph{mfaz} \tab MUAC-for-age z-scores with 3 decimal places \cr
-   \emph{flag_mfaz} \tab Flagged MUAC-for-age z-score value; 1 = flagged, 0 = not flagged \cr
+   \emph{oedema} \tab oedema; "n" = no oedema, "y" = yes oedema \cr
 }
 }
 \source{
@@ -24,21 +22,20 @@ Anonymous
 anthro.04
 }
 \description{
-Data was collected from community-based sentinel sites located across three
-provinces. Each provincial dataset presents distinct data quality scenarios,
-requiring tailored prevalence analysis:
+Data herein was derived from population-based assessments in three locations
+(analysis unit). Each unit presents distinct scenarios that requires
+also-distinct handling during the prevalence analysis:
 \itemize{
-\item \emph{Province 1} has a MUAC-for-age z-score standard deviation and age ratio
-test rating of acceptability falling within range
-\item \emph{Province 2} has age ratio rated as problematic but with an acceptable
-standard deviation of MUAC-for-age z-score
-\item \emph{"Province 3} has both tests rated as problematic
+\item \emph{Unit A} has flawless data.
+\item \emph{Unit B} has age-ratio-test results rated as problematic, with an observed
+proportion of children aged 24-59 months < 0.66.
+\item \emph{UnitC} has age-ratio-test results rated as problematic, with an observed
+proportion of children aged 24-59 months >= 0.66.
 }
 
-This sample data is useful to demonstrate the use of the prevalence functions
-on a multiple-domain survey data where variations in the rating of
-acceptability of the standard deviation exist, hence require different
-analytical approach for each domain to ensure accurate estimation.
+This sample data is useful to demonstrate designed behaviours of
+MUAC-prevalence functions to dealing with certain-and-expected flaws in the
+data.
 }
 \examples{
 anthro.04

@@ -64,15 +64,15 @@ complex_survey_estimates_muac <- function(df,
 #' sample design properties, such as accounting for survey sample weights when
 #' needed or applicable.
 #'
-#' It first evaluates the quality of the data to determine the appropriate 
-#' prevalence-analysis flow to be employed. Quality is evaluated by estimating 
-#' the observed proportion of children aged 24-59 months of the total children in 
-#' the dataset, then it estimates the p-value for the difference between the 
-#' above-mentioned category against the expected (0.66) and rates it. 
-#' 
-#' If age ratio test is "problematic" and the proportion of children aged 24-59 
-#' months is < 0.66, age-weighting approach is applied to prevalence estimation, 
-#' to account for the over-representation of younger children in the sample; 
+#' It first evaluates the quality of the data to determine the appropriate
+#' prevalence-analysis flow to be employed. Quality is evaluated by estimating
+#' the observed proportion of children aged 24-59 months of the total children in
+#' the dataset, then it estimates the p-value for the difference between the
+#' above-mentioned category against the expected (0.66) and rates it.
+#'
+#' If age ratio test is "problematic" and the proportion of children aged 24-59
+#' months is < 0.66, age-weighting approach is applied to prevalence estimation,
+#' to account for the over-representation of younger children in the sample;
 #' otherwise, a non-age-weighted prevalence is estimated.
 #'
 #' @details
@@ -118,24 +118,26 @@ complex_survey_estimates_muac <- function(df,
 #' [mw_estimate_prevalence_screening()]
 #'
 #' @examples
+#' 
 #' ## Ungrouped analysis ----
-#' mw_estimate_prevalence_muac(
-#'   df = anthro.04,
-#'   muac = muac,
-#'   age = age,
-#'   wt = NULL,
-#'   oedema = oedema
-#' )
-#'
-#' ## Grouped analysis ----
-#' mw_estimate_prevalence_muac(
-#'   df = anthro.04,
-#'   muac = muac,
-#'   age = age,
-#'   wt = NULL,
-#'   oedema = oedema,
-#'   province
-#' )
+#' anthro.04 |>
+#'   mw_wrangle_age(age = age) |>
+#'   mw_wrangle_muac(
+#'     muac = muac,
+#'     .recode_muac = TRUE,
+#'     .to = "cm",
+#'     age = age,
+#'     sex = sex,
+#'     .recode_sex = FALSE
+#'   ) |>
+#'   transform(muac = recode_muac(muac, "mm")) |>
+#'   mw_estimate_prevalence_muac(
+#'     muac = muac,
+#'     age = age,
+#'     wt = NULL,
+#'     oedema = oedema,
+#'     analysis_unit
+#'   )
 #'
 #' @export
 #'
@@ -184,7 +186,7 @@ mw_estimate_prevalence_muac <- function(df,
         raw_muac = FALSE,
         !!!.by
       ) |>
-        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p)
+        dplyr::select(!!!.by, .data$sam_p, .data$mam_p, .data$gam_p, .data$N)
     } else {
       ## Estimate PPS-based prevalence ----
       output <- complex_survey_estimates_muac(

@@ -1,4 +1,12 @@
-# Tests check: score_std_flags() ----
+# ==============================================================================
+# 📦 Functions: score_std_flags(), score_agesexr_dps(), score_skewkurt(), and
+# score_overall_quality()
+# ==============================================================================
+
+
+## ---- Test check: score_std_flags() ------------------------------------------
+
+
 testthat::test_that(
   "Quality scorer works well",
   {
@@ -26,7 +34,10 @@ testthat::test_that(
   }
 )
 
-# Test check: score_agesex_ratio() ----
+
+## ---- Test check: score_agesex_ratio() ---------------------------------------
+
+
 testthat::test_that(
   "score_agesexr_dps() works as expected",
   {
@@ -56,7 +67,10 @@ testthat::test_that(
   }
 )
 
-# Test check: score_skewkurt() ----
+
+## ---- Test check: score_skewkurt() -------------------------------------------
+
+
 testthat::test_that(
   "score_skewkurt() works fine",
   {
@@ -88,8 +102,10 @@ testthat::test_that(
 )
 
 
-# Test check: score_overall_quality() ----
-## With `.for` set to "mfaz" ----
+## ---- Test check: score_overall_quality() ------------------------------------
+
+
+### With `.for` set to "mfaz" ----
 testthat::test_that(
   "score_overall_quality() return the correct values for a given classification",
   {
@@ -125,7 +141,8 @@ testthat::test_that(
   }
 )
 
-## With `.for` set to "mfaz" ----
+
+### With `.for` set to "mfaz" ----
 testthat::test_that(
   "score_overall_quality() return the correct values for a given classification",
   {

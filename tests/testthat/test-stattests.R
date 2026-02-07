@@ -1,4 +1,11 @@
-# Test check: mw_stattest_ageratio() ----
+# ==============================================================================
+# 📦 Functions: mw_stattest_ageratio() and mw_stattest_ageratio2()
+# ==============================================================================
+
+
+## ---- Test check: mw_stattest_ageratio() -------------------------------------
+
+
 testthat::test_that(
   "mw_stattest_ageratio() works as expected",
   {
@@ -23,7 +30,9 @@ testthat::test_that(
 )
 
 
-# Test check: mw_stattest_ageratio2() ----
+## ---- Test check: mw_stattest_ageratio2() ------------------------------------
+
+
 testthat::test_that(
   "mw_stattest_ageratio2() works as expected",
   {

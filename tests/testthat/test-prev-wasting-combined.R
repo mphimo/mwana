@@ -1,34 +1,41 @@
-# Test check: mw_estimate_prevalence_combined() ----
-## When std != problematic & MUAC analysis path is unweighted & !is.null(wt) ----
+# ==============================================================================
+# 📦 Functions: mw_estimate_prevalence_combined()
+# ==============================================================================
+
+
+## ---- Test check:  mw_estimate_prevalence_combined() -------------------------
+
+
+### Wehn MUAC and surveys weights are supplied ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() yields correct estimates when oedema and
     survey weights are supplied",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_combined(oedema = oedema, wt = wtfactor)
 
-    ### Expected results ----
-    #### combined GAM estimates and uncertainty ----
+    #### Expected results ----
+    ##### combined GAM estimates and uncertainty ----
     n_cgam <- 143
     p_cgam <- 7.1
     p_cgam_lci <- 5.6
     p_cgam_uci <- 8.5
     deff <- 1.72
 
-    #### combined SAM estimates and uncertainty ----
+    ##### combined SAM estimates and uncertainty ----
     n_csam <- 27
     p_csam <- 1.5
     p_csam_lci <- 0.8
     p_csam_uci <- 2.3
 
-    #### combined MAM estimates and uncertainty ----
+    ##### combined MAM estimates and uncertainty ----
     n_cmam <- 123
     p_cmam <- 6.0
     p_cmam_lci <- 4.7
     p_cmam_uci <- 7.3
 
-    #### Sum of weights -----
+    ##### Sum of weights -----
     sum_wt <- 1738110
 
     ### Tests ----
@@ -49,38 +56,39 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & MUAC analysis path is unweighted & !is.null(wt) ----
+
+### When oedema is NULL ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() yields correct estimates when oedema is NULL",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_combined(oedema = NULL, wt = wtfactor)
 
-    ### Expected results ----
-    #### Combined GAM estimates and uncertainty ----
+    #### Expected results ----
+    ##### Combined GAM estimates and uncertainty ----
     n_cgam <- 131
     p_cgam <- 6.4
     p_cgam_lci <- 5.0
     p_cgam_uci <- 7.8
     deff <- 1.67
 
-    #### combined SAM estimates and uncertainty ----
+    ##### combined SAM estimates and uncertainty ----
     n_csam <- 14
     p_csam <- 0.8
     p_csam_lci <- 0.3
     p_csam_uci <- 1.2
 
-    #### combined MAM estimates and uncertainty ----
+    ##### combined MAM estimates and uncertainty ----
     n_cmam <- 124
     p_cmam <- 6.1
     p_cmam_lci <- 4.8
     p_cmam_uci <- 7.4
 
-    ### Sum of weights ----
+    #### Sum of weights ----
     sum_wt <- 1738110
 
-    ### Tests ----
+    #### Tests ----
     testthat::expect_equal(p[[1]][1], n_cgam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_cgam)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), p_cgam_lci)
@@ -97,34 +105,35 @@ testthat::test_that(
   }
 )
 
-## When is.null(wt) ----
+
+### When is.null(wt) ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() yields correct estimates when `wt` is NULL",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_combined(oedema = oedema)
 
-    ### Expected results ----
-    #### combined GAM estimates and uncertainty ----
+    #### Expected results ----
+    ##### combined GAM estimates and uncertainty ----
     n_cgam <- 143
     p_cgam <- 6.8
     p_cgam_lci <- 5.7
     p_cgam_uci <- 8.0
 
-    #### combined SAM estimates and uncertainty ----
+    ##### combined SAM estimates and uncertainty ----
     n_csam <- 27
     p_csam <- 1.3
     p_csam_lci <- 0.8
     p_csam_uci <- 1.8
 
-    #### combined MAM estimates and uncertainty ----
+    ##### combined MAM estimates and uncertainty ----
     n_cmam <- 123
     p_cmam <- 5.9
     p_cmam_lci <- 4.8
     p_cmam_uci <- 7.0
 
-    ### Test ----
+    #### Test ----
     testthat::expect_equal(p[[1]][1], n_cgam)
     testthat::expect_equal(round(p[[2]][1] * 100, 1), p_cgam)
     testthat::expect_equal(round(p[[3]][1] * 100, 1), p_cgam_lci)
@@ -140,12 +149,13 @@ testthat::test_that(
   }
 )
 
-## When !is.null(wt) with .by = province ----
+
+### When grouping variable is supplied ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() yields correct estimates when `.by` is
     used",
   {
-    ### Get prevalence estimates ----
+    #### Get prevalence estimates ----
     p <- anthro.02 |>
       mw_estimate_prevalence_combined(
         oedema = oedema,
@@ -153,27 +163,27 @@ testthat::test_that(
         province
       )
 
-    ### Expected results for Nampula province ----
-    #### GAM estimates and uncertainty ----
+    #### Expected results for Nampula province ----
+    ##### GAM estimates and uncertainty ----
     n_cgam <- 79
     p_cgam <- 8.4
     p_cgam_lci <- 6.0
     p_cgam_uci <- 10.9
     deff <- 1.87
 
-    #### SAM estimates and uncertainty ----
+    ##### SAM estimates and uncertainty ----
     n_csam <- 18
     p_csam <- 2.0
     p_csam_lci <- 0.7
     p_csam_uci <- 3.3
 
-    #### MAM estimates and uncertainty ----
+    ##### MAM estimates and uncertainty ----
     n_cmam <- 65
     p_cmam <- 6.8
     p_cmam_lci <- 4.7
     p_cmam_uci <- 9.0
 
-    #### Sum of survey weights -----
+    ##### Sum of survey weights -----
     sum_wt <- 869504
 
     ### Tests ----
@@ -194,12 +204,13 @@ testthat::test_that(
   }
 )
 
-## When !is.null(.by) and analysis approach has different categories ----
+
+### When there are different analaysis approaches ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() works well on a multiple area survey dataset
   where different analysis approaches are required",
   {
-    ### Get the prevalence estimates ----
+    #### Get the prevalence estimates ----
     p <- anthro.03 |>
       mw_wrangle_age(
         age = age,
@@ -226,14 +237,14 @@ testthat::test_that(
         district
       )
 
-    ### Subset a district where a normal analysis should be computed ----
+    #### Subset a district where a normal analysis should be computed ----
     CB <- subset(p, district == "Cahora-Bassa")
 
-    ### Subset a district where NA should be thrown ----
+    #### Subset a district where NA should be thrown ----
     M <- subset(p, district == "Maravia") |>
       select(!district)
 
-    ### Tests ----
+    #### Tests ----
     testthat::expect_vector(select(p, !district), size = 4, ncol(17))
     testthat::expect_s3_class(p, "tbl")
     testthat::expect_false(all(sapply(CB[names(CB)], \(.) all(is.na(.)))))
@@ -241,7 +252,8 @@ testthat::test_that(
   }
 )
 
-## When !is.null(.by) and analysis approach has different categories ----
+
+### When !is.null(.by) and analysis approach has different categories ----
 testthat::test_that(
   "mw_estimate_prevalence_combined() works as expected",
   {
@@ -278,7 +290,8 @@ testthat::test_that(
   }
 )
 
-## When MUAC is not in millimetres the function errors ----
+
+### When MUAC is not in millimetres the function errors ----
 testthat::test_that(
   "When MUAC is not in centimetres, the function stop execution",
   {
