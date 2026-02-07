@@ -288,12 +288,22 @@ As in ENA Software, make sure you run the plausibility check before you call the
 #| eval: false
 
 anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
   mw_estimate_prevalence_muac(
     muac = muac,
     age = age,
     wt = NULL,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
@@ -304,16 +314,26 @@ This will return:
 #| echo: false
 
 anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
   mw_estimate_prevalence_muac(
     muac = muac,
     age = age,
     wt = NULL,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
-We see that in Province 1, all columns are filled with numbers; in Province 2, some columns are filled with numbers, while other columns are filled with `NA`s: this is where the age-weighting approach was applied. 
+We see that in Unit A, all columns are filled with numbers; in Unit B, some columns are filled with numbers, while other are filled with `NA`s: this is where the age-weighting approach was applied. 
 
 Alternatively, we can choose to apply the function that estimates age-weighted prevalence inside `mw_estimate_prevalence_muac()` directly onto our dataset. This can be done by calling the `mw_estimate_age_weighted_prev_muac()` function. It is noteworthy that although possible, it is recommend to use the main function. This is simply due the fact that if we decide to use the function independently, then we must, before calling it, check the acceptability of the age ratio test, and then evaluate if the conditions that fits the use `mw_estimate_age_weighted_prev_muac()` are there. We would have to do that ourselves. This can be boredom along the workflow, thereby increase the risk of picking a wrong analysis workflow.
 
@@ -323,11 +343,24 @@ Alternatively, we can choose to apply the function that estimates age-weighted p
 #| eval: false
 
 anthro.04 |>
-  subset(province == "Province 2") |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
   mw_estimate_age_weighted_prev_muac(
     muac = muac,
     oedema = oedema,
-    age = age
+    has_age = TRUE,
+    age = age,
+    age_cat = FALSE,
+    raw_muac = FALSE,
+    analysis_unit
   )
 ```
 
@@ -337,8 +370,25 @@ This returns the prevalence estimates split into age categories and the overall 
 #| echo: false
 
 anthro.04 |>
-  subset(province == "Province 2") |>
-  mw_estimate_age_weighted_prev_muac(muac = muac, age = age)
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
+  mw_estimate_age_weighted_prev_muac(
+    muac = muac,
+    oedema = oedema,
+    has_age = TRUE,
+    age = age,
+    age_cat = FALSE,
+    raw_muac = FALSE,
+    analysis_unit
+  )
 ```
 
 #### Estimation of weighted prevalence
@@ -424,11 +474,21 @@ The `anthro.04` dataset will be used to illustrate the application of these func
 #| eval: false
 
 anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
   mw_estimate_prevalence_screening(
     muac = muac,
     age = age,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
@@ -438,11 +498,21 @@ The returned output is:
 #| echo: false
 
 anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  mutate(muac = recode_muac(muac, "mm")) |>
   mw_estimate_prevalence_screening(
     muac = muac,
     age = age,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
@@ -454,19 +524,13 @@ The `mw_estimate_prevalence_screening2()` function is applied as demonstrated be
 #| eval: false
 
 anthro.04 |>
-  mutate(
-    age_cat = ifelse(age < 24, "6-23", "24-59")
-  ) |>
-  mw_wrangle_muac(
-    sex = sex,
-    .recode_sex = FALSE,
-    muac = muac
-  ) |>
+  mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |>
+  mw_wrangle_muac(sex = sex, .recode_sex = TRUE, muac = muac) |>
   mw_estimate_prevalence_screening2(
     age_cat = age_cat,
     muac = muac,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
@@ -477,19 +541,13 @@ This will return:
 #| eval: false
 
 anthro.04 |>
-  mutate(
-    age_cat = ifelse(age < 24, "6-23", "24-59")
-  ) |>
-  mw_wrangle_muac(
-    sex = sex,
-    .recode_sex = FALSE,
-    muac = muac
-  ) |>
+  mutate(age_cat = ifelse(age < 24, "6-23", "24-59")) |>
+  mw_wrangle_muac(sex = sex, .recode_sex = TRUE, muac = muac) |>
   mw_estimate_prevalence_screening2(
     age_cat = age_cat,
     muac = muac,
     oedema = oedema,
-    province
+    analysis_unit
   )
 ```
 
