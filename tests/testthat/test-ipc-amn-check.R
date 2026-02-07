@@ -1,4 +1,12 @@
-# Test check: mw_check_ipcamn_ssreq() ----
+# ==============================================================================
+# 📦 Functions: mw_check_ipcamn_ssreq()
+# ==============================================================================
+
+
+## ---- Test check: mw_check_ipcamn_ssreq() ------------------------------------
+
+
+### Without grouping variables ----
 testthat::test_that(
   "mw_check_ipcamn_ssreq() works as expected",
   {
@@ -26,7 +34,7 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_check_ipcamn_ssreq() ----
+### With grouping variables ----
 testthat::test_that(
   "mw_check_ipcamn_ssreq() returns correct counts when groups are used",
   {

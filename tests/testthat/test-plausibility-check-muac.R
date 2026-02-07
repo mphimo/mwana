@@ -1,4 +1,12 @@
-# Test check: mw_plausibility_check_muac() ----
+# ==============================================================================
+# 📦 Functions: mw_plausibility_check_muac() and mw_neat_output_muac()
+# ==============================================================================
+
+
+## ---- Test check: mw_plausibility_check_muac() -------------------------------
+
+
+### Without grouping variables ----
 testthat::test_that(
   "mw_plausibility_check_muac() return a df with expected lentgh and columns",
   {
@@ -35,7 +43,10 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_muac()----
+
+## ---- Test check: mw_neat_output_muac() --------------------------------------
+
+
 testthat::test_that(
   "mw_neat_output_muac() works",
   {
@@ -71,7 +82,8 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_muac()----
+
+### With grouping variables ----
 testthat::test_that(
   "mw_neat_output_muac() works when `df` is grouped",
   {
@@ -104,7 +116,6 @@ testthat::test_that(
       ) %in% names(quality)
       )
     )
-
   }
 )
 

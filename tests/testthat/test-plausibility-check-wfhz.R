@@ -1,4 +1,12 @@
-# Test check: mw_plausibility_check_wfhz() ----
+# ==============================================================================
+# 📦 Functions: mw_plausibility_check_wfhz() and mw_neat_output_wfhz()
+# ==============================================================================
+
+
+## ---- Test check:  mw_plausibility_check_wfhz() ------------------------------
+
+
+### Without groups ----
 testthat::test_that(
   "mw_plausibility_check_wfhz() works as expected",
   {
@@ -44,7 +52,10 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_wfhz() ----
+
+## ---- Test check: mw_neat_output_wfhz() --------------------------------------
+
+
 testthat::test_that(
   "mw_neat_output_wfhz() works",
   {
@@ -89,7 +100,8 @@ testthat::test_that(
   }
 )
 
-# Test check: mw_neat_output_wfhz() ----
+
+### With grouping variables ----
 testthat::test_that(
   "mw_neat_output_wfhz() works OK when `df` is grouped",
   {
