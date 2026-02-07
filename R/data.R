@@ -109,36 +109,34 @@
 
 #'
 #'
-#' A sample data from a community-based sentinel site in an anonymized location
+#' A sample data from a community-based sentinel site with location anonymised
 #'
 #' @description
-#' Data was collected from community-based sentinel sites located across three 
-#' provinces. Each provincial dataset presents distinct data quality scenarios, 
-#' requiring tailored prevalence analysis:
 #' 
-#' - *Province 1* has a MUAC-for-age z-score standard deviation and age ratio 
-#' test rating of acceptability falling within range
-#' - *Province 2* has age ratio rated as problematic but with an acceptable 
-#' standard deviation of MUAC-for-age z-score
-#' - *"Province 3* has both tests rated as problematic
+#' Data herein was derived from population-based assessments in three locations 
+#' (analysis unit). Each unit presents distinct scenarios that requires 
+#' also-distinct handling during the prevalence analysis:
+#' 
+#' - *Unit A* has flawless data.
+#' - *Unit B* has age-ratio-test results rated as problematic, with an observed 
+#' proportion of children aged 24-59 months < 0.66.
+#' - *UnitC* has age-ratio-test results rated as problematic, with an observed 
+#' proportion of children aged 24-59 months >= 0.66.
 #'
-#' This sample data is useful to demonstrate the use of the prevalence functions 
-#' on a multiple-domain survey data where variations in the rating of 
-#' acceptability of the standard deviation exist, hence require different 
-#' analytical approach for each domain to ensure accurate estimation.
+#' This sample data is useful to demonstrate designed behaviours of 
+#' MUAC-prevalence functions to dealing with certain-and-expected flaws in the 
+#' data.
 #'
-#' @format A tibble of 3,002 x 8.
+#' @format A tibble of 2,192 × 6.
 #'
 #' |**Variable** | **Description** |
 #' | :--- | :---|
-#' | *province* | Survey location |
+#' | *analysis_unit* | Location wherein the assessment was conducted |
 #' | *cluster* | Primary sampling unit |
-#' | *sex* | Sex; "m" = boys, "f" = girls |
-#' | *age* | Calculated age in months with two decimal places |
+#' | *sex* | Sex; "1" = boys, "2" = girls |
+#' | *age* | Calculated age in months |
 #' | *muac* | Mid-upper arm circumference in millimetres |
-#' | *oedema* | oedema; "n" = no oedema, "y" = with oedema |
-#' | *mfaz* | MUAC-for-age z-scores with 3 decimal places |
-#' | *flag_mfaz* | Flagged MUAC-for-age z-score value; 1 = flagged, 0 = not flagged |
+#' | *oedema* | oedema; "n" = no oedema, "y" = yes oedema |
 #'
 #' @source Anonymous
 #'
