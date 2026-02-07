@@ -120,7 +120,7 @@
 #' - *Unit A* has flawless data.
 #' - *Unit B* has age-ratio-test results rated as problematic, with an observed 
 #' proportion of children aged 24-59 months < 0.66.
-#' - *UnitC* has age-ratio-test results rated as problematic, with an observed 
+#' - *Unit C* has age-ratio-test results rated as problematic, with an observed 
 #' proportion of children aged 24-59 months >= 0.66.
 #'
 #' This sample data is useful to demonstrate designed behaviours of 
