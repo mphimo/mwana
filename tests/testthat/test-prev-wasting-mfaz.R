@@ -93,14 +93,17 @@ testthat::test_that(
   {
     ### Get the prevalence estimates ----
     p <- anthro.04 |>
-      mw_estimate_prevalence_mfaz(oedema = oedema, wt = NULL, province)
-
-    ### Subset a province whose analysis approach is unweighted ---
-    province_1 <- subset(p, province == "Province 1")
-
-    ### Subset a province whose analysis approach is weighted ---
-    province_3 <- subset(p, province == "Province 3")
-
+      mw_wrangle_age(age = age) |>
+      mw_wrangle_muac(
+        muac = muac,
+        .recode_muac = TRUE,
+        .to = "cm",
+        age = age,
+        sex = sex,
+        .recode_sex = FALSE
+      ) |>
+      transform(muac = recode_muac(muac, "mm")) |>
+      mw_estimate_prevalence_mfaz(oedema = oedema, wt = NULL, analysis_unit)
 
     columns_to_check <- c(
       "gam_n", "gam_p_low", "gam_p_upp", "sam_n",
@@ -109,9 +112,9 @@ testthat::test_that(
     )
 
     ### Tests ----
-    testthat::expect_vector(dplyr::select(p, !province), size = 3, ncol(17))
+    testthat::expect_vector(dplyr::select(p, !analysis_unit), size = 3, ncol(17))
     testthat::expect_s3_class(p, "tbl")
-    testthat::expect_false(all(sapply(province_1[columns_to_check], \(.) all(is.na(.)))))
-    testthat::expect_true(all(sapply(province_3[columns_to_check], \(.) all(is.na(.)))))
+    testthat::expect_false(all(sapply(p[2, ][columns_to_check], \(.) all(is.na(.)))))
+    testthat::expect_true(all(sapply(p[3, ][columns_to_check], \(.) all(is.na(.)))))
   }
 )

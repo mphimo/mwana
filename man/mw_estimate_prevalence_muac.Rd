@@ -60,24 +60,26 @@ Outliers are identified using SMART flagging criteria applied to MFAZ, and are
 excluded from the prevalence estimation.
 }
 \examples{
-## Ungrouped analysis ----
-mw_estimate_prevalence_muac(
-  df = anthro.04,
-  muac = muac,
-  age = age,
-  wt = NULL,
-  oedema = oedema
-)
 
-## Grouped analysis ----
-mw_estimate_prevalence_muac(
-  df = anthro.04,
-  muac = muac,
-  age = age,
-  wt = NULL,
-  oedema = oedema,
-  province
-)
+## Ungrouped analysis ----
+anthro.04 |>
+  mw_wrangle_age(age = age) |>
+  mw_wrangle_muac(
+    muac = muac,
+    .recode_muac = TRUE,
+    .to = "cm",
+    age = age,
+    sex = sex,
+    .recode_sex = FALSE
+  ) |>
+  transform(muac = recode_muac(muac, "mm")) |>
+  mw_estimate_prevalence_muac(
+    muac = muac,
+    age = age,
+    wt = NULL,
+    oedema = oedema,
+    analysis_unit
+  )
 
 }
 \references{
