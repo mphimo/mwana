@@ -1,5 +1,11 @@
-# Test check: smart_age_weighting() ----
-## oedema set to !NULL ----
+# ==============================================================================
+# 📦 Functions: mw_estimate_age_weighted_prev_muac()
+# ==============================================================================
+
+
+## ---- Test check:  mw_estimate_age_weighted_prev_muac() ----------------------
+
+
 testthat::test_that(
   "mw_estimate_age_weighted_prev_muac() works as expected",
   {
@@ -30,7 +36,7 @@ testthat::test_that(
     )
 
 
-    ## Tests ----
+    ### Tests ----
     ### Under twos ----
     testthat::expect_equal(round(p$u2oedema * 100, 1), 1.0)
     testthat::expect_equal(round(p$u2sam * 100, 1), 3.1)
@@ -51,7 +57,7 @@ testthat::test_that(
 )
 
 
-## When MUAC is not in millimetres the function errors ----
+### When MUAC is not in millimetres the function errors ----
 testthat::test_that(
   "When MUAC is not in centimetres, the function stops execution",
   {

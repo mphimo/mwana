@@ -1,5 +1,12 @@
-# Test check: mw_estimate_prevalence_mfaz ----
-## When std != problematic & is.null(.wt) & !is.null(oedema) ----
+# ==============================================================================
+# 📦 Functions: mw_estimate_prevalence_mfaz()
+# ==============================================================================
+
+
+## ---- Test check:  mw_estimate_prevalence_mfaz() -------------------------
+
+
+### When std != problematic & is.null(.wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_mfaz() yields correct estimates",
   {
@@ -42,7 +49,8 @@ testthat::test_that(
   }
 )
 
-## When std != problematic & is.null(.wt) & is.null(oedema) ----
+
+### When std != problematic & is.null(.wt) & is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_mfaz() yields correct estimates",
   {
@@ -86,7 +94,7 @@ testthat::test_that(
 )
 
 
-## When standard deviation == problematic ----
+### When standard deviation == problematic ----
 testthat::test_that(
   "mw_estimate_prevalence_mfaz() works well on a dataframe with multiple survey areas with
     different categories on analysis_approach",

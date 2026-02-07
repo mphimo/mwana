@@ -57,6 +57,7 @@ testthat::test_that(
   }
 )
 
+
 ### When age_ratio & std != problematic & is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
   "mw_estimate_prevalence_muac() yields correct estimates survey
@@ -104,6 +105,7 @@ testthat::test_that(
     testthat::expect_equal(round(p[[14]][1] * 100, 1), p_mam_uci)
   }
 )
+
 
 ### When age_ratio & std != problematic & !is.null(wt) & !is.null(oedema) ----
 testthat::test_that(
@@ -154,6 +156,7 @@ testthat::test_that(
     testthat::expect_equal(round(p[[14]][1] * 100, 1), p_mam_uci)
   }
 )
+
 
 ### When age_ratio != problematic & is.null(wt) ----
 testthat::test_that(

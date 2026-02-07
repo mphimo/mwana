@@ -1,5 +1,12 @@
-# Test check: mw_wrangle_age() ----
-## When date of data collection and date of birth are available ----
+# ==============================================================================
+# 📦 Functions: mw_wrangle_age() 
+# ==============================================================================
+
+
+## ---- Test check: mw_wrangle_age() -------------------------------------------
+
+
+### When date of data collection and date of birth are available ----
 testthat::test_that(
   "mw_wrangle_age() works as expected",
   {
@@ -44,7 +51,8 @@ testthat::test_that(
   }
 )
 
-## When date of data collection and date of birth are not available ----
+
+### When date of data collection and date of birth are not available ----
 testthat::test_that(
   "mw_wrangle_age() works as expected",
   {
@@ -82,7 +90,7 @@ testthat::test_that(
 )
 
 
-## Test check: mw_wrangle_age() ----
+### Error when a wrong class is supplied ----
 testthat::test_that(
   "mw_wrangle_age() works as expected when a vector of wrong class if supplied",
   {
