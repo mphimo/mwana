@@ -29,7 +29,7 @@ also-distinct handling during the prevalence analysis:
 \item \emph{Unit A} has flawless data.
 \item \emph{Unit B} has age-ratio-test results rated as problematic, with an observed
 proportion of children aged 24-59 months < 0.66.
-\item \emph{UnitC} has age-ratio-test results rated as problematic, with an observed
+\item \emph{Unit C} has age-ratio-test results rated as problematic, with an observed
 proportion of children aged 24-59 months >= 0.66.
 }
 
