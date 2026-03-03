@@ -13,7 +13,7 @@ library(mwana)
 
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://codecov.io/gh/mphimo/mwana)
@@ -45,12 +45,6 @@ remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?
-
-::: {.callout-note}
-
-`mwana` is experimental and currently in late-stage alpha testing, approaching a stable release. Future changes are expected to be backward-compatible (patch or minor releases), but some functionality may still change.
-
-:::
 
 <img src="man/figures/workflow.png" width="360px" height="900px" align="left" />Currently, `mwana` has the following functionalities that support the creation of a programmatic workflow illustrated in the figure to the left.
 

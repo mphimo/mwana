@@ -10,7 +10,7 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://codecov.io/gh/mphimo/mwana)
@@ -57,13 +57,6 @@ remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?
-
-> [!NOTE]
->
-> `mwana` is experimental and currently in late-stage alpha testing,
-> approaching a stable release. Future changes are expected to be
-> backward-compatible (patch or minor releases), but some functionality
-> may still change.
 
 <img src="man/figures/workflow.png" width="360px" height="900px" align="left" />Currently,
 `mwana` has the following functionalities that support the creation of a
@@ -131,7 +124,7 @@ citation("mwana")
 
       Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.4, <https://mphimo.github.io/mwana/dev>.
+      in R_. R package version 0.2.4, <https://mphimo.github.io/mwana/>.
 
     A BibTeX entry for LaTeX users is
 
@@ -140,7 +133,7 @@ citation("mwana")
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
         year = {2026},
         note = {R package version 0.2.4},
-        url = {https://mphimo.github.io/mwana/dev},
+        url = {https://mphimo.github.io/mwana/},
       }
 
 ## Community guidelines
