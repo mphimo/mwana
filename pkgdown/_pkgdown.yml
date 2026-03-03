@@ -6,6 +6,7 @@ development:
 url: https://mphimo.github.io/mwana/
 
 template:
+  math-rendering: katex
   bootstrap: 5
   theme: github-light
   ganalytics: "G-94YZ36XGLH"
