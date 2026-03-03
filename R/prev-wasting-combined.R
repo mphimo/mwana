@@ -165,7 +165,7 @@ mw_estimate_prevalence_combined <- function(df,
         .default = "not analyse"
       )
     )
-print(x)
+
   ## Iterate over data.frame to compute prevalence according to the SD ----
   for (i in seq_len(nrow(x))) {
       vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
