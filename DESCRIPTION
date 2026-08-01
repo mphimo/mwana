@@ -39,7 +39,7 @@ Suggests:
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/mphimo/mwana, https://mphimo.github.io/mwana/
 BugReports: https://github.com/mphimo/mwana/issues
