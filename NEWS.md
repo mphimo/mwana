@@ -1,3 +1,5 @@
+# mwana 0.2.5
+
 # mwana 0.2.4
 
 ## Bug fixes

@@ -2,7 +2,7 @@ Type: Package
 Package: mwana
 Title: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of
     Wasting in R
-Version: 0.2.4
+Version: 0.2.5
 Authors@R: c(
     person("Tomás", "Zaba", , "tomas.zaba@outlook.com", 
            role = c("aut", "cre", "cph"),
