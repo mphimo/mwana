@@ -50,15 +50,11 @@ multi-area datasets.
 
 You can install `mwana` from CRAN with:
 
-```r
+``` r
 install.packages("mwana")
 ```
 
 ## What does `mwana` do?
-
-<img src="man/figures/workflow.png" width="360px" height="900px" align="left" />Currently,
-`mwana` has the following functionalities that support the creation of a
-programmatic workflow illustrated in the figure to the left.
 
 ### 1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old
 
@@ -122,7 +118,7 @@ citation("mwana")
 
       Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.4, <https://mphimo.github.io/mwana/>.
+      in R_. R package version 0.2.5, <https://mphimo.github.io/mwana/>.
 
     A BibTeX entry for LaTeX users is
 
@@ -130,7 +126,7 @@ citation("mwana")
         title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
         year = {2026},
-        note = {R package version 0.2.4},
+        note = {R package version 0.2.5},
         url = {https://mphimo.github.io/mwana/},
       }
 
