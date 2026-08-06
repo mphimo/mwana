@@ -48,12 +48,10 @@ multi-area datasets.
 
 ## Installation
 
-`mwana` is not yet on CRAN but can be installed from GitHub:
+You can install `mwana` from CRAN with:
 
-``` r
-# First install remotes package with: install.package("remotes")
-# Then install mwana package from GitHub with: 
-remotes::install_github(repo = "mphimo/mwana", dependencies = TRUE)
+```r
+install.packages("mwana")
 ```
 
 ## What does `mwana` do?
