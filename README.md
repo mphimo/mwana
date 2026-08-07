@@ -13,7 +13,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
-[![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://codecov.io/gh/mphimo/mwana)
+[![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://app.codecov.io/gh/mphimo/mwana)
 <!-- badges: end -->
 
 Child anthropometric assessments are central to child nutrition and
@@ -27,7 +27,7 @@ acute-undernutrition prevalence estimation from anthropometric data for
 children aged 6–59 months. It builds on methods and guidance from the
 [SMART initiative](https://smartmethodology.org) and provides convenient
 wrappers around functions in the
-[`nipnTK`](https://nutriverse.io/nipnTK) package.
+[`nipnTK`](https://nutriverse.io/nipnTK/) package.
 
 The term ***mwana*** means child in *Elómwè*, a local language spoken in
 the central-northern regions of Mozambique where the author hails from.
@@ -103,7 +103,7 @@ This package has a lightweight, field-ready and convenient web-based
 application (`mwanaApp`) that enables users to upload their data and
 benefit from the `mwana` utilities needless to be well versed in R.
 Learn more about `mwanaApp` and how to install and use
-[here](https://github.com/mphimo/mwanaApp.git).
+[here](https://github.com/mphimo/mwanaApp).
 
 ## Citation
 
