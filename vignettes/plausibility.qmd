@@ -326,9 +326,10 @@ anthro.01 |>
     age = age,
     weight = weight,
     height = height,
-    flags = flag_wfhz, 
-    area, team          # <1> 
-  ) |> 
+    flags = flag_wfhz,
+    area,
+    team # <1>
+  ) |>
   mw_neat_output_wfhz()
 ```
 
@@ -360,9 +361,10 @@ anthro.01 |>
     age = age,
     weight = weight,
     height = height,
-    flags = flag_wfhz, 
-    area, team          # <1> 
-  ) |> 
+    flags = flag_wfhz,
+    area,
+    team # <1>
+  ) |>
   mw_neat_output_wfhz()
 ```
 
@@ -808,7 +810,7 @@ anthro.01 |>
   mw_plausibility_check_muac(
     sex = sex,
     flags = flag_muac,
-    muac = muac, 
+    muac = muac,
     area
   ) |>
   mw_neat_output_muac()
@@ -835,7 +837,7 @@ anthro.01 |>
   mw_plausibility_check_muac(
     sex = sex,
     flags = flag_muac,
-    muac = muac, 
+    muac = muac,
     area
   ) |>
   mw_neat_output_muac()
