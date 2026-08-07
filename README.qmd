@@ -36,10 +36,24 @@ The standard child-anthropometry appraisal workflow is complex and time-consumin
 You can install `mwana` from CRAN with:
 
 ```{r}
-#| label: installation
+#| label: install-from-CRAN
 #| eval: false
 
-install.packages("mwana")
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install("mwana")
+```
+
+You can install the development version of `mwana` from GitHub with: 
+
+```{r}
+#| label: install-from-GitHub
+#| eval: false
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?

@@ -51,7 +51,19 @@ multi-area datasets.
 You can install `mwana` from CRAN with:
 
 ``` r
-install.packages("mwana")
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install("mwana")
+```
+
+You can install the development version of `mwana` from GitHub with:
+
+``` r
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?
