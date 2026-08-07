@@ -12,9 +12,9 @@ Authors@R: c(
     person("Mark", "Myatt", role = "aut")
   )
 Description: A simple and streamlined workflow for plausibility checks and 
-  prevalence analysis of wasting based on the Standardized
-  Monitoring and Assessment of Relief and Transition (SMART) Methodology
-  <https://smartmethodology.org/>, with application in R.
+    prevalence analysis of wasting based on the Standardized
+    Monitoring and Assessment of Relief and Transition (SMART) Methodology
+    <https://smartmethodology.org/>, with application in R.
 License: GPL (>= 3)
 Depends: 
     R (>= 4.1)
@@ -39,9 +39,9 @@ Suggests:
 Encoding: UTF-8
 Language: en-GB
 LazyData: true
-RoxygenNote: 8.1.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/mphimo/mwana, https://mphimo.github.io/mwana/
 BugReports: https://github.com/mphimo/mwana/issues
 VignetteBuilder: quarto
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
