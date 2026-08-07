@@ -3,7 +3,7 @@ title: mwana
 development:
   mode: auto
 
-url: https://mphimo.github.io/mwana/
+url: https://mphimo.github.io/mwana/dev
 
 template:
   math-rendering: katex
@@ -15,7 +15,7 @@ template:
     navbar-bg: "#004225"
     bootswatch: pulse
     pkgdown-nav-height: 100px
-destination: docs
+destination: docs/dev
 
 navbar:
   structure:
