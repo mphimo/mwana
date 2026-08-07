@@ -16,12 +16,12 @@ library(mwana)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
-[![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://codecov.io/gh/mphimo/mwana)
+[![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://app.codecov.io/gh/mphimo/mwana)
 <!-- badges: end -->
 
 Child anthropometric assessments are central to child nutrition and food-security surveillance worldwide. Ensuring the quality of these data is essential for accurate estimates of child undernutrition prevalence. Timely reporting is also critical for situation analysis and for mounting effective responses.  
 
-The `mwana` package streamlines data-quality checks and acute-undernutrition prevalence estimation from anthropometric data for children aged 6–59 months. It builds on methods and guidance from the [SMART initiative](https://smartmethodology.org) and provides convenient wrappers around functions in the [`nipnTK`](https://nutriverse.io/nipnTK) package.
+The `mwana` package streamlines data-quality checks and acute-undernutrition prevalence estimation from anthropometric data for children aged 6–59 months. It builds on methods and guidance from the [SMART initiative](https://smartmethodology.org) and provides convenient wrappers around functions in the [`nipnTK`](https://nutriverse.io/nipnTK/) package.
 
 The term ***mwana*** means child in *Elómwè*, a local language spoken in the central-northern regions of Mozambique where the author hails from. It also has a similar meaning across other Bantu languages, such as *Swahili*, spoken in many parts of Africa.
 
@@ -36,10 +36,24 @@ The standard child-anthropometry appraisal workflow is complex and time-consumin
 You can install `mwana` from CRAN with:
 
 ```{r}
-#| label: installation
+#| label: install-from-CRAN
 #| eval: false
 
-install.packages("mwana")
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install("mwana")
+```
+
+You can install the development version of `mwana` from GitHub with: 
+
+```{r}
+#| label: install-from-GitHub
+#| eval: false
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?
@@ -68,7 +82,7 @@ If you are researching anthropometric data for children aged 6–59 months (focu
 
 ### Shiny App
 
-This package has a lightweight, field-ready and convenient web-based application (`mwanaApp`) that enables users to upload their data and benefit from the `mwana` utilities needless to be well versed in R. Learn more about `mwanaApp` and how to install and use [here](https://github.com/mphimo/mwanaApp.git). 
+This package has a lightweight, field-ready and convenient web-based application (`mwanaApp`) that enables users to upload their data and benefit from the `mwana` utilities needless to be well versed in R. Learn more about `mwanaApp` and how to install and use [here](https://github.com/mphimo/mwanaApp). 
 
 
 ## Citation

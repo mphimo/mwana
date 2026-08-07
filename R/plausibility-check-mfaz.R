@@ -48,7 +48,7 @@
 #' Bilukha, O., & Kianian, B. (2023). Considerations for assessment of measurement
 #' quality of mid‐upper arm circumference data in anthropometric surveys and
 #' mass nutritional screenings conducted in humanitarian and refugee settings.
-#' *Maternal & Child Nutrition*, 19, e13478. <https://doi.org/10.1111/mcn.13478>
+#' *Maternal & Child Nutrition*, 19, e13478. <https://onlinelibrary.wiley.com/doi/10.1111/mcn.13478>
 #'
 #' SMART Initiative (2017). *Standardized Monitoring and Assessment for Relief
 #' and Transition*. Manual 2.0. Available at: <https://smartmethodology.org>.
@@ -93,9 +93,10 @@ mw_plausibility_check_mfaz <- function(df, sex, muac, age, flags, ...) {
   ## Difuse argument `.by` ----
   .by <- rlang::enquos(...)
 
-
   ## Apply grouping if needed ----
-  if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
+  if (length(.by) > 0) {
+    df <- dplyr::group_by(df, !!!.by)
+  }
 
   ## Summarise statistics  ----
   df <- dplyr::summarise(
@@ -110,7 +111,8 @@ mw_plausibility_check_mfaz <- function(df, sex, muac, age, flags, ...) {
     dps = nipnTK::digitPreference({{ muac }}, digits = 1, values = 0:9)$dps,
     dps_class = nipnTK::digitPreference(
       {{ muac }},
-      digits = 1, values = 0:9
+      digits = 1,
+      values = 0:9
     )$dpsClass,
     sd = stats::sd(remove_flags(.data$mfaz, .from = "zscores"), na.rm = TRUE),
     sd_class = rate_std(.data$sd, .of = "zscores"),
@@ -135,7 +137,6 @@ mw_plausibility_check_mfaz <- function(df, sex, muac, age, flags, ...) {
   ## Return data.frame ----
   df
 }
-
 
 
 #'
@@ -193,7 +194,9 @@ mw_neat_output_mfaz <- function(df) {
   df <- dplyr::mutate(
     .data = df,
     flagged = scales::label_percent(
-      accuracy = 0.1, suffix = "%", decimal.mark = "."
+      accuracy = 0.1,
+      suffix = "%",
+      decimal.mark = "."
     )(.data$flagged),
     sex_ratio = scales::label_pvalue()(.data$sex_ratio),
     age_ratio = scales::label_pvalue()(.data$age_ratio),
@@ -205,13 +208,28 @@ mw_neat_output_mfaz <- function(df) {
     ## Rename columns ----
     stats::setNames(
       c(
-        if (length(dplyr::group_vars(df)) == 0) NULL else tools::toTitleCase(dplyr::group_vars(df)),
-        "Total children", "Flagged data (%)",
-        "Class. of flagged data", "Sex ratio (p)", "Class. of sex ratio",
-        "Age ratio (p)", "Class. of age ratio", "DPS (#)",
-        "Class. of DPS", "Standard Dev* (#)", "Class. of standard dev",
-        "Skewness* (#)", "Class. of skewness", "Kurtosis* (#)",
-        "Class. of kurtosis", "Overall score", "Overall quality"
+        if (length(dplyr::group_vars(df)) == 0) {
+          NULL
+        } else {
+          tools::toTitleCase(dplyr::group_vars(df))
+        },
+        "Total children",
+        "Flagged data (%)",
+        "Class. of flagged data",
+        "Sex ratio (p)",
+        "Class. of sex ratio",
+        "Age ratio (p)",
+        "Class. of age ratio",
+        "DPS (#)",
+        "Class. of DPS",
+        "Standard Dev* (#)",
+        "Class. of standard dev",
+        "Skewness* (#)",
+        "Class. of skewness",
+        "Kurtosis* (#)",
+        "Class. of kurtosis",
+        "Overall score",
+        "Overall quality"
       )
     )
   ## Return data.frame ----

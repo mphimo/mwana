@@ -89,7 +89,7 @@ mw_wrangle_muac(
 Bilukha, O., & Kianian, B. (2023). Considerations for assessment of measurement
 quality of mid‐upper arm circumference data in anthropometric surveys and
 mass nutritional screenings conducted in humanitarian and refugee settings.
-\emph{Maternal & Child Nutrition}, 19, e13478. \url{https://doi.org/10.1111/mcn.13478}
+\emph{Maternal & Child Nutrition}, 19, e13478. \url{https://onlinelibrary.wiley.com/doi/10.1111/mcn.13478}
 
 SMART Initiative (2017). \emph{Standardized Monitoring and Assessment for Relief
 and Transition}. Manual 2.0. Available at: \url{https://smartmethodology.org}.

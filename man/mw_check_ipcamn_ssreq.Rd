@@ -57,6 +57,5 @@ mw_check_ipcamn_ssreq(
 \references{
 IPC Global Partners. 2021. \emph{Integrated Food Security Phase Classification}
 \emph{Technical Manual Version 3.1.Evidence and Standards for Better Food Security}
-\emph{and Nutrition Decisions}. Rome. Available at:
-\url{https://www.ipcinfo.org/ipcinfo-website/resources/ipc-manual/en/}.
+\emph{and Nutrition Decisions}. Rome. Available at: \url{https://www.ipcinfo.org/ipcinfo-website/resources/ipc-manual/en/}.
 }
