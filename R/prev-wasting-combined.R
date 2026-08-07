@@ -3,17 +3,20 @@
 #' @keywords internal
 #'
 #'
-complex_survey_estimates_combined <- function(df,
-                                              wt = NULL,
-                                              oedema = NULL,
-                                              ...) {
+complex_survey_estimates_combined <- function(
+  df,
+  wt = NULL,
+  oedema = NULL,
+  ...
+) {
   ## Defuse arguments ----
   wt <- rlang::enquo(wt)
   oedema <- rlang::enquo(oedema)
   .by <- rlang::enquos(...)
 
   ## Defines case based on the availability of oedema ----
-  df <- define_wasting(df,
+  df <- define_wasting(
+    df,
     zscores = .data$wfhz,
     muac = .data$muac,
     oedema = !!oedema,
@@ -43,20 +46,21 @@ complex_survey_estimates_combined <- function(df,
       .data$cgam:.data$cmam,
       list(
         n = ~ sum(.x, na.rm = TRUE),
-        p = \(.) srvyr::survey_mean(
-          .,
-          vartype = "ci",
-          level = 0.95,
-          deff = TRUE,
-          na.rm = TRUE
-        )
+        p = \(.) {
+          srvyr::survey_mean(
+            .,
+            vartype = "ci",
+            level = 0.95,
+            deff = TRUE,
+            na.rm = TRUE
+          )
+        }
       )
     ),
     N = sum(srvyr::cur_svy_wts())
   )
   p
 }
-
 
 
 #'
@@ -67,8 +71,8 @@ complex_survey_estimates_combined <- function(df,
 #' weight-for-height z-scores (WFHZ), MUAC and/or oedema. The function allows
 #' users to estimate prevalence in accordance with complex-sample design
 #' properties such as accounting for survey sample weights when needed or
-#' applicable. 
-#' 
+#' applicable.
+#'
 #' The data quality is first assessed by calculating and rating the standard
 #' deviation (SD) of WFHZ. Then it calculates the observed proportion of children
 #' aged 24–59 months out of all children in the dataset. Next, it estimates the
@@ -77,7 +81,7 @@ complex_survey_estimates_combined <- function(df,
 #'
 #' Prevalence is estimated only when the WFHZ SD is not problematic and the age
 #' ratio test is not problematic, or — if the age ratio test is problematic — the
-#' proportion of children aged 24–59 months is ≥ 0.66.
+#' proportion of children aged 24–59 months is greater than or equal to 0.66.
 #'
 #' @param df A `tibble` object produced by sequential application of the
 #' [mw_wrangle_wfhz()] and [mw_wrangle_muac()]. Note that MUAC values in `df`
@@ -132,10 +136,7 @@ complex_survey_estimates_combined <- function(df,
 #' @export
 #'
 #'
-mw_estimate_prevalence_combined <- function(df,
-                                            wt = NULL,
-                                            oedema = NULL,
-                                            ...) {
+mw_estimate_prevalence_combined <- function(df, wt = NULL, oedema = NULL, ...) {
   ## Capture grouping vars ----
   .by <- rlang::enquos(...)
 
@@ -148,29 +149,46 @@ mw_estimate_prevalence_combined <- function(df,
   results <- list()
 
   ## Apply grouping as needed ----
-  if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
+  if (length(.by) > 0) {
+    df <- dplyr::group_by(df, !!!.by)
+  }
 
   ## Rate standard deviation and set MUAC analysis path ----
   x <- dplyr::summarise(
     .data = df,
-    std_wfhz = rate_std(stats::sd(remove_flags(as.numeric(.data$wfhz), "zscores"), na.rm = TRUE)),
-    age_ratio_prop = mw_stattest_ageratio(.data$age, .expectedP = 0.66)$observedP,
-    age_ratio_pval = rate_agesex_ratio(mw_stattest_ageratio(.data$age, .expectedP = 0.66)$p),
+    std_wfhz = rate_std(stats::sd(
+      remove_flags(as.numeric(.data$wfhz), "zscores"),
+      na.rm = TRUE
+    )),
+    age_ratio_prop = mw_stattest_ageratio(
+      .data$age,
+      .expectedP = 0.66
+    )$observedP,
+    age_ratio_pval = rate_agesex_ratio(
+      mw_stattest_ageratio(.data$age, .expectedP = 0.66)$p
+    ),
     .groups = "drop"
-  ) |> 
+  ) |>
     dplyr::mutate(
       path = dplyr::case_when(
-        .data$std_wfhz != "Problematic" & .data$age_ratio_pval != "Problematic" ~ "analyse",
-        .data$std_wfhz != "Problematic" & .data$age_ratio_pval == "Problematic" & .data$age_ratio_prop >= 0.66 ~ "analyse",
+        .data$std_wfhz != "Problematic" &
+          .data$age_ratio_pval != "Problematic" ~ "analyse",
+        .data$std_wfhz != "Problematic" &
+          .data$age_ratio_pval == "Problematic" &
+          .data$age_ratio_prop >= 0.66 ~ "analyse",
         .default = "not analyse"
       )
     )
 
   ## Iterate over data.frame to compute prevalence according to the SD ----
   for (i in seq_len(nrow(x))) {
-      vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
-      exprs <- purrr::map2(.by, vals, ~ rlang::expr(!!rlang::get_expr(.x) == !!.y))
-      data_subset <- dplyr::filter(df, !!!exprs)
+    vals <- purrr::map(.by, ~ dplyr::pull(x, !!.x)[i])
+    exprs <- purrr::map2(
+      .by,
+      vals,
+      ~ rlang::expr(!!rlang::get_expr(.x) == !!.y)
+    )
+    data_subset <- dplyr::filter(df, !!!exprs)
 
     if (x$path[i] == "analyse") {
       ### Compute standard complex sample based prevalence analysis ----
@@ -182,13 +200,13 @@ mw_estimate_prevalence_combined <- function(df,
       )
     } else {
       ### Add NA ----
-        output <- data_subset |>
-          dplyr::group_by(!!!.by) |>
-          dplyr::summarise(
-            cgam_p = NA_real_,
-            csam_p = NA_real_,
-            cmam_p = NA_real_
-          )
+      output <- data_subset |>
+        dplyr::group_by(!!!.by) |>
+        dplyr::summarise(
+          cgam_p = NA_real_,
+          csam_p = NA_real_,
+          cmam_p = NA_real_
+        )
     }
     results[[i]] <- output
   }
