@@ -45,7 +45,7 @@ p-value for the difference between this observed proportion and the expected
 
 Prevalence is estimated only when the WFHZ SD is not problematic and the age
 ratio test is not problematic, or — if the age ratio test is problematic — the
-proportion of children aged 24–59 months is ≥ 0.66.
+proportion of children aged 24–59 months is greater than or equal to 0.66.
 }
 \details{
 A concept of \emph{combined flags} is introduced in this function. Any observation

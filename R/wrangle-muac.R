@@ -3,13 +3,13 @@
 #'
 #' @description
 #' Calculate z-scores for MUAC-for-age (MFAZ) and identify outliers based on
-#' the SMART methodology. When age is not supplied, only outliers are detected 
+#' the SMART methodology. When age is not supplied, only outliers are detected
 #' from the raw MUAC values. The function only works after age has gone through
 #' [mw_wrangle_age()].
 #'
 #' @param df A `data.frame` object to wrangle data from.
 #'
-#' @param sex A `numeric` or `character` vector of child's sex. Code values 
+#' @param sex A `numeric` or `character` vector of child's sex. Code values
 #' should only be 1 or "m" for males and 2 or "f" for females.
 #'
 #' @param .recode_sex Logical. Set to TRUE if the values for `sex` are not coded
@@ -23,14 +23,14 @@
 #' converted to either centimetres or millimetres. Otherwise, set to FALSE
 #' (default)
 #'
-#' @param .to A choice of the measuring unit to convert MUAC values into. Can be 
+#' @param .to A choice of the measuring unit to convert MUAC values into. Can be
 #' "cm" for centimetres, "mm" for millimetres, or "none" to leave as it is.
 #'
 #' @param .decimals The number of decimal places to use for z-score outputs.
 #' Default is 3.
 #'
 #' @returns A `tibble` based on `df`. If `age = NULL`, `flag_muac` variable for
-#' detected MUAC outliers based on raw MUAC is added to `df`. Otherwise, 
+#' detected MUAC outliers based on raw MUAC is added to `df`. Otherwise,
 #' variables named `mfaz` for child's MFAZ and `flag_mfaz` for detected outliers
 #' based on SMART guidelines are added to `df`.
 #'
@@ -38,7 +38,7 @@
 #' Bilukha, O., & Kianian, B. (2023). Considerations for assessment of measurement
 #' quality of mid‐upper arm circumference data in anthropometric surveys and
 #' mass nutritional screenings conducted in humanitarian and refugee settings.
-#' *Maternal & Child Nutrition*, 19, e13478. <https://doi.org/10.1111/mcn.13478>
+#' *Maternal & Child Nutrition*, 19, e13478. <https://onlinelibrary.wiley.com/doi/10.1111/mcn.13478>
 #'
 #' SMART Initiative (2017). *Standardized Monitoring and Assessment for Relief
 #' and Transition*. Manual 2.0. Available at: <https://smartmethodology.org>.
@@ -83,15 +83,16 @@
 #'
 #' @export
 #'
-mw_wrangle_muac <- function(df,
-                            sex,
-                            muac,
-                            age = NULL,
-                            .recode_sex = TRUE,
-                            .recode_muac = TRUE,
-                            .to = c("cm", "mm", "none"),
-                            .decimals = 3) {
-
+mw_wrangle_muac <- function(
+  df,
+  sex,
+  muac,
+  age = NULL,
+  .recode_sex = TRUE,
+  .recode_muac = TRUE,
+  .to = c("cm", "mm", "none"),
+  .decimals = 3
+) {
   ## Enforce options in `.to` ----
   .to <- match.arg(.to)
 
@@ -102,14 +103,17 @@ mw_wrangle_muac <- function(df,
   x <- as.factor(as.character(sex))
   if (!(all(levels(x) %in% c("m", "f")) | all(levels(x) %in% c("1", "2")))) {
     stop(
-      'Values for sex should either be "m" and "f" or 1 and 2 for male and female respectively')
+      'Values for sex should either be "m" and "f" or 1 and 2 for male and female respectively'
+    )
   }
 
   ## Capture expressions to evaluate later ----
   recode_sex <- quote(
     if (.recode_sex) {
       sex <- ifelse({{ sex }} == "m", 1, 2)
-    } else {{{ sex }}}
+    } else {
+      {{ sex }}
+    }
   )
 
   ## Capture expressions to evaluate later ----
@@ -118,7 +122,9 @@ mw_wrangle_muac <- function(df,
       muac <- recode_muac({{ muac }}, .to = "cm")
     } else if (.recode_muac && .to == "mm") {
       muac <- recode_muac({{ muac }}, .to = "mm")
-    } else {{{ muac }}}
+    } else {
+      {{ muac }}
+    }
   )
 
   ## Defuse arguments for NSE ----
@@ -132,8 +138,16 @@ mw_wrangle_muac <- function(df,
       sex = !!recode_sex,
     ) |>
       zscorer::addWGSR(
-        sex = {{ "sex" }},
-        firstPart = {{ "muac" }},
+        sex = {
+          {
+            "sex"
+          }
+        },
+        firstPart = {
+          {
+            "muac"
+          }
+        },
         secondPart = "age_days",
         index = "mfa",
         digits = .decimals

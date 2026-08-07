@@ -1,3 +1,10 @@
+# mwana 0.2.5
+
+## General updates 
+
+* Revised the mathematical expression for the age-weighting approach in `mw_estimate_age_weighted_prev_muac()`. 
+* Added a hyperlink to the internet‑deployed `mwana` Shiny App (`mwanaApp`) in the website’s list of links.
+
 # mwana 0.2.4
 
 ## Bug fixes

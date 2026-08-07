@@ -22,3 +22,4 @@
 ^vignettes/\.quarto$
 ^CITATION\.cff$
 _\.new\.png$
+^cran-comments\.md$

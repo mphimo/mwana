@@ -35,8 +35,7 @@
 #' @references
 #' IPC Global Partners. 2021. *Integrated Food Security Phase Classification*
 #' *Technical Manual Version 3.1.Evidence and Standards for Better Food Security*
-#' *and Nutrition Decisions*. Rome. Available at:
-#' <https://www.ipcinfo.org/ipcinfo-website/resources/ipc-manual/en/>.
+#' *and Nutrition Decisions*. Rome. Available at: <https://www.ipcinfo.org/ipcinfo-website/resources/ipc-manual/en/>.
 #'
 #' @examples
 #' mw_check_ipcamn_ssreq(
@@ -48,10 +47,12 @@
 #'
 #' @export
 #'
-mw_check_ipcamn_ssreq <- function(df,
-                                  cluster,
-                                  .source = c("survey", "screening", "ssite"),
-                                  ...) {
+mw_check_ipcamn_ssreq <- function(
+  df,
+  cluster,
+  .source = c("survey", "screening", "ssite"),
+  ...
+) {
   ## Defuse and evaluate arguments ----
   cluster <- rlang::enquo(cluster)
   .by <- rlang::enquos(...)
@@ -60,30 +61,32 @@ mw_check_ipcamn_ssreq <- function(df,
   .source <- match.arg(.source)
 
   ## Enforce the class of `cluster` ----
-cluster_col <- df[[rlang::as_name(cluster)]]
-if (!(is(cluster_col, "character") | is(cluster_col, "integer"))) {
-  stop(
-    "`cluster` must be of class `integer` or `character`, not ",
-    shQuote(class(cluster_col)),
-    ". Please try again."
-  )
-}
+  cluster_col <- df[[rlang::as_name(cluster)]]
+  if (!(is(cluster_col, "character") | is(cluster_col, "integer"))) {
+    stop(
+      "`cluster` must be of class `integer` or `character`, not ",
+      shQuote(class(cluster_col)),
+      ". Please try again."
+    )
+  }
 
   ## Apply grouping when needed ----
-  if (length(.by) > 0) df <- dplyr::group_by(df, !!!.by)
-  
+  if (length(.by) > 0) {
+    df <- dplyr::group_by(df, !!!.by)
+  }
+
   ## Summarise statistics ----
-    df <- dplyr::summarise(
-      .data = df,
-      n_clusters = dplyr::n_distinct(!!cluster),
-      n_obs = dplyr::n(),
-      meet_ipc = dplyr::case_when(
-        .source == "survey" & n_clusters >= 25 ~ "yes",
-        .source == "screening" & n_clusters >= 3 & n_obs >= 600 ~ "yes",
-        .source == "ssite" & n_clusters >= 5 & n_obs >= 200 ~ "yes",
-        .default = "no"
-      )
+  df <- dplyr::summarise(
+    .data = df,
+    n_clusters = dplyr::n_distinct(!!cluster),
+    n_obs = dplyr::n(),
+    meet_ipc = dplyr::case_when(
+      .source == "survey" & n_clusters >= 25 ~ "yes",
+      .source == "screening" & n_clusters >= 3 & n_obs >= 600 ~ "yes",
+      .source == "ssite" & n_clusters >= 5 & n_obs >= 200 ~ "yes",
+      .default = "no"
     )
+  )
 
   ## Return tibble ----
   tibble::as_tibble(df)

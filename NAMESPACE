@@ -24,47 +24,63 @@ export(mw_wrangle_muac)
 export(mw_wrangle_wfhz)
 export(recode_muac)
 export(remove_flags)
-importFrom(dplyr,across)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,ends_with)
-importFrom(dplyr,everything)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,is_grouped_df)
-importFrom(dplyr,mutate)
-importFrom(dplyr,n)
-importFrom(dplyr,n_distinct)
-importFrom(dplyr,pull)
-importFrom(dplyr,relocate)
-importFrom(dplyr,rename)
-importFrom(dplyr,select)
-importFrom(dplyr,summarise)
+importFrom(dplyr,
+  across,
+  bind_rows,
+  case_when,
+  ends_with,
+  everything,
+  filter,
+  group_by,
+  is_grouped_df,
+  mutate,
+  n,
+  n_distinct,
+  pull,
+  relocate,
+  rename,
+  select,
+  summarise
+)
 importFrom(lubridate,ymd)
 importFrom(methods,is)
-importFrom(nipnTK,ageRatioTest)
-importFrom(nipnTK,digitPreference)
-importFrom(nipnTK,sexRatioTest)
-importFrom(nipnTK,skewKurt)
-importFrom(purrr,map)
-importFrom(purrr,map2)
-importFrom(rlang,.data)
-importFrom(rlang,as_name)
-importFrom(rlang,enquo)
-importFrom(rlang,eval_tidy)
-importFrom(rlang,get_expr)
-importFrom(rlang,quo_is_null)
-importFrom(rlang,quo_name)
-importFrom(rlang,sym)
-importFrom(scales,label_percent)
-importFrom(scales,label_pvalue)
-importFrom(srvyr,as_survey_design)
-importFrom(srvyr,survey_mean)
-importFrom(stats,na.omit)
-importFrom(stats,pnorm)
-importFrom(stats,prop.test)
-importFrom(stats,sd)
-importFrom(stats,setNames)
-importFrom(tibble,as_tibble)
-importFrom(tibble,tibble)
+importFrom(nipnTK,
+  ageRatioTest,
+  digitPreference,
+  sexRatioTest,
+  skewKurt
+)
+importFrom(purrr,
+  map,
+  map2
+)
+importFrom(rlang,
+  .data,
+  as_name,
+  enquo,
+  eval_tidy,
+  get_expr,
+  quo_is_null,
+  quo_name,
+  sym
+)
+importFrom(scales,
+  label_percent,
+  label_pvalue
+)
+importFrom(srvyr,
+  as_survey_design,
+  survey_mean
+)
+importFrom(stats,
+  na.omit,
+  pnorm,
+  prop.test,
+  sd,
+  setNames
+)
+importFrom(tibble,
+  as_tibble,
+  tibble
+)
 importFrom(zscorer,addWGSR)
