@@ -1,5 +1,20 @@
+## Release summary  
+
+* This is a new submission of `mwana`.
+
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+### Local checks 
 
-* This is a new release.
+0 errors | 0 warnings | 1 note
+
+Found the following (possibly) invalid URLs:
+
+* URL:
+  * From:
+    - `inst/doc/ipc-amn-check.html`
+    - `inst/doc/plausibility.html`
+  * Message: Empty URL
+
+
+The vignettes render correctly.
