@@ -3,7 +3,7 @@ title: mwana
 development:
   mode: auto
 
-url: https://mphimo.github.io/mwana/dev
+url: https://mphimo.github.io/mwana
 
 template:
   math-rendering: katex
@@ -37,7 +37,7 @@ home:
   links:
   - text: Learn more about mwanaApp
     href: https://github.com/mphimo/mwanaApp 
-  - text: Access mwanaApp user interface
+  - text: Open web‑based mwanaApp
     href: https://mwana.ipc.codes
   - text: Read more about SMART Methodology
     href: https://smartmethodology.org/
