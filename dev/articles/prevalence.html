@@ -18,6 +18,7 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="prevalence_files/libs/quarto-html/popper.min.js"></script><script src="prevalence_files/libs/quarto-html/tippy.umd.min.js"></script><link href="prevalence_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="prevalence_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<script src="prevalence_files/libs/quarto-diagram/mermaid.min.js"></script><script src="prevalence_files/libs/quarto-diagram/mermaid-init.js"></script><link href="prevalence_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Estimating the prevalence of wasting">
 <meta property="og:image" content="https://mphimo.github.io/mwana/dev/logo.png">
 <meta name="robots" content="noindex">
@@ -264,16 +265,63 @@
 <p>The prevalence of wasting based on MFAZ can be estimated using the <code><a href="../reference/mw_estimate_prevalence_mfaz.html">mw_estimate_prevalence_mfaz()</a></code> function. This function is implemented in the same way as demonstrated in <a href="#sec-prevalence-wfhz">WFHZ</a>, with the exception that its data wrangling is based on MUAC, which was also demonstrated in the <a href="https://mphimo.github.io/mwana/articles/plausibility.html" class="external-link">plausibility checks</a>.</p>
 </section><section class="level2"><h2 id="sec-prevalence-muac">Estimation of the prevalence of wasting based on raw MUAC values<a class="anchor" aria-label="anchor" href="#sec-prevalence-muac"></a>
 </h2>
-<p>This job is assigned to three different functions: <code><a href="../reference/mw_estimate_prevalence_muac.html">mw_estimate_prevalence_muac()</a></code>, <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening()</a></code> and <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening2()</a></code>. The former is designed for survey data, and the latter two for data derived from screenings. Nonetheless, under the hood, they all follow the following logic:</p>
+<p>This job is assigned to three different functions: <code><a href="../reference/mw_estimate_prevalence_muac.html">mw_estimate_prevalence_muac()</a></code>, <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening()</a></code> and <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening2()</a></code>. The former is designed for survey data, and the latter two for data derived from screenings. Nonetheless, under the hood, they all implement the following logic:</p>
 <ul>
-<li>If age ratio test result is not problematic, a normal analysis is performed. This means that for data derived from survey, standard complex-sample-based prevalence is estimated.</li>
-<li>If age ratio test is problematic <strong>and</strong> the proportion of children aged 24-59 months is &lt; 66% (the expected), the prevalence is age-weighted; else, an age-unweighted prevalence is estimated.</li>
+<li>If the age‑ratio test is not rated as problematic, an unweighted prevalence is estimated. For survey‑derived data, this corresponds to the standard complex‑sample prevalence estimate.</li>
+<li>If the age‑ratio test is rated as problematic <strong>and</strong> the observed proportion of children aged 24–59 months is &lt; 66%, an age‑weighted prevalence is estimated. Otherwise, the unweighted prevalence is used (see <a href="#fig-age-weighting-logic" class="quarto-xref">Figure 1</a>).</li>
 </ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-age-weighting-logic" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-age-weighting-logic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-age-weighting-logic">flowchart LR
+
+A[(Input dataset)]
+B[Age‑ratio test]
+C[Classification]
+
+%% Observed proportion node
+D[Observed proportion&lt;br&gt;aged 24–59 months]
+
+%% Single decision block
+P{Is proportion &gt; 66%?}
+
+E{Excellent&lt;br&gt;Good&lt;br&gt;Acceptable}
+F{Problematic}
+
+I[Estimate unweighted prevalence]
+J[Estimate age‑weighted prevalence]
+
+K[(Summarised results)]
+
+A --&gt; B --&gt; C
+B --&gt; D
+
+%% Decision from D
+D --&gt; P
+
+%% Unweighted prevalence
+C --&gt; E --&gt; I --&gt; K
+C --&gt; F --&gt; P --&gt;|Yes| I
+
+%% Age-weighted prevalence
+P --&gt;|No| J --&gt; K
+
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-age-weighting-logic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Workflow for determining whether wasting prevalence should be unweighted or age‑weighted based on age‑ratio test results.
+</figcaption></figure>
+</div>
+</div>
+</div>
 <p>When working with a multiple-area dataset, this logic is applied area wise.</p>
 <div>
 <blockquote>
 <p><strong>How does it work on a multi-area dataset</strong></p>
-<p>Fundamentally, the function performs the standard deviation and age ratio tests, evaluates their acceptability, and returns a summarised table by area. It then iterates over that summary table (row-by-row) checking the above conditionals, and then the function accesses the original dataframe, pulls out the area-specific dataset, then it estimates the prevalence accordingly, and binds the results into a summary dataset.</p>
+<p>Fundamentally, the function performs the standard deviation and age ratio tests, evaluates their acceptability, and returns a summarised table by area. It then iterates over that summary table (row-by-row) checking the above conditionals, and then the function accesses the original dataframe, pulls out the area-specific dataset, then it estimates the prevalence accordingly, and binds the results into a summary results.</p>
 </blockquote>
 </div>
 <section class="level3"><h3 id="estimation-for-survey-data">Estimation for survey data<a class="anchor" aria-label="anchor" href="#estimation-for-survey-data"></a>
