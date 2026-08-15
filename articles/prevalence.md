@@ -259,15 +259,54 @@ This job is assigned to three different functions:
 and
 [`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/reference/muac-screening.md).
 The former is designed for survey data, and the latter two for data
-derived from screenings. Nonetheless, under the hood, they all follow
+derived from screenings. Nonetheless, under the hood, they all implement
 the following logic:
 
-- If age ratio test result is not problematic, a normal analysis is
-  performed. This means that for data derived from survey, standard
-  complex-sample-based prevalence is estimated.
-- If age ratio test is problematic **and** the proportion of children
-  aged 24-59 months is \< 66% (the expected), the prevalence is
-  age-weighted; else, an age-unweighted prevalence is estimated.
+- If the age‑ratio test is not rated as problematic, an unweighted
+  prevalence is estimated. For survey‑derived data, this corresponds to
+  the standard complex‑sample prevalence estimate.
+- If the age‑ratio test is rated as problematic **and** the observed
+  proportion of children aged 24–59 months is \< 66%, an age‑weighted
+  prevalence is estimated. Otherwise, the unweighted prevalence is used
+  (see [Figure 1](#fig-age-weighting-logic)).
+
+``` mermaid
+flowchart LR
+
+A[(Input dataset)]
+B[Age‑ratio test]
+C[Classification]
+
+%% Observed proportion node
+D[Observed proportion<br>aged 24–59 months]
+
+%% Single decision block
+P{Is proportion > 66%?}
+
+E{Excellent<br>Good<br>Acceptable}
+F{Problematic}
+
+I[Estimate unweighted prevalence]
+J[Estimate age‑weighted prevalence]
+
+K[(Summarised results)]
+
+A --> B --> C
+B --> D
+
+%% Decision from D
+D --> P
+
+%% Unweighted prevalence
+C --> E --> I --> K
+C --> F --> P -->|Yes| I
+
+%% Age-weighted prevalence
+P -->|No| J --> K
+```
+
+Figure 1: Workflow for determining whether wasting prevalence should be
+unweighted or age‑weighted based on age‑ratio test results.
 
 When working with a multiple-area dataset, this logic is applied area
 wise.
@@ -280,7 +319,7 @@ wise.
 > checking the above conditionals, and then the function accesses the
 > original dataframe, pulls out the area-specific dataset, then it
 > estimates the prevalence accordingly, and binds the results into a
-> summary dataset.
+> summary results.
 
 ### Estimation for survey data
 
