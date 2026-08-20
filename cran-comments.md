@@ -16,5 +16,8 @@ Found the following (possibly) invalid URLs:
     - `inst/doc/plausibility.html`
   * Message: Empty URL
 
+## URL check results
+
+* `urlchecker::url_check()` returns: ✔ All URLs are correct!
 
 The vignettes render correctly.
