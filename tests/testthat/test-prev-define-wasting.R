@@ -1,5 +1,5 @@
 # ==============================================================================
-# 📦 Functions: define_wasting(), define_wasting_zscores(), define_wasting_muac(), 
+# 📦 Functions: define_wasting(), define_wasting_zscores(), define_wasting_muac(),
 # define_wasting_combined()
 # ==============================================================================
 
@@ -73,6 +73,29 @@ testthat::test_that(
 )
 
 
+### With oedema set to NULL ----
+testthat::test_that(
+  "define_wasting_muac() throws an error when oedema contains NAs",
+  {
+    #### Sample data ----
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+
+    oedema <- c(
+      "n", "n", "y", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", NA, "y", NA
+    )
+
+    #### Tests ----
+    testthat::expect_error(
+      object = define_wasting_muac(muac_values, .cases = "gam", oedema = oedema),
+      regexp = "Oedema contains missing values; please ensure the variable has no NAs."
+    )
+  }
+)
+
 ## ---- Test check: define_wasting_zscores() -----------------------------------
 
 
@@ -108,6 +131,32 @@ testthat::test_that(
     testthat::expect_vector(obs_sam, ptype = numeric(), size = 20)
     testthat::expect_equal(obs_mam, exp_mam)
     testthat::expect_vector(obs_mam, ptype = numeric(), size = 20)
+  }
+)
+
+
+### Define wasting by WFHZ with oedema set to NULL ----
+testthat::test_that(
+  "define_wasting_zscores() throws an error when oedema contains NAs",
+  {
+    #### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+
+    oedema <- c(
+      "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", NA, "y", "n"
+    )
+
+    testthat::expect_error(
+      object = define_wasting_zscores(
+        zscores = wfhz, oedema = oedema, .cases = "gam"
+      ),
+      regexp = "Oedema contains missing values; please ensure the variable has no NAs."
+    )
   }
 )
 
@@ -252,6 +301,40 @@ testthat::test_that(
     testthat::expect_vector(obs_csam, ptype = numeric(), size = 20)
     testthat::expect_equal(obs_cmam, exp_cmam)
     testthat::expect_vector(obs_cmam, ptype = numeric(), size = 20)
+  }
+)
+
+
+### With oedema set to NULL ----
+testthat::test_that(
+  "define_wasting_combined() throws an error when oedema contains NA's.",
+  {
+    #### Sample data ----
+    wfhz <- c(
+      -0.958, -2.410, -0.232, -2.289, -3.015, -1.563, -2.773, -1.442,
+      -2.652, -3.257, -2.531, -2.894, -0.595, -3.378, -1.321, -2.047,
+      -0.353, -0.474, -1.200, -1.079
+    )
+    muac_values <- c(
+      123, 129, 126, 113, 130, 122, 112, 124, 128,
+      121, 120, 110, 114, 125, 119, 127, 117, 118, 111, 115
+    )
+
+    oedema <- c(
+      "n", "n", "y", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+      "n", "n", "n", "n", "n", "y", NA, "n"
+    )
+
+    #### The test ----
+    testthat::expect_error(
+      object = define_wasting_combined(
+        zscores = wfhz,
+        muac = muac_values,
+        oedema = oedema,
+        .cases = "cgam"
+      ),
+      regexp = "Oedema contains missing values; please ensure the variable has no NAs."
+    )
   }
 )
 
