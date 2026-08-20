@@ -15,6 +15,8 @@
 
 ### General updates
 
+- Refactored wasting case definers to halt execution and raise an error
+  when oedema contains missing values.
 - Revised the mathematical expression for the age-weighting approach in
   [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/dev/reference/mw_estimate_age_weighted_prev_muac.md).
 - Added a hyperlink to the internet‑deployed `mwana` Shiny App
