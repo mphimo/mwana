@@ -46,6 +46,10 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.5" id="mwana-025">mwana 0.2.5<a class="anchor" aria-label="anchor" href="#mwana-025"></a></h2>
 <div class="section level3">
+<h3 id="bug-fixes-0-2-5">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-5"></a></h3>
+<ul><li>Resolved an issue in <code><a href="../reference/mw_wrangle_age.html">mw_wrangle_age()</a></code> that ensures out‑of‑range age‑in‑months values are set to <code>NA</code> when <code>mwana</code> is provided with a dataset containing pre‑calculated age‑in‑months. The function already applied this rule when age‑in‑months was derived from date of birth and data‑collection date; this fix extends the same behaviour to externally supplied age‑in‑months values.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="general-updates-0-2-5">General updates<a class="anchor" aria-label="anchor" href="#general-updates-0-2-5"></a></h3>
 <ul><li>Revised the mathematical expression for the age-weighting approach in <code><a href="../reference/mw_estimate_age_weighted_prev_muac.html">mw_estimate_age_weighted_prev_muac()</a></code>.</li>
 <li>Added a hyperlink to the internet‑deployed <code>mwana</code> Shiny App (<code>mwanaApp</code>) in the website’s list of links.</li>

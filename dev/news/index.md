@@ -2,6 +2,17 @@
 
 ## mwana 0.2.5
 
+### Bug fixes
+
+- Resolved an issue in
+  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/dev/reference/mw_wrangle_age.md)
+  that ensures out‑of‑range age‑in‑months values are set to `NA` when
+  `mwana` is provided with a dataset containing pre‑calculated
+  age‑in‑months. The function already applied this rule when
+  age‑in‑months was derived from date of birth and data‑collection date;
+  this fix extends the same behaviour to externally supplied
+  age‑in‑months values.
+
 ### General updates
 
 - Revised the mathematical expression for the age-weighting approach in
