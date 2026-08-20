@@ -3,7 +3,7 @@ title: mwana
 development:
   mode: auto
 
-url: https://mphimo.github.io/mwana/dev
+url: https://mphimo.github.io/mwana/
 
 template:
   math-rendering: katex
