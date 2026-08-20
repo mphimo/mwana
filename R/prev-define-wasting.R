@@ -3,13 +3,21 @@
 #' @keywords internal
 #'
 #'
-define_wasting_muac <- function(muac,
-                                oedema = NULL,
-                                .cases = c("gam", "sam", "mam")) {
+define_wasting_muac <- function(
+  muac,
+  oedema = NULL,
+  .cases = c("gam", "sam", "mam")
+) {
   ## Enforce options in `.cases` ----
   .cases <- match.arg(.cases)
 
+
   if (!is.null(oedema)) {
+    ### Check for missing values in oedema and raise error if TRUE ----
+    if (any(is.na(oedema))) {
+      stop("Oedema contains missing values; please ensure the variable has no NAs.")
+    }
+
     switch(
       ### Wasting by MUAC including MUAC ----
       .cases,
@@ -45,13 +53,21 @@ define_wasting_muac <- function(muac,
 #' @keywords internal
 #'
 #'
-define_wasting_zscores <- function(zscores,
-                                   oedema = NULL,
-                                   .cases = c("gam", "sam", "mam")) {
+define_wasting_zscores <- function(
+  zscores,
+  oedema = NULL,
+  .cases = c("gam", "sam", "mam")
+) {
   ## Enforce options in `.cases` ----
   .cases <- match.arg(.cases)
 
   if (!is.null(oedema)) {
+    ### Check for missing values in oedema and raise error if TRUE ----
+    if (any(is.na(oedema))) {
+      stop("Oedema contains missing values; please ensure the variable has no NAs.")
+    }
+
+
     switch(
       ### Wasting by WFHZ including oedema ----
       .cases,
@@ -87,14 +103,22 @@ define_wasting_zscores <- function(zscores,
 #' @keywords internal
 #'
 #'
-define_wasting_combined <- function(zscores,
-                                    muac,
-                                    oedema = NULL,
-                                    .cases = c("cgam", "csam", "cmam")) {
+define_wasting_combined <- function(
+  zscores,
+  muac,
+  oedema = NULL,
+  .cases = c("cgam", "csam", "cmam")
+) {
   ## Enforce options in `.cases` ----
   .cases <- match.arg(.cases)
 
   if (!is.null(oedema)) {
+    ### Check for missing values in oedema and raise error if TRUE ----
+    if (any(is.na(oedema))) {
+      stop("Oedema contains missing values; please ensure the variable has no NAs.")
+    }
+
+
     switch(
       ### Combined wasting including oedema ----
       .cases,
@@ -106,9 +130,11 @@ define_wasting_combined <- function(zscores,
       },
       "cmam" = {
         cmam <- ifelse(
-          (zscores >= -3 & zscores < -2) | 
-            (muac >= 115 & muac < 125) & 
-            oedema == "n", 1, 0
+          (zscores >= -3 & zscores < -2) |
+            (muac >= 115 & muac < 125) &
+              oedema == "n",
+          1,
+          0
         )
       }
     )
@@ -124,8 +150,10 @@ define_wasting_combined <- function(zscores,
       },
       "cmam" = {
         cmam <- ifelse(
-          (zscores >= -3 & zscores < -2) | 
-            (muac >= 115 & muac < 125), 1, 0
+          (zscores >= -3 & zscores < -2) |
+            (muac >= 115 & muac < 125),
+          1,
+          0
         )
       }
     )
@@ -139,10 +167,10 @@ define_wasting_combined <- function(zscores,
 #' @description
 #' Determine if a given observation in the dataset is wasted or not, and its
 #' respective form of wasting (global, severe or moderate) on the basis of
-#' z-scores of weight-for-height (WFHZ), muac-for-age (MFAZ), raw MUAC 
+#' z-scores of weight-for-height (WFHZ), muac-for-age (MFAZ), raw MUAC
 #' values and combined case-definition.
 #'
-#' @param df A `tibble` object. It must have been wrangled using this package's 
+#' @param df A `tibble` object. It must have been wrangled using this package's
 #' wrangling functions for WFHZ or MUAC, or both (for combined) as appropriate.
 #'
 #' @param zscores A vector of class `double` of WFHZ or MFAZ values.
@@ -151,15 +179,15 @@ define_wasting_combined <- function(zscores,
 #' millimetres.
 #'
 #' @param oedema A `character` vector indicating oedema status. Default is NULL.
-#' Code values should be "y" for presence and "n" for absence of nutritional 
+#' Code values should be "y" for presence and "n" for absence of nutritional
 #' oedema.
 #'
-#' @param .by A choice of the criterion by which a case is to be defined. Choose 
+#' @param .by A choice of the criterion by which a case is to be defined. Choose
 #' "zscores" for WFHZ or MFAZ, "muac" for raw MUAC and "combined" for combined.
 #' Default value is "zscores".
 #'
-#' @returns The `tibble` object `df` with additional columns named named `gam`, 
-#' `sam` and `mam`, each of class `numeric` containing coded values of either 
+#' @returns The `tibble` object `df` with additional columns named named `gam`,
+#' `sam` and `mam`, each of class `numeric` containing coded values of either
 #' 1 (case) and 0 (not a case). If `.by = "combined"`, additional columns are
 #' named `cgam`, `csam` and `cmam`.
 #'
@@ -196,12 +224,13 @@ define_wasting_combined <- function(zscores,
 #'
 #' @export
 #'
-define_wasting <- function(df,
-                           zscores = NULL,
-                           muac = NULL,
-                           oedema = NULL,
-                           .by = c("zscores", "muac", "combined")) {
-
+define_wasting <- function(
+  df,
+  zscores = NULL,
+  muac = NULL,
+  oedema = NULL,
+  .by = c("zscores", "muac", "combined")
+) {
   ## Difuse and evaluate arguments ----
   zscores <- rlang::eval_tidy(enquo(zscores), df)
   muac <- rlang::eval_tidy(enquo(muac), df)
@@ -211,31 +240,34 @@ define_wasting <- function(df,
   .by <- match.arg(.by)
 
   ## Enforce class of `zscores` ----
-  if(!is.null(zscores)) {
+  if (!is.null(zscores)) {
     if (!is.double(zscores)) {
       stop(
-        "`zscores` must be of class double not ", 
-        class(zscores), ". Please try again."
+        "`zscores` must be of class double not ",
+        class(zscores),
+        ". Please try again."
       )
     }
   }
 
   ## Enforce class of `muac` ----
-  if(!is.null(muac)) {
+  if (!is.null(muac)) {
     if (!(is.numeric(muac) | is.integer(muac))) {
       stop(
-        "`muac` must be of class numeric or integer not ", 
-        class(muac), ". Please try again."
+        "`muac` must be of class numeric or integer not ",
+        class(muac),
+        ". Please try again."
       )
     }
   }
 
   ## Enforce class of `oedema` ----
-  if(!is.null(oedema)) {
+  if (!is.null(oedema)) {
     if (!is.character(oedema)) {
       stop(
-        "`oedema` must be of class character not ", 
-        class(oedema), ". Please try again."
+        "`oedema` must be of class character not ",
+        class(oedema),
+        ". Please try again."
       )
     }
     ## Enforce code values in `oedema` ----
