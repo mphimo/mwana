@@ -79,10 +79,10 @@ Relief and Transition*. Manual 2.0. Available at:
 
 ## See also
 
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
-[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
-[`mw_stattest_ageratio()`](https://mphimo.github.io/mwana/reference/age_ratio.md)
-[`flag_outliers()`](https://mphimo.github.io/mwana/reference/outliers.md)
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
+[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
+[`mw_stattest_ageratio()`](https://mphimo.github.io/mwana/dev/reference/age_ratio.md)
+[`flag_outliers()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
 
 ## Examples
 

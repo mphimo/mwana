@@ -32,12 +32,12 @@ mw_estimate_prevalence_screening2(df, age_cat, muac, oedema = NULL, ...)
 - df:
 
   A `tibble` object produced by
-  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
   and
-  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
   functions. Note that MUAC values in `df` must be in millimetres unit
   after using
-  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md).
+  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md).
   Also, `df` must have a variable called `cluster` wherein the primary
   sampling unit identifiers are stored.
 
@@ -93,11 +93,11 @@ Available at:
 
 ## See also
 
-[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md),
-[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md),
-[`flag_outliers()`](https://mphimo.github.io/mwana/reference/outliers.md)
+[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md),
+[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md),
+[`flag_outliers()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
 and
-[`remove_flags()`](https://mphimo.github.io/mwana/reference/outliers.md).
+[`remove_flags()`](https://mphimo.github.io/mwana/dev/reference/outliers.md).
 
 ## Examples
 

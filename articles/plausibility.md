@@ -17,8 +17,8 @@ consider using MFAZ plausibility check over the one based on raw MUAC
 values. For demonstration, we will use a `mwana` built-in sample dataset
 named `anthro.01`. This dataset contains district level SMART surveys
 from anonymised locations. Do
-[`?anthro.01`](https://mphimo.github.io/mwana/reference/anthro.01.md) in
-`R` console to read more about it.
+[`?anthro.01`](https://mphimo.github.io/mwana/dev/reference/anthro.01.md)
+in `R` console to read more about it.
 
 We will begin the demonstration with the plausibility check that you are
 most familiar with and then proceed to the ones you are less familiar
@@ -27,24 +27,24 @@ with.
 ### Plausibility check of WFHZ data
 
 We check the plausibility of WFHZ data by calling the
-[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
+[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
 function. Before doing that, we need ensure the data is in the right
 “shape and format” that is accepted and understood by the function.
 Don’t worry, you will soon learn how to get there. But first, let’s take
 a moment to walk you through some key features about this function.
 
-[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
+[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
 is a replica of the plausibility check in ENA for SMART software of the
 SMART Methodology ([SMART Initiative, 2017](#ref-smart2017)). Under the
 hood, it runs the same test suite you already know from SMART. It also
 applies the same rating and scoring criteria. Beware though that there
 are some small differences to have in mind:
 
-1.  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
+1.  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
     does not include MUAC in its test suite. This is simply due the fact
     that now you can run a more comprehensive test suite for MUAC.
 
-2.  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
+2.  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
     allows user to run checks on a multiple-area dataset at once,
     without having to repeat the same workflow over and over again for
     the number of areas the data holds.
@@ -76,69 +76,45 @@ wrangling workflow.
 #### Data wrangling
 
 As mentioned somewhere above, before we supply a data object to
-[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md),
+[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md),
 we need to wrangle it first. This task is executed by
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
 and
-[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md).
+[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md).
 Read more about the technical documentation by doing
-[`help("mw_wrangle_age")`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+[`help("mw_wrangle_age")`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
 or
-[`help("mw_wrangle_wfhz")`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md)
+[`help("mw_wrangle_wfhz")`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
 in `R` console.
 
 ##### Wrangling age
 
 We use
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
 to calculate child’s age in months based on the date of data collection
-and child’s date of birth. This is done as follows:
+and child’s date of birth. The function takes `df`, the `anthro.01`
+object which contains variables related to age that will be used for the
+wrangling process; `dos`, the unquoted variable name in `df` that
+contains the date when the data collection was performed (`dos` in
+`anthro.01`); `dob`, the unquoted variable name in `df` that contains
+the date when the child was born (`dob` in `anthro.01`); `age`, the
+unquoted variable name in `df` that contains the age of the child in
+months (`age` in `anthro.01`); and `.decimals`, which allows the user to
+specify the number of decimal places to which the output age values will
+be rounded off to (by default, `.decimals` is set to 2, so even without
+specifying this argument, the resulting output will be rounded off to
+2). This is done as follows:
 
 ``` r
-1age_mo <- mw_wrangle_age(
-2  df = anthro.01
-3  dos = dos,
-4  dob = dob,
-5  age = age,
-6  .decimals = 2
+
+age_mo <- mw_wrangle_age(
+  df = anthro.01,
+  dos = dos,
+  dob = dob,
+  age = age,
+  .decimals = 2
 )
 ```
-
-- 1:
-
-  The output for this operation will be assigned to an object called
-  `age_mo`.
-
-- 2:
-
-  The argument `df` is supplied with the `anthro.01` object which
-  contains variables related to age that will be used for the wrangling
-  process.
-
-- 3:
-
-  The argument `dos` is supplied with the unquoted variable name in `df`
-  that contains the date when the data collection was performed. In the
-  `anthro.01` dataset, this so happens to be `dos` as well.
-
-- 4:
-
-  The argument `dob` is supplied with the unquoted variable name in `df`
-  that contains the date when the child was born. In the `anthro.01`
-  dataset, this so happens to be `dob` as well.
-
-- 5:
-
-  The argument `age` is supplied with the unquoted variable name in `df`
-  that contains the age of the child in months. In the `anthro.01`
-  dataset, this so happens to be `age` as well.
-
-- 6:
-
-  The argument `.decimals` allows the user to specify the number of
-  decimal places to which the output age values will be rounded off to.
-  By default, `.decimals` is set to 2. So, even without specifying this
-  argument, the resulting output will be rounded off to 2.
 
 This will return:
 
@@ -156,7 +132,7 @@ This will return:
 ##### Wrangling all other remaining variables
 
 For this, we call
-[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md)
+[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
 as follows:
 
 ``` r
@@ -184,7 +160,7 @@ female, respectively. This means that if our sex variable is already in
 > utilities and then set `.recode_sex` accordingly.
 
 Under the hood, after recoding (or not) the sex variables,
-[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md)
+[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
 computes the z-scores, then identifies outliers and adds them to the
 dataset. Two new variables (`wfhz` and `flag_wfhz`) are created and
 added to the dataset. We can see this below:
@@ -203,7 +179,7 @@ added to the dataset. We can see this below:
 #### On to *de facto* plausibility check of WFHZ data
 
 We can check the plausibility of our data by calling
-[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
+[`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
 function as demonstrated below:
 
 ``` r
@@ -259,7 +235,7 @@ The returned output is:
 As we can see, the returned output is a summary table of statistics and
 ratings. We can neat it for more clarity and readability. We can achieve
 this by chaining
-[`mw_neat_output_wfhz()`](https://mphimo.github.io/mwana/reference/mw_neat_output_wfhz.md)
+[`mw_neat_output_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_wfhz.md)
 to the previous pipeline:
 
 ``` r
@@ -307,9 +283,14 @@ standard notations, etc.
 
 When working on a multiple-area dataset, for instance districts, we can
 check the plausibility of all districts in the dataset at once by
-specifying a vector (or a list of vectors) to the function as follows:
+specifying a vector (or a list of vectors) to the function as follows.
+Here we pass both `area` and `team`, a list of vectors specifying the
+categories for which the analysis should be summarised (more than one
+vector can be specified, separated by `,`); in this case, the analysis
+will be summarised at each survey team in `District E` and `District G`:
 
 ``` r
+
 anthro.01 |>
   mw_wrangle_age(
     dos = dos,
@@ -330,16 +311,10 @@ anthro.01 |>
     height = height,
     flags = flag_wfhz,
     area,
-1    team
+    team
   ) |>
   mw_neat_output_wfhz()
 ```
-
-- 1:
-
-  List of vectors specified for which the analysis should be summarised.
-  In this case, the analysis will be summarised at each survey team in
-  `District E` and `District G`.
 
 This will return the following:
 
@@ -382,7 +357,7 @@ variable available in our dataset.
 > acceptability of percent of flagged records of 2.0%.
 
 We can run MFAZ plausibility check by calling
-[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_mfaz.md).
+[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_mfaz.md).
 As in WFHZ, we first need to ensure that the data is in the right shape
 and format that is accepted and understood by the function. The workflow
 starts with wrangling age; for this, we approach the same way as in
@@ -401,7 +376,7 @@ starts with wrangling age; for this, we approach the same way as in
 #### Wrangling MFAZ data
 
 This is the job of
-[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
 function. We use it as follows:
 
 ``` r
@@ -424,7 +399,7 @@ anthro.01 |>
 ```
 
 Just as in WFHZ wrangler, under the hood,
-[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
 computes the z-scores then identifies outliers and flags them. These are
 stored in the `mfaz` and `flag_mfaz` variables that are created and
 added to the dataset.
@@ -450,7 +425,7 @@ The above code returns:
 
 > **Note**
 >
-> [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+> [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
 > accepts MUAC values in centimetres. This is why it takes the arguments
 > `.recode_muac` and `.to` to control whether there is need to transform
 > the variable `muac` or not. Read the function documentation to learn
@@ -459,7 +434,7 @@ The above code returns:
 #### On to *de facto* plausibility check of MFAZ data
 
 We achieve this by calling the
-[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_mfaz.md)
+[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_mfaz.md)
 function:
 
 ``` r
@@ -499,7 +474,7 @@ And this will return:
     #> #   kurt_class <fct>, quality_score <dbl>, quality_class <fct>
 
 We can also neat this output. We just need to call
-[`mw_neat_output_mfaz()`](https://mphimo.github.io/mwana/reference/mw_neat_output_mfaz.md)
+[`mw_neat_output_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_mfaz.md)
 and chain it to the pipeline:
 
 ``` r
@@ -593,7 +568,7 @@ At this point, you have reached the end of your workflow ✨.
 We will assess the plausibility of raw MUAC data through it’s raw values
 when the variable age is not available in the dataset. This is a job
 assigned to
-[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_muac.md).
+[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_muac.md).
 The workflow for this check is the shortest one.
 
 #### Data wrangling
@@ -601,7 +576,7 @@ The workflow for this check is the shortest one.
 As you can tell, z-scores cannot be computed in the absence of age. In
 this way, the data wrangling workflow would be quite minimal. You still
 set the arguments inside
-[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+[`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
 as learned in [Section 1.2.1](#sec-wrangle_mfaz). The only difference is
 that here we will set `age` to `NULL`. Fundamentally, under the hood the
 function detects MUAC values that are outliers and flags them and stores
@@ -643,7 +618,7 @@ This returns:
 #### On to *de facto* plausibility check
 
 We just have to add
-[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_muac.md)
+[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_muac.md)
 to the above pipeline:
 
 ``` r
@@ -673,7 +648,7 @@ And this will return:
     #> # ℹ 1 more variable: sd_class <fct>
 
 We can also return a formatted table with
-[`mw_neat_output_muac()`](https://mphimo.github.io/mwana/reference/mw_neat_output_muac.md):
+[`mw_neat_output_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_muac.md):
 
 ``` r
 

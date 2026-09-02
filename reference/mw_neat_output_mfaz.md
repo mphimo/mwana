@@ -14,7 +14,7 @@ mw_neat_output_mfaz(df)
 - df:
 
   An `data.frame` object returned by
-  [`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_mfaz.md)
+  [`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_mfaz.md)
   containing the summarized results to be formatted.
 
 ## Value

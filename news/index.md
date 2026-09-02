@@ -5,7 +5,7 @@
 ### Bug fixes
 
 - Resolved an issue in
-  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
   that ensures out‑of‑range age‑in‑months values are set to `NA` when
   `mwana` is provided with a dataset containing pre‑calculated
   age‑in‑months. The function already applied this rule when
@@ -15,10 +15,11 @@
 
 ### General updates
 
+- Version 0.2.5 released on CRAN on 2026‑09‑02.
 - Refactored wasting case definers to halt execution and raise an error
   when oedema contains missing values.
 - Revised the mathematical expression for the age-weighting approach in
-  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md).
+  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md).
 - Added a hyperlink to the internet‑deployed `mwana` Shiny App
   (`mwanaApp`) in the website’s list of links.
 
@@ -56,7 +57,7 @@
   results.
 
 - Refactored
-  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md)
+  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md)
   to return MUAC-based prevalence split into 6-23 and 24-59 months, and
   thereafter provide the actual age-weighted prevalence of Severe Acute
   Malnutrition (SAM), Moderate Acute Malnutrition (MAM) and Global Acute
@@ -64,7 +65,7 @@
   tool for age weighting. It is noteworthy that the main MUAC prevalence
   estimators only return the age‑weighted SAM, MAM, and GAM prevalence.
   For a full breakdown, users should use
-  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md).
+  [`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md).
 
 - Rebuilt vignettes using `quarto` engine.
 
@@ -78,13 +79,13 @@
 ### New features
 
 - Added new functions:
-  - [`mw_stattest_ageratio2()`](https://mphimo.github.io/mwana/reference/age_ratio.md):
+  - [`mw_stattest_ageratio2()`](https://mphimo.github.io/mwana/dev/reference/age_ratio.md):
     Tests for statistical differences in proportions as in
-    [`mw_stattest_ageratio()`](https://mphimo.github.io/mwana/reference/age_ratio.md),
+    [`mw_stattest_ageratio()`](https://mphimo.github.io/mwana/dev/reference/age_ratio.md),
     but for cases where age is provided in the categories “6–23” and
     “24–59” months.
 
-  - [`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/reference/muac-screening.md):
+  - [`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md):
     Estimates the prevalence of acute malnutrition for non-survey data
     when age is given in the categories “6–23” and “24–59” months. This
     ensures that the age-weighting approach is applied when applicable.
@@ -94,7 +95,7 @@
 ### Bug fixes
 
 - Resolved an issue with
-  [`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/reference/mw_check_ipcamn_ssreq.md),
+  [`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/dev/reference/mw_check_ipcamn_ssreq.md),
   which was previously not returning the correct statistics for grouped
   analysis.
 
@@ -131,17 +132,17 @@
 ### New features
 
 - Added new function
-  [`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/reference/muac-screening.md)
+  [`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md)
   to estimate prevalence of wasting by MUAC from non survey data:
   screenings, sentinel sites, etc.
 
 ### Bug fixes
 
 - Resolved issues with
-  [`mw_neat_output_mfaz()`](https://mphimo.github.io/mwana/reference/mw_neat_output_mfaz.md),
-  [`mw_neat_output_wfhz()`](https://mphimo.github.io/mwana/reference/mw_neat_output_wfhz.md)
+  [`mw_neat_output_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_mfaz.md),
+  [`mw_neat_output_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_wfhz.md)
   and
-  [`mw_neat_output_muac()`](https://mphimo.github.io/mwana/reference/mw_neat_output_muac.md)
+  [`mw_neat_output_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_neat_output_muac.md)
   not returning neat and tidy output for grouped `data.frame` from their
   respective plausibility checkers.
 

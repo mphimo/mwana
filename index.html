@@ -19,7 +19,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R">
 <meta name="description" content="A simple and streamlined workflow for plausibility checks and prevalence analysis of wasting based on the Standardized Monitoring and Assessment of Relief and Transition (SMART) Methodology &lt;https://smartmethodology.org/&gt;, with application in R.">
 <meta property="og:description" content="A simple and streamlined workflow for plausibility checks and prevalence analysis of wasting based on the Standardized Monitoring and Assessment of Relief and Transition (SMART) Methodology &lt;https://smartmethodology.org/&gt;, with application in R.">
-<meta property="og:image" content="https://mphimo.github.io/mwana/logo.png">
+<meta property="og:image" content="https://mphimo.github.io/mwana/dev/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -90,16 +90,7 @@
 </h2>
 <p>You can install <code>mwana</code> from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"mwana"</span><span class="op">)</span></span></code></pre></div>
-<p>You can install the development version of <code>mwana</code> from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"mphimo/mwana"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mwana"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="what-does-mwana-do">What does <code>mwana</code> do?<a class="anchor" aria-label="anchor" href="#what-does-mwana-do"></a>
@@ -107,7 +98,7 @@
 <div class="section level3">
 <h3 id="id_1-data-plausibility-checks-of-acute-undernutrition-anthropometric-data-of-children-6-59-months-old">1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old<a class="anchor" aria-label="anchor" href="#id_1-data-plausibility-checks-of-acute-undernutrition-anthropometric-data-of-children-6-59-months-old"></a>
 </h3>
-<p><code>mwana</code> provides functions to perform data plausibility checks on weight-for-height z-score (WFHZ) data. These are based on the SMART plausibility checkers, data quality scoring, and classification criteria implemented in the ENA for SMART software. Moreover, it provides functions to perform data plausibility checks on Mid-Upper Arm Circumference (MUAC) data. These are based on recent research and recommendations concerning the MUAC-for-age z-score (MFAZ) and its utility for assessing the plausibility of MUAC data. To learn more, see <a href="https://mphimo.github.io/mwana/articles/plausibility.html">Plausibility check guide</a>.</p>
+<p><code>mwana</code> provides functions to perform data plausibility checks on weight-for-height z-score (WFHZ) data. These are based on the SMART plausibility checkers, data quality scoring, and classification criteria implemented in the ENA for SMART software. Moreover, it provides functions to perform data plausibility checks on Mid-Upper Arm Circumference (MUAC) data. These are based on recent research and recommendations concerning the MUAC-for-age z-score (MFAZ) and its utility for assessing the plausibility of MUAC data. To learn more, see <a href="https://mphimo.github.io/mwana/articles/plausibility.html" class="external-link">Plausibility check guide</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="id_2-prevalence-estimation-of-acute-undernutrition">2. Prevalence estimation of acute undernutrition<a class="anchor" aria-label="anchor" href="#id_2-prevalence-estimation-of-acute-undernutrition"></a>
@@ -117,7 +108,7 @@
 <div class="section level3">
 <h3 id="id_3-ipc-sample-size-checker">3. IPC sample size checker<a class="anchor" aria-label="anchor" href="#id_3-ipc-sample-size-checker"></a>
 </h3>
-<p><code>mwana</code> provides a function to check whether each domain in an anthropometric dataset meets IPC minimum sample-size requirements. The check accounts for the data-collection mode (survey, screening exercise, or sentinel-site surveillance). Read <a href="https://mphimo.github.io/mwana/articles/ipc-amn-check.html">IPC check guide</a>.</p>
+<p><code>mwana</code> provides a function to check whether each domain in an anthropometric dataset meets IPC minimum sample-size requirements. The check accounts for the data-collection mode (survey, screening exercise, or sentinel-site surveillance). Read <a href="https://mphimo.github.io/mwana/articles/ipc-amn-check.html" class="external-link">IPC check guide</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="id_4-reporting-of-data-plausibility-checks-and-prevalence-estimation-summary-outputs">4. Reporting of data plausibility checks and prevalence estimation summary outputs<a class="anchor" aria-label="anchor" href="#id_4-reporting-of-data-plausibility-checks-and-prevalence-estimation-summary-outputs"></a>
@@ -138,30 +129,29 @@
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use <code>mwana</code> package in your work, please cite using the suggested citation provided by a call to <code><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"mwana"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>To cite mwana <span class="cf">in</span> publications use<span class="sc">:</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  Tomás Zaba, Ernest Guevarra, Mark <span class="fu">Myatt</span> (<span class="dv">2026</span>). _mwana<span class="sc">:</span> An Efficient</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="cf">in</span> R_. R package version <span class="dv">0</span>.<span class="dv">2</span>.<span class="fl">5.9000</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span><span class="er">&gt;</span>.</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    title <span class="ot">=</span> {mwana<span class="sc">:</span> An Efficient Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting <span class="cf">in</span> R},</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    author <span class="ot">=</span> {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2026</span>},</span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">2</span>.<span class="fl">5.9000</span>},</span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span>},</span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>To cite mwana <span class="cf">in</span> publications use<span class="sc">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  Tomás Zaba, Ernest Guevarra, Mark <span class="fu">Myatt</span> (<span class="dv">2026</span>). _mwana<span class="sc">:</span> An Efficient</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="cf">in</span> R_. R package version <span class="dv">0</span>.<span class="fl">2.5</span>, <span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span><span class="er">&gt;</span>.</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    title <span class="ot">=</span> {mwana<span class="sc">:</span> An Efficient Workflow <span class="cf">for</span> Plausibility Checks and Prevalence Analysis of Wasting <span class="cf">in</span> R},</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    author <span class="ot">=</span> {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2026</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">2.5</span>},</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>mphimo.github.io<span class="sc">/</span>mwana<span class="sc">/</span>},</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  }</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="community-guidelines">Community guidelines<a class="anchor" aria-label="anchor" href="#community-guidelines"></a>
 </h2>
-<p>Feedback, bug reports and feature requests are welcome; file issues or seek support <a href="https://github.com/mphimo/mwana/issues" class="external-link">here</a>. If you would like to contribute to the package, please see our <a href="https://mphimo.github.io/mwana/CONTRIBUTING.html">contributing guidelines</a>.</p>
-<p>This project is released with a <a href="https://mphimo.github.io/mwana/CODE-OF-CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<p>Feedback, bug reports and feature requests are welcome; file issues or seek support <a href="https://github.com/mphimo/mwana/issues" class="external-link">here</a>. If you would like to contribute to the package, please see our <a href="https://mphimo.github.io/mwana/CONTRIBUTING.html" class="external-link">contributing guidelines</a>.</p>
+<p>This project is released with a <a href="https://mphimo.github.io/mwana/CODE-OF-CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -170,6 +160,7 @@
 <li><a href="https://cloud.r-project.org/package=mwana" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/mphimo/mwana/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/mphimo/mwana/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://cran.r-project.org/web/packages/mwana/index.html" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/mphimo/mwanaApp" class="external-link">Learn more about mwanaApp</a></li>
 <li><a href="https://mwana.ipc.codes" class="external-link">Open web‑based mwanaApp</a></li>
 <li><a href="https://smartmethodology.org/" class="external-link">Read more about SMART Methodology</a></li>

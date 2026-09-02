@@ -23,9 +23,9 @@ mw_estimate_prevalence_mfaz(df, wt = NULL, oedema = NULL, ...)
 - df:
 
   A `data.frame` object that has been produced by the
-  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+  [`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
   and
-  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md)
+  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md)
   functions. The `df` should have a variable named `cluster` for the
   primary sampling unit identifiers.
 

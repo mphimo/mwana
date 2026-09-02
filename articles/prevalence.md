@@ -33,11 +33,11 @@ different datasets to represent different scenarios:
 
 - `anthro.02` : a survey data with survey weights. Learn more about this
   data with
-  [`?anthro.02`](https://mphimo.github.io/mwana/reference/anthro.02.md).
+  [`?anthro.02`](https://mphimo.github.io/mwana/dev/reference/anthro.02.md).
 - `anthro.03` : district-level SMART surveys with two districts whose
   WFHZ standard deviations are rated as problematic while the rest lay
   within range. Do
-  [`?anthro.03`](https://mphimo.github.io/mwana/reference/anthro.03.md)
+  [`?anthro.03`](https://mphimo.github.io/mwana/dev/reference/anthro.03.md)
   for more details.
 - `anthro.04` : a community-based sentinel site data. The data has
   different characteristics that require different analysis approaches.
@@ -45,9 +45,9 @@ different datasets to represent different scenarios:
 ## Estimation of the prevalence of wasting based on WFHZ
 
 To estimate the prevalence of wasting based on WFHZ we use the
-[`mw_estimate_prevalence_wfhz()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_wfhz.md)
+[`mw_estimate_prevalence_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_wfhz.md)
 function. The dataset to supply must have been wrangled by
-[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md).
+[`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md).
 
 As usual, we start off by inspecting our dataset:
 
@@ -244,7 +244,7 @@ applied.
 ## Estimation of the prevalence of wasting based on MFAZ
 
 The prevalence of wasting based on MFAZ can be estimated using the
-[`mw_estimate_prevalence_mfaz()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_mfaz.md)
+[`mw_estimate_prevalence_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_mfaz.md)
 function. This function is implemented in the same way as demonstrated
 in [WFHZ](#sec-prevalence-wfhz), with the exception that its data
 wrangling is based on MUAC, which was also demonstrated in the
@@ -254,10 +254,10 @@ checks](https://mphimo.github.io/mwana/articles/plausibility.html).
 ## Estimation of the prevalence of wasting based on raw MUAC values
 
 This job is assigned to three different functions:
-[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md),
-[`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/reference/muac-screening.md)
+[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md),
+[`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md)
 and
-[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/reference/muac-screening.md).
+[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md).
 The former is designed for survey data, and the latter two for data
 derived from screenings. Nonetheless, under the hood, they all implement
 the following logic:
@@ -389,15 +389,15 @@ this is where the age-weighting approach was applied.
 
 Alternatively, we can choose to apply the function that estimates
 age-weighted prevalence inside
-[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md)
+[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md)
 directly onto our dataset. This can be done by calling the
-[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md)
+[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md)
 function. It is noteworthy that although possible, it is recommend to
 use the main function. This is simply due the fact that if we decide to
 use the function independently, then we must, before calling it, check
 the acceptability of the age ratio test, and then evaluate if the
 conditions that fits the use
-[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_age_weighted_prev_muac.md)
+[`mw_estimate_age_weighted_prev_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_age_weighted_prev_muac.md)
 are there. We would have to do that ourselves. This can be boredom along
 the workflow, thereby increase the risk of picking a wrong analysis
 workflow.
@@ -486,11 +486,11 @@ This will return:
 > **Warning**
 >
 > You may have noticed that in the above code block, we called the
-> [`recode_muac()`](https://mphimo.github.io/mwana/reference/recode_muac.md)
+> [`recode_muac()`](https://mphimo.github.io/mwana/dev/reference/recode_muac.md)
 > function inside `mutate()`. This is because after you use
-> [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md),
+> [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md),
 > it puts the MUAC variable in centimetres. The
-> [`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md)
+> [`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md)
 > function was defined to accept MUAC in millimetres; therefore, it must
 > be converted to millimetres.
 
@@ -531,7 +531,7 @@ The returned output is:
     #> 3 Unit C           19 0.0909     5 0.0239    14 0.0670   209
 
 The
-[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/reference/muac-screening.md)
+[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md)
 function is applied as demonstrated below. In this example, the input
 data contains age in months rather than in categories. To meet the
 function’s requirements, we convert the age variable into two categories
@@ -569,7 +569,7 @@ anthro.04 |>
 
 The estimation of the combined prevalence of wasting is a task
 attributed to the
-[`mw_estimate_prevalence_combined()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_combined.md)
+[`mw_estimate_prevalence_combined()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_combined.md)
 function. The case-definition is based on the WFHZ, the raw MUAC values
 and oedema. From the workflow standpoint, it combines the workflow
 demonstrated in [Section 2](#sec-prevalence-wfhz) and in
@@ -646,7 +646,7 @@ columns:
 
 Under the hood, the function applies the same analysis approach as in
 `mw_estimate_prevalence_wfhz` and in
-[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md).
+[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md).
 In this function, a concept of “combined flags” is used.
 
 > **What is combined flag?**

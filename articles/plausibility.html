@@ -19,7 +19,7 @@
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="plausibility_files/libs/quarto-html/popper.min.js"></script><script src="plausibility_files/libs/quarto-html/tippy.umd.min.js"></script><link href="plausibility_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="plausibility_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Running plausibility checks">
-<meta property="og:image" content="https://mphimo.github.io/mwana/logo.png">
+<meta property="og:image" content="https://mphimo.github.io/mwana/dev/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -75,7 +75,7 @@
       <p class="author">Tomás Zaba</p>
 
 
-      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/v0.2.5/vignettes/plausibility.qmd" class="external-link"><code>vignettes/plausibility.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/dev/vignettes/plausibility.qmd" class="external-link"><code>vignettes/plausibility.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -120,44 +120,16 @@
 <p>As mentioned somewhere above, before we supply a data object to <code><a href="../reference/mw_plausibility_check_wfhz.html">mw_plausibility_check_wfhz()</a></code>, we need to wrangle it first. This task is executed by <code><a href="../reference/mw_wrangle_age.html">mw_wrangle_age()</a></code> and <code><a href="../reference/mw_wrangle_wfhz.html">mw_wrangle_wfhz()</a></code>. Read more about the technical documentation by doing <code><a href="../reference/mw_wrangle_age.html">help("mw_wrangle_age")</a></code> or <code><a href="../reference/mw_wrangle_wfhz.html">help("mw_wrangle_wfhz")</a></code> in <code>R</code> console.</p>
 <section class="level4"><h5 id="sec-age">Wrangling age<a class="anchor" aria-label="anchor" href="#sec-age"></a>
 </h5>
-<p>We use <code><a href="../reference/mw_wrangle_age.html">mw_wrangle_age()</a></code> to calculate child’s age in months based on the date of data collection and child’s date of birth. This is done as follows:</p>
+<p>We use <code><a href="../reference/mw_wrangle_age.html">mw_wrangle_age()</a></code> to calculate child’s age in months based on the date of data collection and child’s date of birth. The function takes <code>df</code>, the <code>anthro.01</code> object which contains variables related to age that will be used for the wrangling process; <code>dos</code>, the unquoted variable name in <code>df</code> that contains the date when the data collection was performed (<code>dos</code> in <code>anthro.01</code>); <code>dob</code>, the unquoted variable name in <code>df</code> that contains the date when the child was born (<code>dob</code> in <code>anthro.01</code>); <code>age</code>, the unquoted variable name in <code>df</code> that contains the age of the child in months (<code>age</code> in <code>anthro.01</code>); and <code>.decimals</code>, which allows the user to specify the number of decimal places to which the output age values will be rounded off to (by default, <code>.decimals</code> is set to 2, so even without specifying this argument, the resulting output will be rounded off to 2). This is done as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>age_mo <span class="ot">&lt;-</span> <span class="fu">mw_wrangle_age</span>(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> anthro<span class="fl">.01</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dos =</span> dos,</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dob =</span> dob,</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> age,</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="6" onclick="event.preventDefault();" href="">6</a><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">.decimals =</span> <span class="dv">2</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div>
-<div class="code-annotation-gutter"></div></code></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">The output for this operation will be assigned to an object called <code>age_mo</code>.</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="2">The argument <code>df</code> is supplied with the <code>anthro.01</code> object which contains variables related to age that will be used for the wrangling process.</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="3">The argument <code>dos</code> is supplied with the unquoted variable name in <code>df</code> that contains the date when the data collection was performed. In the <code>anthro.01</code> dataset, this so happens to be <code>dos</code> as well.</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="4">The argument <code>dob</code> is supplied with the unquoted variable name in <code>df</code> that contains the date when the child was born. In the <code>anthro.01</code> dataset, this so happens to be <code>dob</code> as well.</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="5">The argument <code>age</code> is supplied with the unquoted variable name in <code>df</code> that contains the age of the child in months. In the <code>anthro.01</code> dataset, this so happens to be <code>age</code> as well.</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="6">The argument <code>.decimals</code> allows the user to specify the number of decimal places to which the output age values will be rounded off to. By default, <code>.decimals</code> is set to 2. So, even without specifying this argument, the resulting output will be rounded off to 2.</span>
-</dd>
-</dl>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">age_mo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
+<span>  df <span class="op">=</span> <span class="va">anthro.01</span>,</span>
+<span>  dos <span class="op">=</span> <span class="va">dos</span>,</span>
+<span>  dob <span class="op">=</span> <span class="va">dob</span>,</span>
+<span>  age <span class="op">=</span> <span class="va">age</span>,</span>
+<span>  .decimals <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>This will return:</p>
 <div class="cell">
@@ -176,7 +148,7 @@
 </h5>
 <p>For this, we call <code><a href="../reference/mw_wrangle_wfhz.html">mw_wrangle_wfhz()</a></code> as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wrangled_df</span> <span class="op">&lt;-</span> <span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_wfhz.html">mw_wrangle_wfhz</a></span><span class="op">(</span></span>
 <span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
@@ -209,7 +181,7 @@
 </h4>
 <p>We can check the plausibility of our data by calling <code><a href="../reference/mw_plausibility_check_wfhz.html">mw_plausibility_check_wfhz()</a></code> function as demonstrated below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">wrangled_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_plausibility_check_wfhz.html">mw_plausibility_check_wfhz</a></span><span class="op">(</span></span>
 <span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
@@ -221,7 +193,7 @@
 </div>
 <p>Or we can chain all previous functions in this way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -257,7 +229,7 @@
 </div>
 <p>As we can see, the returned output is a summary table of statistics and ratings. We can neat it for more clarity and readability. We can achieve this by chaining <code><a href="../reference/mw_neat_output_wfhz.html">mw_neat_output_wfhz()</a></code> to the previous pipeline:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -296,40 +268,32 @@
 <span><span class="co">#&gt; #   `Class. of kurtosis` &lt;fct&gt;, `Overall score` &lt;dbl&gt;, …</span></span></code></pre>
 </div>
 <p>An already formatted table, with scientific notations converted to standard notations, etc.</p>
-<p>When working on a multiple-area dataset, for instance districts, we can check the plausibility of all districts in the dataset at once by specifying a vector (or a list of vectors) to the function as follows:</p>
+<p>When working on a multiple-area dataset, for instance districts, we can check the plausibility of all districts in the dataset at once by specifying a vector (or a list of vectors) to the function as follows. Here we pass both <code>area</code> and <code>team</code>, a list of vectors specifying the categories for which the analysis should be summarised (more than one vector can be specified, separated by <code>,</code>); in this case, the analysis will be summarised at each survey team in <code>District E</code> and <code>District G</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>anthro<span class="fl">.01</span> <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mw_wrangle_age</span>(</span>
-<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">dos =</span> dos,</span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">dob =</span> dob,</span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> age,</span>
-<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.decimals =</span> <span class="dv">2</span></span>
-<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mw_wrangle_wfhz</span>(</span>
-<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> sex,</span>
-<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> weight,</span>
-<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> height,</span>
-<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.recode_sex =</span> <span class="cn">TRUE</span></span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mw_plausibility_check_wfhz</span>(</span>
-<span id="annotated-cell-7-15"><a href="#annotated-cell-7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> sex,</span>
-<span id="annotated-cell-7-16"><a href="#annotated-cell-7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> age,</span>
-<span id="annotated-cell-7-17"><a href="#annotated-cell-7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> weight,</span>
-<span id="annotated-cell-7-18"><a href="#annotated-cell-7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> height,</span>
-<span id="annotated-cell-7-19"><a href="#annotated-cell-7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">flags =</span> flag_wfhz,</span>
-<span id="annotated-cell-7-20"><a href="#annotated-cell-7-20" aria-hidden="true" tabindex="-1"></a>    area,</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-21" class="code-annotation-target"><a href="#annotated-cell-7-21" aria-hidden="true" tabindex="-1"></a>    team</span>
-<span id="annotated-cell-7-22"><a href="#annotated-cell-7-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-23"><a href="#annotated-cell-7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mw_neat_output_wfhz</span>()</span><div class="code-annotation-gutter-bg"></div>
-<div class="code-annotation-gutter"></div></code></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="21" data-code-annotation="1">List of vectors specified for which the analysis should be summarised. In this case, the analysis will be summarised at each survey team in <code>District E</code> and <code>District G</code>.</span>
-</dd>
-</dl>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
+<span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
+<span>    dob <span class="op">=</span> <span class="va">dob</span>,</span>
+<span>    age <span class="op">=</span> <span class="va">age</span>,</span>
+<span>    .decimals <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/mw_wrangle_wfhz.html">mw_wrangle_wfhz</a></span><span class="op">(</span></span>
+<span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    weight <span class="op">=</span> <span class="va">weight</span>,</span>
+<span>    height <span class="op">=</span> <span class="va">height</span>,</span>
+<span>    .recode_sex <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/mw_plausibility_check_wfhz.html">mw_plausibility_check_wfhz</a></span><span class="op">(</span></span>
+<span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    age <span class="op">=</span> <span class="va">age</span>,</span>
+<span>    weight <span class="op">=</span> <span class="va">weight</span>,</span>
+<span>    height <span class="op">=</span> <span class="va">height</span>,</span>
+<span>    flags <span class="op">=</span> <span class="va">flag_wfhz</span>,</span>
+<span>    <span class="va">area</span>,</span>
+<span>    <span class="va">team</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/mw_neat_output_wfhz.html">mw_neat_output_wfhz</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>This will return the following:</p>
 <div class="cell">
@@ -375,7 +339,7 @@
 </h4>
 <p>This is the job of <code><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac()</a></code> function. We use it as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -422,7 +386,7 @@
 </h4>
 <p>We achieve this by calling the <code><a href="../reference/mw_plausibility_check_mfaz.html">mw_plausibility_check_mfaz()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -458,7 +422,7 @@
 </div>
 <p>We can also neat this output. We just need to call <code><a href="../reference/mw_neat_output_mfaz.html">mw_neat_output_mfaz()</a></code> and chain it to the pipeline:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -497,7 +461,7 @@
 </div>
 <p>We can also run checks on a multiple-area dataset as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_age.html">mw_wrangle_age</a></span><span class="op">(</span></span>
 <span>    dos <span class="op">=</span> <span class="va">dos</span>,</span>
@@ -547,7 +511,7 @@
 <p>As you can tell, z-scores cannot be computed in the absence of age. In this way, the data wrangling workflow would be quite minimal. You still set the arguments inside <code><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac()</a></code> as learned in <a href="#sec-wrangle_mfaz" class="quarto-xref">Section 1.2.1</a>. The only difference is that here we will set <code>age</code> to <code>NULL</code>. Fundamentally, under the hood the function detects MUAC values that are outliers and flags them and stores them in <code>flag_muac</code> variable that is added to the dataset.</p>
 <p>We will continue using the same dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac</a></span><span class="op">(</span></span>
 <span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
@@ -580,7 +544,7 @@
 </h4>
 <p>We just have to add <code><a href="../reference/mw_plausibility_check_muac.html">mw_plausibility_check_muac()</a></code> to the above pipeline:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac</a></span><span class="op">(</span></span>
 <span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
@@ -606,7 +570,7 @@
 </div>
 <p>We can also return a formatted table with <code><a href="../reference/mw_neat_output_muac.html">mw_neat_output_muac()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac</a></span><span class="op">(</span></span>
 <span>    sex <span class="op">=</span> <span class="va">sex</span>,</span>
@@ -635,7 +599,7 @@
 </div>
 <p>When working on multiple-area data, we approach the task the same way as demonstrated above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Check plausibility ----</span></span>
 <span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_wrangle_muac.html">mw_wrangle_muac</a></span><span class="op">(</span></span>
