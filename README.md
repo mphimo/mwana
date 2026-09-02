@@ -17,8 +17,8 @@ src="https://www.r-pkg.org/badges/version/mwana.png"
 alt="CRAN status" /></a> [![cran
 checks](https://badges.cranchecks.info/worst/mwana.svg)](https://cran.r-project.org/web/checks/check_results_mwana.html)
 [![CRAN](https://img.shields.io/cran/l/mwana.svg)](https://CRAN.R-project.org/package=mwana)
-[![CRAN](http://cranlogs.r-pkg.org/badges/mwana.png)](https://cran.r-project.org/package=mwana)
-[![CRAN](http://cranlogs.r-pkg.org/badges/grand-total/mwana.png)](https://cran.r-project.org/package=mwana)
+[![CRAN](https://cranlogs.r-pkg.org/badges/mwana.png)](https://cran.r-project.org/package=mwana)
+[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/mwana.png)](https://cran.r-project.org/package=mwana)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://app.codecov.io/gh/mphimo/mwana)
@@ -59,10 +59,7 @@ multi-area datasets.
 You can install `mwana` from CRAN with:
 
 ``` r
-if (!require(pak)) {
-  install.packages("pak")
-}
-pak::pkg_install("mwana")
+install.packages("mwana")
 ```
 
 ## What does `mwana` do?
