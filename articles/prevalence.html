@@ -20,7 +20,7 @@
 <link href="prevalence_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <script src="prevalence_files/libs/quarto-diagram/mermaid.min.js"></script><script src="prevalence_files/libs/quarto-diagram/mermaid-init.js"></script><link href="prevalence_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Estimating the prevalence of wasting">
-<meta property="og:image" content="https://mphimo.github.io/mwana/logo.png">
+<meta property="og:image" content="https://mphimo.github.io/mwana/dev/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -76,7 +76,7 @@
       <p class="author">Tomás Zaba</p>
 
 
-      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/main/vignettes/prevalence.qmd" class="external-link"><code>vignettes/prevalence.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/dev/vignettes/prevalence.qmd" class="external-link"><code>vignettes/prevalence.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -261,7 +261,7 @@
 <p>In this output, while in Cahora-Bassa and Chiúta districts all columns are populated with numbers, in Metuge and Maravia, only the <code>gam_p</code>, <code>sam_p</code> and <code>mam_p</code> columns are filled with numbers, and everything else with <code>NA</code>. These are the districts wherein the PROBIT method was applied.</p>
 </section></section><section class="level2"><h2 id="estimation-of-the-prevalence-of-wasting-based-on-mfaz">Estimation of the prevalence of wasting based on MFAZ<a class="anchor" aria-label="anchor" href="#estimation-of-the-prevalence-of-wasting-based-on-mfaz"></a>
 </h2>
-<p>The prevalence of wasting based on MFAZ can be estimated using the <code><a href="../reference/mw_estimate_prevalence_mfaz.html">mw_estimate_prevalence_mfaz()</a></code> function. This function is implemented in the same way as demonstrated in <a href="#sec-prevalence-wfhz">WFHZ</a>, with the exception that its data wrangling is based on MUAC, which was also demonstrated in the <a href="https://mphimo.github.io/mwana/articles/plausibility.html">plausibility checks</a>.</p>
+<p>The prevalence of wasting based on MFAZ can be estimated using the <code><a href="../reference/mw_estimate_prevalence_mfaz.html">mw_estimate_prevalence_mfaz()</a></code> function. This function is implemented in the same way as demonstrated in <a href="#sec-prevalence-wfhz">WFHZ</a>, with the exception that its data wrangling is based on MUAC, which was also demonstrated in the <a href="https://mphimo.github.io/mwana/articles/plausibility.html" class="external-link">plausibility checks</a>.</p>
 </section><section class="level2"><h2 id="sec-prevalence-muac">Estimation of the prevalence of wasting based on raw MUAC values<a class="anchor" aria-label="anchor" href="#sec-prevalence-muac"></a>
 </h2>
 <p>This job is assigned to three different functions: <code><a href="../reference/mw_estimate_prevalence_muac.html">mw_estimate_prevalence_muac()</a></code>, <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening()</a></code> and <code><a href="../reference/muac-screening.html">mw_estimate_prevalence_screening2()</a></code>. The former is designed for survey data, and the latter two for data derived from screenings. Nonetheless, under the hood, they all implement the following logic:</p>

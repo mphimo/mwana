@@ -63,9 +63,9 @@ Relief and Transition*. Manual 2.0. Available at:
 
 ## See also
 
-[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_mfaz.md)
-[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_muac.md)
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
+[`mw_plausibility_check_mfaz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_mfaz.md)
+[`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_muac.md)
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
 
 ## Examples
 

@@ -9,7 +9,7 @@ of these sources ([IPC Global Partners, 2021](#ref-ipcmanual)).
 In the IPC AMN analysis workflow, the first step a data analyst has to
 take is the checking of sample size requirements as set by IPC for each
 survey area to be included in the IPC AMN analysis. `mwana` provides the
-[`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/reference/mw_check_ipcamn_ssreq.md)
+[`mw_check_ipcamn_ssreq()`](https://mphimo.github.io/mwana/dev/reference/mw_check_ipcamn_ssreq.md)
 function for this purpose.
 
 To demonstrate its usage, we will use the built-in sample dataset
@@ -32,37 +32,27 @@ head(anthro.01)
 
 `anthro.01` contains anthropometry data from SMART surveys from
 anonymized locations. To learn more about this dataset, call
-[`help("anthro.01")`](https://mphimo.github.io/mwana/reference/anthro.01.md)
+[`help("anthro.01")`](https://mphimo.github.io/mwana/dev/reference/anthro.01.md)
 in your `R` console.
 
 Now that we got acquainted with the dataset, we can proceed to executing
-the task. To achieve this, we simply do:
+the task. The function takes three arguments: `df`, the dataset you want
+to assess sample sizes for (`anthro.01` in this case); `cluster`, the
+unquoted variable name in `df` that contains information for the unique
+cluster or screening or sentinel site identifiers (`anthro.01` has a
+variable called `cluster` which we supply here unquoted); and `.source`,
+the type of source for the data in `df` (since `anthro.01` data is from
+a survey, we specify this argument as *“survey”*). To achieve this, we
+simply do:
 
 ``` r
+
 mw_check_ipcamn_ssreq(
-1  df = anthro.01,
-2  cluster = cluster,
-3  .source = "survey"
+  df = anthro.01,
+  cluster = cluster,
+  .source = "survey"
 )
 ```
-
-- 1:
-
-  The argument `df` should be specified with the dataset you want to
-  assess sample sizes for. In this case, `anthro.01`.
-
-- 2:
-
-  The argument `cluster` should be specified with the unquoted variable
-  name in `df` that contains information for the unique cluster or
-  screening or sentinel site identifiers. In this case, `anthro.01` has
-  a variable called `cluster` which we supply to this argument unquoted.
-
-- 3:
-
-  The argument `.source` should be specified with the type of the source
-  for the data in `df`. Since `anthro.01` data is from a survey, we
-  specify this argument as *“survey”*.
 
 We can also chain `anthro.01` to the function using the native pipe
 operator `|>`:
@@ -96,21 +86,19 @@ A `tibble` object is returned with three columns:
 
 The above output is not quite useful yet as we often deal with
 multiple-area datasets. We can get a summarized output by area as
-follows:
+follows, by supplying `area`—a vector containing the categories for
+which the analysis should be summarised (more than one vector can be
+specified, separated by `,`):
 
 ``` r
+
 anthro.01 |>
   mw_check_ipcamn_ssreq(
     cluster = cluster,
     .source = "survey",
-1    area
+    area
   )
 ```
-
-- 1:
-
-  A vector containing the categories for which the analysis should be
-  summarised. More than one vector can be specified, separated by `,`.
 
 This will return:
 

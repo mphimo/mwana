@@ -14,7 +14,7 @@ mw_neat_output_muac(df)
 - df:
 
   A `tibble` object returned by the
-  [`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_muac.md)
+  [`mw_plausibility_check_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_muac.md)
   function containing the summarized results to be formatted.
 
 ## Value

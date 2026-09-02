@@ -50,8 +50,8 @@ Relief* *and Transition*. Manual 2.0. Available at:
 
 ## See also
 
-[`flag_outliers()`](https://mphimo.github.io/mwana/reference/outliers.md)
-[`remove_flags()`](https://mphimo.github.io/mwana/reference/outliers.md)
+[`flag_outliers()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
+[`remove_flags()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
 
 ## Examples
 

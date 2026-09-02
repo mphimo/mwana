@@ -13,16 +13,16 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/mphimo/mwana/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/mphimo/mwana/blob/dev/inst/CITATION)
 
 Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). *mwana: An Efficient
 Workflow for Plausibility Checks and Prevalence Analysis of Wasting in
-R*. R package version 0.2.5.9000, <https://mphimo.github.io/mwana/>.
+R*. R package version 0.2.5, <https://mphimo.github.io/mwana/>.
 
     @Manual{,
       title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
       author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
       year = {2026},
-      note = {R package version 0.2.5.9000},
+      note = {R package version 0.2.5},
       url = {https://mphimo.github.io/mwana/},
     }

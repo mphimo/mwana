@@ -23,7 +23,7 @@ mw_estimate_prevalence_wfhz(df, wt = NULL, oedema = NULL, ...)
 - df:
 
   A `tibble` object that has been produced by the
-  [`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md)
+  [`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
   functions. The `df` should have a variable named `cluster` for the
   primary sampling unit identifiers.
 
