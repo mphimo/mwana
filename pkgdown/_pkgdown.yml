@@ -35,6 +35,8 @@ navbar:
 
 home:
   links:
+  - text: View on CRAN
+    href: https://cran.r-project.org/web/packages/mwana/index.html
   - text: Learn more about mwanaApp
     href: https://github.com/mphimo/mwanaApp 
   - text: Open web‑based mwanaApp

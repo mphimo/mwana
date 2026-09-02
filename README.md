@@ -11,6 +11,14 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+<a href="https://CRAN.R-project.org/package=mwana"
+class="pkgdown-release"><img
+src="https://www.r-pkg.org/badges/version/mwana.png"
+alt="CRAN status" /></a> [![cran
+checks](https://badges.cranchecks.info/worst/mwana.svg)](https://cran.r-project.org/web/checks/check_results_mwana.html)
+[![CRAN](https://img.shields.io/cran/l/mwana.svg)](https://CRAN.R-project.org/package=mwana)
+[![CRAN](https://cranlogs.r-pkg.org/badges/mwana.png)](https://cran.r-project.org/package=mwana)
+[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/mwana.png)](https://cran.r-project.org/package=mwana)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://app.codecov.io/gh/mphimo/mwana)
@@ -51,19 +59,7 @@ multi-area datasets.
 You can install `mwana` from CRAN with:
 
 ``` r
-if (!require(pak)) {
-  install.packages("pak")
-}
-pak::pkg_install("mwana")
-```
-
-You can install the development version of `mwana` from GitHub with:
-
-``` r
-if (!require(pak)) {
-  install.packages("pak")
-}
-pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
+install.packages("mwana")
 ```
 
 ## What does `mwana` do?
@@ -130,8 +126,7 @@ citation("mwana")
 
       Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.5.9000,
-      <https://mphimo.github.io/mwana/>.
+      in R_. R package version 0.2.5, <https://mphimo.github.io/mwana/>.
 
     A BibTeX entry for LaTeX users is
 
@@ -139,7 +134,7 @@ citation("mwana")
         title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
         year = {2026},
-        note = {R package version 0.2.5.9000},
+        note = {R package version 0.2.5},
         url = {https://mphimo.github.io/mwana/},
       }
 
