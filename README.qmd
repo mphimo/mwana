@@ -45,17 +45,6 @@ if (!require(pak)) {
 pak::pkg_install("mwana")
 ```
 
-You can install the development version of `mwana` from GitHub with: 
-
-```{r}
-#| label: install-from-GitHub
-#| eval: false
-if (!require(pak)) {
-  install.packages("pak")
-}
-pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
-```
-
 ## What does `mwana` do?
 
 ### 1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old

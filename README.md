@@ -57,15 +57,6 @@ if (!require(pak)) {
 pak::pkg_install("mwana")
 ```
 
-You can install the development version of `mwana` from GitHub with:
-
-``` r
-if (!require(pak)) {
-  install.packages("pak")
-}
-pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
-```
-
 ## What does `mwana` do?
 
 ### 1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old
@@ -130,8 +121,7 @@ citation("mwana")
 
       Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
       Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-      in R_. R package version 0.2.5.9000,
-      <https://mphimo.github.io/mwana/>.
+      in R_. R package version 0.2.5, <https://mphimo.github.io/mwana/>.
 
     A BibTeX entry for LaTeX users is
 
@@ -139,7 +129,7 @@ citation("mwana")
         title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
         author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
         year = {2026},
-        note = {R package version 0.2.5.9000},
+        note = {R package version 0.2.5},
         url = {https://mphimo.github.io/mwana/},
       }
 
