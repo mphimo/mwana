@@ -36,7 +36,20 @@ You can install `mwana` from CRAN with:
 
 ``` r
 
-install.packages("mwana")
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install("mwana")
+```
+
+You can install the development version of `mwana` from GitHub with:
+
+``` r
+
+if (!require(pak)) {
+  install.packages("pak")
+}
+pak::pkg_install(pkg = "mphimo/mwana", dependencies = TRUE)
 ```
 
 ## What does `mwana` do?
@@ -107,7 +120,8 @@ To cite mwana in publications use:
 
   Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). _mwana: An Efficient
   Workflow for Plausibility Checks and Prevalence Analysis of Wasting
-  in R_. R package version 0.2.5, <https://mphimo.github.io/mwana/>.
+  in R_. R package version 0.2.5.9000,
+  <https://mphimo.github.io/mwana/>.
 
 A BibTeX entry for LaTeX users is
 
@@ -115,7 +129,7 @@ A BibTeX entry for LaTeX users is
     title = {mwana: An Efficient Workflow for Plausibility Checks and Prevalence Analysis of Wasting in R},
     author = {{Tomás Zaba} and {Ernest Guevarra} and {Mark Myatt}},
     year = {2026},
-    note = {R package version 0.2.5},
+    note = {R package version 0.2.5.9000},
     url = {https://mphimo.github.io/mwana/},
   }
 ```

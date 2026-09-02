@@ -8,10 +8,10 @@ prevalence\_{24-59} )) / 3\$\$
 
 Whilst the function is exported to users as a standalone, it is embedded
 into the following major MUAC prevalence functions of this package:
-[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_estimate_prevalence_muac.md),
-[`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md),
+[`mw_estimate_prevalence_muac()`](https://mphimo.github.io/mwana/reference/mw_estimate_prevalence_muac.md),
+[`mw_estimate_prevalence_screening()`](https://mphimo.github.io/mwana/reference/muac-screening.md),
 and
-[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/dev/reference/muac-screening.md).
+[`mw_estimate_prevalence_screening2()`](https://mphimo.github.io/mwana/reference/muac-screening.md).
 
 ## Usage
 

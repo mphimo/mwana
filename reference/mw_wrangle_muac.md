@@ -4,7 +4,7 @@ Calculate z-scores for MUAC-for-age (MFAZ) and identify outliers based
 on the SMART methodology. When age is not supplied, only outliers are
 detected from the raw MUAC values. The function only works after age has
 gone through
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md).
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md).
 
 ## Usage
 
@@ -81,9 +81,9 @@ Relief and Transition*. Manual 2.0. Available at:
 
 ## See also
 
-[`flag_outliers()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
-[`remove_flags()`](https://mphimo.github.io/mwana/dev/reference/outliers.md)
-[`mw_wrangle_age()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_age.md)
+[`flag_outliers()`](https://mphimo.github.io/mwana/reference/outliers.md)
+[`remove_flags()`](https://mphimo.github.io/mwana/reference/outliers.md)
+[`mw_wrangle_age()`](https://mphimo.github.io/mwana/reference/mw_wrangle_age.md)
 
 ## Examples
 

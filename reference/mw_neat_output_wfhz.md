@@ -14,7 +14,7 @@ mw_neat_output_wfhz(df)
 - df:
 
   An `tibble` object returned by the
-  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_plausibility_check_wfhz.md)
+  [`mw_plausibility_check_wfhz()`](https://mphimo.github.io/mwana/reference/mw_plausibility_check_wfhz.md)
   containing the summarized results to be formatted.
 
 ## Value

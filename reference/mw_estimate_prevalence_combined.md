@@ -28,11 +28,11 @@ mw_estimate_prevalence_combined(df, wt = NULL, oedema = NULL, ...)
 - df:
 
   A `tibble` object produced by sequential application of the
-  [`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_wfhz.md)
+  [`mw_wrangle_wfhz()`](https://mphimo.github.io/mwana/reference/mw_wrangle_wfhz.md)
   and
-  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md).
+  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md).
   Note that MUAC values in `df` must be in millimetres unit after using
-  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/dev/reference/mw_wrangle_muac.md).
+  [`mw_wrangle_muac()`](https://mphimo.github.io/mwana/reference/mw_wrangle_muac.md).
   In addition, `df` must have a variable called `cluster`, which
   contains the primary sampling unit identifiers.
 

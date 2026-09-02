@@ -19,7 +19,7 @@
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="ipc-amn-check_files/libs/quarto-html/popper.min.js"></script><script src="ipc-amn-check_files/libs/quarto-html/tippy.umd.min.js"></script><link href="ipc-amn-check_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ipc-amn-check_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Checking if IPC Acute Malnutrition sample size requirements were met">
-<meta property="og:image" content="https://mphimo.github.io/mwana/dev/logo.png">
+<meta property="og:image" content="https://mphimo.github.io/mwana/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -75,7 +75,7 @@
       <p class="author">Tomás Zaba</p>
 
 
-      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/main/vignettes/ipc-amn-check.qmd" class="external-link"><code>vignettes/ipc-amn-check.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mphimo/mwana/blob/v0.2.5/vignettes/ipc-amn-check.qmd" class="external-link"><code>vignettes/ipc-amn-check.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -102,18 +102,34 @@
 <span><span class="co">#&gt; # ℹ 1 more variable: muac &lt;int&gt;</span></span></code></pre></div>
 </div>
 <p><code>anthro.01</code> contains anthropometry data from SMART surveys from anonymized locations. To learn more about this dataset, call <code><a href="../reference/anthro.01.html">help("anthro.01")</a></code> in your <code>R</code> console.</p>
-<p>Now that we got acquainted with the dataset, we can proceed to executing the task. The function takes three arguments: <code>df</code>, the dataset you want to assess sample sizes for (<code>anthro.01</code> in this case); <code>cluster</code>, the unquoted variable name in <code>df</code> that contains information for the unique cluster or screening or sentinel site identifiers (<code>anthro.01</code> has a variable called <code>cluster</code> which we supply here unquoted); and <code>.source</code>, the type of source for the data in <code>df</code> (since <code>anthro.01</code> data is from a survey, we specify this argument as <em>“survey”</em>). To achieve this, we simply do:</p>
+<p>Now that we got acquainted with the dataset, we can proceed to executing the task. To achieve this, we simply do:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mw_check_ipcamn_ssreq.html">mw_check_ipcamn_ssreq</a></span><span class="op">(</span></span>
-<span>  df <span class="op">=</span> <span class="va">anthro.01</span>,</span>
-<span>  cluster <span class="op">=</span> <span class="va">cluster</span>,</span>
-<span>  .source <span class="op">=</span> <span class="st">"survey"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mw_check_ipcamn_ssreq</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> anthro<span class="fl">.01</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster =</span> cluster,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">.source =</span> <span class="st">"survey"</span></span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">The argument <code>df</code> should be specified with the dataset you want to assess sample sizes for. In this case, <code>anthro.01</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">The argument <code>cluster</code> should be specified with the unquoted variable name in <code>df</code> that contains information for the unique cluster or screening or sentinel site identifiers. In this case, <code>anthro.01</code> has a variable called <code>cluster</code> which we supply to this argument unquoted.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="3">The argument <code>.source</code> should be specified with the type of the source for the data in <code>df</code>. Since <code>anthro.01</code> data is from a survey, we specify this argument as <em>“survey”</em>.</span>
+</dd>
+</dl>
+</div>
 </div>
 <p>We can also chain <code>anthro.01</code> to the function using the native pipe operator <code>|&gt;</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mw_check_ipcamn_ssreq.html">mw_check_ipcamn_ssreq</a></span><span class="op">(</span></span>
 <span>    cluster <span class="op">=</span> <span class="va">cluster</span>,</span>
@@ -133,15 +149,23 @@
 <li><p><code>n_obs</code> counts the number of children from which data were collected.</p></li>
 <li><p><code>meet_ipc</code> indicates whether the IPC AMN sample size requirements (for surveys in this case) were met or not.</p></li>
 </ul>
-<p>The above output is not quite useful yet as we often deal with multiple-area datasets. We can get a summarized output by area as follows, by supplying <code>area</code>—a vector containing the categories for which the analysis should be summarised (more than one vector can be specified, separated by <code>,</code>):</p>
+<p>The above output is not quite useful yet as we often deal with multiple-area datasets. We can get a summarized output by area as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">anthro.01</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/mw_check_ipcamn_ssreq.html">mw_check_ipcamn_ssreq</a></span><span class="op">(</span></span>
-<span>    cluster <span class="op">=</span> <span class="va">cluster</span>,</span>
-<span>    .source <span class="op">=</span> <span class="st">"survey"</span>,</span>
-<span>    <span class="va">area</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a>anthro<span class="fl">.01</span> <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mw_check_ipcamn_ssreq</span>(</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cluster =</span> cluster,</span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.source =</span> <span class="st">"survey"</span>,</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-5" class="code-annotation-target"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>    area</span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>  )</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="5" data-code-annotation="1">A vector containing the categories for which the analysis should be summarised. More than one vector can be specified, separated by <code>,</code>.</span>
+</dd>
+</dl>
+</div>
 </div>
 <p>This will return:</p>
 <div class="cell">
