@@ -14,6 +14,10 @@ library(mwana)
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![cran checks](https://badges.cranchecks.info/worst/mwana.svg)](https://cran.r-project.org/web/checks/check_results_mwana.html)
+[![CRAN](https://img.shields.io/cran/l/mwana.svg)](https://CRAN.R-project.org/package=mwana)
+[![CRAN](http://cranlogs.r-pkg.org/badges/mwana)](https://cran.r-project.org/package=mwana)
+[![CRAN](http://cranlogs.r-pkg.org/badges/grand-total/mwana)](https://cran.r-project.org/package=mwana)
 [![R-CMD-check](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/mphimo/mwana/actions/workflows/test-coverage.yaml)
 [![codecov](https://codecov.io/gh/mphimo/mwana/graph/badge.svg?token=kUUp1WOlSi)](https://app.codecov.io/gh/mphimo/mwana)
@@ -90,3 +94,8 @@ citation("mwana")
 Feedback, bug reports and feature requests are welcome; file issues or seek support [here](https://github.com/mphimo/mwana/issues). If you would like to contribute to the package, please see our [contributing guidelines](https://mphimo.github.io/mwana/CONTRIBUTING.html).  
 
 This project is released with a [Contributor Code of Conduct](https://mphimo.github.io/mwana/CODE-OF-CONDUCT.html). By participating in this project you agree to abide by its terms.
+
+
+
+
+
