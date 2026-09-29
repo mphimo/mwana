@@ -2,6 +2,8 @@
 
 ## mwana 0.2.5
 
+CRAN release: 2026-09-02
+
 ### Bug fixes
 
 - Resolved an issue in

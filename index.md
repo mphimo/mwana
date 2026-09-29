@@ -39,6 +39,14 @@ You can install `mwana` from CRAN with:
 install.packages("mwana")
 ```
 
+or you can install its development version from GitHub with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("mphimo/mwana")
+```
+
 ## What does `mwana` do?
 
 ### 1. Data plausibility checks of acute undernutrition anthropometric data of children 6-59 months old

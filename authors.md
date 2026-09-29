@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/mphimo/mwana/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/mphimo/mwana/blob/dev/inst/CITATION)
 
 Tomás Zaba, Ernest Guevarra, Mark Myatt (2026). *mwana: An Efficient
 Workflow for Plausibility Checks and Prevalence Analysis of Wasting in
